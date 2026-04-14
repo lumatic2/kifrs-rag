@@ -1,0 +1,182 @@
+"""K-IFRS RAG MCP 서버 (Phase 1).
+
+data/standards/parsed/*.json 을 메모리에 올려 MCP tool 로 노출한다.
+스토어는 Phase 2에서 SQLite 로 전환 예정.
+
+실행:
+  uv run python -m kifrs.mcp_server
+등록 (Claude Code):
+  claude mcp add kifrs -- uv --directory C:/Users/yusun/projects/kifrs-rag run python -m kifrs.mcp_server
+"""
+from __future__ import annotations
+
+import json
+import re
+from pathlib import Path
+from typing import Any
+
+from fastmcp import FastMCP
+
+from kifrs import store as _store
+
+ROOT = Path(__file__).resolve().parent.parent
+PARSED_DIR = ROOT / "data" / "standards" / "parsed"
+
+# 백엔드: kifrs.db 가 있으면 SQLite, 없으면 JSON 파일 로더 fallback
+USE_SQLITE = _store.DB_PATH.exists()
+
+mcp = FastMCP("kifrs")
+
+
+# ── 스토어 (JSON 파일 → 메모리) ────────────────────────────────────────────
+def _load_all() -> dict[str, dict[str, Any]]:
+    store: dict[str, dict[str, Any]] = {}
+    if not PARSED_DIR.exists():
+        return store
+    for path in sorted(PARSED_DIR.glob("*.json")):
+        if path.stem.endswith("_view") or path.stem == "index":
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"[WARN] load 실패 {path.name}: {e}")
+            continue
+        std = data.get("standard") or path.stem
+        store[str(std)] = data
+    return store
+
+
+STORE = _load_all()
+
+
+def _standard(standard: str) -> dict[str, Any] | None:
+    return STORE.get(str(standard))
+
+
+# ── MCP tools ────────────────────────────────────────────────────────────
+@mcp.tool()
+def list_standards() -> list[dict[str, Any]]:
+    """인덱싱된 기준서 목록."""
+    if USE_SQLITE:
+        return _store.list_standards()
+    return [
+        {"standard": std, "total_paragraphs": data.get("total_paragraphs", len(data.get("paragraphs", []))), "source": data.get("source")}
+        for std, data in sorted(STORE.items())
+    ]
+
+
+@mcp.tool()
+def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
+    """기준서·문단 번호로 단일 문단 반환. 예: ('1115','5'), ('1115','한4.1'), ('1115','B5')."""
+    if USE_SQLITE:
+        return _store.get_paragraph(standard, no)
+    data = _standard(standard)
+    if not data:
+        return None
+    for p in data.get("paragraphs", []):
+        if p.get("no") == no:
+            return {"standard": standard, **p}
+    return None
+
+
+@mcp.tool()
+def list_paragraphs(standard: str, appendix: str | None = None, section: str | None = None, limit: int = 50) -> list[dict[str, Any]]:
+    """문단 목록(본문 미포함, 메타+preview). appendix='A'/'B'/'C'/'본문'(=None), section 필터."""
+    if USE_SQLITE:
+        app_arg = None if appendix in (None, "본문") else appendix
+        # __any__ 는 전체, 그 외는 정확 매칭
+        return _store.list_paragraphs(standard, appendix=app_arg if appendix is not None else "__any__", section=section, limit=limit)
+    data = _standard(standard)
+    if not data:
+        return []
+    out: list[dict[str, Any]] = []
+    for p in data.get("paragraphs", []):
+        if appendix is not None and p.get("appendix") != (appendix if appendix != "본문" else None):
+            continue
+        if section is not None and (p.get("section") or "") != section:
+            continue
+        out.append({"no": p["no"], "appendix": p.get("appendix"), "section": p.get("section"),
+                    "ko_added": p.get("ko_added", False), "page": p.get("page"),
+                    "preview": (p.get("body") or "")[:80]})
+        if len(out) >= limit:
+            break
+    return out
+
+
+@mcp.tool()
+def list_sections(standard: str) -> list[dict[str, Any]]:
+    """섹션 소제목 목록."""
+    if USE_SQLITE:
+        return _store.list_sections(standard)
+    data = _standard(standard)
+    if not data:
+        return []
+    buckets: dict[tuple[str | None, str | None], list[str]] = {}
+    for p in data.get("paragraphs", []):
+        key = (p.get("appendix"), p.get("section"))
+        buckets.setdefault(key, []).append(p["no"])
+    return [{"appendix": a, "section": s, "paragraph_count": len(nos), "first_no": nos[0]} for (a, s), nos in buckets.items()]
+
+
+@mcp.tool()
+def search_lexical(query: str, standard: str | None = None, limit: int = 20, case_sensitive: bool = False) -> list[dict[str, Any]]:
+    """본문 검색. SQLite 모드에서는 FTS5 trigram, JSON 모드는 정규식 substring."""
+    if USE_SQLITE:
+        return _store.search_fts(query, standard, limit=limit)
+    flags = 0 if case_sensitive else re.IGNORECASE
+    try:
+        pat = re.compile(query, flags)
+    except re.error:
+        pat = re.compile(re.escape(query), flags)
+    hits: list[dict[str, Any]] = []
+    targets = [_standard(standard)] if standard else list(STORE.values())
+    for data in targets:
+        if not data:
+            continue
+        std = data.get("standard")
+        for p in data.get("paragraphs", []):
+            body = p.get("body") or ""
+            m = pat.search(body)
+            if not m:
+                continue
+            snippet = body[max(0, m.start() - 40): min(len(body), m.end() + 80)]
+            hits.append({"standard": std, "no": p["no"], "appendix": p.get("appendix"),
+                         "section": p.get("section"), "page": p.get("page"), "snippet": snippet})
+            if len(hits) >= limit:
+                return hits
+    return hits
+
+
+@mcp.tool()
+def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]:
+    """문단 앞뒤 around 개 포함 맥락 반환."""
+    if USE_SQLITE:
+        return _store.get_context(standard, no, around)
+    data = _standard(standard)
+    if not data:
+        return []
+    paragraphs = data.get("paragraphs", [])
+    for i, p in enumerate(paragraphs):
+        if p.get("no") == no:
+            lo, hi = max(0, i - around), min(len(paragraphs), i + around + 1)
+            return [{"standard": standard, **paragraphs[j]} for j in range(lo, hi)]
+    return []
+
+
+@mcp.tool()
+def reload_store() -> dict[str, Any]:
+    """디스크에서 파싱 JSON 다시 로드. ingest 파이프라인 갱신 후 재기동 없이 반영."""
+    global STORE
+    STORE = _load_all()
+    return {"loaded": sorted(STORE.keys()), "count": len(STORE)}
+
+
+def main():
+    backend = "sqlite" if USE_SQLITE else "json"
+    loaded = [s["standard"] for s in _store.list_standards()] if USE_SQLITE else sorted(STORE.keys())
+    print(f"[kifrs-mcp] backend={backend} | standards={loaded}")
+    mcp.run()
+
+
+if __name__ == "__main__":
+    main()
