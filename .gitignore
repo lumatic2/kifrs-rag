@@ -1,0 +1,29 @@
+# 저작권 민감 — 절대 commit 금지
+data/
+*.db
+*.db-shm
+*.db-wal
+*.pdf
+embeddings/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+
+# uv
+.uv/
+
+# 에디터
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Claude Code
+.claude/worktrees/
+CLAUDE.local.md
