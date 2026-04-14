@@ -27,3 +27,4 @@ venv/
 # Claude Code
 .claude/worktrees/
 CLAUDE.local.md
+.claude/
