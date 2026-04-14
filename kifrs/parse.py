@@ -51,10 +51,16 @@ TODAY = date.today().isoformat()
 RE_PARA_INLINE = re.compile(r"^(\d+(?:\.\d+)*)\s+(\S.*)$")
 RE_PARA_ONLY = re.compile(r"^(\d+(?:\.\d+)*)$")
 RE_KO_PARA = re.compile(r"^한(\d+(?:\.\d+)*)(?:\s+(.*))?$")
-# 부록 내 문단: A1 / B5 / C12 / B5.6.2 (다계층 허용)
-RE_APP_PARA_INLINE = re.compile(r"^([A-Z])(\d+(?:\.\d+)*)\s+(\S.*)$")
-RE_APP_PARA_ONLY = re.compile(r"^([A-Z])(\d+(?:\.\d+)*)$")
-RE_APPENDIX = re.compile(r"^부록\s*([A-Z])(?:[\.\s]|$)")
+# GAAP 부록 실무지침: "실9.1 본문", "실9.23 본문"
+RE_PRAC_PARA = re.compile(r"^실(\d+(?:\.\d+)*)(?:\s+(.*))?$")
+# 일반기업회계기준(GAAP) 스타일: "1. 본문", "14. 부채의 계정과목" (번호 뒤에 점)
+RE_GAAP_PARA_INLINE = re.compile(r"^(\d{1,3})\.\s+(\S.*)$")
+# GAAP 세부 문단: "(2-1) 본문", "(13-2) 본문"
+RE_GAAP_SUB_INLINE = re.compile(r"^\((\d+-\d+)\)\s+(\S.*)$")
+# 부록 내 문단: A1 / B5 / C12 / B5.6.2 (다계층 허용, 트레일링 점 옵션)
+RE_APP_PARA_INLINE = re.compile(r"^([A-Z])(\d+(?:\.\d+)*)\.?\s+(\S.*)$")
+RE_APP_PARA_ONLY = re.compile(r"^([A-Z])(\d+(?:\.\d+)*)\.?$")
+RE_APPENDIX = re.compile(r"^부록\s*([A-Z]|\d+)(?:[\.\s]|$)")
 RE_PAGE_FOOTER = re.compile(r"^-\s*\d+\s*-$")
 # 섹션 소제목 후보: 한글(+간단 기호)만으로 구성, 구두점·종결어미 없음
 RE_HEADING_CHARS = re.compile(r"^[가-힣A-Za-z0-9\s·ㆍ\(\)（）\-]+$")
@@ -69,7 +75,7 @@ RE_BOILERPLATE = re.compile(
 
 # 줄 시작이 하위 호 원문자인 경우 (줄바꿈 유지해야 함)
 RE_SUBCLAUSE_START = re.compile(
-    r"^\s*[⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚]"
+    r"^\s*[⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㈎㈏㈐㈑㈒㈓㈔㈕㈖㈗㈘㈙㈚㈛]"
 )
 
 
@@ -118,7 +124,24 @@ class Paragraph:
 
 # ── PDF 텍스트 추출 (페이지별) ──────────────────────────────────────────────
 def extract_pages(pdf_path: Path, prefer_pymupdf: bool = False) -> list[str]:
-    """페이지별 텍스트 리스트 반환. 빈 페이지는 빈 문자열."""
+    """페이지별 텍스트 리스트 반환. 빈 페이지는 빈 문자열.
+
+    PDF 텍스트 추출이 비어있으면(스캔본) 같은 폴더의 `_ocr.txt` 를 단일 페이지로 사용한다.
+    """
+    ocr_path = pdf_path.parent / "_ocr.txt"
+
+    def _maybe_ocr_fallback(pages: list[str]) -> list[str]:
+        # 페이지 푸터(`- 2 -`)만 있고 한글 본문이 없으면 스캔본으로 간주
+        joined = "\n".join(pages or [])
+        hangul_count = len(re.findall(r"[가-힣]", joined))
+        if hangul_count >= 50:
+            return pages
+        if ocr_path.exists():
+            text = ocr_path.read_text(encoding="utf-8")
+            print(f"  [OCR] PDF 텍스트 비어있음(한글 {hangul_count}자) → {ocr_path.name} 사용")
+            return [text]
+        return pages
+
     if prefer_pymupdf and _HAS_PYMUPDF:
         try:
             doc = pymupdf.open(str(pdf_path))
@@ -128,13 +151,13 @@ def extract_pages(pdf_path: Path, prefer_pymupdf: bool = False) -> list[str]:
 
     try:
         with pdfplumber.open(pdf_path) as pdf:
-            return [(p.extract_text() or "") for p in pdf.pages]
+            return _maybe_ocr_fallback([(p.extract_text() or "") for p in pdf.pages])
     except Exception as e:
         print(f"  [WARN] pdfplumber 실패: {e}", file=sys.stderr)
         if _HAS_PYMUPDF:
             doc = pymupdf.open(str(pdf_path))
-            return [page.get_text() or "" for page in doc]
-        return []
+            return _maybe_ocr_fallback([page.get_text() or "" for page in doc])
+        return _maybe_ocr_fallback([])
 
 
 # ── 라인 정리 ────────────────────────────────────────────────────────────
@@ -185,7 +208,7 @@ def _find_body_start(flat: list[tuple[str, int]]) -> int:
         s = line.strip()
         if not s or _RE_TOC_LINE.search(s):
             continue
-        m = RE_PARA_INLINE.match(s)
+        m = RE_PARA_INLINE.match(s) or RE_GAAP_PARA_INLINE.match(s)
         if m and re.search(r"[가-힣]{3,}", m.group(2)):
             # 다음 비어있지 않은 몇 줄도 한글 본문(TOC 꼬리 아님) 인지 확인
             ok = 0
@@ -205,6 +228,10 @@ def _find_body_start(flat: list[tuple[str, int]]) -> int:
 
 def parse_pages(pages: list[str], standard: str) -> list[dict]:
     """페이지 텍스트 → Paragraph 리스트. 플랫 라인 리스트로 변환 후 lookahead 사용."""
+    # GAAP/special 기준서에만 "N. 본문", "(N-M) 본문" 패턴 활성화.
+    # K-IFRS 본문에서 "(1-1)" 같은 리스트 하위항목이 오매치되는 것을 방지.
+    gaap_mode = standard.startswith("gaap_") or standard.startswith("special_")
+
     # 1) 플랫 라인 리스트 구축 (page 번호 보존)
     flat: list[tuple[str, int]] = []
     for page_idx, page_text in enumerate(pages, start=1):
@@ -275,6 +302,22 @@ def parse_pages(pages: list[str], standard: str) -> list[dict]:
                 current._buf.append(rest)
             continue
 
+        # GAAP 실무지침 "실N.M 본문"
+        m_prac = RE_PRAC_PARA.match(stripped) if gaap_mode else None
+        if m_prac:
+            flush()
+            current = Paragraph(
+                no=f"실{m_prac.group(1)}",
+                appendix=current_appendix or "실무지침",
+                page=page_idx,
+                section=pending_section or current_section,
+            )
+            pending_section = None
+            rest = m_prac.group(2)
+            if rest:
+                current._buf.append(rest)
+            continue
+
         # 일반 문단 번호: "N 본문..." 또는 단독 "N" — 본문 영역에서만
         m_inline = RE_PARA_INLINE.match(stripped) if not current_appendix else None
         m_only = RE_PARA_ONLY.match(stripped) if (not m_inline and not current_appendix) else None
@@ -290,6 +333,34 @@ def parse_pages(pages: list[str], standard: str) -> list[dict]:
             pending_section = None
             if m_inline:
                 current._buf.append(m_inline.group(2))
+            continue
+
+        # GAAP 스타일 "N. 본문" — GAAP/special 기준서 본문 영역에서만
+        m_gaap = RE_GAAP_PARA_INLINE.match(stripped) if (gaap_mode and not current_appendix) else None
+        if m_gaap:
+            flush()
+            current = Paragraph(
+                no=m_gaap.group(1),
+                appendix=current_appendix,
+                page=page_idx,
+                section=pending_section or current_section,
+            )
+            pending_section = None
+            current._buf.append(m_gaap.group(2))
+            continue
+
+        # GAAP 세부 문단 "(N-M) 본문" — GAAP/special 기준서만
+        m_gsub = RE_GAAP_SUB_INLINE.match(stripped) if (gaap_mode and not current_appendix) else None
+        if m_gsub:
+            flush()
+            current = Paragraph(
+                no=m_gsub.group(1),
+                appendix=current_appendix,
+                page=page_idx,
+                section=pending_section or current_section,
+            )
+            pending_section = None
+            current._buf.append(m_gsub.group(2))
             continue
 
         # 부록 내 A1/B5/C12 문단 (부록 컨텍스트 안에서만)
@@ -317,6 +388,8 @@ def parse_pages(pages: list[str], standard: str) -> list[dict]:
                 RE_PARA_INLINE.match(nxt)
                 or RE_PARA_ONLY.match(nxt)
                 or RE_KO_PARA.match(nxt)
+                or RE_GAAP_PARA_INLINE.match(nxt)
+                or RE_GAAP_SUB_INLINE.match(nxt)
                 or (current_appendix and RE_APP_PARA_INLINE.match(nxt))
             ):
                 flush()
