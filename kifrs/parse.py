@@ -48,11 +48,12 @@ TODAY = date.today().isoformat()
 # 실측: PDF에서 "1 이 기준서의 목적은..." 처럼 번호+공백+본문이 같은 줄에 붙는다.
 # 드물게 번호만 단독으로 오는 경우도 허용.
 # 일반 문단: '5 본문' 또는 다계층 '5.5.15 본문' (1109호 등)
-RE_PARA_INLINE = re.compile(r"^(\d+(?:\.\d+)*)\s+(\S.*)$")
-RE_PARA_ONLY = re.compile(r"^(\d+(?:\.\d+)*)$")
-RE_KO_PARA = re.compile(r"^한(\d+(?:\.\d+)*)(?:\s+(.*))?$")
+# Suffix [A-Z]? : 1109.4.1.2A, 5.7.1A 같이 개정 추가 문단 허용
+RE_PARA_INLINE = re.compile(r"^(\d+(?:\.\d+)*[A-Z]?)\s+(\S.*)$")
+RE_PARA_ONLY = re.compile(r"^(\d+(?:\.\d+)*[A-Z]?)$")
+RE_KO_PARA = re.compile(r"^한(\d+(?:\.\d+)*[A-Z]?)(?:\s+(.*))?$")
 # GAAP 부록 실무지침: "실9.1 본문", "실9.23 본문"
-RE_PRAC_PARA = re.compile(r"^실(\d+(?:\.\d+)*)(?:\s+(.*))?$")
+RE_PRAC_PARA = re.compile(r"^실(\d+(?:\.\d+)*[A-Z]?)(?:\s+(.*))?$")
 # 일반기업회계기준(GAAP) 스타일: "1. 본문", "14. 부채의 계정과목" (번호 뒤에 점)
 RE_GAAP_PARA_INLINE = re.compile(r"^(\d{1,3})\.\s+(\S.*)$")
 # GAAP 세부 문단: "(2-1) 본문", "(13-2) 본문"
