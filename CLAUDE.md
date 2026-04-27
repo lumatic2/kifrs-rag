@@ -75,3 +75,29 @@ kifrs-rag/
 - `ROADMAP.md` 먼저 읽고 **현재 단계** + 다음 체크박스 확인
 - /accounting 스킬은 이미 등록됨 (`mcp__kifrs__*` 통해 즉시 사용 가능)
 - tax-agent 참조 시 `~/projects/tax-agent/` 직접 열람 (sibling 경로)
+
+## 현재 상태 (2026-04-28 기준)
+
+**Phase 2 검색 인프라 완성** — 임베딩 + 하이브리드 검색 + dogfood Round 2까지.
+
+- DB: 100 기준서 / 8,328 paragraphs (SQLite + FTS5 trigram)
+- 임베딩: bge-m3 (1024d, 100% 인덱싱), CPU 인코딩 (Smart App Control 제약으로 GPU 불가)
+- MCP tools (8): list_standards, get_paragraph, list_paragraphs, list_sections, search_lexical, **search_semantic**, **search_hybrid**, get_context, reload_store
+- /accounting 스킬: search_hybrid 1순위 사용. dogfood Round 1+2 검증 완료
+- 검색 recall: lexical 60% → hybrid 80% (Phase 2 목표 70%+ 초과)
+
+## 알려진 한계 (dogfood 2 라운드에서 식별)
+
+다음 단계 결정 시 참고:
+
+1. **본문 부재 키워드는 매칭 불가** — 시험 답안 표현이 본문에 어휘로 없으면 임베딩으로도 매칭 안 됨. 예: Q05 "공매도"는 1109에 직접 표현 없음. 우회 — `user_note` 테이블에 "시험 표현 ↔ 본문 표현" 매핑 누적 (Phase 4 작업 일부 당겨오기 권장)
+
+2. **DB 외 도메인** — 한국 상법(자본거래 차손 우선상계, 무상증자 재원, 결산배당 미지급금 인식 시점)은 K-IFRS DB에 없음. Q04 풀이에서 본인 지식으로 채움. 빈도 낮으면 보류, 잦으면 별도 인덱싱 결정 필요
+
+3. **다단 답안 포맷 미스매치** — /accounting의 "결론·근거·본 사례" 상담 포맷이 회계사 시험 다단 (물음1)·(요구사항1) + 계산 표 + 분개 구조에 부적합. 매번 본인이 수동 정렬 → **시험 풀이 모드 분기** 필요 (Phase 2 잔여 2순위)
+
+4. **CPU 인덱싱 부담** — Smart App Control이 PyTorch CUDA DLL 차단 → GPU 활용 불가. CPU bge-m3 = 8,328 paragraphs / 32분. 자주 안 하면 OK이지만 user_note·xref 추가 시 재인덱싱 비용 누적
+
+5. **모범답안 부재 → 정밀 채점 불가** — 회계사 2차 재무회계 학원 가답안은 회원 잠금. 본인 직관 채점만 가능 → "5문제 모두 부분 통과"라는 정성 판정에 그침. B축(80%+ 정확도) 정량 검증은 학원 자료 입수 후로 미뤄짐
+
+6. **MCP stdio 통신 fragility** — sentence-transformers 등 무거운 라이브러리는 첫 호출 시 stdio 통신과 충돌 가능 (해결: eager load + HF 노이즈 환경변수 차단). 다른 ML 라이브러리 추가 시 같은 패턴 적용 필요
