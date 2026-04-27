@@ -1,7 +1,6 @@
-"""K-IFRS RAG MCP 서버 (Phase 1).
+"""K-IFRS RAG MCP 서버 (Phase 1+2).
 
-data/standards/parsed/*.json 을 메모리에 올려 MCP tool 로 노출한다.
-스토어는 Phase 2에서 SQLite 로 전환 예정.
+data/standards/parsed/*.json + SQLite + 임베딩(bge-m3) 인덱스를 MCP tool 로 노출한다.
 
 실행:
   uv run python -m kifrs.mcp_server
@@ -9,6 +8,16 @@ data/standards/parsed/*.json 을 메모리에 올려 MCP tool 로 노출한다.
   claude mcp add kifrs -- uv --directory C:/Users/yusun/projects/kifrs-rag run python -m kifrs.mcp_server
 """
 from __future__ import annotations
+
+import os
+import sys
+
+# fastmcp 는 stdio 로 JSON-RPC 통신. transformers/huggingface 라이브러리의
+# stdout 출력은 통신 메시지를 corrupt 시키므로 import 전에 노이즈 차단.
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+os.environ.setdefault("TQDM_DISABLE", "1")
 
 import json
 import re
@@ -196,7 +205,18 @@ def reload_store() -> dict[str, Any]:
 def main():
     backend = "sqlite" if USE_SQLITE else "json"
     loaded = [s["standard"] for s in _store.list_standards()] if USE_SQLITE else sorted(STORE.keys())
-    print(f"[kifrs-mcp] backend={backend} | standards={loaded}")
+    print(f"[kifrs-mcp] backend={backend} | standards={loaded}", file=sys.stderr)
+
+    # Eager model load — 첫 search_hybrid/semantic 호출의 12초 모델 로드 latency 를
+    # 서버 시작 시점으로 옮긴다. stdio 모드에서 첫 호출 hang 방지.
+    if USE_SQLITE:
+        try:
+            from kifrs.embed import _load_model
+            _load_model()
+            print("[kifrs-mcp] embed model loaded (eager)", file=sys.stderr)
+        except Exception as e:
+            print(f"[kifrs-mcp] embed eager load skipped: {e}", file=sys.stderr)
+
     mcp.run()
 
 
