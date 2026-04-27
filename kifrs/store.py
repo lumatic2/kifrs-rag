@@ -88,6 +88,19 @@ CREATE TABLE IF NOT EXISTS user_note (
     note       TEXT NOT NULL,
     created_at TEXT
 );
+
+-- Phase 2: 임베딩 인덱스 (kifrs/embed.py)
+CREATE TABLE IF NOT EXISTS embedding (
+    standard    TEXT NOT NULL,
+    no          TEXT NOT NULL,
+    model       TEXT NOT NULL,
+    dim         INTEGER NOT NULL,
+    vector      BLOB NOT NULL,
+    indexed_at  TEXT,
+    PRIMARY KEY (standard, no, model),
+    FOREIGN KEY (standard, no) REFERENCES paragraph(standard, no) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_embedding_model ON embedding(model);
 """
 
 

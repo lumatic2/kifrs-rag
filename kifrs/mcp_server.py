@@ -164,6 +164,28 @@ def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]
 
 
 @mcp.tool()
+def search_semantic(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    """임베딩 cosine top-k. 동의어·표현 차이에 강함 (예: '환매약정' → '재매입약정' 매칭).
+    SQLite + embedding 인덱스 필요. 미인덱싱 기준서는 결과 없음."""
+    if not USE_SQLITE:
+        return [{"error": "semantic 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    # lazy import — 모델 로드는 첫 호출 시
+    from kifrs.embed import semantic_search
+    return semantic_search(query, standard, limit)
+
+
+@mcp.tool()
+def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    """RRF (Reciprocal Rank Fusion) 하이브리드 검색 — lexical(FTS5) + semantic.
+    각 검색 결과의 순위에 1/(60+rank) 점수를 합산해 top-k 반환.
+    lexical 정확 매칭과 semantic 동의어 매칭 모두 활용."""
+    if not USE_SQLITE:
+        return [{"error": "hybrid 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    from kifrs.embed import search_hybrid as _hybrid
+    return _hybrid(query, standard, limit)
+
+
+@mcp.tool()
 def reload_store() -> dict[str, Any]:
     """디스크에서 파싱 JSON 다시 로드. ingest 파이프라인 갱신 후 재기동 없이 반영."""
     global STORE
