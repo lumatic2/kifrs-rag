@@ -19,7 +19,7 @@ from typing import Any
 
 import numpy as np
 
-from .store import _conn, search_fts
+from .store import _conn, search_fts, expand_query
 
 DEFAULT_MODEL = "BAAI/bge-m3"
 
@@ -121,7 +121,7 @@ def semantic_search(
 ) -> list[dict[str, Any]]:
     """쿼리 임베딩 vs 인덱스 cosine top-k.
     임베딩이 정규화돼 있어 cosine = dot product."""
-    qvec = encode_texts([query], model_name, show_progress=False)[0]
+    qvec = encode_texts([expand_query(query)], model_name, show_progress=False)[0]
 
     with _conn() as conn:
         q = """

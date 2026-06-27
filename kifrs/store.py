@@ -242,10 +242,31 @@ def extract_keywords(query: str) -> list[str]:
     return out
 
 
+# 시험표현 → 본문표현 브리지 (M3b). 시험 답안 표현이 본문에 어휘로 없을 때, 본문에
+# 실제 존재하는 표현을 검색 전 쿼리에 덧붙여 lexical·semantic 양쪽 신호를 보강한다.
+# 실사용(dogfood) 마찰에서 누적 — 각 value 는 *본문에 실제 존재하는* 표현이어야 함.
+TERM_BRIDGE: dict[str, list[str]] = {
+    "할부판매": ["유의적 금융요소", "화폐의 시간가치", "현금판매가격"],
+    "현재가치 할인": ["유의적 금융요소", "화폐의 시간가치"],
+    "측정기준일": ["부여일"],
+    "재측정요소": ["보험수리적손익"],
+    "공매도": ["당기손익-공정가치 측정 금융부채", "단기매매항목"],  # 한계 #1 (goldset 밖)
+}
+
+
+def expand_query(query: str) -> str:
+    """시험표현을 본문표현으로 확장 (M3b). 매칭된 시험표현마다 본문 용어를 쿼리에 덧붙임."""
+    extra: list[str] = []
+    for exam_term, body_terms in TERM_BRIDGE.items():
+        if exam_term in query:
+            extra.extend(body_terms)
+    return f"{query} {' '.join(extra)}" if extra else query
+
+
 def search_fts(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
     """본문 검색. 쿼리에서 키워드를 뽑아 FTS5 OR(bm25 정렬) 검색, 결과 없으면 LIKE fallback.
     FTS5 trigram 은 3자 미만 단어를 인덱싱하지 않음 → 2글자 한글 단어용 fallback 필수."""
-    keywords = extract_keywords(query)
+    keywords = extract_keywords(expand_query(query))
     # FTS5 trigram 은 3자 미만 phrase 에 토큰을 못 만듦 → ≥3자만 MATCH, 나머지는 fallback 으로.
     fts_terms = [k for k in keywords if len(k) >= 3]
     match_str = " OR ".join(f'"{k}"' for k in fts_terms) if fts_terms else None
