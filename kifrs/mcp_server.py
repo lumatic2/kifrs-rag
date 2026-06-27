@@ -195,6 +195,17 @@ def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> l
 
 
 @mcp.tool()
+def search_reranked(query: str, standard: str | None = None, limit: int = 10) -> list[dict[str, Any]]:
+    """Cross-encoder 리랭킹 검색 — hybrid top-50 후보를 bge-reranker-v2-m3로 재점수.
+    **정밀 인용 1순위**: top-5 정밀도가 hybrid보다 높음(recall@5 0.640 vs 0.597, MRR 0.612 vs 0.509).
+    매우 깊은 recall(@20)이 필요하면 search_hybrid(0.907 > reranked 0.853). per-query ~0.4s(GPU)."""
+    if not USE_SQLITE:
+        return [{"error": "reranked 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    from kifrs.embed import search_reranked as _reranked
+    return _reranked(query, standard, limit=limit, candidates=50)
+
+
+@mcp.tool()
 def reload_store() -> dict[str, Any]:
     """디스크에서 파싱 JSON 다시 로드. ingest 파이프라인 갱신 후 재기동 없이 반영."""
     global STORE
@@ -216,11 +227,13 @@ def main():
 
         def _warmup() -> None:
             try:
-                from kifrs.embed import _load_model
+                from kifrs.embed import _load_model, _load_reranker
                 _load_model()
                 print("[kifrs-mcp] embed model loaded (warmup)", file=sys.stderr)
+                _load_reranker()
+                print("[kifrs-mcp] reranker loaded (warmup)", file=sys.stderr)
             except Exception as e:
-                print(f"[kifrs-mcp] embed warmup skipped: {e}", file=sys.stderr)
+                print(f"[kifrs-mcp] warmup skipped: {e}", file=sys.stderr)
 
         threading.Thread(target=_warmup, name="embed-warmup", daemon=True).start()
 
