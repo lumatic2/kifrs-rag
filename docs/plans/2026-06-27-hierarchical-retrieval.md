@@ -51,10 +51,19 @@ miss 9건(hybrid top-20 밖): Q001(1115-27) Q004(1001-69) Q006(1115-51) Q008(110
   - AC: `python -m kifrs.eval.retrieval --k 20 --retrievers hybrid hierarchical` 가 hierarchical recall@20 ≥ hybrid(0.907) **AND** Q029·Q039·Q048 중 ≥2건 hit 전환, recall@5 비퇴행. before/after JSON 저장
   - 중단점: 측정 PASS → 커밋. recall 퇴행·잡음만 늘면 파라미터(S, 보강 수) 튜닝 후 재측정, 그래도 안 되면 보고 후 멈춤
 
-- [ ] **M4-2 — evidence curation 임계값** (M4-1 후 재결정, *이번 run 범위 밖 가능*)
-  - reranked/hierarchical 출력에 rerank_score < τ 결과 제거
-  - AC: goldset 에서 recall@5 비퇴행하는 τ 선택 + 제거된 저신뢰 결과 수 보고. precision/UX 레버(recall 중립 설계)
+- [x] **M4-1b — search_hierarchical MCP tool 노출** ✅ (2026-06-27) — `mcp_server.py` @mcp.tool() 추가 + /accounting SKILL.md 넓은 탐색 기본을 hierarchical 로(allowed-tools·조회전략). custom-skills 배포(Claude+Codex). *라이브 서버 재기동 시 호출 가능*.
 
-## DoD (milestone)
+- [~] **M4-2 — evidence curation 임계값** — **보류(측정상 가치 낮음, 2026-06-27)**
+  - 분석: reranked rerank_score 의 gold vs noise 분리 불가. gold median 0.993 / noise(non-gold) median 0.921 — 겹침. τ=0.1 에서 gold 100% 유지 시 noise 제거 2%뿐, τ=0.3 이면 gold 떨어지기 시작(98.2%)
+  - 원인: hybrid+rerank 가 이미 주제 관련 후보만 추려 저신뢰 꼬리가 거의 없음. "noise"=틀린 게 아니라 must_cite 밖 관련 문단. dogfood 실패 모드(본문 부재·누락 recall)는 임계값으로 안 잡힘
+  - 결정: 가치 없는 필터 미구현(simplicity). 신호 잡히면 부활
 
-M4-1 측정 PASS + (선택)M4-2 → `roadmap_sync.py complete --milestone M4`. before/after JSON = evidence.
+## (b) 음성 결과 — hierarchical → reranked 후보 풀 교체 (폐기)
+- 가설: reranked 후보를 hybrid→hierarchical 로 바꾸면 top-5 정밀도↑
+- 측정: depth-50 recall 동일(hybrid 0.923 = hierarchical 0.923), reranked 출력 **완전 동일**. cross-encoder 는 풀 *순서* 무시 → 멤버십 같으면 결과 같음
+- 결정: no-op, 코드 revert. hierarchical 가치는 standalone retriever 로 발현(M4-1b 노출)
+
+## DoD (milestone) — ✅ 충족 (2026-06-27)
+
+M4-1 측정 PASS(전 지표 비퇴행/개선) + M4-1b 실사용 wiring. M4-2 는 측정 근거로 보류.
+evidence: `data/eval/results/retrieval_20260627_225318.json`. (b)·M4-2 음성결과도 평가 하네스 효용 증거.

@@ -36,15 +36,18 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **완료**: M1(측정 하네스) ✅ · M3(query expansion 천장 0.847→0.907) ✅ · M2(리랭킹 wiring) ✅ → 상세 `BACKLOG.md`.
 
 ### Active Milestones
+- (없음 — M4 완료. 다음은 아래 Next Candidates 에서 승격)
 
-<!-- harness:milestone id="M4" status="active" priority="P0" -->
+<!-- harness:milestone id="M4" status="completed" priority="P0" evidence="data/eval/results/retrieval_20260627_225318.json" -->
 #### M4 — Hierarchical retrieval + evidence curation
 - DoD: 섹션(조·항·호)→문단 2단계 검색 retriever가 M1 하네스에서 hybrid 대비 recall lift(특히 섹션제목-쿼리 일치 miss Q029·Q039·Q048 회복), recall@5 비퇴행 + 저신뢰 임계값 필터로 약한 인용 제거. before/after JSON 증거
-- Evidence: M4-1 ✅ `data/eval/results/retrieval_20260627_225318.json` — hierarchical 이 hybrid 전 지표 비퇴행/개선(recall@5 .597→.627, @10 .763→.827, @20 .907→.917, MRR .509→.542). M4-2 미결
+- Evidence: data/eval/results/retrieval_20260627_225318.json
 - Gap: hybrid recall@20=0.907 천장. 잔여 miss 9건 중 3~4건은 정답 문단이 쿼리어 일치 섹션 아래 있음 → 계층검색 레버
-- Status: [ ]
-- Steps (plan: `docs/plans/2026-06-27-hierarchical-retrieval.md`): M4-1 ✅ 계층 검색(쿼리시점 섹션 centroid, 전 지표 lift) ▸ M4-2 evidence curation 임계값 — *재결정 대기*
+- Status: [x]
+- Steps (plan: `docs/plans/2026-06-27-hierarchical-retrieval.md`): M4-1 ✅ 계층 검색(섹션 centroid, 전 지표 lift) ▸ M4-1b ✅ MCP 노출+SKILL.md ▸ M4-2 ⏸ evidence curation(측정상 가치 낮아 보류) · (b) reranked 풀 교체 ⏸ no-op 폐기
 
+- Completed at: 2026-06-27
+- Summary: 계층 검색(섹션 centroid) hybrid 전 지표 비퇴행/개선(recall@10 0.763→0.827) + MCP 노출. M4-2/(b)는 측정상 가치 낮아 보류
 ### Next Candidates
 - **M5 (옵션) — 평가 리포트 + 아키텍처 글** — before/after 메트릭으로 "trendy RAG 수준 달성" 증명 → D축 부활
 
