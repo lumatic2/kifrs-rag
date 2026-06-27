@@ -195,6 +195,17 @@ def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> l
 
 
 @mcp.tool()
+def search_hierarchical(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    """계층 검색 — 조·항·호 **섹션**을 1차 단위로. hybrid(lexical+semantic) + 섹션 membership 3-way RRF.
+    **넓은 recall 1순위**: hybrid 전 지표 비퇴행/개선(recall@5 0.597→0.627, @10 0.763→0.827, @20 0.907→0.917,
+    MRR 0.509→0.542). 섹션 제목이 쿼리와 일치하는 정답을 끌어올림. 정밀 인용 top-5는 search_reranked."""
+    if not USE_SQLITE:
+        return [{"error": "hierarchical 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    from kifrs.embed import search_hierarchical as _hier
+    return _hier(query, standard, limit)
+
+
+@mcp.tool()
 def search_reranked(query: str, standard: str | None = None, limit: int = 10) -> list[dict[str, Any]]:
     """Cross-encoder 리랭킹 검색 — hybrid top-50 후보를 bge-reranker-v2-m3로 재점수.
     **정밀 인용 1순위**: top-5 정밀도가 hybrid보다 높음(recall@5 0.640 vs 0.597, MRR 0.612 vs 0.509).
