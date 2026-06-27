@@ -26,10 +26,13 @@
   - **발견 2**: full-question에서 hybrid는 semantic 대비 lift 0 (lexical 0 기여 → RRF 무효). hybrid 이득은 키워드 쿼리에서만
   - **miss**: Q001(1115-27), Q005(1115-60/61/63), Q006(1115-51), Q008(1109-2.1·1116-26)
   - 리포트: `data/eval/results/retrieval_20260627_152718.json` (gitignored)
-- [ ] **M1-3 — goldset 8→50 확장** (다음 chunk)
-  - dogfood(cpa2 q01~q08, textbook, 1109/1116 시나리오)의 검증된 인용을 goldset 항목으로 수확. 메타데이터(standard·no·keywords)만 — 원문 텍스트 commit 금지(저작권)
-- [ ] **M1-4 — 50문항 baseline 확정**
-  - 확장 goldset에 재실행 → 통계적으로 의미 있는 baseline 확정 → M2 리랭킹 진입 게이트 오픈
+- [x] **M1-3 — goldset 8→50 확장** ✅ 2026-06-27
+  - dogfood(q01·q03·q06·q07·q08 검증 인용 + 1109/1116 시나리오 + textbook)에서 42항목 수확. 메타데이터만(저작권 안전)
+  - **품질 게이트**: must_cite 50/50 DB `get_paragraph` 검증 통과(0 실패). may_cite 4건 무효 suffix 제거
+- [x] **M1-4 — 50문항 baseline 확정** ✅ 2026-06-27
+  - semantic=hybrid `recall@5=0.557 · recall@10=0.720 · recall@20=0.847 · MRR=0.555 · nDCG@10=0.538`, lexical=0.000(구조적 재현)
+  - 천장 recall@20=0.847. miss 11건(Q001/005/006/008/022/029/036/039/040/041/048)
+  - 리포트: `data/eval/results/retrieval_20260627_154807.json`. **M2 게이트 오픈**
 
 ## DoD (milestone)
 
