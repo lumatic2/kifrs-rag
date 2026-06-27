@@ -36,6 +36,18 @@ def _log(msg: str) -> None:
     print(msg, file=sys.stderr)
 
 
+def eager_import() -> None:
+    """무거운 C-확장 import 체인(sentence_transformers→sklearn→scipy)을 호출 스레드에서 강제 완료.
+
+    이 import 들을 백그라운드 스레드에서 처음 수행하면 CPython import-lock 교착이 난다
+    (scipy#13985 / pybind11#1952 / sklearn#29145). MCP 서버에서는 warmup 데몬 스레드가
+    _model_lock 을 쥔 채 이 import 에 들어가 영구 hang → tool 호출도 락 대기로 같이 멈춘다.
+    반드시 서버 **메인 스레드**에서, warmup/워커 스레드가 모델을 건드리기 전에 한 번 호출해
+    sys.modules 에 적재해 둔다. 이후 스레드들의 import 는 캐시 적중이라 안전하다.
+    """
+    from sentence_transformers import SentenceTransformer, CrossEncoder  # noqa: F401
+
+
 def _load_model(name: str = DEFAULT_MODEL):
     # 락 — 백그라운드 warmup 스레드와 첫 tool 호출이 겹쳐 모델을 이중 로드하지 않게.
     with _model_lock:
@@ -238,7 +250,7 @@ def search_reranked(
         body = (row or {}).get("body") or r.get("snippet") or ""
         pairs.append((query, body))
         metas.append(r)
-    scores = reranker.predict(pairs)
+    scores = reranker.predict(pairs, show_progress_bar=False)
     order = sorted(range(len(metas)), key=lambda i: -float(scores[i]))[:limit]
     return [{**metas[i], "rerank_score": float(scores[i])} for i in order]
 

@@ -100,4 +100,7 @@ kifrs-rag/
 
 5. **모범답안 부재 → 정밀 채점 불가** — 회계사 2차 재무회계 학원 가답안은 회원 잠금. 본인 직관 채점만 가능 → "5문제 모두 부분 통과"라는 정성 판정에 그침. B축(80%+ 정확도) 정량 검증은 학원 자료 입수 후로 미뤄짐
 
-6. **MCP stdio 통신 fragility** — sentence-transformers 등 무거운 라이브러리는 첫 호출 시 stdio 통신과 충돌 가능 (해결: eager load + HF 노이즈 환경변수 차단). 다른 ML 라이브러리 추가 시 같은 패턴 적용 필요
+6. **MCP stdio 통신 fragility** ✅ 핵심 해소 (2026-06-27) — 무거운 ML 라이브러리 + MCP stdio + 동시성에서 두 종류의 문제가 겹쳐 세션이 끊겼다. 정확한 진단:
+   - **(a) C-확장 import 데드락 (진짜 원인 / search_reranked 영구 hang)** — warmup 을 **백그라운드 데몬 스레드**에서 돌리며 거기서 `sentence_transformers→sklearn→scipy.special` C 확장을 **처음 import** → CPython import-lock 교착(scipy#13985 / pybind11#1952 / sklearn#29145). warmup 이 `_model_lock` 을 쥔 채 멈춰 tool 호출까지 락 대기로 같이 hang. **해결: `embed.py:eager_import()` 를 `mcp_server.main()` 의 *메인 스레드*에서 `mcp.run()` 앞에 호출**(무거운 import 를 메인 스레드에서 한 번 끝내 sys.modules 적재 → 이후 스레드 import 는 캐시 적중). 핸드셰이크는 import 시간(~5초)만큼만 늦어지며 타임아웃 한참 이내. 가중치 로딩(느림)은 그대로 warmup 데몬 스레드. **무거운 ML import 는 절대 백그라운드 스레드에서 처음 하지 말 것.**
+   - **(b) 터미널 garbage `[I`·`[555;..M` ≠ stdout 오염** — 창 포커스 전환·마우스 hover 시 쏟아지던 깨진 출력은 **터미널 마우스/포커스 리포팅 모드** escape 시퀀스로, **알려진 Claude Code(Windows+VS Code 터미널) 버그**(claude-code#10375·#23581, kilocode#6191). (a) 의 hang 이 세션을 블로킹한 게 주 트리거였고 이제 해소. cosmetic — 깨진 탭은 닫고 새로 열면 모드 리셋. `/terminal-setup`(gpuAcceleration off)·CC 업데이트 권장.
+   - **오답 기록(되돌림)**: tqdm progress bar 가설(`predict(show_progress_bar=False)` 만 남김 — 무해), `TOKENIZERS_PARALLELISM` 가설, 그리고 `contextlib.redirect_stdout(sys.stderr)` 가드 — 전역 stdout 을 백그라운드 스레드가 돌려 JSON-RPC 응답이 stderr 로 새 **오히려 hang 유발 → 전부 revert**. 동시성 stdio 서버에서 전역 stdout 리다이렉트 금지.

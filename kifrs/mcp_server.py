@@ -218,12 +218,17 @@ def main():
     loaded = [s["standard"] for s in _store.list_standards()] if USE_SQLITE else sorted(STORE.keys())
     print(f"[kifrs-mcp] backend={backend} | standards={loaded}", file=sys.stderr)
 
-    # 모델 warmup 을 백그라운드 데몬 스레드로 — bge-m3 CPU 로드(10~25초)를
-    # mcp.run() 의 initialize 핸드셰이크 *앞*에서 돌리면 Claude Code 연결
-    # 타임아웃을 넘겨 서버가 죽은 채로 남는다. 핸드셰이크를 먼저 응답시키고
-    # 모델은 뒤에서 데운다. 첫 search 호출은 lazy import 로 여전히 동작.
+    # 무거운 C-확장 import(sentence_transformers→sklearn→scipy)는 반드시 **메인 스레드**에서.
+    # 백그라운드 스레드에서 처음 import 하면 CPython import-lock 교착으로 영구 hang 한다
+    # (scipy#13985 등 — 이전엔 warmup 스레드가 _model_lock 쥔 채 여기서 멈춰 tool 호출까지
+    # 같이 멈췄다). 핸드셰이크는 이 import(~5초)만큼만 늦어지며 타임아웃 한참 이내.
+    # 가중치 로딩(느림)은 import 완료 후 warmup 데몬 스레드로 돌려 첫 search 를 빠르게 한다.
     if USE_SQLITE:
         import threading
+
+        from kifrs.embed import eager_import
+        eager_import()
+        print("[kifrs-mcp] heavy imports done (main thread)", file=sys.stderr)
 
         def _warmup() -> None:
             try:
