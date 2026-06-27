@@ -1,7 +1,7 @@
 [project]
 name = "kifrs-rag"
 version = "0.1.0"
-description = "K-IFRS 기준서 개인용 RAG/MCP 시스템 (로컬 비공개)"
+description = "K-IFRS retrieval and MCP server prototype with protected source data excluded"
 requires-python = ">=3.11"
 dependencies = [
     "pdfplumber>=0.11.0",

@@ -5,7 +5,7 @@ data/standards/parsed/*.json + SQLite + 임베딩(bge-m3) 인덱스를 MCP tool 
 실행:
   uv run python -m kifrs.mcp_server
 등록 (Claude Code):
-  claude mcp add kifrs -- uv --directory C:/Users/yusun/projects/kifrs-rag run python -m kifrs.mcp_server
+  claude mcp add kifrs -- uv --directory /path/to/kifrs-rag run python -m kifrs.mcp_server
 """
 from __future__ import annotations
 
