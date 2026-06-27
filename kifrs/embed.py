@@ -198,6 +198,51 @@ def search_hybrid(
     return [{**info[kk], "rrf": rrf[kk]} for kk in sorted_keys]
 
 
+# ── 리랭킹 (M2 — cross-encoder) ───────────────────────────────────────────
+DEFAULT_RERANKER = "BAAI/bge-reranker-v2-m3"
+_reranker_cache: dict[str, Any] = {}
+_reranker_lock = threading.Lock()
+
+
+def _load_reranker(name: str = DEFAULT_RERANKER):
+    with _reranker_lock:
+        if name not in _reranker_cache:
+            from sentence_transformers import CrossEncoder
+            _log(f"[rerank] loading reranker: {name}")
+            _reranker_cache[name] = CrossEncoder(name, max_length=512)
+    return _reranker_cache[name]
+
+
+def search_reranked(
+    query: str,
+    standard: str | None = None,
+    limit: int = 20,
+    candidates: int = 50,
+    model_name: str = DEFAULT_MODEL,
+    reranker_name: str = DEFAULT_RERANKER,
+) -> list[dict[str, Any]]:
+    """1차 hybrid 로 candidates 개 후보를 뽑아 cross-encoder 로 재점수 → top-limit.
+
+    골드 스탠다드 4단계(BM25+dense+RRF+rerank)의 마지막 단계.
+    깊은 후보 풀(candidates)을 리랭킹해 천장(1차 recall@candidates)까지 활용.
+    """
+    pool = search_hybrid(query, standard, limit=candidates, model_name=model_name)
+    if not pool:
+        return []
+    reranker = _load_reranker(reranker_name)
+    # 리랭커는 truncated snippet 이 아닌 전체 본문에서 정확. 본문 fetch.
+    from .store import get_paragraph
+    pairs, metas = [], []
+    for r in pool:
+        row = get_paragraph(r["standard"], r["no"])
+        body = (row or {}).get("body") or r.get("snippet") or ""
+        pairs.append((query, body))
+        metas.append(r)
+    scores = reranker.predict(pairs)
+    order = sorted(range(len(metas)), key=lambda i: -float(scores[i]))[:limit]
+    return [{**metas[i], "rerank_score": float(scores[i])} for i in order]
+
+
 # ── 운영 헬퍼 ────────────────────────────────────────────────────────────
 def stats() -> dict[str, Any]:
     with _conn() as conn:
