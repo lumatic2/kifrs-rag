@@ -63,7 +63,7 @@ def _standard(standard: str) -> dict[str, Any] | None:
 
 
 # ── MCP tools ────────────────────────────────────────────────────────────
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def list_standards() -> list[dict[str, Any]]:
     """인덱싱된 기준서 목록."""
     if USE_SQLITE:
@@ -74,7 +74,7 @@ def list_standards() -> list[dict[str, Any]]:
     ]
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
     """기준서·문단 번호로 단일 문단 반환. 예: ('1115','5'), ('1115','한4.1'), ('1115','B5')."""
     if USE_SQLITE:
@@ -88,7 +88,7 @@ def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
     return None
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def list_paragraphs(standard: str, appendix: str | None = None, section: str | None = None, limit: int = 50) -> list[dict[str, Any]]:
     """문단 목록(본문 미포함, 메타+preview). appendix='A'/'B'/'C'/'본문'(=None), section 필터."""
     if USE_SQLITE:
@@ -112,7 +112,7 @@ def list_paragraphs(standard: str, appendix: str | None = None, section: str | N
     return out
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def list_sections(standard: str) -> list[dict[str, Any]]:
     """섹션 소제목 목록."""
     if USE_SQLITE:
@@ -127,7 +127,7 @@ def list_sections(standard: str) -> list[dict[str, Any]]:
     return [{"appendix": a, "section": s, "paragraph_count": len(nos), "first_no": nos[0]} for (a, s), nos in buckets.items()]
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def search_lexical(query: str, standard: str | None = None, limit: int = 20, case_sensitive: bool = False) -> list[dict[str, Any]]:
     """본문 검색. SQLite 모드에서는 FTS5 trigram, JSON 모드는 정규식 substring."""
     if USE_SQLITE:
@@ -156,7 +156,7 @@ def search_lexical(query: str, standard: str | None = None, limit: int = 20, cas
     return hits
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]:
     """문단 앞뒤 around 개 포함 맥락 반환."""
     if USE_SQLITE:
@@ -172,7 +172,7 @@ def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]
     return []
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def search_semantic(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
     """임베딩 cosine top-k. 동의어·표현 차이에 강함 (예: '환매약정' → '재매입약정' 매칭).
     SQLite + embedding 인덱스 필요. 미인덱싱 기준서는 결과 없음."""
@@ -183,7 +183,7 @@ def search_semantic(query: str, standard: str | None = None, limit: int = 20) ->
     return semantic_search(query, standard, limit)
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
     """RRF (Reciprocal Rank Fusion) 하이브리드 검색 — lexical(FTS5) + semantic.
     각 검색 결과의 순위에 1/(60+rank) 점수를 합산해 top-k 반환.
@@ -194,7 +194,7 @@ def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> l
     return _hybrid(query, standard, limit)
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def search_hierarchical(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
     """계층 검색 — 조·항·호 **섹션**을 1차 단위로. hybrid(lexical+semantic) + 섹션 membership 3-way RRF.
     **넓은 recall 1순위**: hybrid 전 지표 비퇴행/개선(recall@5 0.597→0.627, @10 0.763→0.827, @20 0.907→0.917,
@@ -205,7 +205,7 @@ def search_hierarchical(query: str, standard: str | None = None, limit: int = 20
     return _hier(query, standard, limit)
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def search_reranked(query: str, standard: str | None = None, limit: int = 10) -> list[dict[str, Any]]:
     """Cross-encoder 리랭킹 검색 — hybrid top-50 후보를 bge-reranker-v2-m3로 재점수.
     **정밀 인용 1순위**: top-5 정밀도가 hybrid보다 높음(recall@5 0.640 vs 0.597, MRR 0.612 vs 0.509).
@@ -216,7 +216,7 @@ def search_reranked(query: str, standard: str | None = None, limit: int = 10) ->
     return _reranked(query, standard, limit=limit, candidates=50)
 
 
-@mcp.tool()
+@mcp.tool(output_schema=None)
 def reload_store() -> dict[str, Any]:
     """디스크에서 파싱 JSON 다시 로드. ingest 파이프라인 갱신 후 재기동 없이 반영."""
     global STORE
@@ -224,7 +224,29 @@ def reload_store() -> dict[str, Any]:
     return {"loaded": sorted(STORE.keys()), "count": len(STORE)}
 
 
+def _redirect_stderr_to_logfile():
+    """Codex's MCP client hands the child an stderr handle that becomes
+    unwritable on Windows mid-startup (OSError(EINVAL) on the first write after
+    the heavy torch/transformers import), which kills the server before it can
+    answer `initialize` -> the client reports "connection closed". Route fd 2
+    and sys.stderr to a logfile so neither our diagnostics nor FastMCP's startup
+    banner can crash the process. stdout (the JSON-RPC channel) is untouched."""
+    import tempfile
+
+    try:
+        f = open(os.path.join(tempfile.gettempdir(), "kifrs_mcp.log"),
+                 "a", encoding="utf-8", buffering=1)
+    except Exception:
+        return
+    try:
+        os.dup2(f.fileno(), 2)
+    except Exception:
+        pass
+    sys.stderr = f
+
+
 def main():
+    _redirect_stderr_to_logfile()
     backend = "sqlite" if USE_SQLITE else "json"
     loaded = [s["standard"] for s in _store.list_standards()] if USE_SQLITE else sorted(STORE.keys())
     print(f"[kifrs-mcp] backend={backend} | standards={loaded}", file=sys.stderr)
@@ -251,7 +273,10 @@ def main():
             except Exception as e:
                 print(f"[kifrs-mcp] warmup skipped: {e}", file=sys.stderr)
 
-        threading.Thread(target=_warmup, name="embed-warmup", daemon=True).start()
+        if os.environ.get("KIFRS_MCP_DISABLE_WARMUP") == "1":
+            print("[kifrs-mcp] warmup disabled", file=sys.stderr)
+        else:
+            threading.Thread(target=_warmup, name="embed-warmup", daemon=True).start()
 
     mcp.run()
 
