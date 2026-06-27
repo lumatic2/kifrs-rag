@@ -35,10 +35,16 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **완료**: M1(측정 하네스) ✅ · M3(query expansion 천장 0.847→0.907) ✅ · M2(리랭킹 wiring) ✅ → 상세 `BACKLOG.md`.
 
 ### Active Milestones
-- (없음 — M1·M2·M3 완료. 아래 Next Candidates 에서 다음 milestone 승격)
+
+<!-- harness:milestone id="M4" status="active" priority="P0" -->
+#### M4 — Hierarchical retrieval + evidence curation
+- DoD: 섹션(조·항·호)→문단 2단계 검색 retriever가 M1 하네스에서 hybrid 대비 recall lift(특히 섹션제목-쿼리 일치 miss Q029·Q039·Q048 회복), recall@5 비퇴행 + 저신뢰 임계값 필터로 약한 인용 제거. before/after JSON 증거
+- Evidence: (M4-1 측정 후 기재) `data/eval/results/retrieval_*.json`
+- Gap: hybrid recall@20=0.907 천장. 잔여 miss 9건 중 3~4건은 정답 문단이 쿼리어 일치 섹션 아래 있음 → 계층검색 레버
+- Status: [ ]
+- Steps (plan: `docs/plans/2026-06-27-hierarchical-retrieval.md`): M4-1(계층 검색, 쿼리시점 섹션 centroid) ▸ M4-2(evidence curation 임계값) — *M4-1 먼저 측정·커밋 후 M4-2 재결정*
 
 ### Next Candidates
-- **M4 — Hierarchical retrieval + evidence curation** — 조·항·호 섹션→문단 2단계 검색 + 저신뢰 임계값 필터. M1 하네스로 before/after 측정. 잔여 miss 9건(Q001·Q004·Q006·Q008·Q029·Q039·Q040·Q041·Q048) 중 계층검색 후보: Q008(1109-2.1)·Q039(1037-14)
 - **M5 (옵션) — 평가 리포트 + 아키텍처 글** — before/after 메트릭으로 "trendy RAG 수준 달성" 증명 → D축 부활
 
 ## 성공기준 4축
