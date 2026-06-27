@@ -81,7 +81,7 @@ kifrs-rag/
 **Phase 2 검색 인프라 완성** — 임베딩 + 하이브리드 검색 + dogfood Round 2까지.
 
 - DB: 100 기준서 / 8,328 paragraphs (SQLite + FTS5 trigram)
-- 임베딩: bge-m3 (1024d, 100% 인덱싱), CPU 인코딩 (Smart App Control 제약으로 GPU 불가)
+- 임베딩: bge-m3 (1024d, 100% 인덱싱), **GPU 인코딩** (RTX 5090 cu128, 2026-06-27 전환 — 한계 #4 참조)
 - MCP tools (8): list_standards, get_paragraph, list_paragraphs, list_sections, search_lexical, **search_semantic**, **search_hybrid**, get_context, reload_store
 - /accounting 스킬: search_hybrid 1순위 사용. dogfood Round 1+2 검증 완료
 - 검색 recall: lexical 60% → hybrid 80% (Phase 2 목표 70%+ 초과)
@@ -96,7 +96,7 @@ kifrs-rag/
 
 3. **다단 답안 포맷 미스매치** ✅ 해소 (2026-04-28) — SKILL.md §3 `(고정)` → `가치는 고정, 형태는 질문에 맞춘다`로 재구조화. 분기 모드 추가 대신 포맷 자체 완화 → 5 질문 유형 매핑 표 (기본형/시험 다단/cross-standard 비교/워크플로/단답). Round 3 mini 검증: Q01 자료2(계산형) + Q03 (물음 4)(서술형) 두 다른 형태에서 새 가이드가 자연스럽게 작동. 본인 수동 정렬 불필요
 
-4. **CPU 인덱싱 부담** — Smart App Control이 PyTorch CUDA DLL 차단 → GPU 활용 불가. CPU bge-m3 = 8,328 paragraphs / 32분. 자주 안 하면 OK이지만 user_note·xref 추가 시 재인덱싱 비용 누적
+4. **CPU 인덱싱 부담** ✅ 해소 (2026-06-27) — Smart App Control은 이미 OFF(레지스트리 state=0) 상태였고, 원인은 단지 CPU 전용 torch 휠(`2.11.0+cpu`)이었음. `uv pip install torch --index-url .../cu128`로 교체 → `2.11.0+cu128`, RTX 5090(sm_120) 인식. 인코딩 ~24배(77→1863 texts/s), 재인덱싱 32분→~1분, per-query 리랭킹 0.44s. sentence-transformers가 CUDA 자동 사용(코드 변경 불필요). 되돌리려면 `+cpu` 휠 재설치
 
 5. **모범답안 부재 → 정밀 채점 불가** — 회계사 2차 재무회계 학원 가답안은 회원 잠금. 본인 직관 채점만 가능 → "5문제 모두 부분 통과"라는 정성 판정에 그침. B축(80%+ 정확도) 정량 검증은 학원 자료 입수 후로 미뤄짐
 
