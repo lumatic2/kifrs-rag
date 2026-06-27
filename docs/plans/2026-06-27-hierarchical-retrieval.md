@@ -23,9 +23,24 @@ miss 9건(hybrid top-20 밖): Q001(1115-27) Q004(1001-69) Q006(1115-51) Q008(110
 - **M4-1 먼저** 구현·측정·커밋 → 결과 보고 M4-2 재결정.
 - 계층 1차 = **쿼리 시점 섹션 centroid**: 기존 문단 임베딩을 (standard, section)별 평균으로 합성 → 쿼리와 cosine → 상위 섹션의 best 문단을 hybrid 풀에 보강. **재인덱싱·스키마 변경 없음. recall-safe(문단 제거 안 함, 추가만).**
 
+## After (M4-1, 2026-06-27 22:53, 50문항 K=20) ✅
+
+| retriever | recall@5 | recall@10 | recall@20 | MRR | nDCG@10 |
+|---|---|---|---|---|---|
+| hybrid (before) | 0.597 | 0.763 | 0.907 | 0.509 | 0.527 |
+| **hierarchical** | **0.627** | **0.827** | **0.917** | **0.542** | **0.562** |
+
+**전 지표 비퇴행 + 개선**: recall@5 +3.0pp · recall@10 +6.4pp · recall@20 +1.0pp(퇴행 해소) · MRR +3.3pp · nDCG +3.5pp. full-miss 9→8(**Q041 회복**, 새 miss 0).
+
+파라미터(스윕 최적): `top_sections=20, per_section=3, section_weight=0.5`. 섹션 신호 0.5 down-weight 가 변위 억제의 핵심 — w=1.0 또는 좁은 탐색(ts≤12)은 recall@20 퇴행.
+
+**가설 정정**: 당초 후보 Q029·Q039·Q048 직접 회복은 일부만. 진단 결과 **Q039(1037-14) 섹션 "충당부채" centroid 전역순위 674 → 계층 레버 부적합**(쿼리가 리스-복구 지배). Q029 섹션 #1·Q048 섹션 #24 는 부분 기여(recall@20 +1pp). 레버는 특정 3건이 아니라 **광범위 mid-precision 개선**으로 작동 → 더 가치 있는 결과(reranked 후보 품질↑).
+
+증거: `data/eval/results/retrieval_20260627_225318.json`
+
 ## Step 트리
 
-- [ ] **M4-1 — 계층 검색 retriever** (leaf)
+- [x] **M4-1 — 계층 검색 retriever** ✅ (2026-06-27) — `search_hierarchical` + eval 등록. 전 지표 비퇴행/개선
   - `kifrs/embed.py`: `search_hierarchical(query, standard, limit)` 추가
     - ① hybrid 풀(50) 확보 (기존 문단 recall 천장 보존)
     - ② (standard, section) centroid = 멤버 문단 벡터 평균 (numpy groupby, 쿼리 시점 계산)

@@ -210,6 +210,109 @@ def search_hybrid(
     return [{**info[kk], "rrf": rrf[kk]} for kk in sorted_keys]
 
 
+# ── 계층 검색 (M4-1 — 섹션 centroid) ──────────────────────────────────────
+def _load_embedding_matrix(
+    standard: str | None, model_name: str
+) -> tuple[np.ndarray | None, list]:
+    """embedding ⨝ paragraph 를 한 번 읽어 (행렬, rows) 반환. section 메타 포함."""
+    with _conn() as conn:
+        q = """
+            SELECT e.standard, e.no, e.dim, e.vector,
+                   p.appendix, p.section, p.page, p.body
+            FROM embedding e
+            JOIN paragraph p ON p.standard = e.standard AND p.no = e.no
+            WHERE e.model = ?
+        """
+        params: list[Any] = [model_name]
+        if standard:
+            q += " AND e.standard=?"
+            params.append(standard)
+        rows = conn.execute(q, params).fetchall()
+    if not rows:
+        return None, []
+    dim = rows[0]["dim"]
+    mat = np.frombuffer(
+        b"".join(r["vector"] for r in rows), dtype=np.float32
+    ).reshape(len(rows), dim)
+    return mat, rows
+
+
+def _row_meta(r) -> dict[str, Any]:
+    return {
+        "standard": r["standard"], "no": r["no"], "appendix": r["appendix"],
+        "section": r["section"], "page": r["page"],
+        "snippet": (r["body"] or "")[:160],
+    }
+
+
+def search_hierarchical(
+    query: str,
+    standard: str | None = None,
+    limit: int = 20,
+    model_name: str = DEFAULT_MODEL,
+    k: int = 60,
+    top_sections: int = 20,
+    per_section: int = 3,
+    section_weight: float = 0.5,
+) -> list[dict[str, Any]]:
+    """계층 검색 (M4-1) — 조·항·호 **섹션**을 1차 단위로.
+
+    hybrid(lexical+semantic 문단) 에 **섹션 membership** 신호를 더한 3-way RRF.
+    섹션 centroid = 멤버 문단 임베딩의 평균(쿼리 시점 계산, 재인덱싱 없음). 쿼리와
+    cosine 이 높은 상위 섹션의 best 문단을 후보 풀에 union → 문단 단독으로는 top-k
+    밖이지만 섹션-쿼리 일치가 강한 정답을 끌어올린다. **recall-safe(문단 추가만, 제거 X).**
+
+    파라미터(goldset 50문항 스윕 최적, 2026-06-27): top_sections=20·per_section=3·
+    section_weight=0.5. 섹션 신호를 0.5 로 down-weight 해 변위를 억제하면서 넓게(20)
+    탐색 → hybrid 대비 recall@5 0.597→0.627·recall@10 0.763→0.827·recall@20 0.907→
+    0.917·MRR 0.509→0.542 (전 지표 비퇴행). w=1.0 또는 좁은 탐색은 recall@20 퇴행.
+    """
+    qvec = encode_texts([expand_query(query)], model_name, show_progress=False)[0]
+    mat, rows = _load_embedding_matrix(standard, model_name)
+    if mat is None:
+        return search_hybrid(query, standard, limit, model_name, k)
+    para_scores = mat @ qvec  # cosine (정규화 임베딩)
+
+    # 섹션 centroid: (standard, section) 별 멤버 벡터 평균 → 쿼리와 cosine
+    from collections import defaultdict
+    sec_idx: dict[tuple[str, str], list[int]] = defaultdict(list)
+    for i, r in enumerate(rows):
+        if r["section"]:
+            sec_idx[(r["standard"], r["section"])].append(i)
+    sec_score: dict[tuple[str, str], float] = {}
+    for key, idxs in sec_idx.items():
+        c = mat[idxs].mean(axis=0)
+        n = float(np.linalg.norm(c))
+        sec_score[key] = float(c @ qvec / n) if n else 0.0
+    top_secs = sorted(sec_score, key=lambda kk: -sec_score[kk])[:top_sections]
+
+    rrf: dict[tuple[str, str], float] = {}
+    info: dict[tuple[str, str], dict[str, Any]] = {}
+
+    # 신호 1: lexical (FTS5)
+    for rank, r in enumerate(search_fts(query, standard, limit=50)):
+        kk = (r["standard"], r["no"])
+        rrf[kk] = rrf.get(kk, 0.0) + 1.0 / (k + rank)
+        info.setdefault(kk, r)
+    # 신호 2: semantic (문단 cosine)
+    for rank, i in enumerate(np.argsort(-para_scores)[:50]):
+        r = rows[int(i)]
+        kk = (r["standard"], r["no"])
+        rrf[kk] = rrf.get(kk, 0.0) + 1.0 / (k + rank)
+        info.setdefault(kk, _row_meta(r))
+    # 신호 3: 섹션 membership — 상위 섹션 내 best 문단 (down-weighted)
+    for key in top_secs:
+        members = sorted(sec_idx[key], key=lambda i: -para_scores[i])[:per_section]
+        for rank, i in enumerate(members):
+            r = rows[int(i)]
+            kk = (r["standard"], r["no"])
+            rrf[kk] = rrf.get(kk, 0.0) + section_weight * (1.0 / (k + rank))
+            info.setdefault(kk, _row_meta(r))
+
+    sorted_keys = sorted(rrf, key=lambda kk: -rrf[kk])[:limit]
+    return [{**info[kk], "rrf": rrf[kk]} for kk in sorted_keys]
+
+
 # ── 리랭킹 (M2 — cross-encoder) ───────────────────────────────────────────
 DEFAULT_RERANKER = "BAAI/bge-reranker-v2-m3"
 _reranker_cache: dict[str, Any] = {}

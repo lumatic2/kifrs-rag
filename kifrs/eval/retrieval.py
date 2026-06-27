@@ -24,7 +24,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
 from kifrs.store import search_fts
-from kifrs.embed import semantic_search, search_hybrid, search_reranked
+from kifrs.embed import semantic_search, search_hybrid, search_reranked, search_hierarchical
 from .models import GoldItem
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -39,6 +39,7 @@ RETRIEVERS = {
     "lexical": lambda q, k: search_fts(q, None, limit=k),
     "semantic": lambda q, k: semantic_search(q, None, limit=k),
     "hybrid": lambda q, k: search_hybrid(q, None, limit=k),
+    "hierarchical": lambda q, k: search_hierarchical(q, None, limit=k),
     "reranked": lambda q, k: search_reranked(q, None, limit=k, candidates=50),
 }
 
