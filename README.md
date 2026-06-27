@@ -9,7 +9,7 @@ K-IFRS standards retrieval and MCP server prototype for evidence-grounded accoun
 | Area | What is included |
 |---|---|
 | Standards retrieval | lexical, semantic, hybrid, reranked, and hierarchical retrieval experiments |
-| MCP server | FastMCP tools for listing standards, searching paragraphs, and retrieving context |
+| MCP server | FastMCP tools exposing all five retrieval modes (lexical/semantic/hybrid/hierarchical/reranked) plus standard listing, paragraph lookup, and context retrieval |
 | Evaluation harness | retrieval goldset runner and before/after metrics for search improvements |
 | Operating notes | roadmap, backlog, and implementation notes for accounting RAG development |
 
