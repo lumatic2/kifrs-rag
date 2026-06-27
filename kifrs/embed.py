@@ -25,7 +25,10 @@ DEFAULT_MODEL = "BAAI/bge-m3"
 
 
 # ── 모델 로드 (지연) ─────────────────────────────────────────────────────
+import threading
+
 _model_cache: dict[str, Any] = {}
+_model_lock = threading.Lock()
 
 
 def _log(msg: str) -> None:
@@ -34,10 +37,12 @@ def _log(msg: str) -> None:
 
 
 def _load_model(name: str = DEFAULT_MODEL):
-    if name not in _model_cache:
-        from sentence_transformers import SentenceTransformer
-        _log(f"[embed] loading model: {name}")
-        _model_cache[name] = SentenceTransformer(name)
+    # 락 — 백그라운드 warmup 스레드와 첫 tool 호출이 겹쳐 모델을 이중 로드하지 않게.
+    with _model_lock:
+        if name not in _model_cache:
+            from sentence_transformers import SentenceTransformer
+            _log(f"[embed] loading model: {name}")
+            _model_cache[name] = SentenceTransformer(name)
     return _model_cache[name]
 
 

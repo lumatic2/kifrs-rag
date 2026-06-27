@@ -207,15 +207,22 @@ def main():
     loaded = [s["standard"] for s in _store.list_standards()] if USE_SQLITE else sorted(STORE.keys())
     print(f"[kifrs-mcp] backend={backend} | standards={loaded}", file=sys.stderr)
 
-    # Eager model load — 첫 search_hybrid/semantic 호출의 12초 모델 로드 latency 를
-    # 서버 시작 시점으로 옮긴다. stdio 모드에서 첫 호출 hang 방지.
+    # 모델 warmup 을 백그라운드 데몬 스레드로 — bge-m3 CPU 로드(10~25초)를
+    # mcp.run() 의 initialize 핸드셰이크 *앞*에서 돌리면 Claude Code 연결
+    # 타임아웃을 넘겨 서버가 죽은 채로 남는다. 핸드셰이크를 먼저 응답시키고
+    # 모델은 뒤에서 데운다. 첫 search 호출은 lazy import 로 여전히 동작.
     if USE_SQLITE:
-        try:
-            from kifrs.embed import _load_model
-            _load_model()
-            print("[kifrs-mcp] embed model loaded (eager)", file=sys.stderr)
-        except Exception as e:
-            print(f"[kifrs-mcp] embed eager load skipped: {e}", file=sys.stderr)
+        import threading
+
+        def _warmup() -> None:
+            try:
+                from kifrs.embed import _load_model
+                _load_model()
+                print("[kifrs-mcp] embed model loaded (warmup)", file=sys.stderr)
+            except Exception as e:
+                print(f"[kifrs-mcp] embed warmup skipped: {e}", file=sys.stderr)
+
+        threading.Thread(target=_warmup, name="embed-warmup", daemon=True).start()
 
     mcp.run()
 
