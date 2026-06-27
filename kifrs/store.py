@@ -8,6 +8,7 @@ DB 파일: data/kifrs.db
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from datetime import datetime
 from pathlib import Path
@@ -197,56 +198,105 @@ def _like_snippet(body: str, query: str, window: int = 40) -> str:
     return f"{body[s:m.start()]}[{body[m.start():m.end()]}]{body[m.end():e]}"
 
 
+# ── 쿼리 정상화 (M3a) ────────────────────────────────────────────────────
+# 질문형(긴 문장) 쿼리를 키워드 OR 검색으로 바꾼다. FTS5 trigram 은 전 토큰을
+# AND 로 묶어 긴 문장에 0 hits → 본문에 어휘로 존재하는 키워드만 뽑아 OR 결합.
+# 신규 의존성 없이 순수 휴리스틱 (konlpy/mecab 은 Windows/Smart App Control 마찰).
+
+_FTS_STOPWORDS = frozenset({
+    "무엇", "무엇인가", "무엇인가요", "어떻게", "어떤", "경우", "대한", "대하여", "대해",
+    "위한", "위하여", "위해", "따라", "또는", "그리고", "있는", "하는", "한다", "한가",
+    "설명", "서술", "기술", "약술", "제시", "각각", "모두", "관련", "관하여", "관한",
+    "이란", "이며", "인가", "되는", "되는가", "해야", "하며", "어디", "언제", "얼마",
+    "이를", "이것", "그것", "있다", "한다면", "보유", "회사", "고객", "기준", "근거",
+    "조항", "처리", "회계처리", "기준서", "어느", "그리", "몇개", "이내", "이후", "이전",
+})
+
+# 조사·어미 (최장일치로 strip)
+_JOSA = (
+    "으로서", "으로써", "이라고", "에서는", "에게는", "으로", "로서", "로써", "라고",
+    "이라", "에서", "에게", "에는", "까지", "부터", "처럼", "만큼", "보다", "조차",
+    "마저", "이나", "거나", "든지", "라도", "이든", "에", "은", "는", "이", "가",
+    "을", "를", "의", "와", "과", "도", "만", "로", "라", "며", "고", "나", "들",
+)
+
+
+def _strip_josa(tok: str) -> str:
+    for j in _JOSA:
+        if tok.endswith(j) and len(tok) - len(j) >= 2:
+            return tok[: -len(j)]
+    return tok
+
+
+def extract_keywords(query: str) -> list[str]:
+    """질문형 쿼리에서 검색 키워드만 추출 (한글 어절 조사 strip + 불용어 제거)."""
+    out: list[str] = []
+    seen: set[str] = set()
+    for tok in re.findall(r"[가-힣]+|[A-Za-z0-9]+", query):
+        stem = tok if re.fullmatch(r"[A-Za-z0-9]+", tok) else _strip_josa(tok)
+        if len(stem) < 2 or stem in _FTS_STOPWORDS:
+            continue
+        if stem not in seen:
+            seen.add(stem)
+            out.append(stem)
+    return out
+
+
 def search_fts(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
-    """본문 검색. FTS5 trigram 우선, 결과 없으면 LIKE substring fallback.
+    """본문 검색. 쿼리에서 키워드를 뽑아 FTS5 OR(bm25 정렬) 검색, 결과 없으면 LIKE fallback.
     FTS5 trigram 은 3자 미만 단어를 인덱싱하지 않음 → 2글자 한글 단어용 fallback 필수."""
-    q = """
-        SELECT p.standard, p.no, p.appendix, p.section, p.page,
-               snippet(paragraph_fts, 3, '[', ']', '…', 16) AS snippet
-        FROM paragraph_fts
-        JOIN paragraph p ON p.rowid = paragraph_fts.rowid
-        WHERE paragraph_fts MATCH ?
-    """
-    params: list[Any] = [query]
-    if standard:
-        q += " AND p.standard=?"
-        params.append(standard)
-    q += " LIMIT ?"
-    params.append(limit)
+    keywords = extract_keywords(query)
+    # FTS5 trigram 은 3자 미만 phrase 에 토큰을 못 만듦 → ≥3자만 MATCH, 나머지는 fallback 으로.
+    fts_terms = [k for k in keywords if len(k) >= 3]
+    match_str = " OR ".join(f'"{k}"' for k in fts_terms) if fts_terms else None
+
     with _conn() as conn:
-        try:
-            rows = conn.execute(q, params).fetchall()
-        except sqlite3.OperationalError:
-            rows = []
+        rows = []
+        if match_str:
+            q = """
+                SELECT p.standard, p.no, p.appendix, p.section, p.page,
+                       snippet(paragraph_fts, 3, '[', ']', '…', 16) AS snippet
+                FROM paragraph_fts
+                JOIN paragraph p ON p.rowid = paragraph_fts.rowid
+                WHERE paragraph_fts MATCH ?
+            """
+            params: list[Any] = [match_str]
+            if standard:
+                q += " AND p.standard=?"
+                params.append(standard)
+            q += " ORDER BY rank LIMIT ?"   # rank = bm25 (rare 한 변별 키워드에 가중)
+            params.append(limit)
+            try:
+                rows = conn.execute(q, params).fetchall()
+            except sqlite3.OperationalError:
+                rows = []
         if rows:
             return [dict(r) for r in rows]
 
-        # Fallback: LIKE substring. query 에 공백 있으면 첫 토큰으로 스캔 후 전체 포함 필터.
-        tokens = [t for t in query.split() if t]
-        if not tokens:
+        # Fallback: 키워드 OR LIKE 스캔 → 본문에 포함된 키워드 수로 점수 매겨 정렬.
+        terms = keywords or [t for t in query.split() if t]
+        if not terms:
             return []
-        probe = max(tokens, key=len)
-        like_q = "SELECT standard, no, appendix, section, page, body FROM paragraph WHERE body LIKE ?"
-        like_params: list[Any] = [f"%{probe}%"]
+        where = " OR ".join("body LIKE ?" for _ in terms)
+        like_q = f"SELECT standard, no, appendix, section, page, body FROM paragraph WHERE ({where})"
+        like_params: list[Any] = [f"%{t}%" for t in terms]
         if standard:
             like_q += " AND standard=?"
             like_params.append(standard)
-        like_q += " LIMIT ?"
-        like_params.append(limit * 3)
-        out = []
+        scored = []
         for r in conn.execute(like_q, like_params).fetchall():
             body = r["body"] or ""
-            if not all(t.lower() in body.lower() for t in tokens):
-                continue
-            out.append({
-                "standard": r["standard"], "no": r["no"],
-                "appendix": r["appendix"], "section": r["section"],
-                "page": r["page"],
-                "snippet": _like_snippet(body, probe),
-            })
-            if len(out) >= limit:
-                break
-        return out
+            low = body.lower()
+            hits = [t for t in terms if t.lower() in low]
+            if hits:
+                scored.append((len(hits), r, max(hits, key=len)))
+        scored.sort(key=lambda x: -x[0])
+        return [{
+            "standard": r["standard"], "no": r["no"],
+            "appendix": r["appendix"], "section": r["section"],
+            "page": r["page"],
+            "snippet": _like_snippet(r["body"] or "", probe),
+        } for _, r, probe in scored[:limit]]
 
 
 def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]:
