@@ -14,6 +14,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
 
+from kifrs.user_notes import format_user_note, note_field as _note_field, parse_user_note, parse_user_note_v2
+
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "kifrs.db"
 
@@ -90,6 +92,25 @@ CREATE TABLE IF NOT EXISTS user_note (
     created_at TEXT
 );
 
+-- Engine Quality Ops: typed projection of user_note. Additive and idempotent.
+CREATE TABLE IF NOT EXISTS user_note_v2 (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    legacy_id   INTEGER,
+    standard    TEXT NOT NULL,
+    no          TEXT NOT NULL,
+    type        TEXT NOT NULL,
+    trigger     TEXT NOT NULL,
+    expansion   TEXT NOT NULL,
+    source      TEXT,
+    rationale   TEXT,
+    active      INTEGER NOT NULL DEFAULT 1,
+    confidence  REAL NOT NULL DEFAULT 1.0,
+    created_at  TEXT,
+    migrated_at TEXT,
+    UNIQUE(legacy_id),
+    FOREIGN KEY (legacy_id) REFERENCES user_note(id)
+);
+
 -- Phase 2: 임베딩 인덱스 (kifrs/embed.py)
 CREATE TABLE IF NOT EXISTS embedding (
     standard    TEXT NOT NULL,
@@ -108,6 +129,81 @@ CREATE INDEX IF NOT EXISTS idx_embedding_model ON embedding(model);
 def init_db() -> None:
     with _conn() as conn:
         conn.executescript(SCHEMA)
+
+
+def _table_exists(conn: sqlite3.Connection, table: str) -> bool:
+    row = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)
+    ).fetchone()
+    return row is not None
+
+
+def _has_v2_notes(conn: sqlite3.Connection) -> bool:
+    if not _table_exists(conn, "user_note_v2"):
+        return False
+    row = conn.execute("SELECT 1 FROM user_note_v2 WHERE active=1 LIMIT 1").fetchone()
+    return row is not None
+
+
+def add_user_note_v2(
+    standard: str,
+    no: str,
+    note_type: str,
+    trigger: str,
+    expansion: str,
+    source: str | None,
+    rationale: str | None,
+    created_at: str | None = None,
+    *,
+    mirror_legacy: bool = True,
+) -> dict[str, Any]:
+    """Insert a typed user note, optionally mirroring to legacy `user_note`.
+
+    The legacy mirror keeps older query paths and local DB snapshots compatible.
+    Existing legacy rows are reused and never mutated.
+    """
+    init_db()
+    note = format_user_note(note_type, trigger, expansion, source, rationale)
+    now = datetime.now().isoformat(timespec="seconds")
+    created = created_at or now
+
+    with _conn() as conn:
+        legacy_id = None
+        if mirror_legacy:
+            legacy = conn.execute(
+                "SELECT id FROM user_note WHERE standard=? AND no=? AND note=?",
+                (standard, no, note),
+            ).fetchone()
+            if legacy:
+                legacy_id = legacy["id"]
+            else:
+                cur = conn.execute(
+                    "INSERT INTO user_note (standard, no, note, created_at) VALUES (?, ?, ?, ?)",
+                    (standard, no, note, created),
+                )
+                legacy_id = cur.lastrowid
+
+        existing = conn.execute(
+            """
+            SELECT id FROM user_note_v2
+            WHERE standard=? AND no=? AND type=? AND trigger=? AND expansion=?
+              AND COALESCE(source, '')=COALESCE(?, '')
+              AND COALESCE(rationale, '')=COALESCE(?, '')
+            """,
+            (standard, no, note_type, trigger, expansion, source, rationale),
+        ).fetchone()
+        if existing:
+            return {"inserted": False, "id": existing["id"], "legacy_id": legacy_id}
+
+        cur = conn.execute(
+            """
+            INSERT INTO user_note_v2
+            (legacy_id, standard, no, type, trigger, expansion, source, rationale, active, confidence, created_at, migrated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 1.0, ?, ?)
+            """,
+            (legacy_id, standard, no, note_type, trigger, expansion, source, rationale, created, now),
+        )
+        return {"inserted": True, "id": cur.lastrowid, "legacy_id": legacy_id}
 
 
 # ── ingest (parsed JSON → DB) ────────────────────────────────────────────
@@ -260,7 +356,165 @@ def expand_query(query: str) -> str:
     for exam_term, body_terms in TERM_BRIDGE.items():
         if exam_term in query:
             extra.extend(body_terms)
-    return f"{query} {' '.join(extra)}" if extra else query
+    extra.extend(_user_note_expansions(query))
+    deduped = list(dict.fromkeys(extra))
+    return f"{query} {' '.join(deduped)}" if deduped else query
+
+
+def _user_note_expansions(query: str) -> list[str]:
+    """Use Phase 4 user_note rows as local query-expansion hints.
+
+    Only term bridges and retriever policies are search-time signals. Exam
+    conventions and interpretation notes are answer-time checklist material.
+    """
+    if not DB_PATH.exists():
+        return []
+
+    try:
+        with _conn() as conn:
+            if _has_v2_notes(conn):
+                rows = conn.execute(
+                    """
+                    SELECT trigger, expansion FROM user_note_v2
+                    WHERE active=1 AND type IN ('term_bridge', 'retriever_policy')
+                    ORDER BY id
+                    """
+                ).fetchall()
+                return _expansions_from_typed_rows(query, rows)
+
+            rows = conn.execute(
+                """
+                SELECT note FROM user_note
+                WHERE note LIKE 'type=term_bridge;%'
+                   OR note LIKE 'type=retriever_policy;%'
+                """
+            ).fetchall()
+    except sqlite3.Error:
+        return []
+
+    return _expansions_from_legacy_rows(query, rows)
+
+
+def _expansions_from_typed_rows(query: str, rows: Iterable[sqlite3.Row]) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for row in rows:
+        trigger = row["trigger"]
+        expansion = row["expansion"]
+        if not trigger or not expansion or trigger not in query:
+            continue
+        for term in expansion.split(";"):
+            term = term.strip()
+            if term and term not in seen:
+                seen.add(term)
+                out.append(term)
+    return out
+
+
+def _expansions_from_legacy_rows(query: str, rows: Iterable[sqlite3.Row]) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for (note,) in rows:
+        trigger = _note_field(note, "trigger")
+        expansion = _note_field(note, "expansion")
+        if not trigger or not expansion or trigger not in query:
+            continue
+        for term in expansion.split(";"):
+            term = term.strip()
+            if term and term not in seen:
+                seen.add(term)
+                out.append(term)
+    return out
+
+
+def get_user_notes(
+    query: str,
+    standard: str | None = None,
+    note_type: str | None = None,
+    limit: int = 20,
+) -> list[dict[str, Any]]:
+    """Return user-authored notes whose trigger appears in the query.
+
+    Search-time expansion intentionally uses only term_bridge/retriever_policy.
+    This helper exposes exam_convention and interpretation_note at answer time.
+    """
+    if not DB_PATH.exists():
+        return []
+
+    try:
+        with _conn() as conn:
+            if _has_v2_notes(conn):
+                return _get_user_notes_v2(conn, query, standard, note_type, limit)
+            rows = _get_user_notes_legacy_rows(conn, standard, note_type)
+    except sqlite3.Error:
+        return []
+
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        note = row["note"]
+        parsed = parse_user_note(
+            row["standard"], row["no"], note, row["created_at"],
+            note_id=row["id"], legacy_id=row["id"],
+        )
+        if not parsed.trigger or parsed.trigger not in query:
+            continue
+        out.append(parsed.to_dict())
+        if len(out) >= limit:
+            break
+    return out
+
+
+def _get_user_notes_v2(
+    conn: sqlite3.Connection,
+    query: str,
+    standard: str | None,
+    note_type: str | None,
+    limit: int,
+) -> list[dict[str, Any]]:
+    sql = """
+        SELECT id, legacy_id, standard, no, type, trigger, expansion, source, rationale,
+               active, confidence, created_at, migrated_at
+        FROM user_note_v2
+        WHERE active=1
+    """
+    params: list[Any] = []
+    if standard:
+        sql += " AND standard=?"
+        params.append(standard)
+    if note_type:
+        sql += " AND type=?"
+        params.append(note_type)
+    sql += " ORDER BY id"
+
+    out: list[dict[str, Any]] = []
+    for row in conn.execute(sql, params).fetchall():
+        parsed = parse_user_note_v2(row)
+        if not parsed.trigger or parsed.trigger not in query:
+            continue
+        out.append(parsed.to_dict())
+        if len(out) >= limit:
+            break
+    return out
+
+
+def _get_user_notes_legacy_rows(
+    conn: sqlite3.Connection,
+    standard: str | None,
+    note_type: str | None,
+) -> list[sqlite3.Row]:
+    sql = "SELECT id, standard, no, note, created_at FROM user_note"
+    clauses: list[str] = []
+    params: list[Any] = []
+    if standard:
+        clauses.append("standard=?")
+        params.append(standard)
+    if note_type:
+        clauses.append("note LIKE ?")
+        params.append(f"type={note_type};%")
+    if clauses:
+        sql += " WHERE " + " AND ".join(clauses)
+    sql += " ORDER BY id"
+    return conn.execute(sql, params).fetchall()
 
 
 def search_fts(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:

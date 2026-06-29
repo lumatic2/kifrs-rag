@@ -1,0 +1,64 @@
+{
+  "sources": [
+    {
+      "id": "kifrs-primary",
+      "title": "K-IFRS standards database",
+      "authority_type": "primary_standard",
+      "priority": 10,
+      "scope": "K-IFRS recognition, measurement, presentation, disclosure",
+      "keywords": ["K-IFRS", "기준서", "공정가치", "리스", "수익", "확정급여", "금융상품"],
+      "status": "local-private-db",
+      "note": "Primary evidence remains the local paragraph DB; protected source text is not committed."
+    },
+    {
+      "id": "commercial-act-capital",
+      "title": "Korean Commercial Act capital transactions",
+      "authority_type": "external_law",
+      "priority": 40,
+      "scope": "capital surplus, dividends, no-par stock, legal reserve boundaries",
+      "keywords": ["상법", "자본거래", "무상증자", "결산배당", "미지급배당금", "자본준비금"],
+      "status": "metadata-only",
+      "note": "Use as supporting authority candidate when K-IFRS DB is not the governing source."
+    },
+    {
+      "id": "fss-accounting-inquiry",
+      "title": "Financial Supervisory Service accounting inquiry and supervision materials",
+      "authority_type": "regulatory_guidance",
+      "priority": 45,
+      "scope": "Korean accounting supervision, inquiry reply, enforcement and practical interpretation candidates",
+      "keywords": ["금융감독원", "질의회신", "감리", "회계처리", "수익", "리스", "공정가치"],
+      "status": "metadata-only",
+      "note": "Registry candidate only. Store source id/link metadata before any body-level ingestion."
+    },
+    {
+      "id": "kasb-interpretation-material",
+      "title": "KASB interpretation and education materials",
+      "authority_type": "standard-setter_guidance",
+      "priority": 35,
+      "scope": "KASB explanations, education material, implementation guidance candidates",
+      "keywords": ["한국회계기준원", "KASB", "질의", "해석", "교육자료", "적용사례"],
+      "status": "metadata-only",
+      "note": "Supporting guidance only; K-IFRS paragraph DB remains primary."
+    },
+    {
+      "id": "tax-law-boundary",
+      "title": "Korean tax law boundary",
+      "authority_type": "external_tax",
+      "priority": 70,
+      "scope": "Tax treatment boundary where K-IFRS accounting answer must stop or hand off",
+      "keywords": ["세법", "법인세", "부가가치세", "세무조정", "손금", "익금"],
+      "status": "metadata-only",
+      "note": "Boundary signal, not a tax-answer source in this repo."
+    },
+    {
+      "id": "exam-convention",
+      "title": "CPA exam answer convention",
+      "authority_type": "exam_convention",
+      "priority": 60,
+      "scope": "grading conventions and answer-shape differences observed in local dogfood",
+      "keywords": ["시험 관습", "모범답안", "중간 정산 순이자", "반올림", "해석 분기"],
+      "status": "metadata-only",
+      "note": "Use only as answer convention, not as primary accounting authority."
+    }
+  ]
+}

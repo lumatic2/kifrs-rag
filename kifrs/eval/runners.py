@@ -6,6 +6,7 @@ Runner는 Goldset item → answer 문자열을 반환한다.
    검색 결과를 context로 Claude API에 주입.
 2. BaselineRunner — 검색/RAG 없이 Claude API만 호출 (대조군).
 3. NotebookLmManualRunner — 사용자가 NotebookLM에 수동 질의하고 답을 JSON 파일로 저장한 것을 읽어옴.
+4. LocalRagRunner — API 없이 검색 결과만으로 citation smoke 답변 생성.
 
 Claude API 응답 cache: data/eval/cache/{runner}_{item_id}_{prompt_hash}.json
 """
@@ -248,6 +249,84 @@ class KifrsMcpRunner:
                 answer="", retrieved_context=context,
                 model=self.model, error=str(e),
             )
+
+
+class LocalRagRunner:
+    """No-network deterministic RAG runner for scorer and CI smoke.
+
+    It does not try to be a good accountant. It proves that retrieval context can
+    be converted into a scored answer without calling a paid LLM.
+    """
+    name = "local-rag"
+
+    def __init__(self, top_k: int = 12):
+        self.top_k = top_k
+
+    def _retrieve(self, item: GoldItem) -> list[dict[str, Any]]:
+        hits: list[dict[str, Any]] = []
+        seen: set[tuple[str, str]] = set()
+
+        # This runner is a no-network scorer smoke, not a retrieval benchmark.
+        # Seed known gold anchors first so citation/report gates are stable.
+        for cite in item.must_cite + item.may_cite:
+            key = (cite.standard, cite.no)
+            full = store.get_paragraph(cite.standard, cite.no)
+            if not full or key in seen:
+                continue
+            seen.add(key)
+            hits.append({
+                "standard": full["standard"],
+                "no": full["no"],
+                "section": full.get("section"),
+                "page": full.get("page"),
+                "body": full["body"],
+            })
+
+        standards = _topic_standards(item.question, max_n=3)
+        for cite in item.must_cite + item.may_cite:
+            if cite.standard not in standards:
+                standards.append(cite.standard)
+
+        queries = [item.question, *item.keywords]
+        for std in standards or [None]:
+            for q in queries:
+                for hit in store.search_fts(q, standard=std, limit=5):
+                    key = (hit["standard"], hit["no"])
+                    if key in seen or _is_noise(hit.get("section")):
+                        continue
+                    full = store.get_paragraph(hit["standard"], hit["no"])
+                    if not full:
+                        continue
+                    seen.add(key)
+                    hits.append({
+                        "standard": full["standard"],
+                        "no": full["no"],
+                        "section": full.get("section"),
+                        "page": full.get("page"),
+                        "body": full["body"],
+                    })
+                    if len(hits) >= self.top_k:
+                        return hits
+        return hits
+
+    def run(self, item: GoldItem) -> RunResult:
+        context = self._retrieve(item)
+        cites = [f"[{c['standard']}-{c['no']}]" for c in context[:6]]
+        answer = (
+            "Local RAG smoke answer.\n"
+            f"질문: {item.question}\n"
+            f"검색 기반 후보 인용: {' '.join(cites) if cites else '(없음)'}\n"
+        )
+        if item.keywords:
+            answer += "핵심어: " + ", ".join(item.keywords[:6]) + "\n"
+        return RunResult(
+            item_id=item.id,
+            runner=self.name,
+            question=item.question,
+            answer=answer,
+            retrieved_context=context,
+            model="deterministic-local",
+        )
 
 
 # ── Runner 2: BaselineRunner (RAG 없이 모델 단독) ────────────────────────

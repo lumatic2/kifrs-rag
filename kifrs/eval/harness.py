@@ -19,7 +19,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
 from .models import GoldItem, ItemReport, RunReport
-from .runners import KifrsMcpRunner, BaselineRunner, NotebookLmManualRunner
+from .runners import KifrsMcpRunner, BaselineRunner, NotebookLmManualRunner, LocalRagRunner
 from .scorers import ALL_SCORERS
 from .reporter import write_report
 
@@ -41,6 +41,8 @@ def build_runner(name: str):
         return BaselineRunner()
     if name == "notebooklm-manual":
         return NotebookLmManualRunner()
+    if name == "local-rag":
+        return LocalRagRunner()
     raise ValueError(f"unknown runner: {name}")
 
 
@@ -68,7 +70,7 @@ def run_eval(runner_name: str, items: list[GoldItem], verbose: bool = True) -> R
 def main():
     ap = argparse.ArgumentParser(description="K-IFRS RAG 평가 하네스")
     ap.add_argument("--runner", default="kifrs-mcp",
-                    choices=["kifrs-mcp", "baseline-noretrieval", "notebooklm-manual"])
+                    choices=["kifrs-mcp", "baseline-noretrieval", "notebooklm-manual", "local-rag"])
     ap.add_argument("--only", nargs="+", help="특정 item id만 (예: --only Q006 Q007)")
     ap.add_argument("--goldset", default=str(GOLDSET))
     ap.add_argument("--out", default=str(RESULTS_DIR))

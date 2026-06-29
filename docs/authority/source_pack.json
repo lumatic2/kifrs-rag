@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "policy": {
+    "primary_evidence_source_id": "kifrs-primary",
+    "body_text_committed": false,
+    "rules": "docs/authority/source_pack_rules.md"
+  },
+  "items": [
+    {
+      "id": "kifrs-local-paragraph-db",
+      "source_id": "kifrs-primary",
+      "title": "Local K-IFRS paragraph database",
+      "publisher": "local-private",
+      "authority_type": "primary_standard",
+      "allowed_use": "primary_evidence",
+      "priority": 10,
+      "locator": {
+        "kind": "local_private_db",
+        "ref": "data/kifrs.db"
+      },
+      "status": "available-local-private",
+      "keywords": ["K-IFRS", "기준서", "문단", "인식", "측정", "표시", "공시"],
+      "notes": "Primary evidence source. DB and parsed text are private and ignored by git."
+    },
+    {
+      "id": "kasb-implementation-material-index",
+      "source_id": "kasb-interpretation-material",
+      "title": "KASB interpretation and education material index",
+      "publisher": "KASB",
+      "authority_type": "standard-setter_guidance",
+      "allowed_use": "supporting_interpretation",
+      "priority": 35,
+      "locator": {
+        "kind": "web_index",
+        "url": "https://www.kasb.or.kr/"
+      },
+      "status": "collection_seed",
+      "keywords": ["KASB", "한국회계기준원", "교육자료", "해석", "적용사례"],
+      "notes": "Collect document metadata only. Do not commit copied source body."
+    },
+    {
+      "id": "fss-accounting-inquiry-index",
+      "source_id": "fss-accounting-inquiry",
+      "title": "FSS accounting inquiry and supervision material index",
+      "publisher": "Financial Supervisory Service",
+      "authority_type": "regulatory_guidance",
+      "allowed_use": "supporting_interpretation",
+      "priority": 45,
+      "locator": {
+        "kind": "web_index",
+        "url": "https://www.fss.or.kr/"
+      },
+      "status": "collection_seed",
+      "keywords": ["금융감독원", "질의회신", "감리", "회계처리", "수익", "리스"],
+      "notes": "Use after K-IFRS primary paragraphs are identified; Korean practice context only."
+    },
+    {
+      "id": "commercial-act-capital-boundary",
+      "source_id": "commercial-act-capital",
+      "title": "Commercial Act capital transaction boundary",
+      "publisher": "Korean law source",
+      "authority_type": "external_law",
+      "allowed_use": "legal_boundary",
+      "priority": 40,
+      "locator": {
+        "kind": "law_index",
+        "ref": "commercial-act-capital"
+      },
+      "status": "collection_seed",
+      "keywords": ["상법", "자본거래", "무상증자", "배당", "자본준비금"],
+      "notes": "Boundary source for legal-capital questions; not a substitute for K-IFRS evidence."
+    },
+    {
+      "id": "tax-law-accounting-boundary",
+      "source_id": "tax-law-boundary",
+      "title": "Tax law accounting boundary index",
+      "publisher": "Korean tax law source",
+      "authority_type": "external_tax",
+      "allowed_use": "legal_boundary",
+      "priority": 70,
+      "locator": {
+        "kind": "law_index",
+        "ref": "tax-law-boundary"
+      },
+      "status": "collection_seed",
+      "keywords": ["세법", "법인세", "부가가치세", "세무조정", "손금", "익금"],
+      "notes": "Boundary signal only. Tax answers belong outside this K-IFRS RAG scope."
+    },
+    {
+      "id": "exam-convention-local-notes",
+      "source_id": "exam-convention",
+      "title": "Local exam convention notes",
+      "publisher": "local-authored",
+      "authority_type": "exam_convention",
+      "allowed_use": "answer_convention",
+      "priority": 60,
+      "locator": {
+        "kind": "local_authored_metadata",
+        "ref": "user_note_v2"
+      },
+      "status": "available-local-private",
+      "keywords": ["시험 관습", "반올림", "모범답안", "표시", "해석 분기"],
+      "notes": "Author-written convention metadata. Do not commit dogfood source question body."
+    }
+  ]
+}

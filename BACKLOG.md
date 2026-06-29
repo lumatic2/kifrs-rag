@@ -4,6 +4,75 @@
 
 ## Completed
 
+### 2026-06-30 — Engine Quality Ops EQ5: quality preflight CI
+- Completed: 2026-06-30
+- Result: local-rag threshold gate, focused pytest, authority registry/source-pack validators, `user_note_v2` audit를 하나의 public-safe preflight 명령으로 묶고 GitHub Actions workflow 템플릿이 같은 명령을 실행하도록 문서화.
+- Evidence: `docs/plans/2026-06-30-quality-preflight-ci.md`; `changesets/20260630-quality-preflight-ci/README.md`; `scripts/quality_preflight.py`; `docs/ci/quality.yml`; `tests/test_quality_preflight.py`; `README.md`
+- Verification: targeted pytest 8개 통과. expanded focused pytest 22개 통과. `python scripts/quality_preflight.py --format text` -> ok, `public_safe=True`, `protected_assets_required=False`. `engine_quality_expanded_smoke.py --format text` ok. `compileall kifrs scripts` 통과.
+- Follow-up: Engine Quality Ops 현재 scope 완료. 다음은 새 horizon 또는 Phase 4 scenario expansion 여부 결정.
+
+### 2026-06-30 — Engine Quality Ops EQ3: authority source pack rules
+- Completed: 2026-06-30
+- Result: authority source category를 문서/링크 단위 metadata source pack으로 확장. `source_pack_rules.md`로 primary/supporting/boundary/convention 사용 경계를 정하고, `source_pack.json` 6개 item을 metadata/link-only로 추가. validator는 source id, authority type, allowed use, locator, keywords, body-field 금지를 검증한다.
+- Evidence: `docs/plans/2026-06-30-authority-source-pack-rules.md`; `changesets/20260630-authority-source-pack-rules/README.md`; `docs/authority/source_pack_rules.md`; `docs/authority/source_pack.json`; `scripts/validate_authority_source_pack.py`; `tests/test_authority_source_pack.py`
+- Verification: authority focused pytest 8개 통과. expanded focused pytest 18개 통과. `validate_authority_sources.py` ok, `validate_authority_source_pack.py` ok(total 6). `authority_index_smoke.py --query "금융감독원 질의회신 수익"` FSS hit. `search_source_pack("금융감독원 질의회신 수익")` returns `fss-accounting-inquiry-index`. `engine_quality_expanded_smoke.py --format text` ok. `compileall kifrs scripts` 통과.
+- Follow-up: EQ5 local-rag threshold CI hook만 남음.
+
+### 2026-06-30 — Engine Quality Ops EQ4: user_note v2 runtime layer
+- Completed: 2026-06-30
+- Result: `user_note_v2`를 projection에서 runtime 우선 레이어로 승격. 신규 seed/write는 typed v2 row를 쓰고 legacy mirror를 유지하며, query expansion과 `get_user_notes()`는 v2 active row를 우선 읽고 v2가 비어 있으면 legacy `user_note`로 fallback한다.
+- Evidence: `docs/plans/2026-06-30-user-note-v2-runtime.md`; `changesets/20260630-user-note-v2-runtime/README.md`; `kifrs/store.py`; `kifrs/user_notes.py`; `scripts/seed_user_notes.py`; `scripts/audit_user_notes.py`; `tests/test_user_note_v2_runtime.py`
+- Verification: focused pytest 8개 통과, expanded focused pytest 16개 통과. `seed_user_notes.py --apply` idempotent(existing 13, new 0). `audit_user_notes.py --source v2 --format json` 13 rows `ok=true`; legacy audit도 13 rows `ok=true`. `engine_quality_expanded_smoke.py --format text`와 기존 `engine_quality_smoke.py --format text` 모두 `ok: True`. `compileall kifrs scripts` 통과.
+- Follow-up: EQ3 source pack 실제 수집 전략 또는 EQ5 local-rag threshold CI hook 중 하나만 active로 승격.
+
+### 2026-06-30 — Engine Quality Ops EQ2: expanded quality loop
+- Completed: 2026-06-30
+- Result: EQ1의 세 축을 운영 가능한 다음 단계로 확대. `local-rag` 자동 채점에 threshold gate를 추가하고, 외부 권위 source pack을 6개 metadata source로 확장했으며, 기존 `user_note`를 건드리지 않는 additive `user_note_v2` projection migration을 구현.
+- Evidence: `docs/plans/2026-06-30-engine-quality-loop-expanded.md`; `changesets/20260630-auto-grading-expanded/`; `changesets/20260630-authority-source-pack/`; `changesets/20260630-user-note-schema-v2/`; `scripts/eval_quality_gate.py`; `scripts/validate_authority_sources.py`; `scripts/migrate_user_notes_v2.py`; `scripts/engine_quality_expanded_smoke.py`
+- Verification: focused pytest 13개 통과. Q019~Q023 gate mean composite `0.921`, mean cite `0.763`, global rules `1.000`, failing items `0`. authority registry 6개 source validate 통과. `금융감독원 질의회신 수익` query에서 FSS source hit. `user_note_v2` migration apply 13건 insert 후 재실행 dry-run planned 0. expanded smoke `ok: True`. `compileall kifrs scripts` 통과.
+- Follow-up: EQ3 source pack 실제 수집 전략, EQ4 user_note v2 write path 전환, EQ5 local-rag threshold CI hook 중 다음 active 선택.
+
+### 2026-06-30 — Engine Quality Ops EQ1: RAG 품질 운영 루프
+- Completed: 2026-06-30
+- Result: Phase 4 dogfood 이후 남은 세 축을 tooling changeset으로 구현. `user_note` parser/audit CLI, no-network `local-rag` 자동 채점 runner, metadata-only external authority registry, integrated smoke 추가.
+- Evidence: `docs/horizons/engine-quality-ops.md`; `docs/plans/2026-06-30-engine-quality-ops.md`; `changesets/20260630-user-note-quality/`; `changesets/20260630-auto-grading/`; `changesets/20260630-authority-index/`; `scripts/engine_quality_smoke.py`
+- Verification: focused pytest 18개 통과. `audit_user_notes.py` 13 rows ok. `local-rag` Q019~Q021 composite 0.783. `authority_index_smoke.py` 상법 자본거래 query hit. `engine_quality_smoke.py --format text` ok. `compileall kifrs scripts` 통과(기존 validate_parse warning 1건).
+- Follow-up: EQ2 자동 채점 확대, EQ3 권위 source pack, EQ4 user_note schema migration 중 다음 active 선택.
+
+### 2026-06-30 — Phase 4 콘텐츠 축 P4C5: 1019 확정급여 도메인 승격
+- Completed: 2026-06-30
+- Result: q06을 1019 확정급여와 1037 구조조정충당부채 workflow로 승격. EB-01은 정산·제도개정·재측정·자산인식상한, EB-02는 구조조정충당부채와 해고급여 해석 분기를 다룸. 검색 전 확장이 아니라 답변 작성 단계에서 `exam_convention`/`interpretation_note`를 조회하도록 `get_user_notes` helper와 MCP tool 추가.
+- Evidence: `docs/plans/2026-06-30-p4c5-employee-benefits-entry.md`; `data/scenarios/1019_employee_benefits/WORKFLOW.md`; `data/scenarios/1019_employee_benefits/EB-01_defined_benefit_settlement_amendment/`; `EB-02_restructuring_termination_benefits/`; `kifrs/store.py`; `kifrs/mcp_server.py`
+- Verification: 1019/1037 citation 14개 DB/PDF 검증 완료. EB-01/EB-02 각 scenario 필수 파일 3/3 존재 확인. `get_user_notes` smoke에서 `중간 정산 순이자`, `자산인식상한 적용 시점`, `해고급여 vs 구조조정 충당부채`가 각각 q06 user_note를 반환. `python -m compileall kifrs/store.py kifrs/mcp_server.py scripts/seed_user_notes.py` 통과.
+- Follow-up: Phase 4 콘텐츠 후보는 P4C1~P4C5로 일단 닫힘. 다음은 새 engine horizon 결정.
+
+### 2026-06-30 — Phase 4 콘텐츠 축 P4C4: 1113 공정가치 도메인 진입 설계
+- Completed: 2026-06-30
+- Result: 1113 공정가치 도메인의 P4C4 범위를 기준서 판단 중심으로 고정. DCF 엔진·옵션모델·외부 시장데이터 수집은 제외하고, 공정가치 정의/가치평가기법/투입변수 관측가능성/서열체계/공시 체크로 workflow를 구성. 수준 1 상장주식, 수준 2 회사채, 수준 3 비상장 지분 seed scenario 3개 작성. 종가/수익률 곡선/DCF term_bridge 3건을 SQLite `user_note` seed로 승격.
+- Evidence: `docs/plans/2026-06-30-p4c4-fair-value-entry.md`; `data/scenarios/1113_fair_value/WORKFLOW.md`; `data/scenarios/1113_fair_value/FV-01_level1_listed_equity/`; `FV-02_level2_corporate_bond/`; `FV-03_level3_private_equity/`; `data/scenarios/1113_fair_value/user_note_candidates.md`
+- Verification: P4C4 citation map 14개 DB/PDF 검증 완료. FV-01~FV-03 scenario citations 11개 고유 문단 DB/PDF 검증 완료. 각 scenario 폴더에 `transaction.md`, `retrieval_trace.md`, `review_memo.md` 3/3 존재 확인. user_note dry-run idempotency `existing rows: 13`, `new rows: 0`; 1113 FTS top10 smoke에서 수준 1/2/3 target 문단 hit.
+- Follow-up: 1019 확정급여(q06)를 다음 실무 scenario workflow로 전환하거나, 새 engine horizon을 정의.
+
+### 2026-06-30 — Phase 4 콘텐츠 축 P4C3: user_note 운영 시작
+- Completed: 2026-06-30
+- Result: q05/q06/q07/P4C2에서 나온 failure mode를 user_note seed 10건으로 승격. 이후 P4C4 1113 seed 3건을 추가해 총 13건. `scripts/seed_user_notes.py` idempotent seeder 추가, SQLite `user_note`에 insert, `kifrs/store.py` 검색 전 query expansion이 `type=term_bridge`와 `type=retriever_policy` user_note를 읽도록 연결.
+- Evidence: `data/user_notes/2026-06-30-p4c3-seed-preview.md`; `scripts/seed_user_notes.py`; `kifrs/store.py`
+- Verification: seed dry-run `existing rows: 10, new rows: 0`; query expansion smoke for `갱신선택권`, `외상거래할인권`, `공매도`; seed anchor citations 10개 DB/PDF 검증.
+- Follow-up: P4C4 1113 공정가치 도메인 진입 설계.
+
+### 2026-06-30 — Phase 4 콘텐츠 축 P4C2: 1116 리스 잔여 closeout
+- Completed: 2026-06-30
+- Result: 1116 리스 워크플로 5/10 → 10/10 완성. 신규 산출: 시나리오 3 단기·소액 면제, 시나리오 4 금융리스 제공자 금융→운용 변경, 시나리오 6 금융→금융 정기리스료 변경, 시나리오 7 리스기간 재평가, 시나리오 8 매수선택권 행사 거의 확실. 각 시나리오별 `transaction.md`, `workflow_log.md`, `entries.md`, `review_memo.md` 작성.
+- Evidence: `data/scenarios/1116_lease/WORKFLOW.md`; `data/scenarios/1116_lease/scenario_03_short_low_value_exemption/`; `scenario_04_lessor_finance_to_operating/`; `scenario_06_lessor_finance_to_finance_payment_change/`; `scenario_07_lessee_term_reassessment/`; `scenario_08_lessee_purchase_option_reasonably_certain/`
+- Verification: cited paragraphs checked against DB/PDF for scenario 3(9), 4(10), 6(7), 7(8), 8(5) with 0 missing and 0 mismatch.
+- Follow-up: P4C3 user_note 운영 시작. q07 term_bridge/exam_convention 후보와 1116에서 나온 interpretation notes를 seed 후보로 정리.
+
+### 2026-06-30 — Phase 4 콘텐츠 축 P4C1: 1115 수익 q07 RAG eval case
+- Completed: 2026-06-30
+- Result: q07을 clean input + retrieval trace + 본인 풀이 + 채점 + user_note 후보까지 닫음. 직관 5/7, 해석 인정 6/7, 인용 정확도 13/13. q07-2 할인권, q07-3 유의적 금융요소, q07-4 콜옵션 재매입약정은 pass. q07-1 갱신선택권은 citation은 맞았지만 계약부채 vs 잔여 수행의무 표시와 진행률 반올림 관습에서 partial.
+- Evidence: `data/dogfood/cpa2/q/q07.md`; `data/eval/manual/q07_1115_revenue_trace.md`; `data/scenarios/1115_revenue/WORKFLOW.md`; `data/scenarios/1115_revenue/user_note_candidates.md`
+- Follow-up: P4C2 1116 리스 잔여 closeout. q07 term_bridge/exam_convention 후보는 P4C3 user_note 운영 시작 때 seed 우선순위로 반영.
+
 ### 2026-06 — 검색 파이프라인 고도화 (Current Horizon)
 - M1 — 측정 기반 구축 (Retrieval Eval Harness)
   - Completed: 2026-06-27
@@ -22,6 +91,18 @@
   - Result: search_reranked MCP tool + 리랭커 warmup(데몬 스레드) + /accounting SKILL.md 정밀 인용 1순위. GPU per-query 0.44s로 인터랙티브 viable
   - Evidence: kifrs/mcp_server.py
   - Plan: `docs/plans/2026-06-27-rerank-production-wiring.md`
+
+- M4 — Hierarchical retrieval + evidence curation
+  - Completed: 2026-06-27
+  - Result: 계층 검색(섹션 centroid) hybrid 전 지표 비퇴행/개선. recall@10 0.763→0.827. search_hierarchical MCP tool 노출. evidence curation/후보 풀 교체는 측정상 가치 낮아 보류
+  - Evidence: `data/eval/results/retrieval_20260627_225318.json`
+  - Plan: `docs/plans/2026-06-27-hierarchical-retrieval.md`
+
+- M5 — 평가 리포트 + 아키텍처 글
+  - Completed: 2026-06-28
+  - Result: "측정이 거절한 두 기능: 검색 엔진을 평가 하네스로 키운 기록" 발행. M1~M4 누적 before/after 메트릭과 하네스가 폐기한 기능 판단을 공개 가능한 범위에서 정리. 기준서 원문·문단·기출은 미포함
+  - Evidence: `https://askewly.com/blog/eval-harness-rejects-features`
+  - Plan: option track from ROADMAP M5
 
 ---
 

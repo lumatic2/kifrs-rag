@@ -217,6 +217,14 @@ def search_reranked(query: str, standard: str | None = None, limit: int = 10) ->
 
 
 @mcp.tool(output_schema=None)
+def get_user_notes(query: str, standard: str | None = None, note_type: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    """사용자 해설/user_note 조회. exam_convention·interpretation_note를 답변 작성 전 checklist로 확인한다."""
+    if not USE_SQLITE:
+        return [{"error": "user_note 조회는 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    return _store.get_user_notes(query, standard=standard, note_type=note_type, limit=limit)
+
+
+@mcp.tool(output_schema=None)
 def reload_store() -> dict[str, Any]:
     """디스크에서 파싱 JSON 다시 로드. ingest 파이프라인 갱신 후 재기동 없이 반영."""
     global STORE

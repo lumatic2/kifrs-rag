@@ -52,7 +52,14 @@ uv run python -m kifrs.eval.retrieval --k 20
 
 Some evaluation paths require local data that is not included in the repository.
 
+Public-safe quality preflight:
+
+```powershell
+uv run python scripts/quality_preflight.py --format text
+```
+
+This preflight runs focused tests, the no-network `local-rag` threshold gate, authority metadata validators, and the `user_note_v2` audit. `docs/ci/quality.yml` provides a GitHub Actions template that runs the same command. The preflight does not require protected PDFs, parsed source text, embeddings, DB dumps, dogfood questions, API keys, or network access.
+
 ## License
 
 Code in this repository is MIT licensed. The license does not cover third-party accounting standards, PDFs, parsed text, exam materials, or other excluded source data.
-
