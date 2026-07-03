@@ -606,6 +606,17 @@ def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]
         return [dict(r) for r in rows]
 
 
+def has_paragraphs() -> bool:
+    """Cheap non-empty check — used at MCP server startup so an empty/corrupt
+    `data/kifrs.db` fails with an actionable message instead of failing deep
+    inside every subsequent tool call's SQL execution."""
+    try:
+        with _conn() as conn:
+            return conn.execute("SELECT 1 FROM paragraph LIMIT 1").fetchone() is not None
+    except sqlite3.Error:
+        return False
+
+
 def list_standards() -> list[dict[str, Any]]:
     with _conn() as conn:
         return [dict(r) for r in conn.execute(

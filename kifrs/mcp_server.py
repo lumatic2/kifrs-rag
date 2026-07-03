@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Any
 
 from fastmcp import FastMCP
+from fastmcp.exceptions import ToolError
 
 from kifrs import store as _store
 
@@ -62,23 +63,34 @@ def _standard(standard: str) -> dict[str, Any] | None:
     return STORE.get(str(standard))
 
 
+def _dispatch(sqlite_fn, json_fn):
+    """SQLite/JSON dual-backend dispatch — single shared branch instead of one
+    `if USE_SQLITE: ... else: ...` per tool."""
+    return sqlite_fn() if USE_SQLITE else json_fn()
+
+
+def _require_sqlite(feature: str) -> None:
+    """Embedding-backed tools (semantic/hybrid/hierarchical/reranked search, user_note)
+    have no JSON-fallback implementation — raise a typed tool error instead of returning
+    a `[{"error": ...}]` sentinel the caller has to pattern-match."""
+    if not USE_SQLITE:
+        raise ToolError(f"{feature} 검색은 SQLite 모드만 지원. data/kifrs.db 필요")
+
+
 # ── MCP tools ────────────────────────────────────────────────────────────
 @mcp.tool(output_schema=None)
 def list_standards() -> list[dict[str, Any]]:
     """인덱싱된 기준서 목록."""
-    if USE_SQLITE:
-        return _store.list_standards()
-    return [
-        {"standard": std, "total_paragraphs": data.get("total_paragraphs", len(data.get("paragraphs", []))), "source": data.get("source")}
-        for std, data in sorted(STORE.items())
-    ]
+    return _dispatch(
+        lambda: _store.list_standards(),
+        lambda: [
+            {"standard": std, "total_paragraphs": data.get("total_paragraphs", len(data.get("paragraphs", []))), "source": data.get("source")}
+            for std, data in sorted(STORE.items())
+        ],
+    )
 
 
-@mcp.tool(output_schema=None)
-def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
-    """기준서·문단 번호로 단일 문단 반환. 예: ('1115','5'), ('1115','한4.1'), ('1115','B5')."""
-    if USE_SQLITE:
-        return _store.get_paragraph(standard, no)
+def _get_paragraph_json(standard: str, no: str) -> dict[str, Any] | None:
     data = _standard(standard)
     if not data:
         return None
@@ -89,12 +101,15 @@ def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
 
 
 @mcp.tool(output_schema=None)
-def list_paragraphs(standard: str, appendix: str | None = None, section: str | None = None, limit: int = 50) -> list[dict[str, Any]]:
-    """문단 목록(본문 미포함, 메타+preview). appendix='A'/'B'/'C'/'본문'(=None), section 필터."""
-    if USE_SQLITE:
-        app_arg = None if appendix in (None, "본문") else appendix
-        # __any__ 는 전체, 그 외는 정확 매칭
-        return _store.list_paragraphs(standard, appendix=app_arg if appendix is not None else "__any__", section=section, limit=limit)
+def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
+    """기준서·문단 번호로 단일 문단 반환. 예: ('1115','5'), ('1115','한4.1'), ('1115','B5')."""
+    return _dispatch(
+        lambda: _store.get_paragraph(standard, no),
+        lambda: _get_paragraph_json(standard, no),
+    )
+
+
+def _list_paragraphs_json(standard: str, appendix: str | None, section: str | None, limit: int) -> list[dict[str, Any]]:
     data = _standard(standard)
     if not data:
         return []
@@ -113,10 +128,17 @@ def list_paragraphs(standard: str, appendix: str | None = None, section: str | N
 
 
 @mcp.tool(output_schema=None)
-def list_sections(standard: str) -> list[dict[str, Any]]:
-    """섹션 소제목 목록."""
-    if USE_SQLITE:
-        return _store.list_sections(standard)
+def list_paragraphs(standard: str, appendix: str | None = None, section: str | None = None, limit: int = 50) -> list[dict[str, Any]]:
+    """문단 목록(본문 미포함, 메타+preview). appendix='A'/'B'/'C'/'본문'(=None), section 필터."""
+    app_arg = None if appendix in (None, "본문") else appendix
+    return _dispatch(
+        # __any__ 는 전체, 그 외는 정확 매칭
+        lambda: _store.list_paragraphs(standard, appendix=app_arg if appendix is not None else "__any__", section=section, limit=limit),
+        lambda: _list_paragraphs_json(standard, appendix, section, limit),
+    )
+
+
+def _list_sections_json(standard: str) -> list[dict[str, Any]]:
     data = _standard(standard)
     if not data:
         return []
@@ -128,10 +150,15 @@ def list_sections(standard: str) -> list[dict[str, Any]]:
 
 
 @mcp.tool(output_schema=None)
-def search_lexical(query: str, standard: str | None = None, limit: int = 20, case_sensitive: bool = False) -> list[dict[str, Any]]:
-    """본문 검색. SQLite 모드에서는 FTS5 trigram, JSON 모드는 정규식 substring."""
-    if USE_SQLITE:
-        return _store.search_fts(query, standard, limit=limit)
+def list_sections(standard: str) -> list[dict[str, Any]]:
+    """섹션 소제목 목록."""
+    return _dispatch(
+        lambda: _store.list_sections(standard),
+        lambda: _list_sections_json(standard),
+    )
+
+
+def _search_lexical_json(query: str, standard: str | None, limit: int, case_sensitive: bool) -> list[dict[str, Any]]:
     flags = 0 if case_sensitive else re.IGNORECASE
     try:
         pat = re.compile(query, flags)
@@ -157,10 +184,16 @@ def search_lexical(query: str, standard: str | None = None, limit: int = 20, cas
 
 
 @mcp.tool(output_schema=None)
-def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]:
-    """문단 앞뒤 around 개 포함 맥락 반환."""
-    if USE_SQLITE:
-        return _store.get_context(standard, no, around)
+def search_lexical(query: str, standard: str | None = None, limit: int = 20, case_sensitive: bool = False) -> list[dict[str, Any]]:
+    """본문 검색. SQLite 모드에서는 FTS5 trigram(쿼리 정규화·term_bridge 확장 포함), JSON
+    모드는 정규식 substring(정규화 없음 — data/kifrs.db 없는 fallback 전용, 품질이 다름)."""
+    return _dispatch(
+        lambda: _store.search_fts(query, standard, limit=limit),
+        lambda: _search_lexical_json(query, standard, limit, case_sensitive),
+    )
+
+
+def _get_context_json(standard: str, no: str, around: int) -> list[dict[str, Any]]:
     data = _standard(standard)
     if not data:
         return []
@@ -173,11 +206,19 @@ def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]
 
 
 @mcp.tool(output_schema=None)
+def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]:
+    """문단 앞뒤 around 개 포함 맥락 반환."""
+    return _dispatch(
+        lambda: _store.get_context(standard, no, around),
+        lambda: _get_context_json(standard, no, around),
+    )
+
+
+@mcp.tool(output_schema=None)
 def search_semantic(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
     """임베딩 cosine top-k. 동의어·표현 차이에 강함 (예: '환매약정' → '재매입약정' 매칭).
     SQLite + embedding 인덱스 필요. 미인덱싱 기준서는 결과 없음."""
-    if not USE_SQLITE:
-        return [{"error": "semantic 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    _require_sqlite("semantic")
     # lazy import — 모델 로드는 첫 호출 시
     from kifrs.embed import semantic_search
     return semantic_search(query, standard, limit)
@@ -188,8 +229,7 @@ def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> l
     """RRF (Reciprocal Rank Fusion) 하이브리드 검색 — lexical(FTS5) + semantic.
     각 검색 결과의 순위에 1/(60+rank) 점수를 합산해 top-k 반환.
     lexical 정확 매칭과 semantic 동의어 매칭 모두 활용."""
-    if not USE_SQLITE:
-        return [{"error": "hybrid 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    _require_sqlite("hybrid")
     from kifrs.embed import search_hybrid as _hybrid
     return _hybrid(query, standard, limit)
 
@@ -199,8 +239,7 @@ def search_hierarchical(query: str, standard: str | None = None, limit: int = 20
     """계층 검색 — 조·항·호 **섹션**을 1차 단위로. hybrid(lexical+semantic) + 섹션 membership 3-way RRF.
     **넓은 recall 1순위**: hybrid 전 지표 비퇴행/개선(recall@5 0.597→0.627, @10 0.763→0.827, @20 0.907→0.917,
     MRR 0.509→0.542). 섹션 제목이 쿼리와 일치하는 정답을 끌어올림. 정밀 인용 top-5는 search_reranked."""
-    if not USE_SQLITE:
-        return [{"error": "hierarchical 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    _require_sqlite("hierarchical")
     from kifrs.embed import search_hierarchical as _hier
     return _hier(query, standard, limit)
 
@@ -210,8 +249,7 @@ def search_reranked(query: str, standard: str | None = None, limit: int = 10) ->
     """Cross-encoder 리랭킹 검색 — hybrid top-50 후보를 bge-reranker-v2-m3로 재점수.
     **정밀 인용 1순위**: top-5 정밀도가 hybrid보다 높음(recall@5 0.640 vs 0.597, MRR 0.612 vs 0.509).
     매우 깊은 recall(@20)이 필요하면 search_hybrid(0.907 > reranked 0.853). per-query ~0.4s(GPU)."""
-    if not USE_SQLITE:
-        return [{"error": "reranked 검색은 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    _require_sqlite("reranked")
     from kifrs.embed import search_reranked as _reranked
     return _reranked(query, standard, limit=limit, candidates=50)
 
@@ -219,8 +257,7 @@ def search_reranked(query: str, standard: str | None = None, limit: int = 10) ->
 @mcp.tool(output_schema=None)
 def get_user_notes(query: str, standard: str | None = None, note_type: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
     """사용자 해설/user_note 조회. exam_convention·interpretation_note를 답변 작성 전 checklist로 확인한다."""
-    if not USE_SQLITE:
-        return [{"error": "user_note 조회는 SQLite 모드만 지원. data/kifrs.db 필요"}]
+    _require_sqlite("user_note")
     return _store.get_user_notes(query, standard=standard, note_type=note_type, limit=limit)
 
 
@@ -263,6 +300,16 @@ def main():
     backend = "sqlite" if USE_SQLITE else "json"
     loaded = [s["standard"] for s in _store.list_standards()] if USE_SQLITE else sorted(STORE.keys())
     print(f"[kifrs-mcp] backend={backend} | standards={loaded}", file=sys.stderr)
+
+    # 빈/손상된 data/kifrs.db 는 여기서 잡지 않으면 각 tool 호출 내부 SQL 실행에서야
+    # 실패한다. 존재하지만 비어 있으면 시작 시점에 바로 실패 메시지를 남긴다.
+    if USE_SQLITE and not _store.has_paragraphs():
+        print(
+            f"[kifrs-mcp] FATAL: {_store.DB_PATH} exists but has no paragraph rows — "
+            "run `python scripts/ingest.py` before starting the server",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     # 무거운 C-확장 import(sentence_transformers→sklearn→scipy)는 반드시 **메인 스레드**에서.
     # 백그라운드 스레드에서 처음 import 하면 CPython import-lock 교착으로 영구 hang 한다

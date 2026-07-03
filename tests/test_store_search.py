@@ -77,27 +77,26 @@ def test_search_reranked_candidate_pool_can_be_smaller_than_requested():
     assert len(pool) <= 50
 
 
-def test_mcp_server_json_fallback_error_sentinels():
-    """Current behavior (pre-CS-3): with USE_SQLITE=False, the search_semantic/
-    hybrid/hierarchical/reranked/get_user_notes tools all short-circuit to an
-    `[{"error": ...}]` sentinel list instead of raising. This test pins that
-    contract so CS-3's structured-error refactor has a known baseline to change."""
+def test_mcp_server_json_fallback_raises_tool_error():
+    """With USE_SQLITE=False, the search_semantic/hybrid/hierarchical/reranked/
+    get_user_notes tools raise a typed fastmcp ToolError instead of returning an
+    `[{"error": ...}]` sentinel list a caller would have to pattern-match."""
+    from fastmcp.exceptions import ToolError
+
     from kifrs import mcp_server
 
     original = mcp_server.USE_SQLITE
     mcp_server.USE_SQLITE = False
     try:
-        for fn, kwargs in [
-            (mcp_server.search_semantic, {}),
-            (mcp_server.search_hybrid, {}),
-            (mcp_server.search_hierarchical, {}),
-            (mcp_server.search_reranked, {}),
-            (mcp_server.get_user_notes, {}),
+        for fn in [
+            mcp_server.search_semantic,
+            mcp_server.search_hybrid,
+            mcp_server.search_hierarchical,
+            mcp_server.search_reranked,
+            mcp_server.get_user_notes,
         ]:
-            result = fn("공정가치", **kwargs)
-            assert isinstance(result, list)
-            assert len(result) == 1
-            assert "error" in result[0]
+            with pytest.raises(ToolError):
+                fn("공정가치")
     finally:
         mcp_server.USE_SQLITE = original
 
@@ -109,3 +108,18 @@ def test_mcp_server_search_lexical_matches_store_search_fts():
     via_tool = mcp_server.search_lexical("자산", limit=5)
     via_store = store.search_fts("자산", limit=5)
     assert via_tool == via_store
+
+
+def test_store_has_paragraphs_true_for_local_db():
+    assert store.has_paragraphs() is True
+
+
+def test_get_paragraphs_batch_matches_individual_lookups():
+    pairs = [("1115", "5"), ("1115", "9")]
+    batch = store.get_paragraphs_batch(pairs)
+    for std, no in pairs:
+        assert batch[(std, no)] == store.get_paragraph(std, no)
+
+
+def test_get_paragraphs_batch_empty_input():
+    assert store.get_paragraphs_batch([]) == {}
