@@ -26,30 +26,32 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — Workflow Automation
+## Current Horizon — RAG 엔진 ↔ 에이전트 통합
 
-<!-- harness:goal id="workflow-automation" -->
-목표: 문서 기반 워크플로(WORKFLOW.md)를 실행 가능한 결정 엔진으로 승격해 "시나리오 완료율"을 측정 가능하게 만든다. 상세 계획: `docs/horizons/workflow-automation.md`
+<!-- harness:goal id="rag-agent-integration" -->
+목표: `kifrs/workflows/kifrs1109/` 결정 엔진의 하드코딩 인용을 런타임 `kifrs.store`/`kifrs.embed` 직접 호출로 grounding 검증한다. 상세 계획: `docs/horizons/rag-agent-integration.md`
 
-**상태**: Engine Hardening(EH1) 완료 후, 2026-07-03 논의로 Objective를 "결정준비 초안까지 자동"으로 재정의(`docs/OBJECTIVE.md`). 1109를 파일럿 도메인으로 결정 엔진 구축 시작.
-**세부 계획**: `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
+**상태**: WA1(1109 파일럿 엔진) 완료 후, 2026-07-03 논의로 두 horizon 후보(RAG 최적화 재개 / RAG 엔진↔에이전트 통합) 중 후자를 우선 채택. grounding 시점=런타임, 호출경로=직접 import, 불일치처리=NeedsHumanReview 3개 결정 확정.
+**세부 계획**: `docs/plans/2026-07-03-rga1-runtime-citation-grounding.md`
 
 ### Active Milestones
-<!-- harness:milestone id="WA1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/;tests/test_workflow_1109.py;tests/test_workflow_1109_regression.py;docs/reports/2026-07-03-wa1-completion-rate.md" -->
-#### WA1 — 1109 파일럿 결정 엔진 + 완료율 측정
-- DoD: 구조화 거래 입력 → SPPI/사업모형 분류 → 최초인식 분개 → 상각표 포함 후속측정 → 검토메모까지 코드로 실행되고, 기존 10개 1109 시나리오를 회귀 fixture로 재현해 완료율을 측정·기록한다.
-- Evidence: kifrs/workflows/kifrs1109/;tests/test_workflow_1109.py;tests/test_workflow_1109_regression.py;docs/reports/2026-07-03-wa1-completion-rate.md
-- Gap: WORKFLOW.md 결정트리는 사람(Claude)이 매번 수동으로 따라가야 하는 문서였다 — 재현성·결정론성을 코드로 보장하지 못해 "시나리오 완료율"을 측정할 수 없었다. 이제 측정됨: **6/10 (60%)**.
-- Status: [x]
-
-- Completed at: 2026-07-03
-- Summary: 1109 pilot decision engine complete, first scenario completion rate measured: 6/10 (60%)
+<!-- harness:milestone id="RGA1" status="active" priority="P0" -->
+#### RGA1 — 런타임 grounding 레이어 구축
+- DoD: 결정 엔진의 하드코딩 인용이 런타임에 `kifrs.store` 직접 조회로 존재·의미 검증되고, 불일치 시 `NeedsHumanReview`로 에스컬레이션한다. 기존 10개 1109 시나리오 회귀 재실행 + 완료율 재측정 기록.
+- Evidence: kifrs/workflows/kifrs1109/grounding.py;tests/test_workflow_1109_regression.py;docs/reports/2026-07-03-wa1-completion-rate.md
+- Gap: 결정 엔진 인용이 코드에 하드코딩된 문자열이라 실제 조항을 가리키는지 검증되지 않았다 — Objective의 "K-IFRS 기반" 전제가 코드로 보장되지 않는 상태.
+- Status: [ ]
 
 ### Next Candidates
-- WA2 — 완료율 결과 기반 확장 결정: 완료율 60%·나머지 4건 사유(IFRIC19/SPPI재설정불일치/재분류/외화이중트랙)를 보고 (a) 이 4건에 별도 로직 추가할지 (b) 다른 도메인(1116 등)으로 패턴 이식할지 결정. scope 미확정.
-- WA3 — 사람-개입 필요 케이스 명시 인터페이스: `NeedsHumanReview` 예외가 이미 이 개념의 최소 형태로 존재 — MCP/스킬 노출 여부는 신호(사용 빈도) 보고 결정.
-### Planning Rule
-- 다음 milestone은 WA1 완료율 리포트(`docs/reports/2026-07-03-wa1-completion-rate.md`)를 먼저 확인한 뒤 WA2/WA3 중 무엇을 열지 정한다.
+- RGA2 — grounding 신뢰성/성능 굳히기 (RGA1 결과에 따라 scope 확정)
+- RGA3 — 신규 도메인 grounding-first 설계 표준화 (WA2/WA3와 통합 검토)
+
+## Paused Horizon — Workflow Automation
+
+<!-- harness:goal id="workflow-automation" status="paused" -->
+`docs/horizons/workflow-automation.md`. WA1 완료(6/10=60%, `docs/reports/2026-07-03-wa1-completion-rate.md`). WA2/WA3는 RGA1 결과를 보고 이 horizon과 합쳐 재개할지 판단.
+- WA2 — 완료율 결과 기반 확장 결정 (IFRIC19/SPPI재설정불일치/재분류/외화이중트랙 4건 처리 또는 도메인 이식)
+- WA3 — 사람-개입 필요 케이스 명시 인터페이스 (`NeedsHumanReview` MCP/스킬 노출 여부)
 
 ## 성공기준 4축
 
@@ -64,16 +66,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## 다음 세션 진입점
 
-> 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff). 아래는 안정적 후보 목록.
+> 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** WA1 완료(완료율 6/10=60% 첫 측정, `docs/reports/2026-07-03-wa1-completion-rate.md`).
+**[현재 active]** RGA1 — 런타임 grounding 레이어 구축 (`docs/plans/2026-07-03-rga1-runtime-citation-grounding.md`, step 트리 5개, 아직 구현 미착수).
 
-**[다음 후보 — 2026-07-03 세션 종료 시 논의로 horizon 2개 park, 다음 세션에서 §B0.5로 정식 작성]**
-- **새 horizon: RAG 최적화 재개** — 검색 알고리즘 개선은 M4(계층 검색, 2026-06-27) 이후 멈춰 있었다(그 뒤 EQ1~5·EH1은 품질 *운영*/코드 *하드닝*이었지 recall/MRR 자체를 더 올리려는 시도가 아니었음). 성공기준 A축 "정량 측정 철회"는 실사용 전환 결정이었지 더 못 올린다는 뜻은 아니다. 재개 후보: 임베딩 모델 교체, 리랭커 후보풀 확대, 청크/쿼리 전략 개선.
-- **새 horizon: RAG 엔진 ↔ 에이전트 통합** — WA1(`kifrs/workflows/kifrs1109/`)의 조항 인용은 코드에 하드코딩된 문자열이고, 런타임에 kifrs MCP `search`를 호출해 근거를 찾지 않는다. 100 기준서 검색 인프라가 서 있는데 결정 엔진과 아직 안 이어져 있음 — 하드코딩 인용을 MCP search로 검증/대체하거나, 향후 도메인(WA2 이후)부터는 결정 엔진이 실제 검색을 호출하도록 설계 필요.
-- (참고, 위 두 horizon과 겹칠 수 있음) WA2/WA3 — 1109 나머지 4건 자동화 또는 1116 등 도메인 확장 (`docs/horizons/workflow-automation.md`).
-
-다음 세션 시작 시 먼저 확인할 문서: `docs/OBJECTIVE.md` → `docs/horizons/workflow-automation.md` → `docs/reports/2026-07-03-wa1-completion-rate.md` → 위 두 horizon 후보 중 우선순위 논의(§B0.5 Beat 2).
+RAG 최적화 재개 horizon은 이번 세션 논의로 RGA1에 밀려 후순위(2026-07-03) — RGA1 종료 후 재검토.
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료
