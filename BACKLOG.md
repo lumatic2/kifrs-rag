@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-03 — RO1: 잔여 검색 miss 진단
+- Completed: 2026-07-03
+- Result: M4(2026-06-27) 이후 잔여 miss 9건 재검증. 얕은 랭킹 2건(Q004/Q041)은 `search_reranked`가 이미 top-20 안(순위 6, 13)에 넣고 있었다 — 코드 변경 불필요, eval 스크립트의 hybrid 전용 miss 출력이 오독을 유발했을 뿐. 깊은 랭킹 7건은 3개 원인 카테고리(A: 순수 어휘 부재, B: 일반어 매칭 판별력 부족, C: 크로스 개념/표준 쏠림)로 분류, RO2는 카테고리 C(2건, 멀티 쿼리 분해)만 좁게 스코프하기로 권고.
+- Evidence: `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md`; `docs/horizons/rag-optimization-resume.md`; `docs/plans/2026-07-03-ro1-residual-miss-diagnosis.md`
+- Verification: `python -m pytest tests/ -q` 92/92 통과(비퇴행, 소스 변경 없음).
+
 ### 2026-07-03 — RGA1: 런타임 citation 존재 검증
 - Completed: 2026-07-03
 - Result: `kifrs/workflows/kifrs1109/`의 결정 엔진 인용을 `kifrs.store` 직접 import로 런타임 존재 검증, 불일치 시 `NeedsHumanReview` 에스컬레이션. 의미적 일치 검증(reason 문구가 조항 내용과 부합하는지)은 keyword overlap·cosine 유사도·cross-encoder 리랭커 실측 결과 정답/오답 구분 불가로 RGA1 범위에서 제외 — 별도 후속 필요.

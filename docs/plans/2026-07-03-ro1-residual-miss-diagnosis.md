@@ -25,30 +25,18 @@ Out of scope (이번 milestone에서 다루지 않음, 이유):
 
 ## Step tree (leaf test 적용 — 시그니처 수준)
 
-- [ ] **Step 1 — 얕은 랭킹 후보풀 확대 실험** (`kifrs/embed.py::search_reranked`/`search_hierarchical`
-  candidates 파라미터, 코드 변경 없이 `--candidates` 플래그로 우선 측정)
-  Q004(1001-69)·Q041(1102-11)이 hybrid K=100에서 회복됨을 확인했다(이번 계획 단계). reranked/
-  hierarchical의 기본 candidate pool(50)을 100으로 늘려 재측정 — 두 문항이 top-20 안으로 들어오는지,
-  다른 지표(recall@5, MRR)가 퇴행하지 않는지 확인. (verify: `python -m kifrs.eval.retrieval
-  --retrievers hybrid hierarchical reranked --k 20 --no-save`로 before/after 비교, Q004/Q041
-  hit 전환 + 전 지표 비퇴행)
+- [x] **Step 1 — 얕은 랭킹 후보풀 확대 실험** — **불필요로 판명**. Q004/Q041을 `search_reranked`로
+  직접 조회하니 이미 top-20 안(순위 6, 13)이었다 — `kifrs/eval/retrieval.py`의 miss 출력이 항상
+  hybrid 기준이라 리포트가 오해를 유발했을 뿐, 코드는 이미 정상 동작. 후보풀 확대 실험 자체가
+  불필요해졌다. (verify: `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md` §1 — 실측 rank 표)
 
-- [ ] **Step 2 — 깊은 랭킹 7건 원인 진단** (`kifrs/eval/` 진단 스크립트 또는 1회성 분석, 산출물은
-  리포트 문서)
-  Q001(1115-27), Q006(1115-51), Q008(1109-2.1), Q029(1116-45), Q039(1037-14), Q040(1109-4.1.4),
-  Q048(1036-18) 각각에 대해: 정답 문단의 실제 전역 순위(쿼리 vs 문단 cosine 전체 순위), 현재
-  top-20에 랭크된 문단과의 의미적 차이, 어휘 중첩 여부(`extract_keywords` 교집합)를 확인해 원인을
-  카테고리화(예: "섹션/문맥 misalignment", "다의어·상위개념 경쟁", "쿼리가 다른 조항으로 쏠림",
-  "진짜 어휘 부재"). (verify: `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md`에 7건 전부
-  카테고리 + 근거(전역 순위·top-20 비교) 기록)
+- [x] **Step 2 — 깊은 랭킹 7건 원인 진단** (verify: `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md`
+  §2 — 3개 카테고리 A(순수 어휘 부재)/B(일반어 판별력 부족)/C(크로스 개념 쏠림)로 분류, 근거 포함)
 
-- [ ] **Step 3 (integration) — 재측정 + RO2 필요성 판단** (`docs/horizons/rag-optimization-resume.md`
-  갱신)
-  Step 1 적용 후(채택됐다면) 전체 goldset 재측정, before/after 표 기록. Step 2 진단 결과를 보고
-  RO2(깊은 랭킹 개선) 착수 가치가 있는지 — M4-2가 "가치 낮음"으로 보류했던 것과 같은 기준(비용 대비
-  회복 가능 문항 수)으로 판단해 horizon doc에 기록. (verify: horizon doc에 판단 근거 기록 +
-  `python -m pytest tests/ -q` 비퇴행 — 이번 milestone은 eval 스크립트/파라미터만 건드리므로 기존
-  92개 테스트에 영향 없어야 함)
+- [x] **Step 3 (integration) — 재측정 + RO2 필요성 판단** — 코드 변경이 없었으므로 재측정은
+  이미 진행한 전역 rank 조회로 충분(before/after 표 불필요 — recall 수치 자체는 불변). RO2 권고:
+  카테고리 C(멀티 쿼리 분해, 2건)만 좁게 시도, A/B는 보류(가치 낮음) — 리포트 §RO2 착수 판단 참조.
+  (verify: `python -m pytest tests/ -q` 92/92 통과 — eval 조회만 했고 소스 변경 없어 비퇴행 확인됨)
 
 ## 결정 로그
 
@@ -63,8 +51,7 @@ Out of scope (이번 milestone에서 다루지 않음, 이유):
 
 ## Integration verification (milestone close)
 
-- `python -m kifrs.eval.retrieval --retrievers hybrid hierarchical reranked --k 20 --no-save` —
-  Step 1 candidate pool 확대 전/후 비교표
-- `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md` — 깊은 랭킹 7건 원인 카테고리 리포트
-- `python -m pytest tests/ -q` — 92개 비퇴행
-- `docs/horizons/rag-optimization-resume.md` RO2 착수 여부 판단 기록
+- [x] `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md` — 얕은 랭킹 2건 해결 확인 + 깊은 랭킹
+  7건 원인 카테고리 리포트, RO2 권고 포함
+- [x] `python -m pytest tests/ -q` — 92/92 통과, 비퇴행(소스 코드 변경 없음)
+- [x] `docs/horizons/rag-optimization-resume.md` RO2 착수 범위(카테고리 C만) 기록

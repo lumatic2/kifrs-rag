@@ -35,16 +35,17 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-03-ro1-residual-miss-diagnosis.md`
 
 ### Active Milestones
-<!-- harness:milestone id="RO1" status="active" priority="P0" -->
+<!-- harness:milestone id="RO1" status="completed" priority="P0" evidence="docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md;docs/horizons/rag-optimization-resume.md" -->
 #### RO1 — 잔여 miss 진단 + 얕은 랭킹 1차 개선
-- DoD: 얕은 랭킹 2건(Q004/Q041)에 candidate pool 확대 적용 후 회복 여부 측정 + 전 지표 비퇴행 확인, 깊은 랭킹 7건은 원인 카테고리 진단 리포트 산출.
+- DoD: 얕은 랭킹 2건(Q004/Q041)의 실제 회복 상태를 확인(candidate pool 확대는 실측 결과 불필요로 판명 — 이미 reranked가 top-20 안), 깊은 랭킹 7건은 원인 카테고리 진단 리포트 산출.
 - Evidence: docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md;docs/horizons/rag-optimization-resume.md
 - Gap: M4 종료(2026-06-27) 이후 잔여 miss 9건의 원인이 분류된 적 없다 — 개선 여지가 있는지조차 모르는 상태.
-- Status: [ ]
+- Status: [x]
 
+- Completed at: 2026-07-03
+- Summary: 얕은 랭킹 2건은 이미 해결(reranked가 이미 top-20), 깊은 랭킹 7건은 3개 원인 카테고리로 진단 -- RO2는 카테고리 C(멀티쿼리 분해)만 좁게 스코프
 ### Next Candidates
-- RO2 — 깊은 랭킹 개선 실험 (RO1 진단 결과로 scope 확정)
-- RO3 — 종합 재측정 + 문서화
+- RO2 — 멀티 쿼리 분해 실험 (카테고리 C만: Q039/Q048, 크로스 개념/표준 쏠림). DoD/Evidence 미확정 — 재개 시 §B0.5 Beat 3.
 
 ## Paused Horizons
 
@@ -71,11 +72,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** RO1 — 잔여 miss 진단 + 얕은 랭킹 1차 개선 (`docs/plans/2026-07-03-ro1-residual-miss-diagnosis.md`, step 트리 3개, 계획 승인 대기).
+**[현재 active 없음]** RO1 완료(얕은 랭킹 2건 이미 해결 확인, 깊은 랭킹 7건 3개 원인 카테고리 진단 — `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md`). `docs/roadmap-gap-2026-07-03-ro1.md` 참조.
 
-**[paused horizon 후보 — DoD/Evidence 미확정, RO1 이후 재개 시 §B0.5 Beat 3로 scope 확정]**
-- RGA2/RGA3 — `rag-agent-integration` horizon paused 상태로 대기 중
-- WA2/WA3 — `workflow-automation` horizon paused 상태로 대기 중
+**[다음 후보 — DoD/Evidence 미확정, 다음 세션에서 §B0.5 Beat 3로 scope 확정]**
+- RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
+- (paused) RGA2/RGA3 — `rag-agent-integration` horizon
+- (paused) WA2/WA3 — `workflow-automation` horizon
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료
