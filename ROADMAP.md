@@ -35,13 +35,15 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-03-rga1-runtime-citation-grounding.md`
 
 ### Active Milestones
-<!-- harness:milestone id="RGA1" status="active" priority="P0" -->
+<!-- harness:milestone id="RGA1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/grounding.py;tests/test_workflow_1109_grounding.py;docs/reports/2026-07-03-wa1-completion-rate.md" -->
 #### RGA1 — 런타임 grounding 레이어 구축
-- DoD: 결정 엔진의 하드코딩 인용이 런타임에 `kifrs.store` 직접 조회로 존재·의미 검증되고, 불일치 시 `NeedsHumanReview`로 에스컬레이션한다. 기존 10개 1109 시나리오 회귀 재실행 + 완료율 재측정 기록.
-- Evidence: kifrs/workflows/kifrs1109/grounding.py;tests/test_workflow_1109_regression.py;docs/reports/2026-07-03-wa1-completion-rate.md
+- DoD: 결정 엔진의 하드코딩 인용이 런타임에 `kifrs.store` 직접 조회로 존재 검증되고(의미적 일치 검증은 실측 결과 신뢰도 부족으로 범위 제외 — 결정 로그 참조), 존재하지 않으면 `NeedsHumanReview`로 에스컬레이션한다. 기존 10개 1109 시나리오 회귀 재실행 + 완료율 재측정 기록.
+- Evidence: kifrs/workflows/kifrs1109/grounding.py;tests/test_workflow_1109_grounding.py;docs/reports/2026-07-03-wa1-completion-rate.md
 - Gap: 결정 엔진 인용이 코드에 하드코딩된 문자열이라 실제 조항을 가리키는지 검증되지 않았다 — Objective의 "K-IFRS 기반" 전제가 코드로 보장되지 않는 상태.
-- Status: [ ]
+- Status: [x]
 
+- Completed at: 2026-07-03
+- Summary: 런타임 citation 존재 검증 배선 완료, 완료율 6/10 유지(근거 성격 개선)
 ### Next Candidates
 - RGA2 — grounding 신뢰성/성능 굳히기 (RGA1 결과에 따라 scope 확정)
 - RGA3 — 신규 도메인 grounding-first 설계 표준화 (WA2/WA3와 통합 검토)
@@ -68,9 +70,14 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** RGA1 — 런타임 grounding 레이어 구축 (`docs/plans/2026-07-03-rga1-runtime-citation-grounding.md`, step 트리 5개, 아직 구현 미착수).
+**[현재 active 없음]** RGA1 완료(런타임 citation 존재 검증 배선, 완료율 6/10 유지 — `docs/reports/2026-07-03-wa1-completion-rate.md` "RGA1 갱신" 참조). `docs/roadmap-gap-2026-07-03-rga1.md` 참조.
 
-RAG 최적화 재개 horizon은 이번 세션 논의로 RGA1에 밀려 후순위(2026-07-03) — RGA1 종료 후 재검토.
+**[다음 후보 — DoD/Evidence 미확정, 다음 세션에서 §B0.5 Beat 3로 scope 확정]**
+- RGA2 — grounding 신뢰성/성능 굳히기, 또는 의미적 일치 검증 재도전(다른 접근 필요 — RGA1에서 keyword overlap·cosine·리랭커 전부 실패)
+- RGA3 — 신규 도메인 grounding-first 설계 표준화 (WA2/WA3와 통합 검토)
+- (참고) WA2/WA3 — `workflow-automation` horizon paused 상태로 대기 중
+
+RAG 최적화 재개 horizon은 이번 세션 논의로 RGA1에 밀려 후순위(2026-07-03) — 다음 새 horizon 논의 시 재검토.
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료

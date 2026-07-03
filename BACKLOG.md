@@ -4,6 +4,19 @@
 
 ## Completed
 
+### 2026-07-03 — RGA1: 런타임 citation 존재 검증
+- Completed: 2026-07-03
+- Result: `kifrs/workflows/kifrs1109/`의 결정 엔진 인용을 `kifrs.store` 직접 import로 런타임 존재 검증, 불일치 시 `NeedsHumanReview` 에스컬레이션. 의미적 일치 검증(reason 문구가 조항 내용과 부합하는지)은 keyword overlap·cosine 유사도·cross-encoder 리랭커 실측 결과 정답/오답 구분 불가로 RGA1 범위에서 제외 — 별도 후속 필요.
+- Evidence: `kifrs/workflows/kifrs1109/grounding.py`; `tests/test_workflow_1109_grounding.py`; `docs/plans/2026-07-03-rga1-runtime-citation-grounding.md`; `docs/reports/2026-07-03-wa1-completion-rate.md`
+- Verification: `python -m pytest tests/ -q` 92/92 통과. `quality_preflight.py --format text` ok. 완료율 6/10 유지(자동화 6건 전부 grounding 통과).
+
+### 2026-07-03 — WA1: 1109 파일럿 결정 엔진 + 완료율 측정
+- Completed: 2026-07-03
+- Result: 구조화 거래 입력 → SPPI/사업모형 분류 → 최초인식 분개 → 상각표 포함 후속측정 → 검토메모까지 코드로 실행, 기존 10개 1109 시나리오를 회귀 fixture로 재현해 "시나리오 완료율" 첫 측정값 산출(6/10=60%).
+- Evidence: `kifrs/workflows/kifrs1109/`; `tests/test_workflow_1109.py`; `tests/test_workflow_1109_regression.py`; `docs/reports/2026-07-03-wa1-completion-rate.md`
+- Verification: `python -m pytest tests/test_workflow_1109_regression.py -q` 통과, 완료율 6/10 기록.
+- Follow-up: RAG 엔진↔에이전트 통합 horizon(RGA1)으로 이어짐 — `docs/horizons/rag-agent-integration.md`. WA2/WA3는 workflow-automation horizon에 paused로 남음.
+
 ### 2026-07-03 — Engine Hardening EH1: test safety net + refactor + MCP consolidation
 - Completed: 2026-07-03
 - Result: 5개 changeset(CS-1~CS-5)으로 검색 엔진 하드닝 완료 — mcp_server.py/embed.py 테스트 안전망, search_reranked N+1 수정 + 임베딩/centroid 캐싱, mcp_server dual-backend dedup + ToolError 구조화 에러 + 시작 시 DB 체크, search tool 5종→1종(`search(mode=...)`) 통합 + `/accounting` SKILL.md 동기화, `TERM_BRIDGE` 하드코딩→`user_note_v2` DB 이관.

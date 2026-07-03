@@ -37,3 +37,15 @@
   (`docs/horizons/workflow-automation.md`).
 - 자동화 6건은 회귀 테스트로 고정(`tests/test_workflow_1109_regression.py`) —
   향후 리팩토링이 숫자를 바꾸면 테스트가 먼저 실패한다.
+
+## RGA1 갱신 (2026-07-03) — 런타임 citation 존재 검증 반영
+
+`docs/horizons/rag-agent-integration.md` RGA1이 `classify()`에 런타임 grounding(존재 검증만,
+의미적 일치 검증은 실측 결과 신뢰도 부족으로 제외 — `docs/plans/2026-07-03-rga1-runtime-citation-
+grounding.md` 결정 로그 참조)을 배선한 뒤 10개 시나리오를 재실행한 결과:
+
+**완료율: 6/10 (60%), 변화 없음.** 자동화된 6건의 하드코딩 인용이 전부 존재 검증을 통과했다 —
+`kifrs.workflows.kifrs1109.grounding`이 처음으로 "이 인용이 실제 DB 조항을 가리키는가"를 코드로
+확인했고, 인용이 잘못됐거나 존재하지 않으면 이제 `NeedsHumanReview`로 자동 에스컬레이션된다
+(`tests/test_workflow_1109_grounding.py`로 검증). 숫자는 그대로지만 그 숫자를 뒷받침하는 근거의
+성격이 "검증 안 된 문자열"에서 "존재가 확인된 인용"으로 바뀌었다.

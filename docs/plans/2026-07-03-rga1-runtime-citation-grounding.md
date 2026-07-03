@@ -9,42 +9,51 @@
 
 `kifrs/workflows/kifrs1109/`의 결정 엔진(`sppi.py`, `business_model.py`, `classify.py`,
 `initial_entry.py`, `review_memo.py`)이 `reasons` 문자열에 하드코딩한 조항 인용
-(예: `[1109-4.1.2(b)/4.1.2A(b), B4.1.7~7B]`)을 런타임에 `kifrs.store`/`kifrs.embed` 직접 import로
-검증한다. 검증 = ① 인용된 조항 ID가 DB에 실제 존재하는지, ② 그 문단 텍스트가 reason 문구와
-의미적으로 부합하는지. 부합하지 않거나 문단을 못 찾으면 `NeedsHumanReview`.
+(예: `[1109-4.1.2(b)/4.1.2A(b), B4.1.7~7B]`)을 런타임에 `kifrs.store` 직접 import로 검증한다.
+검증 = 인용된 조항 ID가 DB에 실제 존재하는지(존재 검증만 — 아래 §Step 3 발견 참조).
+존재하지 않으면 `NeedsHumanReview`.
+
+**축소 결정 (구현 중 발견, 2026-07-03)**: 원래 계획은 존재 검증 + 의미적 일치 검증(reason 문구가
+인용된 조항의 실제 내용과 부합하는지) 2단계였다. 구현 중 실제 15개 하드코딩 인용으로 keyword
+overlap과 bge-m3 cosine 유사도, cross-encoder 리랭커(`bge-reranker-v2-m3`)를 모두 실측했으나
+어느 방식도 정답/오답을 신뢰성 있게 구분하지 못했다(정답 유사도 0.41~0.63 vs 오답 0.33~0.51로
+크게 겹침; 리랭커도 정답 다수가 0.000~0.008로 오답과 구분 불가). 원인은 `reasons` 문구가 압축된
+회계 판단 요약이라 조문 원문 어휘와 거리가 멀기 때문 — `CLAUDE.md` 한계 #1과 동일한 문제. 사용자
+결정(2026-07-03): 의미적 일치 검증은 RGA1에서 제외하고 존재 검증만으로 축소, 의미적 일치는 근본
+적으로 다른 접근(코드 작성 시점 인용-근거 동시 기록, 또는 사람의 1회성 감사)이 필요해 별도 후속
+후보로 이관.
 
 Out of scope (이번 milestone에서 다루지 않음, 이유):
 - **MCP 프로토콜 경유 호출** — horizon 결정으로 직접 import만 사용.
+- **의미적 일치 검증** — 위 발견으로 RGA1에서 제외. 후속 후보(신규 접근 필요, RGA2/미정)로 이관.
 - **인용을 엔진이 스스로 찾아 채우는 기능(자동 인용 생성)** — 이번 범위는 *기존 하드코딩 인용의
-  검증*이지, 새 인용의 자동 발견이 아니다. 새 시나리오/규칙 추가 시 인용은 여전히 사람이 채운다.
+  존재 검증*이지, 새 인용의 자동 발견이 아니다. 새 시나리오/규칙 추가 시 인용은 여전히 사람이 채운다.
 - **grounding 결과 캐싱/성능 튜닝** — RGA2 후보. 이번엔 정확성만 확보.
 - **다른 도메인(1116 등) 포팅** — RGA3/WA2 후보.
 
 ## Step tree (leaf test 적용 — 시그니처 수준)
 
-- [ ] **Step 1 — 인용 추출 유틸** (`kifrs/workflows/kifrs1109/grounding.py::extract_citations`)
+- [x] **Step 1 — 인용 추출 유틸** (`kifrs/workflows/kifrs1109/grounding.py::extract_citations`)
   `reasons` 문자열에서 `[1109-...]` 형태 토큰을 정규식으로 파싱해 조항 ID 리스트로 분해
-  (예: `4.1.2(b)`, `B4.1.18~19`). (verify: sppi.py/business_model.py/classify.py/initial_entry.py/
-  review_memo.py의 기존 인용 문자열 전수를 파싱해 예외 없이 ID 리스트 산출하는 단위 테스트)
+  (예: `4.1.2(b)`, `B4.1.18~19`). (verify: `tests/test_workflow_1109_grounding.py::test_extract_citations`)
 
-- [ ] **Step 2 — 존재 검증** (`grounding.py::verify_citation_exists`)
-  `kifrs.store`를 직접 import해 조항 ID로 문단을 조회, 존재 여부 반환. (verify: Step 1에서 추출한
-  전체 인용 ID가 DB에서 조회되는지 확인하는 테스트 — 존재하지 않는 가짜 ID로 음성 테스트 포함)
+- [x] **Step 2 — 존재 검증** (`grounding.py::verify_citation_exists`)
+  `kifrs.store`를 직접 import해 조항 ID로 문단을 조회, 존재 여부 반환. (verify:
+  `tests/test_workflow_1109_grounding.py::test_verify_citation_exists_*`)
 
-- [ ] **Step 3 — 의미적 일치 확인** (`grounding.py::verify_citation_matches_reason`)
-  조회된 문단 텍스트와 reason 문구 사이 최소 일치(`kifrs.embed` 임베딩 코사인 유사도 threshold 또는
-  키워드 overlap)를 확인. (verify: 알려진 정답 쌍 3~5개로 threshold 통과, 의도적으로 틀린 쌍 1~2개로
-  실패 확인하는 단위 테스트)
+- [x] **Step 3 — 의미적 일치 확인** — **취소** (구현 중 발견으로 RGA1 범위에서 제외, 위 §Scope
+  boundary 참조). keyword overlap·cosine 유사도·리랭커 실측 결과를 근거로 사용자 승인.
 
-- [ ] **Step 4 — NeedsHumanReview 배선** (`classify.py`, `sppi.py`, `business_model.py` 등 호출부)
-  각 판정 함수가 반환 직전 Step 1~3 grounding 파이프라인을 통과시키고, 실패 시 기존
-  `NeedsHumanReview` 예외 패턴으로 던진다. (verify: 기존 10개 시나리오 회귀 재실행 — 자동화된
-  6건은 grounding 통과로 그대로 자동 산출, 나머지 4건은 기존 `special_case` 경로 유지)
+- [x] **Step 4 — NeedsHumanReview 배선** (`classify.py` 호출부, 결과 집계 지점 1곳)
+  `classify()`가 반환 직전 자신의 reasons + sppi.reasons + business_model.reasons를 모아 Step 1~2
+  grounding(존재 검증)을 통과시키고, 실패 시 기존 `NeedsHumanReview` 패턴으로 던진다. (verify:
+  `tests/test_workflow_1109_regression.py` 10개 시나리오 그대로 6/10 통과 +
+  `tests/test_workflow_1109_grounding.py::test_classify_escalates_to_needs_human_review_on_bad_citation`)
 
-- [ ] **Step 5 (integration) — 회귀 갱신 + 완료율 재측정** (`tests/test_workflow_1109_regression.py`,
-  `docs/reports/2026-07-03-wa1-completion-rate.md` 갱신 또는 신규 리포트)
-  grounding 경로 포함해 10개 시나리오 전체 재실행, 완료율이 6/10에서 변화했는지 기록.
-  (verify: `python -m pytest tests/ -q` 전체 통과 + 리포트 파일 갱신)
+- [x] **Step 5 (integration) — 회귀 갱신 + 완료율 재측정** (`tests/test_workflow_1109_regression.py`,
+  `docs/reports/2026-07-03-wa1-completion-rate.md` 갱신)
+  grounding 경로 포함해 10개 시나리오 전체 재실행, 완료율 6/10 변화 없음 — RGA1 갱신 섹션에 기록.
+  (verify: `python -m pytest tests/ -q` 92/92 전체 통과 + 리포트 파일 갱신 완료)
 
 ## 결정 로그
 
@@ -55,14 +64,14 @@ Out of scope (이번 milestone에서 다루지 않음, 이유):
 - **불일치 처리: NeedsHumanReview 에스컬레이션** — 사용자 결정. fallback으로 하드코딩 인용을
   그대로 쓰면 grounding이 사실상 무력화되므로, 완료율 지표의 정직성을 위해 검증 실패는 사람에게
   넘긴다.
-- **의미적 일치 threshold 값** — 아직 미정. Step 3 구현 중 실제 인용-문단 쌍으로 보정 필요.
-  구현 중 도출된 값이 지나치게 엄격/느슨해 기존 6개 자동화 시나리오가 grounding 실패로 전환되면,
-  그건 새 리스크/스코프 변경이므로 중단하고 사용자에게 보고 — 무중단 진행 예외.
+- **의미적 일치 검증 제외, 존재 검증만으로 축소** — 사용자 결정(2026-07-03, 구현 중 발견).
+  keyword overlap·cosine 유사도·리랭커 실측 결과 정답/오답 구분 불가로 확인 → 원 계획 리스크가
+  실제로 발생 → 중단·보고 후 사용자 승인으로 스코프 축소.
 - 이 외 예상되는 사용자 소유 결정 없음 — 위 항목들로 소진됨.
 
 ## Integration verification (milestone close)
 
-- `python -m pytest tests/test_workflow_1109_regression.py -q` — grounding 포함 완료율 재측정
-- `python -m pytest tests/ -q` — 기존 79개 테스트 비퇴행
-- `python scripts/quality_preflight.py --format text` — ok: True
-- 완료율 리포트 갱신 — 6/10에서 변화 여부(개선이든 악화든) 정직하게 기록
+- [x] `python -m pytest tests/test_workflow_1109_regression.py -q` — grounding 포함 완료율 재측정, 6/10 그대로
+- [x] `python -m pytest tests/ -q` — 92/92 통과 (기존 79 + 신규 13, 비퇴행)
+- [x] `python scripts/quality_preflight.py --format text` — ok: True
+- [x] 완료율 리포트 갱신 (`docs/reports/2026-07-03-wa1-completion-rate.md` "RGA1 갱신" 섹션) — 6/10 유지, 근거 성격 변화 기록

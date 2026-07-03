@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 from .business_model import BusinessModelResult, classify_business_model
+from .grounding import GroundingFailure, ground_reasons
 from .schema import Transaction1109
 from .sppi import SPPIResult, classify_sppi
 
@@ -35,6 +36,30 @@ class ClassificationResult:
 
 
 def classify(txn: Transaction1109) -> ClassificationResult:
+    """WORKFLOW.md §0~§3 결정트리 + 런타임 citation grounding (RGA1).
+
+    반환 직전 result.reasons + sppi.reasons + business_model.reasons의 인용이 DB에 실제
+    존재하는지 검증한다. 존재하지 않으면 `NeedsHumanReview`로 에스컬레이션한다(RGA1은
+    존재 검증만 — 의미적 일치 검증은 범위 밖, docs/plans/2026-07-03-rga1-runtime-citation-
+    grounding.md 결정 로그 참조).
+    """
+    result = _classify_core(txn)
+
+    all_reasons = list(result.reasons)
+    if result.sppi is not None:
+        all_reasons += result.sppi.reasons
+    if result.business_model is not None:
+        all_reasons += result.business_model.reasons
+
+    try:
+        ground_reasons(all_reasons)
+    except GroundingFailure as exc:
+        raise NeedsHumanReview("citation_grounding_failed", txn.label) from exc
+
+    return result
+
+
+def _classify_core(txn: Transaction1109) -> ClassificationResult:
     """WORKFLOW.md §0(자산유형 사전분기) → §1(SPPI, 부채성만) → §1B(지분증권) → §3(매트릭스)."""
     if txn.special_case:
         raise NeedsHumanReview(txn.special_case, txn.label)
