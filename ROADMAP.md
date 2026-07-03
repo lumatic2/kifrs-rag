@@ -35,15 +35,15 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-03-engine-hardening.md`
 
 ### Active Milestones
-<!-- harness:milestone id="EH1" status="completed" priority="P0" evidence="changesets/20260703-engine-test-safety-net/README.md; changesets/20260703-engine-perf-refactor/README.md; changesets/20260703-mcp-server-dedup-errors/README.md; changesets/20260703-mcp-search-tool-consolidation/README.md; changesets/20260703-term-bridge-user-note-migration/README.md" -->
+<!-- harness:milestone id="EH1" status="completed" priority="P0" evidence="changesets/20260703-engine-test-safety-net/README.md;changesets/20260703-engine-perf-refactor/README.md;changesets/20260703-mcp-server-dedup-errors/README.md;changesets/20260703-mcp-search-tool-consolidation/README.md;changesets/20260703-term-bridge-user-note-migration/README.md" -->
 #### EH1 — Engine test safety net + refactor + MCP consolidation
 - DoD: mcp_server.py/embed.py 테스트 추가, search_reranked N+1 및 임베딩/centroid 캐싱 수정, TERM_BRIDGE→user_note_v2 이관, search tool 5종→1종 통합(+ /accounting SKILL.md·README 동기화)을 각각 changeset으로 완료하고, quality_preflight.py + engine_quality_expanded_smoke.py 비퇴행을 통합 검증으로 남긴다.
-- Evidence: `changesets/20260703-engine-test-safety-net/README.md`; `changesets/20260703-engine-perf-refactor/README.md`; `changesets/20260703-mcp-server-dedup-errors/README.md`; `changesets/20260703-mcp-search-tool-consolidation/README.md`; `changesets/20260703-term-bridge-user-note-migration/README.md`; `python -m pytest tests/ -q` (46 passed); `python scripts/quality_preflight.py --format text` (ok: True); `python scripts/engine_quality_expanded_smoke.py --format text` (ok: True)
+- Evidence: changesets/20260703-engine-test-safety-net/README.md;changesets/20260703-engine-perf-refactor/README.md;changesets/20260703-mcp-server-dedup-errors/README.md;changesets/20260703-mcp-search-tool-consolidation/README.md;changesets/20260703-term-bridge-user-note-migration/README.md
 - Gap: 검색 로직에 테스트가 없고, N+1/중복 임베딩 로딩이 있으며, MCP search tool이 5종 중복이고, TERM_BRIDGE가 하드코딩돼 있었다. 5개 changeset(CS-1~CS-5)으로 모두 닫힘.
-- Status: [x] CS-1 테스트 안전망 / [x] CS-2 N+1+캐싱 / [x] CS-3 mcp_server dedup+에러 / [x] CS-4 tool 통합 / [x] CS-5 term_bridge 이관
+- Status: [x]
 
 - Completed at: 2026-07-03
-- Summary: engine test safety net + N+1/caching perf fix + mcp_server dedup/structured errors + 5-tool search consolidation + TERM_BRIDGE migration, all verified non-regressing (recall/MRR unchanged, 46/46 tests, preflight ok)
+- Summary: Engine hardening: test safety net, N+1/embedding-cache perf fix, mcp_server dedup, 5-tool search consolidation, TERM_BRIDGE migration
 
 ### Next Candidates
 - 없음. EH1(및 Engine Hardening horizon) 완료 — 다음 방향은 Phase 4 scenario expansion 복귀 또는 새 horizon 결정.
@@ -69,7 +69,7 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **[현재 active 없음]**
 
 **[다음 후보]**
-- 없음. EQ5 완료 후 새 horizon 또는 Phase 4 scenario expansion 여부를 다시 결정.
+- 없음. EH1(Engine Hardening) 완료 후 새 horizon 또는 Phase 4 scenario expansion 여부를 다시 결정.
 
 다음 구현 전 먼저 확인할 문서: `docs/plans/2026-06-30-kifrs-direction-success-criteria.md`
 
@@ -78,7 +78,6 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - 다른 도메인: 1113(공정가치) entry 완료 / 1019(확정급여) entry 완료
 
 **[옵션, 신호 발생 시 trigger]**
-- user_note 활성화 (본문 부재 키워드 매핑 — Q05 공매도 등). 마찰 누적 시 일부 당겨오기
 - 한국 상법 인덱싱 (Q04 자본거래만 마찰, 빈도 낮음 → 보류)
 - 평가 하네스 50문항 자동 채점 (D축 욕구 살아나면 부활)
 
@@ -98,7 +97,7 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 | `standard` / `paragraph` / `paragraph_fts` | ✅ 100개 / 8,328행 / trigram | Phase 1·2 완료 |
 | `embedding` | ✅ bge-m3 1024d, 100% | Phase 2 완료 |
 | `cross_reference` / `amendment` | 🟡 스키마만 | 실사용 마찰 trigger |
-| `user_note` / `user_note_v2` | 🟡 13건 seed + v2 runtime + legacy fallback | term_bridge/retriever_policy 검색 확장 + answer-time notes |
+| `user_note` / `user_note_v2` | 🟡 17건 seed + v2 runtime + legacy fallback (TERM_BRIDGE dict 이관 완료) | term_bridge/retriever_policy 검색 확장 + answer-time notes |
 
 ## 메모
 
