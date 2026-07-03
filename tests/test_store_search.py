@@ -78,9 +78,10 @@ def test_search_reranked_candidate_pool_can_be_smaller_than_requested():
 
 
 def test_mcp_server_json_fallback_raises_tool_error():
-    """With USE_SQLITE=False, the search_semantic/hybrid/hierarchical/reranked/
-    get_user_notes tools raise a typed fastmcp ToolError instead of returning an
-    `[{"error": ...}]` sentinel list a caller would have to pattern-match."""
+    """With USE_SQLITE=False, search(mode=...) for the four embedding-backed modes
+    (semantic/hybrid/hierarchical/reranked) and get_user_notes raise a typed fastmcp
+    ToolError instead of returning an `[{"error": ...}]` sentinel a caller would have
+    to pattern-match. mode="lexical" is excluded — it has a real JSON fallback."""
     from fastmcp.exceptions import ToolError
 
     from kifrs import mcp_server
@@ -88,26 +89,40 @@ def test_mcp_server_json_fallback_raises_tool_error():
     original = mcp_server.USE_SQLITE
     mcp_server.USE_SQLITE = False
     try:
-        for fn in [
-            mcp_server.search_semantic,
-            mcp_server.search_hybrid,
-            mcp_server.search_hierarchical,
-            mcp_server.search_reranked,
-            mcp_server.get_user_notes,
-        ]:
+        for mode in ["semantic", "hybrid", "hierarchical", "reranked"]:
             with pytest.raises(ToolError):
-                fn("공정가치")
+                mcp_server.search("공정가치", mode=mode)
+        with pytest.raises(ToolError):
+            mcp_server.get_user_notes("공정가치")
     finally:
         mcp_server.USE_SQLITE = original
 
 
-def test_mcp_server_search_lexical_matches_store_search_fts():
+def test_mcp_server_search_rejects_unknown_mode():
+    from fastmcp.exceptions import ToolError
+
+    from kifrs import mcp_server
+
+    with pytest.raises(ToolError):
+        mcp_server.search("자산", mode="bogus")
+
+
+def test_mcp_server_search_lexical_mode_matches_store_search_fts():
     from kifrs import mcp_server
 
     assert mcp_server.USE_SQLITE is True
-    via_tool = mcp_server.search_lexical("자산", limit=5)
+    via_tool = mcp_server.search("자산", limit=5, mode="lexical")
     via_store = store.search_fts("자산", limit=5)
     assert via_tool == via_store
+
+
+def test_mcp_server_search_reranked_mode_matches_embed_search_reranked():
+    from kifrs import mcp_server
+    from kifrs.embed import search_reranked
+
+    via_tool = mcp_server.search("금융자산 분류", limit=5, mode="reranked")
+    via_embed = search_reranked("금융자산 분류", limit=5, candidates=50)
+    assert via_tool == via_embed
 
 
 def test_store_has_paragraphs_true_for_local_db():

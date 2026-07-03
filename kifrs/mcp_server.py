@@ -158,7 +158,7 @@ def list_sections(standard: str) -> list[dict[str, Any]]:
     )
 
 
-def _search_lexical_json(query: str, standard: str | None, limit: int, case_sensitive: bool) -> list[dict[str, Any]]:
+def _search_lexical_json(query: str, standard: str | None, limit: int, case_sensitive: bool = False) -> list[dict[str, Any]]:
     flags = 0 if case_sensitive else re.IGNORECASE
     try:
         pat = re.compile(query, flags)
@@ -183,16 +183,6 @@ def _search_lexical_json(query: str, standard: str | None, limit: int, case_sens
     return hits
 
 
-@mcp.tool(output_schema=None)
-def search_lexical(query: str, standard: str | None = None, limit: int = 20, case_sensitive: bool = False) -> list[dict[str, Any]]:
-    """본문 검색. SQLite 모드에서는 FTS5 trigram(쿼리 정규화·term_bridge 확장 포함), JSON
-    모드는 정규식 substring(정규화 없음 — data/kifrs.db 없는 fallback 전용, 품질이 다름)."""
-    return _dispatch(
-        lambda: _store.search_fts(query, standard, limit=limit),
-        lambda: _search_lexical_json(query, standard, limit, case_sensitive),
-    )
-
-
 def _get_context_json(standard: str, no: str, around: int) -> list[dict[str, Any]]:
     data = _standard(standard)
     if not data:
@@ -214,44 +204,46 @@ def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]
     )
 
 
-@mcp.tool(output_schema=None)
-def search_semantic(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
-    """임베딩 cosine top-k. 동의어·표현 차이에 강함 (예: '환매약정' → '재매입약정' 매칭).
-    SQLite + embedding 인덱스 필요. 미인덱싱 기준서는 결과 없음."""
-    _require_sqlite("semantic")
-    # lazy import — 모델 로드는 첫 호출 시
-    from kifrs.embed import semantic_search
-    return semantic_search(query, standard, limit)
+_SEARCH_MODES = ("lexical", "semantic", "hybrid", "hierarchical", "reranked")
 
 
 @mcp.tool(output_schema=None)
-def search_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
-    """RRF (Reciprocal Rank Fusion) 하이브리드 검색 — lexical(FTS5) + semantic.
-    각 검색 결과의 순위에 1/(60+rank) 점수를 합산해 top-k 반환.
-    lexical 정확 매칭과 semantic 동의어 매칭 모두 활용."""
-    _require_sqlite("hybrid")
-    from kifrs.embed import search_hybrid as _hybrid
-    return _hybrid(query, standard, limit)
+def search(query: str, standard: str | None = None, limit: int = 20, mode: str = "hybrid") -> list[dict[str, Any]]:
+    """K-IFRS 본문 검색. `mode` 로 알고리즘 선택 (단일 지표 기준의 절대 우위 모드는 없음 — 목적별로 고른다).
 
+    - **"reranked"** (정밀 인용 1순위) — hybrid top-50 을 cross-encoder(bge-reranker-v2-m3)로
+      재점수. top-5 정밀도 최고. 정확한 조항 1~2개를 집어 인용할 때. per-query ~0.4s(GPU).
+    - **"hierarchical"** (넓은 recall 1순위) — 조·항·호 **섹션**을 1차 단위로, hybrid(lexical+
+      semantic) + 섹션 membership 3-way RRF. 섹션 제목이 쿼리와 일치하는 정답을 끌어올림.
+      hybrid 대비 전 지표 비퇴행/개선. 여러 후보를 폭넓게 보거나 reranked 가 놓친 후보 보강.
+    - **"hybrid"** — lexical(FTS5)+semantic RRF. hierarchical/reranked 의 baseline·대조군.
+    - **"lexical"** — FTS5 trigram 정확 매칭(SQLite) / 정규식 substring fallback(JSON 모드,
+      쿼리 정규화 없음). 조항 번호·정확 용어 검색, SQLite 없어도 동작하는 유일한 mode.
+    - **"semantic"** — bge-m3 cosine. 순수 의미 매칭, lexical 0건이 명백할 때.
 
-@mcp.tool(output_schema=None)
-def search_hierarchical(query: str, standard: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
-    """계층 검색 — 조·항·호 **섹션**을 1차 단위로. hybrid(lexical+semantic) + 섹션 membership 3-way RRF.
-    **넓은 recall 1순위**: hybrid 전 지표 비퇴행/개선(recall@5 0.597→0.627, @10 0.763→0.827, @20 0.907→0.917,
-    MRR 0.509→0.542). 섹션 제목이 쿼리와 일치하는 정답을 끌어올림. 정밀 인용 top-5는 search_reranked."""
-    _require_sqlite("hierarchical")
-    from kifrs.embed import search_hierarchical as _hier
-    return _hier(query, standard, limit)
-
-
-@mcp.tool(output_schema=None)
-def search_reranked(query: str, standard: str | None = None, limit: int = 10) -> list[dict[str, Any]]:
-    """Cross-encoder 리랭킹 검색 — hybrid top-50 후보를 bge-reranker-v2-m3로 재점수.
-    **정밀 인용 1순위**: top-5 정밀도가 hybrid보다 높음(recall@5 0.640 vs 0.597, MRR 0.612 vs 0.509).
-    매우 깊은 recall(@20)이 필요하면 search_hybrid(0.907 > reranked 0.853). per-query ~0.4s(GPU)."""
-    _require_sqlite("reranked")
-    from kifrs.embed import search_reranked as _reranked
-    return _reranked(query, standard, limit=limit, candidates=50)
+    recall@k/MRR 실측치는 시점에 따라 바뀐다 — 최신 수치는 `python -m kifrs.eval.retrieval`
+    재실행으로 확인(하드코딩하지 않음, docstring-eval drift 방지).
+    """
+    if mode == "lexical":
+        return _dispatch(
+            lambda: _store.search_fts(query, standard, limit=limit),
+            lambda: _search_lexical_json(query, standard, limit),
+        )
+    if mode not in _SEARCH_MODES:
+        raise ToolError(f"unknown mode {mode!r} — choose one of {_SEARCH_MODES}")
+    _require_sqlite(mode)
+    if mode == "semantic":
+        # lazy import — 모델 로드는 첫 호출 시
+        from kifrs.embed import semantic_search
+        return semantic_search(query, standard, limit)
+    if mode == "hybrid":
+        from kifrs.embed import search_hybrid
+        return search_hybrid(query, standard, limit)
+    if mode == "hierarchical":
+        from kifrs.embed import search_hierarchical
+        return search_hierarchical(query, standard, limit)
+    from kifrs.embed import search_reranked
+    return search_reranked(query, standard, limit=limit, candidates=50)
 
 
 @mcp.tool(output_schema=None)

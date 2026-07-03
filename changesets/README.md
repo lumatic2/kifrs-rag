@@ -14,3 +14,4 @@
 | 10 | `20260703-engine-test-safety-net` | 2026-07-03 | mcp_server.py/embed.py retrieval test coverage | 4/4 | completed |
 | 11 | `20260703-engine-perf-refactor` | 2026-07-03 | search_reranked N+1 fix + embedding/centroid caching | 4/4 | completed |
 | 12 | `20260703-mcp-server-dedup-errors` | 2026-07-03 | mcp_server.py dual-backend dedup + ToolError + startup DB check | 4/4 | completed |
+| 13 | `20260703-mcp-search-tool-consolidation` | 2026-07-03 | 5 search tools -> single search(mode=...) + /accounting sync | 4/4 | completed |

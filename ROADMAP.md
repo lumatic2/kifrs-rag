@@ -40,7 +40,7 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - DoD: mcp_server.py/embed.py 테스트 추가, search_reranked N+1 및 임베딩/centroid 캐싱 수정, TERM_BRIDGE→user_note_v2 이관, search tool 5종→1종 통합(+ /accounting SKILL.md·README 동기화)을 각각 changeset으로 완료하고, quality_preflight.py + engine_quality_expanded_smoke.py 비퇴행을 통합 검증으로 남긴다.
 - Evidence: (진행 중 — changeset 완료 시 갱신)
 - Gap: 검색 로직에 테스트가 없고, N+1/중복 임베딩 로딩이 있으며, MCP search tool이 5종 중복이고, TERM_BRIDGE가 하드코딩돼 있다.
-- Status: [x] CS-1 테스트 안전망 / [x] CS-2 N+1+캐싱 / [x] CS-3 mcp_server dedup+에러 / [ ] CS-4 tool 통합 / [ ] CS-5 term_bridge 이관
+- Status: [x] CS-1 테스트 안전망 / [x] CS-2 N+1+캐싱 / [x] CS-3 mcp_server dedup+에러 / [x] CS-4 tool 통합 / [ ] CS-5 term_bridge 이관
 
 ### Next Candidates
 - 없음. EH1 완료 후 다음 후보 재검토.
