@@ -12,3 +12,4 @@
 | 8 | `20260630-authority-source-pack-rules` | 2026-06-30 | document-level authority source pack rules | 4/4 | completed |
 | 9 | `20260630-quality-preflight-ci` | 2026-06-30 | public-safe quality preflight + CI hook | 4/4 | completed |
 | 10 | `20260703-engine-test-safety-net` | 2026-07-03 | mcp_server.py/embed.py retrieval test coverage | 4/4 | completed |
+| 11 | `20260703-engine-perf-refactor` | 2026-07-03 | search_reranked N+1 fix + embedding/centroid caching | 4/4 | completed |

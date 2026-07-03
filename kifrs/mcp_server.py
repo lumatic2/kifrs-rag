@@ -226,9 +226,14 @@ def get_user_notes(query: str, standard: str | None = None, note_type: str | Non
 
 @mcp.tool(output_schema=None)
 def reload_store() -> dict[str, Any]:
-    """디스크에서 파싱 JSON 다시 로드. ingest 파이프라인 갱신 후 재기동 없이 반영."""
+    """디스크에서 파싱 JSON 다시 로드하고 임베딩 행렬/centroid 캐시를 무효화한다.
+    SQLite 모드에서는 paragraph/embedding 테이블 자체를 재조회하지 않는다 — 재기동 없이
+    반영되는 건 쿼리 시점 캐시뿐이며, `USE_SQLITE`(백엔드 선택)는 재계산되지 않는다."""
     global STORE
     STORE = _load_all()
+    if USE_SQLITE:
+        from kifrs.embed import invalidate_caches
+        invalidate_caches()
     return {"loaded": sorted(STORE.keys()), "count": len(STORE)}
 
 

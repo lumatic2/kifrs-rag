@@ -264,6 +264,23 @@ def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
         return dict(row) if row else None
 
 
+def get_paragraphs_batch(pairs: list[tuple[str, str]]) -> dict[tuple[str, str], dict[str, Any]]:
+    """Batch version of `get_paragraph` — one connection, one query for N (standard, no) pairs.
+
+    Used where a candidate pool (e.g. reranker input) previously called `get_paragraph`
+    once per candidate, opening a fresh SQLite connection each time.
+    """
+    if not pairs:
+        return {}
+    placeholders = " OR ".join(["(standard=? AND no=?)"] * len(pairs))
+    params: list[Any] = [x for pair in pairs for x in pair]
+    with _conn() as conn:
+        rows = conn.execute(
+            f"SELECT * FROM paragraph WHERE {placeholders}", params
+        ).fetchall()
+    return {(r["standard"], r["no"]): dict(r) for r in rows}
+
+
 def list_paragraphs(
     standard: str,
     appendix: str | None = "__any__",

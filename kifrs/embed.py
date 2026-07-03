@@ -134,44 +134,17 @@ def semantic_search(
     """쿼리 임베딩 vs 인덱스 cosine top-k.
     임베딩이 정규화돼 있어 cosine = dot product."""
     qvec = encode_texts([expand_query(query)], model_name, show_progress=False)[0]
-
-    with _conn() as conn:
-        q = """
-            SELECT e.standard, e.no, e.dim, e.vector,
-                   p.appendix, p.section, p.page, p.body
-            FROM embedding e
-            JOIN paragraph p ON p.standard = e.standard AND p.no = e.no
-            WHERE e.model = ?
-        """
-        params: list[Any] = [model_name]
-        if standard:
-            q += " AND e.standard=?"
-            params.append(standard)
-        rows = conn.execute(q, params).fetchall()
-
-    if not rows:
+    mat, rows = _load_embedding_matrix(standard, model_name)
+    if mat is None:
         return []
 
-    dim = rows[0]["dim"]
-    mat = np.frombuffer(
-        b"".join(r["vector"] for r in rows), dtype=np.float32
-    ).reshape(len(rows), dim)
     scores = mat @ qvec  # cosine (normalized)
     top_idx = np.argsort(-scores)[:limit]
 
     out = []
     for i in top_idx:
         r = rows[int(i)]
-        body = r["body"] or ""
-        out.append({
-            "standard": r["standard"],
-            "no": r["no"],
-            "appendix": r["appendix"],
-            "section": r["section"],
-            "page": r["page"],
-            "snippet": body[:160],
-            "score": float(scores[int(i)]),
-        })
+        out.append({**_row_meta(r), "score": float(scores[int(i)])})
     return out
 
 
@@ -211,10 +184,32 @@ def search_hybrid(
 
 
 # ── 계층 검색 (M4-1 — 섹션 centroid) ──────────────────────────────────────
+# 코퍼스는 정적(재인덱싱 전까지 불변) — 행렬/centroid 를 (standard, model) 키로
+# 인프로세스 캐싱해 매 호출마다 34MB BLOB 을 재조회·재구성하지 않는다.
+# `reload_store()`(mcp_server.py)가 재인덱싱 후 `invalidate_caches()`로 무효화한다.
+_matrix_cache_lock = threading.Lock()
+_matrix_cache: dict[tuple[str | None, str], tuple[np.ndarray, list]] = {}
+_centroid_cache: dict[tuple[str | None, str], tuple[dict, dict]] = {}
+
+
+def invalidate_caches() -> None:
+    """임베딩 행렬/섹션 centroid 캐시 무효화 — 재인덱싱 후 호출."""
+    with _matrix_cache_lock:
+        _matrix_cache.clear()
+        _centroid_cache.clear()
+
+
 def _load_embedding_matrix(
     standard: str | None, model_name: str
 ) -> tuple[np.ndarray | None, list]:
-    """embedding ⨝ paragraph 를 한 번 읽어 (행렬, rows) 반환. section 메타 포함."""
+    """embedding ⨝ paragraph 를 한 번 읽어 (행렬, rows) 반환. section 메타 포함.
+    (standard, model) 키로 캐싱 — 같은 키 재호출은 DB 왕복 없이 캐시 히트."""
+    key = (standard, model_name)
+    with _matrix_cache_lock:
+        cached = _matrix_cache.get(key)
+    if cached is not None:
+        return cached
+
     with _conn() as conn:
         q = """
             SELECT e.standard, e.no, e.dim, e.vector,
@@ -234,7 +229,37 @@ def _load_embedding_matrix(
     mat = np.frombuffer(
         b"".join(r["vector"] for r in rows), dtype=np.float32
     ).reshape(len(rows), dim)
+
+    with _matrix_cache_lock:
+        _matrix_cache[key] = (mat, rows)
     return mat, rows
+
+
+def _section_centroids(
+    standard: str | None, model_name: str, mat: np.ndarray, rows: list
+) -> tuple[dict[tuple[str, str], np.ndarray], dict[tuple[str, str], list[int]]]:
+    """(standard, section) 별 L2-정규화 centroid 벡터 + 멤버 index. (standard, model) 키로 캐싱."""
+    key = (standard, model_name)
+    with _matrix_cache_lock:
+        cached = _centroid_cache.get(key)
+    if cached is not None:
+        return cached
+
+    from collections import defaultdict
+    sec_idx: dict[tuple[str, str], list[int]] = defaultdict(list)
+    for i, r in enumerate(rows):
+        if r["section"]:
+            sec_idx[(r["standard"], r["section"])].append(i)
+    centroids: dict[tuple[str, str], np.ndarray] = {}
+    for sec_key, idxs in sec_idx.items():
+        c = mat[idxs].mean(axis=0)
+        n = float(np.linalg.norm(c))
+        centroids[sec_key] = (c / n) if n else c
+
+    result = (centroids, dict(sec_idx))
+    with _matrix_cache_lock:
+        _centroid_cache[key] = result
+    return result
 
 
 def _row_meta(r) -> dict[str, Any]:
@@ -273,17 +298,9 @@ def search_hierarchical(
         return search_hybrid(query, standard, limit, model_name, k)
     para_scores = mat @ qvec  # cosine (정규화 임베딩)
 
-    # 섹션 centroid: (standard, section) 별 멤버 벡터 평균 → 쿼리와 cosine
-    from collections import defaultdict
-    sec_idx: dict[tuple[str, str], list[int]] = defaultdict(list)
-    for i, r in enumerate(rows):
-        if r["section"]:
-            sec_idx[(r["standard"], r["section"])].append(i)
-    sec_score: dict[tuple[str, str], float] = {}
-    for key, idxs in sec_idx.items():
-        c = mat[idxs].mean(axis=0)
-        n = float(np.linalg.norm(c))
-        sec_score[key] = float(c @ qvec / n) if n else 0.0
+    # 섹션 centroid: (standard, section) 별 멤버 벡터 평균(정규화, 캐시됨) → 쿼리와 cosine
+    centroids, sec_idx = _section_centroids(standard, model_name, mat, rows)
+    sec_score: dict[tuple[str, str], float] = {key: float(c @ qvec) for key, c in centroids.items()}
     top_secs = sorted(sec_score, key=lambda kk: -sec_score[kk])[:top_sections]
 
     rrf: dict[tuple[str, str], float] = {}
@@ -345,11 +362,13 @@ def search_reranked(
     if not pool:
         return []
     reranker = _load_reranker(reranker_name)
-    # 리랭커는 truncated snippet 이 아닌 전체 본문에서 정확. 본문 fetch.
-    from .store import get_paragraph
+    # 리랭커는 truncated snippet 이 아닌 전체 본문에서 정확. 배치 본문 fetch(1 쿼리) —
+    # 후보마다 개별 get_paragraph()를 부르면 SQLite connection 을 후보 수만큼 열게 된다.
+    from .store import get_paragraphs_batch
+    bodies = get_paragraphs_batch([(r["standard"], r["no"]) for r in pool])
     pairs, metas = [], []
     for r in pool:
-        row = get_paragraph(r["standard"], r["no"])
+        row = bodies.get((r["standard"], r["no"]))
         body = (row or {}).get("body") or r.get("snippet") or ""
         pairs.append((query, body))
         metas.append(r)
