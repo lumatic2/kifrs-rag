@@ -26,30 +26,28 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — Engine Hardening
+## Current Horizon — Workflow Automation
 
-<!-- harness:goal id="engine-hardening" -->
-목표: 검색 엔진(mcp_server.py/embed.py)을 테스트 커버·비중복·MCP 통합 상태로 만들되 검색 품질(recall/MRR)은 비퇴행. 상세 계획: `docs/horizons/engine-hardening.md`
+<!-- harness:goal id="workflow-automation" -->
+목표: 문서 기반 워크플로(WORKFLOW.md)를 실행 가능한 결정 엔진으로 승격해 "시나리오 완료율"을 측정 가능하게 만든다. 상세 계획: `docs/horizons/workflow-automation.md`
 
-**상태**: Engine Quality Ops(EQ1~EQ5) 완료 후 코드 감사로 발견된 엔진 자체의 테스트 부재·N+1·MCP tool 중복을 다루는 새 horizon.
-**세부 계획**: `docs/plans/2026-07-03-engine-hardening.md`
+**상태**: Engine Hardening(EH1) 완료 후, 2026-07-03 논의로 Objective를 "결정준비 초안까지 자동"으로 재정의(`docs/OBJECTIVE.md`). 1109를 파일럿 도메인으로 결정 엔진 구축 시작.
+**세부 계획**: `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
 
 ### Active Milestones
-<!-- harness:milestone id="EH1" status="completed" priority="P0" evidence="changesets/20260703-engine-test-safety-net/README.md;changesets/20260703-engine-perf-refactor/README.md;changesets/20260703-mcp-server-dedup-errors/README.md;changesets/20260703-mcp-search-tool-consolidation/README.md;changesets/20260703-term-bridge-user-note-migration/README.md" -->
-#### EH1 — Engine test safety net + refactor + MCP consolidation
-- DoD: mcp_server.py/embed.py 테스트 추가, search_reranked N+1 및 임베딩/centroid 캐싱 수정, TERM_BRIDGE→user_note_v2 이관, search tool 5종→1종 통합(+ /accounting SKILL.md·README 동기화)을 각각 changeset으로 완료하고, quality_preflight.py + engine_quality_expanded_smoke.py 비퇴행을 통합 검증으로 남긴다.
-- Evidence: changesets/20260703-engine-test-safety-net/README.md;changesets/20260703-engine-perf-refactor/README.md;changesets/20260703-mcp-server-dedup-errors/README.md;changesets/20260703-mcp-search-tool-consolidation/README.md;changesets/20260703-term-bridge-user-note-migration/README.md
-- Gap: 검색 로직에 테스트가 없고, N+1/중복 임베딩 로딩이 있으며, MCP search tool이 5종 중복이고, TERM_BRIDGE가 하드코딩돼 있었다. 5개 changeset(CS-1~CS-5)으로 모두 닫힘.
-- Status: [x]
-
-- Completed at: 2026-07-03
-- Summary: Engine hardening: test safety net, N+1/embedding-cache perf fix, mcp_server dedup, 5-tool search consolidation, TERM_BRIDGE migration
+<!-- harness:milestone id="WA1" status="active" priority="P0" -->
+#### WA1 — 1109 파일럿 결정 엔진 + 완료율 측정
+- DoD: 구조화 거래 입력 → SPPI/사업모형 분류 → 최초인식 분개 → 상각표 포함 후속측정 → 검토메모까지 코드로 실행되고, 기존 10개 1109 시나리오를 회귀 fixture로 재현해 완료율을 측정·기록한다.
+- Evidence: (진행 중 — step 완료 시 갱신) `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
+- Gap: WORKFLOW.md 결정트리는 지금 사람(Claude)이 매번 수동으로 따라가야 하는 문서다 — 재현성·결정론성을 코드로 보장하지 못해 "시나리오 완료율" 자체를 측정할 수 없다.
+- Status: [ ] Step1 스키마 / [ ] Step2 fixture 인코딩 / [ ] Step3 SPPI / [ ] Step4 사업모형 / [ ] Step5 최초인식 / [ ] Step6 상각표·후속측정 / [ ] Step7 검토메모 / [ ] Step8 회귀 하네스+리포트
 
 ### Next Candidates
-- 없음. EH1(및 Engine Hardening horizon) 완료 — 다음 방향은 Phase 4 scenario expansion 복귀 또는 새 horizon 결정.
+- WA2 — 완료율 결과 기반 확장 결정 (WA1 완료율·failure mode를 보고 도메인 결정, 아직 scope 미확정)
+- WA3 — 사람-개입 필요 케이스 명시 인터페이스 (WA1에서 결정 불가 케이스가 유의미하게 나오면 승격)
 ### Planning Rule
-- 새 구현은 먼저 `docs/plans/2026-07-03-engine-hardening.md`의 changeset 순서(CS-1→CS-5)를 따른다.
-- 각 changeset은 quality_preflight.py/engine_quality_expanded_smoke.py 비퇴행을 확인한 뒤에만 다음으로 넘어간다.
+- WA1은 `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`의 Step1→Step8 순서를 따른다.
+- Step6(상각표·후속측정) 이후 각 step은 회귀 fixture 비교로 검증한 뒤에만 다음으로 넘어간다.
 
 ## 성공기준 4축
 
@@ -66,12 +64,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff). 아래는 안정적 후보 목록.
 
-**[현재 active 없음]**
+**[현재 active]** WA1 — 1109 파일럿 결정 엔진 + 완료율 측정 (`docs/plans/2026-07-03-wa1-1109-pilot-engine.md`)
 
 **[다음 후보]**
-- 없음. EH1(Engine Hardening) 완료 후 새 horizon 또는 Phase 4 scenario expansion 여부를 다시 결정.
+- WA2/WA3 (`docs/horizons/workflow-automation.md` 참조) — WA1 완료율 결과를 보고 결정.
 
-다음 구현 전 먼저 확인할 문서: `docs/plans/2026-06-30-kifrs-direction-success-criteria.md`
+다음 구현 전 먼저 확인할 문서: `docs/OBJECTIVE.md` → `docs/horizons/workflow-automation.md` → `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료

@@ -4,6 +4,13 @@
 
 ## Completed
 
+### 2026-07-03 — Engine Hardening EH1: test safety net + refactor + MCP consolidation
+- Completed: 2026-07-03
+- Result: 5개 changeset(CS-1~CS-5)으로 검색 엔진 하드닝 완료 — mcp_server.py/embed.py 테스트 안전망, search_reranked N+1 수정 + 임베딩/centroid 캐싱, mcp_server dual-backend dedup + ToolError 구조화 에러 + 시작 시 DB 체크, search tool 5종→1종(`search(mode=...)`) 통합 + `/accounting` SKILL.md 동기화, `TERM_BRIDGE` 하드코딩→`user_note_v2` DB 이관.
+- Evidence: `changesets/20260703-engine-test-safety-net/README.md`; `changesets/20260703-engine-perf-refactor/README.md`; `changesets/20260703-mcp-server-dedup-errors/README.md`; `changesets/20260703-mcp-search-tool-consolidation/README.md`; `changesets/20260703-term-bridge-user-note-migration/README.md`
+- Verification: `python -m pytest tests/ -q` 46개 통과. `quality_preflight.py --format text` ok. `engine_quality_expanded_smoke.py --format text` ok. recall@5/@10/@20/MRR 실측 비퇴행 확인(hybrid/hierarchical/reranked).
+- Follow-up: Workflow Automation horizon으로 이어짐 — `docs/horizons/workflow-automation.md`.
+
 ### 2026-06-30 — Engine Quality Ops EQ5: quality preflight CI
 - Completed: 2026-06-30
 - Result: local-rag threshold gate, focused pytest, authority registry/source-pack validators, `user_note_v2` audit를 하나의 public-safe preflight 명령으로 묶고 GitHub Actions workflow 템플릿이 같은 명령을 실행하도록 문서화.
