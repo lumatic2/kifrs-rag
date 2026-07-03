@@ -26,29 +26,30 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — RAG 엔진 ↔ 에이전트 통합
+## Current Horizon — RAG 최적화 재개
 
-<!-- harness:goal id="rag-agent-integration" -->
-목표: `kifrs/workflows/kifrs1109/` 결정 엔진의 하드코딩 인용을 런타임 `kifrs.store`/`kifrs.embed` 직접 호출로 grounding 검증한다. 상세 계획: `docs/horizons/rag-agent-integration.md`
+<!-- harness:goal id="rag-optimization-resume" -->
+목표: 잔여 miss 9건(hybrid K=20 기준)을 얕은 랭킹/깊은 랭킹으로 진단하고 recall을 재측정한다. 상세 계획: `docs/horizons/rag-optimization-resume.md`
 
-**상태**: WA1(1109 파일럿 엔진) 완료 후, 2026-07-03 논의로 두 horizon 후보(RAG 최적화 재개 / RAG 엔진↔에이전트 통합) 중 후자를 우선 채택. grounding 시점=런타임, 호출경로=직접 import, 불일치처리=NeedsHumanReview 3개 결정 확정.
-**세부 계획**: `docs/plans/2026-07-03-rga1-runtime-citation-grounding.md`
+**상태**: RGA1 완료 후 2026-07-03 논의로 재개(2026-07-03 세션 초반 park됐던 후보). 재측정 결과 baseline drift 없음(hybrid recall@20=0.907 그대로), K=100까지 넓히면 9건 중 2건(Q004/Q041) 회복 — 얕은 랭킹/깊은 랭킹(7건) 분리 확인.
+**세부 계획**: `docs/plans/2026-07-03-ro1-residual-miss-diagnosis.md`
 
 ### Active Milestones
-<!-- harness:milestone id="RGA1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/grounding.py;tests/test_workflow_1109_grounding.py;docs/reports/2026-07-03-wa1-completion-rate.md" -->
-#### RGA1 — 런타임 grounding 레이어 구축
-- DoD: 결정 엔진의 하드코딩 인용이 런타임에 `kifrs.store` 직접 조회로 존재 검증되고(의미적 일치 검증은 실측 결과 신뢰도 부족으로 범위 제외 — 결정 로그 참조), 존재하지 않으면 `NeedsHumanReview`로 에스컬레이션한다. 기존 10개 1109 시나리오 회귀 재실행 + 완료율 재측정 기록.
-- Evidence: kifrs/workflows/kifrs1109/grounding.py;tests/test_workflow_1109_grounding.py;docs/reports/2026-07-03-wa1-completion-rate.md
-- Gap: 결정 엔진 인용이 코드에 하드코딩된 문자열이라 실제 조항을 가리키는지 검증되지 않았다 — Objective의 "K-IFRS 기반" 전제가 코드로 보장되지 않는 상태.
-- Status: [x]
+<!-- harness:milestone id="RO1" status="active" priority="P0" -->
+#### RO1 — 잔여 miss 진단 + 얕은 랭킹 1차 개선
+- DoD: 얕은 랭킹 2건(Q004/Q041)에 candidate pool 확대 적용 후 회복 여부 측정 + 전 지표 비퇴행 확인, 깊은 랭킹 7건은 원인 카테고리 진단 리포트 산출.
+- Evidence: docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md;docs/horizons/rag-optimization-resume.md
+- Gap: M4 종료(2026-06-27) 이후 잔여 miss 9건의 원인이 분류된 적 없다 — 개선 여지가 있는지조차 모르는 상태.
+- Status: [ ]
 
-- Completed at: 2026-07-03
-- Summary: 런타임 citation 존재 검증 배선 완료, 완료율 6/10 유지(근거 성격 개선)
 ### Next Candidates
-- RGA2 — grounding 신뢰성/성능 굳히기 (RGA1 결과에 따라 scope 확정)
-- RGA3 — 신규 도메인 grounding-first 설계 표준화 (WA2/WA3와 통합 검토)
+- RO2 — 깊은 랭킹 개선 실험 (RO1 진단 결과로 scope 확정)
+- RO3 — 종합 재측정 + 문서화
 
-## Paused Horizon — Workflow Automation
+## Paused Horizons
+
+<!-- harness:goal id="rag-agent-integration" status="paused" -->
+`docs/horizons/rag-agent-integration.md`. RGA1 완료(런타임 citation 존재 검증, 완료율 6/10 유지). RGA2(grounding 신뢰성/성능)·RGA3(신규 도메인 표준화)는 DoD 미확정 — 다음 재개 시 §B0.5 Beat 3.
 
 <!-- harness:goal id="workflow-automation" status="paused" -->
 `docs/horizons/workflow-automation.md`. WA1 완료(6/10=60%, `docs/reports/2026-07-03-wa1-completion-rate.md`). WA2/WA3는 RGA1 결과를 보고 이 horizon과 합쳐 재개할지 판단.
@@ -70,14 +71,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** RGA1 완료(런타임 citation 존재 검증 배선, 완료율 6/10 유지 — `docs/reports/2026-07-03-wa1-completion-rate.md` "RGA1 갱신" 참조). `docs/roadmap-gap-2026-07-03-rga1.md` 참조.
+**[현재 active]** RO1 — 잔여 miss 진단 + 얕은 랭킹 1차 개선 (`docs/plans/2026-07-03-ro1-residual-miss-diagnosis.md`, step 트리 3개, 계획 승인 대기).
 
-**[다음 후보 — DoD/Evidence 미확정, 다음 세션에서 §B0.5 Beat 3로 scope 확정]**
-- RGA2 — grounding 신뢰성/성능 굳히기, 또는 의미적 일치 검증 재도전(다른 접근 필요 — RGA1에서 keyword overlap·cosine·리랭커 전부 실패)
-- RGA3 — 신규 도메인 grounding-first 설계 표준화 (WA2/WA3와 통합 검토)
-- (참고) WA2/WA3 — `workflow-automation` horizon paused 상태로 대기 중
-
-RAG 최적화 재개 horizon은 이번 세션 논의로 RGA1에 밀려 후순위(2026-07-03) — 다음 새 horizon 논의 시 재검토.
+**[paused horizon 후보 — DoD/Evidence 미확정, RO1 이후 재개 시 §B0.5 Beat 3로 scope 확정]**
+- RGA2/RGA3 — `rag-agent-integration` horizon paused 상태로 대기 중
+- WA2/WA3 — `workflow-automation` horizon paused 상태로 대기 중
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료

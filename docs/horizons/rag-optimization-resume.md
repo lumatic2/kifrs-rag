@@ -1,0 +1,51 @@
+# RAG 최적화 재개 Horizon
+
+> Created: 2026-07-03
+> ROADMAP goal id: `rag-optimization-resume`
+> Status: active
+> Objective: `docs/OBJECTIVE.md`
+
+## Why now
+
+검색 파이프라인 고도화(`rag-goldstandard` horizon, M1~M4, 2026-06-27)에서 hybrid recall@20을
+0.847→0.907로, hierarchical로 0.917까지 올렸다. 그 뒤 EQ1~5·EH1은 품질 *운영*(quality preflight,
+authority source pack)·코드 *하드닝*(MCP 통합, 테스트 안전망)이었지 recall/MRR 자체를 더 올리려는
+시도가 아니었다. 성공기준 A축 "정량 측정 철회"는 실사용 전환 결정이었지 더 못 올린다는 뜻은
+아니다(ROADMAP.md 참조).
+
+2026-07-03 재확인(이 horizon 계획 전 재측정): baseline 수치는 M4 종료 시점과 그대로다(hybrid
+recall@20=0.907, hierarchical=0.910~0.917, reranked recall@5=0.640/MRR=0.612 — drift 없음). 50문항
+goldset 기준 잔여 miss를 이번 계획 단계에서 재진단한 결과:
+
+- **hybrid K=20 miss 9건**: Q001(1115-27), Q004(1001-69), Q006(1115-51), Q008(1109-2.1),
+  Q029(1116-45), Q039(1037-14), Q040(1109-4.1.4), Q041(1102-11), Q048(1036-18)
+- **hybrid K=100까지 넓히면 Q004·Q041 회복** — 얕은 랭킹 문제(순위 20~100 사이)
+- **K=100에서도 여전히 miss 7건**: Q001, Q006, Q008, Q029, Q039, Q040, Q048 — 후보풀 확대로는
+  못 잡는 깊은 문제. 해당 문단들의 본문을 직접 확인한 결과 어휘 자체는 질문과 상당히 겹친다(예:
+  1116-45 "리스변경"↔Q029 "리스 범위를 좁히는 변경") — M4가 진단한 Q039(1037-14, 섹션 centroid
+  전역순위 674)처럼 **어휘 부재가 아니라 임베딩 랭킹 자체가 얕게 매기는 문제**로 보인다.
+
+## Goal
+
+잔여 miss 문항을 카테고리별로 진단하고(얕은 랭킹 vs 깊은 랭킹 vs 진짜 어휘 부재), 카테고리에 맞는
+개선을 적용해 recall을 재측정한다. 100% 회복이 목표가 아니라 — M4와 같은 정신으로 — "측정 가능한
+개선 또는 정직한 한계 확인"이 목표다.
+
+## Milestone candidates (2~5, horizon-run continuation용)
+
+1. **RO1 — 잔여 miss 진단 + 얕은 랭킹 문제 1차 개선** (first, this planning round)
+   9건을 얕은 랭킹(2건: Q004·Q041)과 깊은 랭킹(7건: Q001·Q006·Q008·Q029·Q039·Q040·Q048)으로
+   재확인하고, 얕은 랭킹 그룹은 `search_reranked`/`search_hierarchical`의 candidate pool을
+   50→더 크게 늘려 회복 여부 측정. 깊은 랭킹 그룹은 문항별 세부 진단(정답 문단 vs 실제 top-20의
+   의미적 차이)까지만 이번 milestone에서 수행 — 원인 분류가 산출물.
+2. **RO2 — 깊은 랭킹 문제 개선 실험** (candidate, RO1 진단 결과로 scope 확정)
+   RO1이 분류한 원인(예: 섹션 misalignment, 임베딩 해상도 부족, 청크 경계)에 맞는 개선 — 임베딩
+   모델 교체 비교, 청크 재분할, 추가 term bridge 등 중 RO1 결과가 가리키는 것.
+3. **RO3 — 종합 재측정 + 문서화** (candidate, RO1/RO2 완료 후)
+   전체 goldset 재측정, M1~M4와 같은 before/after 표로 기록, horizon 닫는 기준 충족 확인.
+
+## Close criteria
+
+RO1(진단 + 얕은 랭킹 회복 시도)이 닫히고, 깊은 랭킹 7건의 원인이 카테고리화되면 이 horizon의 첫
+phase가 닫힌다. RO2/RO3 여부는 RO1 결과(개선 여지가 실제로 있는지, 비용 대비 가치가 있는지)를 보고
+판단 — M4가 M4-2(evidence curation)를 "가치 낮음"으로 보류한 것과 같은 정직한 판단 기준 적용.
