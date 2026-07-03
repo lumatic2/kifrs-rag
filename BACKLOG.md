@@ -137,3 +137,34 @@
 - cpa2 q06(1019+1037) 풀이+채점: 직관 1/5 + 해석 인정 4/5 ≈ 80%(2026-05-02)
 - 잔여 1116 시나리오: 3(단기·저가 면제) / 6(금융→금융) / 7(기간 재평가) / 8(매수선택권)
 - 다른 도메인 미착수: 1115 수익 / 1113 공정가치(KICPA 부담 1위 27.08%) / user_note 활성화
+
+### 2026-07
+- EQ1 - EQ1
+  - Completed: 2026-07-03
+  - Result: 자동 채점, 외부 권위 인덱스, user_note 운영 품질을 각각 최소 로컬 실행 가능한 tooling surface로 구현하고, 세 축을 함께 확인하는 integrated smoke를 남긴다.
+  - Evidence: `changesets/20260630-user-note-quality/README.md`; `changesets/20260630-auto-grading/README.md`; `changesets/20260630-authority-index/README.md`; `scripts/engine_quality_smoke.py`
+
+- EQ2 - EQ2
+  - Completed: 2026-07-03
+  - Result: 자동 채점 범위를 확대하고 threshold gate를 추가하며, 외부 권위 source pack을 metadata-only로 확장하고, user_note v2 schema migration을 backward-compatible하게 설계·검증한다.
+  - Evidence: `changesets/20260630-auto-grading-expanded/README.md`; `changesets/20260630-authority-source-pack/README.md`; `changesets/20260630-user-note-schema-v2/README.md`; `scripts/engine_quality_expanded_smoke.py`
+
+- EQ4 - EQ4
+  - Completed: 2026-07-03
+  - Result: user_note_v2 runtime write/read path completed with legacy fallback
+  - Evidence: `changesets/20260630-user-note-v2-runtime/README.md`; `docs/plans/2026-06-30-user-note-v2-runtime.md`; `scripts/seed_user_notes.py`; `scripts/audit_user_notes.py`
+
+- EQ3 - EQ3
+  - Completed: 2026-07-03
+  - Result: authority source pack rules completed with metadata-only validator
+  - Evidence: `changesets/20260630-authority-source-pack-rules/README.md`; `docs/plans/2026-06-30-authority-source-pack-rules.md`; `docs/authority/source_pack_rules.md`; `docs/authority/source_pack.json`; `scripts/validate_authority_source_pack.py`
+
+- EQ5 — local-rag threshold CI hook
+  - Completed: 2026-06-30
+  - Result: public-safe quality preflight and CI hook completed
+  - Evidence: `changesets/20260630-quality-preflight-ci/README.md`; `scripts/quality_preflight.py`; `docs/ci/quality.yml`
+
+- P4C1~P4C5 — Phase 4 콘텐츠 dogfood 마무리 (1115 수익, 1116 리스 closeout, user_note 운영 시작, 1113 공정가치 entry, 1019 확정급여 승격)
+  - Completed: 2026-06-30
+  - Result: 1115 q07 RAG eval trace, 1116 리스 10/10 완성, user_note 13건 seed + query expansion 연결, 1113/1019 도메인 workflow 진입
+  - Evidence: `data/scenarios/1115_revenue/`; `data/scenarios/1116_lease/`; `data/scenarios/1113_fair_value/`; `data/scenarios/1019_employee_benefits/`; `scripts/seed_user_notes.py`

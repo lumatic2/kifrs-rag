@@ -11,3 +11,4 @@
 | 7 | `20260630-user-note-v2-runtime` | 2026-06-30 | v2-priority user_note write/read runtime | 4/4 | completed |
 | 8 | `20260630-authority-source-pack-rules` | 2026-06-30 | document-level authority source pack rules | 4/4 | completed |
 | 9 | `20260630-quality-preflight-ci` | 2026-06-30 | public-safe quality preflight + CI hook | 4/4 | completed |
+| 10 | `20260703-engine-test-safety-net` | 2026-07-03 | mcp_server.py/embed.py retrieval test coverage | 4/4 | completed |
