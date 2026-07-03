@@ -68,10 +68,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 **[현재 active 없음]** WA1 완료(완료율 6/10=60% 첫 측정, `docs/reports/2026-07-03-wa1-completion-rate.md`).
 
-**[다음 후보]**
-- WA2/WA3 (`docs/horizons/workflow-automation.md` 참조) — WA1 완료율 결과를 보고 결정.
+**[다음 후보 — 2026-07-03 세션 종료 시 논의로 horizon 2개 park, 다음 세션에서 §B0.5로 정식 작성]**
+- **새 horizon: RAG 최적화 재개** — 검색 알고리즘 개선은 M4(계층 검색, 2026-06-27) 이후 멈춰 있었다(그 뒤 EQ1~5·EH1은 품질 *운영*/코드 *하드닝*이었지 recall/MRR 자체를 더 올리려는 시도가 아니었음). 성공기준 A축 "정량 측정 철회"는 실사용 전환 결정이었지 더 못 올린다는 뜻은 아니다. 재개 후보: 임베딩 모델 교체, 리랭커 후보풀 확대, 청크/쿼리 전략 개선.
+- **새 horizon: RAG 엔진 ↔ 에이전트 통합** — WA1(`kifrs/workflows/kifrs1109/`)의 조항 인용은 코드에 하드코딩된 문자열이고, 런타임에 kifrs MCP `search`를 호출해 근거를 찾지 않는다. 100 기준서 검색 인프라가 서 있는데 결정 엔진과 아직 안 이어져 있음 — 하드코딩 인용을 MCP search로 검증/대체하거나, 향후 도메인(WA2 이후)부터는 결정 엔진이 실제 검색을 호출하도록 설계 필요.
+- (참고, 위 두 horizon과 겹칠 수 있음) WA2/WA3 — 1109 나머지 4건 자동화 또는 1116 등 도메인 확장 (`docs/horizons/workflow-automation.md`).
 
-다음 구현 전 먼저 확인할 문서: `docs/OBJECTIVE.md` → `docs/horizons/workflow-automation.md` → `docs/reports/2026-07-03-wa1-completion-rate.md`
+다음 세션 시작 시 먼저 확인할 문서: `docs/OBJECTIVE.md` → `docs/horizons/workflow-automation.md` → `docs/reports/2026-07-03-wa1-completion-rate.md` → 위 두 horizon 후보 중 우선순위 논의(§B0.5 Beat 2).
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료
