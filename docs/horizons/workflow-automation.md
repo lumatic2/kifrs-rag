@@ -61,7 +61,12 @@ The horizon itself stays open for WA2/WA3 — closing the horizon happens when e
 engine pattern has been proven/extended to a second domain, or (b) a deliberate decision to
 stop and return to content-only scenario work is made.
 
-## Objective 임팩트 (horizon 종료 시 갱신 예정)
+## Objective 임팩트 (WA1 완료 시점, 2026-07-03)
 
-TBD — filled in when this horizon closes, per harness convention: what this horizon moved on
-the Objective's "시나리오 완료율" axis, and whether the Objective needs re-measurement.
+WA1이 "시나리오 완료율" 축에 첫 측정값을 만들었다: 1109 도메인 6/10(60%) — 이전에는 이 축
+자체가 측정 불가능(0/0)했다. 움직인 것: 축이 "정의만 된 개념"에서 "실제 숫자가 나오는 지표"로
+바뀌었고, 그 숫자를 만드는 코드(`kifrs/workflows/kifrs1109/`)가 회귀 테스트로 고정됐다.
+
+Objective 재측정 필요 여부: 아직 아니다. 재측정을 검토할 신호는 (a) 이 60%가 다른 도메인에도
+비슷하게 재현되는지(WA2), 또는 (b) "결정준비 초안까지 자동"이라는 정의 자체가 실제 사용 중
+너무 좁거나 넓다고 판명되는 경우. 지금은 horizon을 계속 열어 두고 WA2/WA3로 이어간다.

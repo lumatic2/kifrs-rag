@@ -35,15 +35,15 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
 
 ### Active Milestones
-<!-- harness:milestone id="WA1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/; tests/test_workflow_1109.py; tests/test_workflow_1109_regression.py; docs/reports/2026-07-03-wa1-completion-rate.md" -->
+<!-- harness:milestone id="WA1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/;tests/test_workflow_1109.py;tests/test_workflow_1109_regression.py;docs/reports/2026-07-03-wa1-completion-rate.md" -->
 #### WA1 — 1109 파일럿 결정 엔진 + 완료율 측정
 - DoD: 구조화 거래 입력 → SPPI/사업모형 분류 → 최초인식 분개 → 상각표 포함 후속측정 → 검토메모까지 코드로 실행되고, 기존 10개 1109 시나리오를 회귀 fixture로 재현해 완료율을 측정·기록한다.
-- Evidence: `kifrs/workflows/kifrs1109/`(schema/sppi/business_model/classify/initial_entry/amortization/subsequent_entry/review_memo/fixtures/runner); `tests/test_workflow_1109.py`(22); `tests/test_workflow_1109_regression.py`(11); `docs/reports/2026-07-03-wa1-completion-rate.md`; `python -m pytest tests/ -q`(79 passed); `scripts/quality_preflight.py`(ok)
+- Evidence: kifrs/workflows/kifrs1109/;tests/test_workflow_1109.py;tests/test_workflow_1109_regression.py;docs/reports/2026-07-03-wa1-completion-rate.md
 - Gap: WORKFLOW.md 결정트리는 사람(Claude)이 매번 수동으로 따라가야 하는 문서였다 — 재현성·결정론성을 코드로 보장하지 못해 "시나리오 완료율"을 측정할 수 없었다. 이제 측정됨: **6/10 (60%)**.
-- Status: [x] 전체 8 step 완료. 계획 단계 대비 발견: 07(보유자 전환사채)·09(회계불일치 지정)은 기존 SPPI-fail/지정오버라이드 로직으로 커버돼 core 6개로 승격(계획 시점 5개 예상보다 증가). 나머지 4개(IFRIC19/SPPI재설정불일치/재분류/외화이중트랙)는 `NeedsHumanReview`로 정직하게 집계.
+- Status: [x]
 
 - Completed at: 2026-07-03
-- Summary: 1109 결정 엔진 파일럿 완료, 시나리오 완료율 첫 측정 6/10(60%)
+- Summary: 1109 pilot decision engine complete, first scenario completion rate measured: 6/10 (60%)
 
 ### Next Candidates
 - WA2 — 완료율 결과 기반 확장 결정: 완료율 60%·나머지 4건 사유(IFRIC19/SPPI재설정불일치/재분류/외화이중트랙)를 보고 (a) 이 4건에 별도 로직 추가할지 (b) 다른 도메인(1116 등)으로 패턴 이식할지 결정. scope 미확정.
@@ -66,12 +66,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff). 아래는 안정적 후보 목록.
 
-**[현재 active]** WA1 — 1109 파일럿 결정 엔진 + 완료율 측정 (`docs/plans/2026-07-03-wa1-1109-pilot-engine.md`)
+**[현재 active 없음]** WA1 완료(완료율 6/10=60% 첫 측정, `docs/reports/2026-07-03-wa1-completion-rate.md`).
 
 **[다음 후보]**
 - WA2/WA3 (`docs/horizons/workflow-automation.md` 참조) — WA1 완료율 결과를 보고 결정.
 
-다음 구현 전 먼저 확인할 문서: `docs/OBJECTIVE.md` → `docs/horizons/workflow-automation.md` → `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
+다음 구현 전 먼저 확인할 문서: `docs/OBJECTIVE.md` → `docs/horizons/workflow-automation.md` → `docs/reports/2026-07-03-wa1-completion-rate.md`
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료
