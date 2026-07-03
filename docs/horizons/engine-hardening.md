@@ -2,7 +2,7 @@
 
 > Created: 2026-07-03
 > ROADMAP goal id: `engine-hardening`
-> Status: proposed (pending user approval)
+> Status: completed (EH1, 2026-07-03)
 
 ## Why now
 

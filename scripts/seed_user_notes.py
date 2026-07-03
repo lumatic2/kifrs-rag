@@ -81,6 +81,28 @@ SEEDS = [
         "86",
         "type=term_bridge; trigger=DCF; expansion=사업계획; 장기성장률; 내부 현금흐름; 비상장 지분; 관측할 수 없는 투입변수; 수준 3 투입변수; source=P4C4; rationale=모델명이나 내부 가정 입력을 1113 서열체계 문단으로 연결",
     ),
+    # Engine Hardening CS-5: kifrs/store.py의 하드코딩 TERM_BRIDGE dict를 user_note_v2로 이관.
+    # "공매도"는 위 1109-4.2.1 seed가 이미 상위 집합을 커버하므로 재등록하지 않음.
+    (
+        "1115",
+        "60",
+        "type=term_bridge; trigger=할부판매; expansion=유의적 금융요소; 화폐의 시간가치; 현금판매가격; source=engine-hardening-cs5; rationale=구 TERM_BRIDGE dict 이관 — 시험 표현 '할부판매'가 1115 본문 어휘로 직접 존재하지 않음",
+    ),
+    (
+        "1115",
+        "61",
+        "type=term_bridge; trigger=현재가치 할인; expansion=유의적 금융요소; 화폐의 시간가치; source=engine-hardening-cs5; rationale=구 TERM_BRIDGE dict 이관",
+    ),
+    (
+        "1102",
+        "16",
+        "type=term_bridge; trigger=측정기준일; expansion=부여일; source=engine-hardening-cs5; rationale=구 TERM_BRIDGE dict 이관",
+    ),
+    (
+        "1019",
+        "8",
+        "type=term_bridge; trigger=재측정요소; expansion=보험수리적손익; source=engine-hardening-cs5; rationale=구 TERM_BRIDGE dict 이관",
+    ),
 ]
 
 

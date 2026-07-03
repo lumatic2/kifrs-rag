@@ -357,23 +357,15 @@ def extract_keywords(query: str) -> list[str]:
 
 # 시험표현 → 본문표현 브리지 (M3b). 시험 답안 표현이 본문에 어휘로 없을 때, 본문에
 # 실제 존재하는 표현을 검색 전 쿼리에 덧붙여 lexical·semantic 양쪽 신호를 보강한다.
-# 실사용(dogfood) 마찰에서 누적 — 각 value 는 *본문에 실제 존재하는* 표현이어야 함.
-TERM_BRIDGE: dict[str, list[str]] = {
-    "할부판매": ["유의적 금융요소", "화폐의 시간가치", "현금판매가격"],
-    "현재가치 할인": ["유의적 금융요소", "화폐의 시간가치"],
-    "측정기준일": ["부여일"],
-    "재측정요소": ["보험수리적손익"],
-    "공매도": ["당기손익-공정가치 측정 금융부채", "단기매매항목"],  # 한계 #1 (goldset 밖)
-}
+# Engine Hardening CS-5(2026-07-03) 이전에는 여기 하드코딩된 dict였다 — 재배포 없이
+# 확장하려면 코드 변경이 필요했다. 이제 user_note_v2(type=term_bridge) DB row가
+# 유일한 소스이며 확장은 _user_note_expansions()가 담당한다(scripts/seed_user_notes.py 참조).
 
 
 def expand_query(query: str) -> str:
-    """시험표현을 본문표현으로 확장 (M3b). 매칭된 시험표현마다 본문 용어를 쿼리에 덧붙임."""
-    extra: list[str] = []
-    for exam_term, body_terms in TERM_BRIDGE.items():
-        if exam_term in query:
-            extra.extend(body_terms)
-    extra.extend(_user_note_expansions(query))
+    """시험표현을 본문표현으로 확장 (M3b). user_note_v2(type=term_bridge)에 등록된
+    시험표현마다 본문 용어를 쿼리에 덧붙임 — DB 등록만으로 확장, 코드 변경 불필요."""
+    extra: list[str] = _user_note_expansions(query)
     deduped = list(dict.fromkeys(extra))
     return f"{query} {' '.join(deduped)}" if deduped else query
 
