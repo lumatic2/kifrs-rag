@@ -35,19 +35,21 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
 
 ### Active Milestones
-<!-- harness:milestone id="WA1" status="active" priority="P0" -->
+<!-- harness:milestone id="WA1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/; tests/test_workflow_1109.py; tests/test_workflow_1109_regression.py; docs/reports/2026-07-03-wa1-completion-rate.md" -->
 #### WA1 — 1109 파일럿 결정 엔진 + 완료율 측정
 - DoD: 구조화 거래 입력 → SPPI/사업모형 분류 → 최초인식 분개 → 상각표 포함 후속측정 → 검토메모까지 코드로 실행되고, 기존 10개 1109 시나리오를 회귀 fixture로 재현해 완료율을 측정·기록한다.
-- Evidence: (진행 중 — step 완료 시 갱신) `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`
-- Gap: WORKFLOW.md 결정트리는 지금 사람(Claude)이 매번 수동으로 따라가야 하는 문서다 — 재현성·결정론성을 코드로 보장하지 못해 "시나리오 완료율" 자체를 측정할 수 없다.
-- Status: [ ] Step1 스키마 / [ ] Step2 fixture 인코딩 / [ ] Step3 SPPI / [ ] Step4 사업모형 / [ ] Step5 최초인식 / [ ] Step6 상각표·후속측정 / [ ] Step7 검토메모 / [ ] Step8 회귀 하네스+리포트
+- Evidence: `kifrs/workflows/kifrs1109/`(schema/sppi/business_model/classify/initial_entry/amortization/subsequent_entry/review_memo/fixtures/runner); `tests/test_workflow_1109.py`(22); `tests/test_workflow_1109_regression.py`(11); `docs/reports/2026-07-03-wa1-completion-rate.md`; `python -m pytest tests/ -q`(79 passed); `scripts/quality_preflight.py`(ok)
+- Gap: WORKFLOW.md 결정트리는 사람(Claude)이 매번 수동으로 따라가야 하는 문서였다 — 재현성·결정론성을 코드로 보장하지 못해 "시나리오 완료율"을 측정할 수 없었다. 이제 측정됨: **6/10 (60%)**.
+- Status: [x] 전체 8 step 완료. 계획 단계 대비 발견: 07(보유자 전환사채)·09(회계불일치 지정)은 기존 SPPI-fail/지정오버라이드 로직으로 커버돼 core 6개로 승격(계획 시점 5개 예상보다 증가). 나머지 4개(IFRIC19/SPPI재설정불일치/재분류/외화이중트랙)는 `NeedsHumanReview`로 정직하게 집계.
+
+- Completed at: 2026-07-03
+- Summary: 1109 결정 엔진 파일럿 완료, 시나리오 완료율 첫 측정 6/10(60%)
 
 ### Next Candidates
-- WA2 — 완료율 결과 기반 확장 결정 (WA1 완료율·failure mode를 보고 도메인 결정, 아직 scope 미확정)
-- WA3 — 사람-개입 필요 케이스 명시 인터페이스 (WA1에서 결정 불가 케이스가 유의미하게 나오면 승격)
+- WA2 — 완료율 결과 기반 확장 결정: 완료율 60%·나머지 4건 사유(IFRIC19/SPPI재설정불일치/재분류/외화이중트랙)를 보고 (a) 이 4건에 별도 로직 추가할지 (b) 다른 도메인(1116 등)으로 패턴 이식할지 결정. scope 미확정.
+- WA3 — 사람-개입 필요 케이스 명시 인터페이스: `NeedsHumanReview` 예외가 이미 이 개념의 최소 형태로 존재 — MCP/스킬 노출 여부는 신호(사용 빈도) 보고 결정.
 ### Planning Rule
-- WA1은 `docs/plans/2026-07-03-wa1-1109-pilot-engine.md`의 Step1→Step8 순서를 따른다.
-- Step6(상각표·후속측정) 이후 각 step은 회귀 fixture 비교로 검증한 뒤에만 다음으로 넘어간다.
+- 다음 milestone은 WA1 완료율 리포트(`docs/reports/2026-07-03-wa1-completion-rate.md`)를 먼저 확인한 뒤 WA2/WA3 중 무엇을 열지 정한다.
 
 ## 성공기준 4축
 
