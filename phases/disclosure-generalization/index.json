@@ -16,6 +16,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "DisclosureChecklistItem schema와 1116/1115/1109 adapter를 추가"
+    },
+    {
+      "step": 3,
+      "name": "1115-disclosure-pilot",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1115 review pack에서 자동 산출 후보와 사람 보완 항목을 가진 disclosure skeleton을 생성"
     }
   ]
 }

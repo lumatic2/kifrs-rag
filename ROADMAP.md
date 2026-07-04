@@ -34,7 +34,6 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 `docs/horizons/f-acc-disclosure-generalization.md`.
 
 ### Next Candidates
-- DG3 — 1115 disclosure pilot
 - DG4 — 1109 disclosure pilot
 - DG5 — cross-domain disclosure report
 
@@ -49,6 +48,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 #### DG2 — common disclosure checklist schema
 - DoD: 1116 요구항목, 1115 review pack, 1109 review pack을 공통 DisclosureChecklistItem으로 변환한다.
 - Evidence: kifrs/workflows/disclosure/;tests/test_disclosure_common.py;phases/disclosure-generalization/step2.md
+- Status: [x]
+
+<!-- harness:milestone id="DG3" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/disclosure.py;tests/test_1115_disclosure.py;phases/disclosure-generalization/step3.md" -->
+#### DG3 — 1115 disclosure pilot
+- DoD: 1115 review pack에서 자동 산출 후보와 사람 보완 필요 항목을 가진 disclosure skeleton을 생성한다.
+- Evidence: kifrs/workflows/kifrs1115/disclosure.py;tests/test_1115_disclosure.py;phases/disclosure-generalization/step3.md
 - Status: [x]
 
 ## Closed Horizons
@@ -104,8 +109,8 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
 `f-acc-disclosure-generalization`이다. 1115 revenue engine은 R15-1~R15-6까지 완료했고,
-DG1에서 disclosure surface inventory, DG2에서 common disclosure checklist schema를 완료했다.
-다음은 DG3 1115 disclosure pilot.
+DG1에서 disclosure surface inventory, DG2에서 common schema, DG3에서 1115 disclosure skeleton을 완료했다.
+다음은 DG4 1109 disclosure pilot.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → **F-ACC disclosure generalization(현재)**.
 
