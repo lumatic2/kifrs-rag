@@ -1,7 +1,7 @@
 # PRD — F-ACC review pack
 
 > Created: 2026-07-04
-> Horizon: `f-acc-review-pack`
+> Horizon: `f-acc-review-pack` → `f-acc-1109-review-pack`
 > Source decision: `docs/practice-map/service-line-candidates.md`
 
 ## Problem
@@ -17,12 +17,15 @@
 
 ## Product Shape
 
-리스 계약 조건과 지급 스케줄을 입력하면 다음을 한 번에 산출하는 로컬 workpaper pack을 만든다.
+기준서별 구조화 입력을 넣으면 다음을 한 번에 산출하는 로컬 workpaper pack을 만든다. 첫 표면은
+1116 리스 계약이었고, 2026-07-05에 1109 금융상품 분류·측정으로 확장했다.
 
 - 리스 식별 및 분류 판단 요약
+- 금융상품 SPPI/사업모형/분류 판단 요약
 - 최초/후속 측정 계산 요약
 - 조정분개 초안
 - K-IFRS 1116 검토메모 초안
+- K-IFRS 1109 검토메모 초안
 - 1116 리스 주석 초안
 - NeedsHumanReview 항목과 리뷰 checklist
 
@@ -36,12 +39,17 @@
 ## Success Criteria
 
 - 기존 1116 fixture 10개 중 가능한 케이스에서 review pack markdown/json이 생성된다.
+- 기존 1109 fixture 10개 중 가능한 케이스에서 review pack markdown/json이 생성된다.
 - pack 안에 검토메모, 분개, 주석, 리뷰 checklist가 같은 run id로 연결된다.
 - 기존 1116 회귀 테스트와 disclosure 테스트가 깨지지 않는다.
 - 산출물이 "회계자문팀 workpaper 초안"으로 설명 가능하다.
 
 ## Decision
 
-다음 구현 우선순위는 `1115 수익 엔진`이 아니라 `1116 F-ACC review pack`이다. 이유는 새 도메인을
+초기 구현 우선순위는 `1115 수익 엔진`이 아니라 `1116 F-ACC review pack`이었다. 이유는 새 도메인을
 늘리기보다 이미 검증된 1116 엔진과 주석 초안을 회계법인 산출물 단위로 묶는 것이 PoC 설명력이 더
-높기 때문이다.
+높기 때문이었다.
+
+RP4 이후 사용자가 현업 피드백 없이 기술 확장을 계속하기로 결정했으므로, 다음 우선순위는 1115 신규
+엔진이 아니라 `1109 F-ACC review pack`이다. 이유는 이미 측정된 1109 엔진(6/10)을 감싸서 review pack
+표면의 반복 가능성을 먼저 검증하는 것이 더 직접적인 기술 확장 증거이기 때문이다.

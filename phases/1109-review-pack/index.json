@@ -1,0 +1,14 @@
+{
+  "project": "kifrs-rag",
+  "phase": "1109-review-pack",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "review-pack-contract-renderer",
+      "status": "completed",
+      "summary": "Added kifrs/workflows/kifrs1109/review_pack.py plus tests/test_1109_review_pack.py. FR1 composes existing 1109 runner, review memo, and initial journal entry into a F-ACC review pack without changing classification logic. Fixture result: 6 automated packs and 4 needs_human_review packs. Verification passed: 1109 workflow/regression/review-pack tests plus 1116 review-pack regression.",
+      "completed_at": "2026-07-05T00:45:00+09:00"
+    }
+  ]
+}

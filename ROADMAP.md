@@ -26,54 +26,31 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — f-acc-review-pack
+## Current Horizon — f-acc-1109-review-pack
 
-<!-- harness:goal id="f-acc-review-pack" status="active" -->
-목표: 1116 리스 엔진과 주석 초안을 회계자문팀(F-ACC) workpaper pack으로 묶어, 법인 PoC에서
-"이 팀의 이 산출물을 줄인다"가 보이는 제품 표면을 만든다. 상세 plan → `docs/horizons/f-acc-review-pack.md`.
+<!-- harness:goal id="f-acc-1109-review-pack" status="active" -->
+목표: 현업 피드백 없이 기술 확장을 계속하기 위해 1116 review pack 패턴을 1109 금융상품 엔진에
+이식하고, F-ACC workpaper pack 표면이 여러 기준서 도메인에서 반복 가능한지 검증한다. 상세 plan →
+`docs/horizons/f-acc-1109-review-pack.md`.
 
-### Completed Milestones (f-acc-review-pack)
-<!-- harness:milestone id="RP1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp1-1116-review-pack-sample.md" -->
-#### RP1 — 1116 review pack contract + renderer
-- DoD: 기존 1116 runner/review memo/disclosure output을 하나의 structured review pack과 markdown workpaper 초안으로 묶고, fixture 기반 테스트와 sample report를 남긴다.
-- Evidence: kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp1-1116-review-pack-sample.md
-- Gap: 1116 엔진과 주석 초안은 있지만 회계자문팀이 실제로 받을 수 있는 검토메모+분개+주석+리뷰 checklist 패키지 산출물이 없다.
-- Status: [x]
-
-- Completed at: 2026-07-04
-- Summary: 1116 F-ACC review pack contract+renderer 구현, 신규/기존 1116 테스트 20개 통과
-<!-- harness:milestone id="RP2" status="completed" priority="P0" evidence="tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp2-1116-review-pack-fixture-summary.md" -->
-#### RP2 — fixture regression + sample pack 확장
-- DoD: 기존 1116 fixture 전체에서 review pack 생성 상태를 검증하고, automated / needs_human_review 경계가 AE1 완료율과 일치하는지 요약 리포트로 남긴다.
-- Evidence: tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp2-1116-review-pack-fixture-summary.md
-- Gap: RP1은 대표 fixture 산출물은 만들었지만, 전체 1116 fixture에 review pack contract가 안정적으로 적용되는지 별도 evidence가 없었다.
-- Status: [x]
-
-- Completed at: 2026-07-04
-- Summary: 1116 fixture 10개 review pack 생성 검증 완료 — automated 9, needs_human_review 1, 신규/기존 1116 테스트 20개 통과
-<!-- harness:milestone id="RP3" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-05-rp3-needs-human-review-checklist.md" -->
-#### RP3 — NeedsHumanReview checklist hardening
-- DoD: 자동 판단이 멈추는 케이스를 회계사가 바로 처리할 수 있는 추가자료·리뷰질문·기준서 방향 checklist로 노출한다.
-- Evidence: kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-05-rp3-needs-human-review-checklist.md
-- Gap: RP1/RP2는 NeedsHumanReview 경계를 보존했지만, 회계사가 다음에 무엇을 확인할지 action 단위로 제시하지 못했다.
+### Completed Milestones (f-acc-1109-review-pack)
+<!-- harness:milestone id="FR1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/review_pack.py;tests/test_1109_review_pack.py;docs/reports/2026-07-05-fr1-1109-review-pack.md" -->
+#### FR1 — 1109 review pack contract + fixture regression
+- DoD: 기존 1109 runner/review memo/journal entry output을 하나의 structured review pack과 markdown workpaper 초안으로 묶고, 10개 fixture 전체 pack 생성 상태를 검증한다.
+- Evidence: kifrs/workflows/kifrs1109/review_pack.py;tests/test_1109_review_pack.py;docs/reports/2026-07-05-fr1-1109-review-pack.md
+- Gap: 1116 review pack은 PoC 표면을 만들었지만, 다른 기준서 도메인에도 이식 가능한 제품 패턴인지 증거가 없었다.
 - Status: [x]
 
 - Completed at: 2026-07-05
-- Summary: needs_human_review를 구조화된 회계사 action checklist로 강화 — scenario_09에 추가자료·리뷰질문·1116-46 방향 노출, 신규/기존 1116 테스트 20개 통과
-<!-- harness:milestone id="RP4" status="completed" priority="P0" evidence="docs/reports/2026-07-05-rp4-poc-demo-brief.md;docs/plans/2026-07-05-rp4-poc-demo-brief.md;phases/1116-review-pack/step4.md" -->
-#### RP4 — PoC demo brief
-- DoD: 회계법인 Accounting Advisory 팀에 설명 가능한 1~2페이지 PoC 브리프를 만들고, demo flow·현재 capability·사람 검토 경계·다음 결정 질문을 명시한다.
-- Evidence: docs/reports/2026-07-05-rp4-poc-demo-brief.md;docs/plans/2026-07-05-rp4-poc-demo-brief.md;phases/1116-review-pack/step4.md
-- Gap: RP1~RP3는 기능과 checklist를 만들었지만, 외부 PoC 대화에서 무엇을 보여주고 무엇을 물어볼지 정리된 브리프가 없었다.
-- Status: [x]
-
-- Completed at: 2026-07-05
-- Summary: F-ACC 1116 review pack PoC 브리프 작성 — workflow fit, demo flow, 9/10 자동화 경계, 사람 검토 경계, 다음 결정 질문 정리
+- Summary: 1109 F-ACC review pack 구현 — fixture 10개 중 automated 6, needs_human_review 4, 기존 1109/1116 review pack 테스트 통과
 ### Next Candidates
-- PM2 — 현업 검증(회계사 인터뷰/피드백), 접촉 가능 시 재개
-- Packaging — CLI/demo script/sample input/README 정리, 외부 소개 일정이 잡히면 새 horizon으로 승격
+- FR2 — cross-domain review pack comparison / 공통 schema 추출 여부 판단
+- FR3 — next-domain readiness decision: 1115 신규 엔진 vs 1109 잔여 4개 hardening vs 주석 대사 확장
 
 ## Closed Horizons
+
+<!-- harness:goal id="f-acc-review-pack" status="closed" -->
+`docs/horizons/f-acc-review-pack.md` — close (2026-07-05). RP1~RP4 완료: 1116 review pack contract, fixture regression, NeedsHumanReview checklist, PoC demo brief. Evidence: `kifrs/workflows/kifrs1116/review_pack.py`, `docs/reports/2026-07-05-rp4-poc-demo-brief.md`.
 
 <!-- harness:goal id="firm-service-map" status="closed" -->
 `docs/horizons/firm-service-map.md` — close (2026-07-04). FM1(company/service-line map) + FM2(team workflow map) + FM3(service-line 후보 재판정) 완료. FM4 결정: 다음 구현 horizon은 F-ACC review pack(1116 리스 검토메모+분개+주석)으로 확정. 상세 evidence: `docs/practice-map/company-map.md`, `docs/practice-map/team-workflows.md`, `docs/practice-map/service-line-candidates.md`.
@@ -110,11 +87,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** RP1/RP2/RP3/RP4 완료 — 기존 1116 엔진과 주석 초안을 회계자문팀 workpaper
-pack으로 묶었고, 1116 fixture 10개 전체에서 review pack 생성 상태를 검증했으며, NeedsHumanReview를
-회계사 action checklist로 강화하고 PoC demo brief까지 만들었다. 다음은 PM2 또는 packaging horizon.
+**[현재 active 없음]** FR1 완료 — 1116 review pack 패턴을 1109 금융상품 엔진에 이식했고, 1109 fixture
+10개 전체에서 review pack 생성 상태를 검증했다. 다음은 FR2(cross-domain comparison) 또는 FR3(next-domain
+readiness decision).
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → **F-ACC review pack(현재)** → 프로덕트 패키징.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → **F-ACC 1109 review pack(현재)**.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
