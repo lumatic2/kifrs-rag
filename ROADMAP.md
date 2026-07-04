@@ -11,9 +11,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - 비공개 범위: 기준서 PDF, 파싱 텍스트, SQLite DB, 임베딩, 회계사 기출 dogfood 자료
 - `tax-agent` 패턴 재사용 → 신규 개발 비용 최소화
 
-## 야망 (CLAUDE.md 동기화)
+## 야망 (docs/OBJECTIVE.md 동기화 — 2026-07-04 프로덕트 지향 재정의)
 
-회계사가 아닌 본인이 AI 도구체인으로 **회계사 수준의 결과물**(분개·검토 메모·분류 판단·주석 초안)을 낸다. 각 단계는 이전 단계 검증 후에만 진행.
+"회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하고, 그 답을 **회계법인에 소개 가능한 로컬 도구킷 프로덕트**로 만든다. 성공 모습: 법인 소개/PoC 성사. 축: ① 업무 지도 커버리지(신설) ② 시나리오 완료율(도메인별). 세무는 tax-agent 분리.
 
 | 단계 | 목표 | 상태 |
 |---|---|---|
@@ -26,28 +26,30 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — RAG 최적화 재개
+## Current Horizon — 업무 지도 (Practice Map)
 
-<!-- harness:goal id="rag-optimization-resume" -->
-목표: 잔여 miss 9건(hybrid K=20 기준)을 얕은 랭킹/깊은 랭킹으로 진단하고 recall을 재측정한다. 상세 계획: `docs/horizons/rag-optimization-resume.md`
+<!-- harness:goal id="practice-map" -->
+목표: 회계사 실무 업무 taxonomy를 작성하고 자동화 가능성을 매핑해, 다음 자동화 대상을 실무 가치 기준으로 고를 수 있게 한다. 상세 계획: `docs/horizons/practice-map.md`
 
-**상태**: RGA1 완료 후 2026-07-03 논의로 재개(2026-07-03 세션 초반 park됐던 후보). 재측정 결과 baseline drift 없음(hybrid recall@20=0.907 그대로), K=100까지 넓히면 9건 중 2건(Q004/Q041) 회복 — 얕은 랭킹/깊은 랭킹(7건) 분리 확인.
-**세부 계획**: `docs/plans/2026-07-03-ro1-residual-miss-diagnosis.md`
+**상태**: 2026-07-04 Objective 프로덕트 지향 재정의와 함께 신설. 지금까지 도메인 선택이 기준서 구조 기준이었던 것을 실무 가치 기준으로 전환하는 기반 작업.
+**세부 계획**: `docs/plans/2026-07-04-pm1-practice-taxonomy.md`
 
 ### Active Milestones
-<!-- harness:milestone id="RO1" status="completed" priority="P0" evidence="docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md;docs/horizons/rag-optimization-resume.md" -->
-#### RO1 — 잔여 miss 진단 + 얕은 랭킹 1차 개선
-- DoD: 얕은 랭킹 2건(Q004/Q041)의 실제 회복 상태를 확인(candidate pool 확대는 실측 결과 불필요로 판명 — 이미 reranked가 top-20 안), 깊은 랭킹 7건은 원인 카테고리 진단 리포트 산출.
-- Evidence: docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md;docs/horizons/rag-optimization-resume.md
-- Gap: M4 종료(2026-06-27) 이후 잔여 miss 9건의 원인이 분류된 적 없다 — 개선 여지가 있는지조차 모르는 상태.
-- Status: [x]
+<!-- harness:milestone id="PM1" status="active" priority="P0" -->
+#### PM1 — 회계사 업무 taxonomy 초안
+- DoD: 공개 자료 기반 업무 분해 문서(`docs/practice-map/taxonomy.md`) — 세부 task ≥30개, 각 task에 빈도·판단강도·입출력·현 AI활용 메타, 기존 자산 위치 표기, 커버리지 축 0차 측정값.
+- Evidence: docs/practice-map/taxonomy.md;docs/practice-map/sources.md
+- Gap: "어디까지 자동화 가능한가"에 답할 업무 전체 지도가 없다 — 도메인 선택이 실무 가치가 아니라 기준서 구조 기준이었다.
+- Status: [ ]
 
-- Completed at: 2026-07-03
-- Summary: 얕은 랭킹 2건은 이미 해결(reranked가 이미 top-20), 깊은 랭킹 7건은 3개 원인 카테고리로 진단 -- RO2는 카테고리 C(멀티쿼리 분해)만 좁게 스코프
 ### Next Candidates
-- RO2 — 멀티 쿼리 분해 실험 (카테고리 C만: Q039/Q048, 크로스 개념/표준 쏠림). DoD/Evidence 미확정 — 재개 시 §B0.5 Beat 3.
+- PM2 — 현업 검증 (회계사 인터뷰/피드백) — **사용자 액션 필요**, 착수 시점 사용자 소유
+- PM3 — 자동화 가능성 매핑 + 다음 자동화 대상 선정 (커버리지 축 1차 측정)
 
 ## Paused Horizons
+
+<!-- harness:goal id="rag-optimization-resume" status="paused" -->
+`docs/horizons/rag-optimization-resume.md`. RO1 완료(얕은 랭킹 2건 이미 해결, 깊은 랭킹 7건 3-카테고리 진단). RO2(멀티쿼리 분해, 카테고리 C만)는 DoD 미확정 — 재개 시 §B0.5 Beat 3.
 
 <!-- harness:goal id="rag-agent-integration" status="paused" -->
 `docs/horizons/rag-agent-integration.md`. RGA1 완료(런타임 citation 존재 검증, 완료율 6/10 유지). RGA2(grounding 신뢰성/성능)·RGA3(신규 도메인 표준화)는 DoD 미확정 — 다음 재개 시 §B0.5 Beat 3.
@@ -72,12 +74,14 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** RO1 완료(얕은 랭킹 2건 이미 해결 확인, 깊은 랭킹 7건 3개 원인 카테고리 진단 — `docs/reports/2026-07-03-ro1-deep-miss-diagnosis.md`). `docs/roadmap-gap-2026-07-03-ro1.md` 참조.
+**[현재 active]** PM1 — 회계사 업무 taxonomy 초안 (`docs/plans/2026-07-04-pm1-practice-taxonomy.md`, step 3개, 착수 대기).
 
-**[다음 후보 — DoD/Evidence 미확정, 다음 세션에서 §B0.5 Beat 3로 scope 확정]**
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. 후속 horizon 예정 경로: 업무 지도 → 자동화 확장(WA2/WA3 흡수 검토) → 프로덕트 패키징.
+
+**[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
-- (paused) RGA2/RGA3 — `rag-agent-integration` horizon
-- (paused) WA2/WA3 — `workflow-automation` horizon
+- RGA2/RGA3 — `rag-agent-integration` horizon
+- WA2/WA3 — `workflow-automation` horizon (자동화 확장 horizon에 흡수 검토)
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료
