@@ -93,6 +93,14 @@ IFRS1115_SUBQUERY_RULES = (
     },
 )
 
+IFRS1109_SCOPE_RULES = (
+    {
+        "all": ("리스부채",),
+        "any": ("1109", "금융상품", "금융부채"),
+        "subquery": "리스 계약 권리 의무 금융상품 적용범위 제외 1109 1116",
+    },
+)
+
 
 # retriever 이름 → (query, limit) → list[dict(standard, no, ...)]
 RETRIEVERS = {
@@ -102,6 +110,7 @@ RETRIEVERS = {
     "multi_query_hybrid": lambda q, k: search_multi_query_hybrid(q, None, limit=k),
     "source_routed_hybrid": lambda q, k: search_source_routed_hybrid(q, None, limit=k),
     "ifrs1115_subquery_hybrid": lambda q, k: search_ifrs1115_subquery_hybrid(q, None, limit=k),
+    "ifrs1109_scope_hybrid": lambda q, k: search_ifrs1109_scope_hybrid(q, None, limit=k),
     "hierarchical": lambda q, k: search_hierarchical(q, None, limit=k),
     "reranked": lambda q, k: search_reranked(q, None, limit=k, candidates=50),
 }
@@ -331,6 +340,14 @@ def ifrs1115_subquery(query: str) -> str | None:
     return None
 
 
+def ifrs1109_scope_subquery(query: str) -> str | None:
+    """Return a narrow 1109 scope-exclusion subquery for accepted Q008-style gaps."""
+    for rule in IFRS1109_SCOPE_RULES:
+        if all(term in query for term in rule["all"]) and any(term in query for term in rule["any"]):
+            return str(rule["subquery"])
+    return None
+
+
 def search_source_routed_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
     """Experimental retriever: fuse baseline hybrid with accepted-cluster standard routing.
 
@@ -360,6 +377,53 @@ def search_ifrs1115_subquery_hybrid(query: str, standard: str | None = None, lim
     baseline = search_source_routed_hybrid(query, None, limit=candidate_limit)
     supplemental = search_hybrid(subquery, "1115", limit=candidate_limit)
     return rrf_fuse_results([baseline, supplemental, supplemental], limit=limit)
+
+
+def insert_supplemental_results(
+    baseline: list[dict],
+    supplemental: list[dict],
+    *,
+    insert_after: int = 3,
+    supplemental_limit: int = 1,
+    limit: int = 20,
+) -> list[dict]:
+    """Insert a few supplemental evidence rows while preserving baseline order."""
+    out: list[dict] = []
+    seen: set[tuple[str, str]] = set()
+
+    def add(row: dict) -> None:
+        key = (str(row["standard"]), str(row["no"]))
+        if key in seen:
+            return
+        seen.add(key)
+        out.append(row)
+
+    for row in baseline[:insert_after]:
+        add(row)
+    for row in supplemental[:supplemental_limit]:
+        add(row)
+    for row in baseline[insert_after:]:
+        add(row)
+    for row in supplemental[supplemental_limit:]:
+        add(row)
+    return out[:limit]
+
+
+def search_ifrs1109_scope_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
+    """Experimental retriever: add 1109 scope-exclusion evidence without displacing lease hits."""
+    subquery = ifrs1109_scope_subquery(query)
+    if standard or not subquery:
+        return search_ifrs1115_subquery_hybrid(query, standard, limit=limit)
+    candidate_limit = max(100, limit)
+    baseline = search_ifrs1115_subquery_hybrid(query, None, limit=candidate_limit)
+    supplemental = search_hybrid(subquery, "1109", limit=candidate_limit)
+    return insert_supplemental_results(
+        baseline,
+        supplemental,
+        insert_after=3,
+        supplemental_limit=1,
+        limit=limit,
+    )
 
 
 def main(argv: list[str] | None = None) -> None:

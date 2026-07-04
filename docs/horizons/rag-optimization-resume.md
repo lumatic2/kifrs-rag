@@ -171,6 +171,18 @@ Q008 `1109-2.1`, Q040 `1109-4.1.4`다.
 `scripts/ifrs1115_subquery_gate.py`는 accepted source route 5개, recovered 1115 2개, Q029 seed, rejected
 Q008/Q040 경계를 함께 검증한다. 아직 rule-triggered 실험 retriever이므로 기본 retriever로 승격하지 않는다.
 
+## 1109 scope hybrid 구현 (2026-07-05)
+
+`ifrs1109_scope_hybrid` opt-in retriever를 추가했다. 기본 `hybrid`는 변경하지 않았다. Q008은 1109
+scope-exclusion subquery를 RRF로 강하게 섞으면 1109-2.1은 회복되지만 기존 1116-26 hit가 밀려난다.
+따라서 `ifrs1115_subquery_hybrid` baseline order를 보존하면서 top 1109 scope result 1개를 baseline
+상위 3개 뒤에 삽입하는 방식으로 구현했다.
+
+`docs/reports/2026-07-05-ifrs1109-scope-hybrid-implementation.md` 기준 full 50-item recall@20은 0.973에서
+0.980으로 올랐고, citation-level absent는 2개에서 1개로 줄었다. 남은 miss는 Q040 `1109-4.1.4` 하나다.
+`scripts/ifrs1109_scope_gate.py`는 기존 회복 항목 보존, Q008 회복, Q040 rejected boundary 유지를 함께
+검증한다. 아직 rule-triggered 실험 retriever이므로 기본 retriever로 승격하지 않는다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는

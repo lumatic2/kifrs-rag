@@ -1,7 +1,9 @@
 from kifrs.eval.retrieval import (
     citation_rank_bucket,
     gold_rank_summary,
+    ifrs1109_scope_subquery,
     ifrs1115_subquery,
+    insert_supplemental_results,
     miss_summary_by_retriever,
     must_cite_rank_rows,
     must_cite_rank_summary,
@@ -202,3 +204,40 @@ def test_ifrs1115_subquery_accepts_reviewed_1115_gaps():
 
 def test_ifrs1115_subquery_rejects_non_1115_scope_gap():
     assert ifrs1115_subquery("리스부채는 1109호 금융부채로 회계처리해야 하는가?") is None
+
+
+def test_ifrs1109_scope_subquery_accepts_reviewed_scope_gap():
+    assert ifrs1109_scope_subquery(
+        "리스이용자가 인식한 리스부채는 1109호 금융상품의 금융부채로 회계처리해야 하는가?"
+    ) == "리스 계약 권리 의무 금융상품 적용범위 제외 1109 1116"
+
+
+def test_ifrs1109_scope_subquery_rejects_unrelated_1109_question():
+    assert ifrs1109_scope_subquery("SPPI 불충족 채무상품은 어떻게 분류 측정하는가?") is None
+
+
+def test_insert_supplemental_results_preserves_baseline_order_and_deduplicates():
+    baseline = [
+        {"standard": "1116", "no": "22"},
+        {"standard": "1116", "no": "26"},
+        {"standard": "1115", "no": "22"},
+    ]
+    supplemental = [
+        {"standard": "1109", "no": "2.1"},
+        {"standard": "1116", "no": "26"},
+    ]
+
+    fused = insert_supplemental_results(
+        baseline,
+        supplemental,
+        insert_after=1,
+        supplemental_limit=1,
+        limit=4,
+    )
+
+    assert [(row["standard"], row["no"]) for row in fused] == [
+        ("1116", "22"),
+        ("1109", "2.1"),
+        ("1116", "26"),
+        ("1115", "22"),
+    ]
