@@ -87,3 +87,30 @@ Observed:
 
 Interpretation: the reviewed seed recovers top-20 recall for Q039/Q048, but rank quality is worse than the
 pre-seed baseline. This is acceptable as a targeted recall repair, not a general ranking improvement.
+
+## Regression Gate
+
+The RO2 seed result is now guarded by a focused regression gate:
+
+```powershell
+python scripts\ro2_term_bridge_gate.py --format text
+```
+
+Observed after applying the reviewed seeds:
+
+```text
+ok: True
+retriever: hybrid
+k: 20
+recall@20: 1.000
+Q039: miss=[] gold_ranks={'1037-14': 16, '1116-24': 4}
+Q048: miss=[] gold_ranks={'1036-18': 17, '1036-59': 14}
+```
+
+This gate intentionally checks top-20 recall and per-item miss lists only. It does not require better MRR or nDCG,
+because the accepted RO2 outcome is targeted recall repair. If the gate fails after rebuilding a local DB, reapply
+the reviewed seeds:
+
+```powershell
+python scripts\seed_user_notes.py --apply
+```

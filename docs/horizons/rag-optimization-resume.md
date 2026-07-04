@@ -91,6 +91,10 @@ retrieval 평가 쪽이다. `gold_ranks` 진단상 Q039는 `1116-24`만 잡고 `
 focused hybrid recall@20은 0.500에서 1.000으로 회복됐다. 다만 MRR/nDCG는 하락했으므로 이 변경은
 general ranking improvement가 아니라 targeted recall repair로 해석한다.
 
+재발 방지용 focused gate도 추가했다. `python scripts\ro2_term_bridge_gate.py --format text`는 Q039/Q048
+hybrid top-20 miss가 비어 있고 recall@20이 1.000인지 확인한다. 이 gate는 랭킹 품질 개선을 주장하지 않고,
+seed가 빠지거나 DB 재생성 후 term bridge가 누락되는 회귀만 잡는다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는
