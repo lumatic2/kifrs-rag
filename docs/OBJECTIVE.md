@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon 없음. 방금 완료한 horizon은 `real-case-feedback-loop`이다.
+현재 active horizon 없음. 방금 완료한 horizon은 `feedback-eval-backlog-integration`이다.
 
 field feedback package는 회계사 피드백을 받을 준비를 마쳤고, workflow rebuild는 기존 1109/1115/1116
 review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence, NeedsHumanReview 항목을
@@ -85,10 +85,14 @@ review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence,
 real-case-feedback-loop는 익명화된 실제 업무 사례 intake, review pack routing 후보, reviewer correction
 capture, eval seed candidate 변환까지의 public-safe 구조를 만들었다.
 
-다음 추천 horizon은 `feedback-eval-backlog-integration`이다. 목표는 correction candidate를 파일/리포트
-단위 backlog 또는 eval seed 후보로 누적해, 현업 피드백이 다음 품질 개선 작업으로 이어지게 만드는 것이다.
+feedback-eval-backlog-integration은 correction candidate를 JSONL queue와 markdown report로 누적해,
+현업 피드백이 eval seed 후보와 product backlog 후보로 이어지게 만들었다.
+
+다음 추천 horizon은 `toolkit-packaging-readiness`이다. 목표는 회계법인 소개/PoC 전에 로컬 도구킷
+설치·실행·demo 재현 절차를 하나의 readiness package로 정리하는 것이다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
+최근 완료 horizon 상세: `docs/horizons/feedback-eval-backlog-integration.md`
 최근 완료 horizon 상세: `docs/horizons/real-case-feedback-loop.md`
 최근 완료 horizon 상세: `docs/horizons/workflow-rebuild-on-richer-knowledge.md`
 피드백 패키지 horizon 상세: `docs/horizons/field-feedback-ready-demo.md`

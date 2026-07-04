@@ -6,8 +6,8 @@
 
 ### 2026-07-05 — Compressed closed horizon archive
 - Completed: 2026-07-04~2026-07-05
-- Result: ROADMAP 150-line cap 유지를 위해 오래된 closed horizon 상세를 압축 보관. 포함: `workflow-automation`, `practice-map`, `automation-expansion`, `firm-service-map`, `f-acc-review-pack`, `f-acc-1109-review-pack`, `f-acc-1115-revenue-engine`, `f-acc-disclosure-generalization`, `f-acc-1109-hardening`, `f-acc-financial-statement-draft`.
-- Evidence: 각 horizon 원문은 `docs/horizons/`에 유지. 주요 산출물은 `docs/practice-map/`, `kifrs/workflows/kifrs1116/`, `kifrs/workflows/kifrs1109/`, `kifrs/workflows/kifrs1115/`, `kifrs/workflows/disclosure/`, `kifrs/workflows/statement_draft/`.
+- Result: ROADMAP 150-line cap 유지를 위해 오래된 closed horizon 상세를 압축 보관. 포함: `workflow-automation`, `practice-map`, `automation-expansion`, `firm-service-map`, F-ACC sequence(`f-acc-review-pack`, `f-acc-1109-review-pack`, `f-acc-1115-revenue-engine`, `f-acc-disclosure-generalization`, `f-acc-1109-hardening`, `f-acc-financial-statement-draft`), `f-audit-analytical-procedures`, `product-packaging-poc`, `rag-quality-refresh`, `authority-source-map`, `multi-source-ingestion-pipeline`, `multi-authority-runtime-integration`.
+- Evidence: 각 horizon 원문은 `docs/horizons/`에 유지. 주요 산출물은 `docs/practice-map/`, `kifrs/workflows/`, `kifrs/runtime/`, `kifrs/ingestion/`, `docs/authority/`, `docs/ingestion/`, `docs/reports/demo-poc/`.
 - Verification: 각 horizon별 close report와 ROADMAP 이전 이력 기준.
 
 ### 2026-07-04 — PM3: 자동화 가능성 매핑 + 다음 대상 추천

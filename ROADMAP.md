@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Real Case Feedback Loop 완료)
+> 마지막 업데이트: 2026-07-05 (Feedback Eval Backlog Integration 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,15 +26,21 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — waiting for feedback eval/backlog integration
+## Current Horizon — waiting for toolkit packaging readiness
 
-`real-case-feedback-loop`은 완료. 다음 추천 horizon은 `feedback-eval-backlog-integration`.
-회계사 correction candidate를 파일/리포트 단위 backlog 또는 eval seed 후보로 누적하는 통합 단계다.
+`feedback-eval-backlog-integration`은 완료. 다음 추천 horizon은 `toolkit-packaging-readiness`.
+source-aware demo -> anonymized intake -> reviewer correction -> eval/backlog queue가 이어졌으므로,
+법인 소개/PoC 전에 로컬 도구킷 설치·실행·demo 재현 readiness를 정리한다.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.
 
 ## Closed Horizons
+
+<!-- harness:goal id="feedback-eval-backlog-integration" status="closed" -->
+`docs/horizons/feedback-eval-backlog-integration.md` — close (2026-07-05). FI1~FI4 완료:
+feedback queue JSONL store, eval/backlog split, sample queue/report, close gate.
+Evidence: `docs/reports/2026-07-05-fi4-feedback-eval-backlog-close-report.md`.
 
 <!-- harness:goal id="real-case-feedback-loop" status="closed" -->
 `docs/horizons/real-case-feedback-loop.md` — close (2026-07-05). RC1~RC4 완료:
@@ -51,35 +57,9 @@ Evidence: `docs/reports/2026-07-05-wr4-workflow-rebuild-close-report.md`.
 runtime-aware demo brief, feedback questionnaire, known limitations/human-review boundary, feedback package smoke.
 Evidence: `docs/reports/2026-07-05-ff4-feedback-package-close-report.md`.
 
-<!-- harness:goal id="multi-authority-runtime-integration" status="closed" -->
-`docs/horizons/multi-authority-runtime-integration.md` — close (2026-07-05). RT1~RT5 완료:
-runtime evidence loader, review-pack evidence panel, statement draft fact evidence hook, answer boundary composer,
-runtime close demo. Evidence: `docs/reports/2026-07-05-rt5-runtime-close-demo.md`.
-
-<!-- harness:goal id="multi-source-ingestion-pipeline" status="closed" -->
-`docs/horizons/multi-source-ingestion-pipeline.md` — close (2026-07-05). MSI1~MSI5 완료:
-connector contract, metadata-only source manifest, synthetic structured facts, evidence manifest, close gate.
-Evidence: `docs/reports/2026-07-05-msi5-ingestion-gate-close-report.md`.
-
-<!-- harness:goal id="authority-source-map" status="closed" -->
-`docs/horizons/authority-source-map.md` — close (2026-07-05). AS1~AS5 완료: source taxonomy,
-authority/citation policy, storage boundary, ingestion feasibility, first connector recommendation. Evidence:
-`docs/reports/2026-07-05-as5-first-connector-recommendation.md`.
-
-<!-- harness:goal id="rag-quality-refresh" status="closed" -->
-`docs/horizons/rag-quality-refresh.md` — close (2026-07-05). RQ1~RQ5 완료: current quality baseline,
-eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality gate report. Evidence:
-`docs/reports/2026-07-05-rq5-quality-gate-report.md`, `kifrs/eval/retrieval.py`, `tests/test_eval_retrieval.py`.
-
-<!-- harness:goal id="product-packaging-poc" status="closed" -->
-`docs/horizons/product-packaging-poc.md` — close (2026-07-05). PK1~PK5 완료: demo command/output bundle/README/brief. Evidence: `scripts/demo_poc.py`, `docs/reports/demo-poc/`.
-
-<!-- harness:goal id="f-audit-analytical-procedures" status="closed" -->
-`docs/horizons/f-audit-analytical-procedures.md` — close (2026-07-05). AP1~AP5 완료: synthetic F/S metrics, anomaly memo, F-ACC linkage. Evidence: `kifrs/workflows/audit_analytics/`.
-
-Older closed horizons are archived in `BACKLOG.md`: F-ACC statement draft, 1109 hardening, disclosure
-generalization, 1115 revenue engine, 1109/1116 review packs, firm-service-map, automation-expansion,
-practice-map, workflow-automation.
+Older closed horizons are archived in `BACKLOG.md`: multi-authority runtime, multi-source ingestion,
+authority source map, rag quality refresh, product packaging PoC, audit analytical procedures, F-ACC sequence,
+firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 ## Paused Horizons
 
@@ -101,8 +81,8 @@ practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. 방금 완료한 horizon은 `real-case-feedback-loop`.
-다음 추천 horizon: `feedback-eval-backlog-integration`.
+**[현재 active]** 없음. 방금 완료한 horizon은 `feedback-eval-backlog-integration`.
+다음 추천 horizon: `toolkit-packaging-readiness`.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.

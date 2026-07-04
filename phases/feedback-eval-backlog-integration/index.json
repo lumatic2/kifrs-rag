@@ -1,0 +1,40 @@
+{
+  "id": "feedback-eval-backlog-integration",
+  "status": "completed",
+  "horizon": "../../docs/horizons/feedback-eval-backlog-integration.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "FI1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:12:00+09:00",
+      "completed_at": "2026-07-05T06:20:00+09:00",
+      "summary": "Added kifrs/feedback/queue.py and tests/test_feedback_queue.py. FeedbackQueueRecord stores validated case/correction candidates as public-safe JSONL records, preserving case_id, domain, route, disposition, severity, issue, expected_improvement, missing_evidence, affected_outputs, and source. write_queue/load_queue detect duplicate record_id and do not store raw source payload."
+    },
+    {
+      "id": "FI2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:20:00+09:00",
+      "completed_at": "2026-07-05T06:20:00+09:00",
+      "summary": "Implemented summarize_queue, split_queue, and render_queue_report. Reports split eval_seed_candidate/backlog_candidate/no_action, count records by domain, and surface high/blocker severity records while preserving public-safe boundaries. Verification: python -m pytest tests/test_feedback_queue.py -q -> 7 passed, with existing .pytest_cache warning."
+    },
+    {
+      "id": "FI3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:20:00+09:00",
+      "completed_at": "2026-07-05T06:25:00+09:00",
+      "summary": "Added scripts/feedback_queue_report.py and generated docs/feedback/feedback_queue.sample.jsonl plus docs/reports/2026-07-05-fi3-feedback-queue-report.md. The sample queue has 2 public-safe records: 1 eval seed candidate and 1 backlog candidate, spanning KIFRS1116 and KIFRS1109, with 1 high severity record surfaced in the report."
+    },
+    {
+      "id": "FI4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:25:00+09:00",
+      "completed_at": "2026-07-05T06:33:00+09:00",
+      "summary": "Closed the horizon with docs/reports/2026-07-05-fi4-feedback-eval-backlog-close-report.md. Close gate passed: tests/test_feedback_queue.py + tests/test_real_case_feedback.py -> 16 passed; quality_preflight ok/public_safe True; git diff --check only LF->CRLF warnings. Recommended next horizon is toolkit-packaging-readiness."
+    }
+  ]
+}

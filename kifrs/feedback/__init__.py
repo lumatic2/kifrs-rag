@@ -11,6 +11,16 @@ from .case_intake import (
     validate_case_intake,
     validate_reviewer_correction,
 )
+from .queue import (
+    FeedbackQueueRecord,
+    FeedbackQueueSummary,
+    load_queue,
+    make_queue_record,
+    render_queue_report,
+    split_queue,
+    summarize_queue,
+    write_queue,
+)
 
 __all__ = [
     "CaseIntake",
@@ -22,4 +32,12 @@ __all__ = [
     "route_case",
     "validate_case_intake",
     "validate_reviewer_correction",
+    "FeedbackQueueRecord",
+    "FeedbackQueueSummary",
+    "load_queue",
+    "make_queue_record",
+    "render_queue_report",
+    "split_queue",
+    "summarize_queue",
+    "write_queue",
 ]
