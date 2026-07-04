@@ -16,6 +16,7 @@ import argparse
 import io
 import json
 import math
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -34,11 +35,40 @@ RESULTS_DIR = ROOT / "data" / "eval" / "results"
 RECALL_KS = (1, 3, 5, 10, 20)
 NDCG_K = 10
 
+MULTI_QUERY_CONCEPTS = (
+    "원상복구 의무",
+    "복구 의무",
+    "충당부채",
+    "인식요건",
+    "회수가능액",
+    "손상차손",
+    "리스 종료",
+    "리스변경",
+    "리스부채",
+)
+
+MULTI_QUERY_EXPANSIONS = {
+    "충당부채": (
+        "현재의무 자원 유출 가능성 신뢰성 있게 추정",
+        "충당부채 인식요건",
+    ),
+    "회수가능액": (
+        "공정가치 처분부대원가 사용가치",
+        "순공정가치 사용가치",
+    ),
+    "손상차손": (
+        "장부금액 회수가능액 초과",
+        "손상차손 인식",
+    ),
+}
+
+
 # retriever 이름 → (query, limit) → list[dict(standard, no, ...)]
 RETRIEVERS = {
     "lexical": lambda q, k: search_fts(q, None, limit=k),
     "semantic": lambda q, k: semantic_search(q, None, limit=k),
     "hybrid": lambda q, k: search_hybrid(q, None, limit=k),
+    "multi_query_hybrid": lambda q, k: search_multi_query_hybrid(q, None, limit=k),
     "hierarchical": lambda q, k: search_hierarchical(q, None, limit=k),
     "reranked": lambda q, k: search_reranked(q, None, limit=k, candidates=50),
 }
@@ -155,6 +185,53 @@ def miss_summary_by_retriever(report: dict) -> dict[str, list[tuple[str, list]]]
         if misses:
             out[name] = misses
     return out
+
+
+def query_variants(query: str) -> list[str]:
+    """Return public-safe subqueries for cross-concept retrieval experiments.
+
+    RO2 targets questions where one broad sentence blends multiple accounting
+    concepts and the embedding signal leans toward only one of them. Variants
+    are intentionally conservative: keep the original query, add delimiter
+    clauses, then add known concept phrases that are literally present.
+    """
+    variants = [query.strip()]
+    normalized = query.replace("/", " ").replace(",", " ")
+    for chunk in re.split(r"\s+(?:및|그리고|또는)\s+|[;:]", normalized):
+        chunk = chunk.strip(" .?()\t")
+        if len(chunk) >= 4:
+            variants.append(chunk)
+    for concept in MULTI_QUERY_CONCEPTS:
+        if concept in query:
+            variants.append(concept)
+    for trigger, expansions in MULTI_QUERY_EXPANSIONS.items():
+        if trigger in query:
+            variants.extend(expansions)
+    return list(dict.fromkeys(v for v in variants if v))
+
+
+def rrf_fuse_results(result_sets: list[list[dict]], *, limit: int, k: int = 60) -> list[dict]:
+    """Fuse multiple ranked result sets with reciprocal rank fusion."""
+    rrf: dict[tuple[str, str], float] = {}
+    info: dict[tuple[str, str], dict] = {}
+    for results in result_sets:
+        for rank, row in enumerate(results):
+            key = (str(row["standard"]), str(row["no"]))
+            rrf[key] = rrf.get(key, 0.0) + 1.0 / (k + rank)
+            info.setdefault(key, row)
+    sorted_keys = sorted(rrf, key=lambda key: -rrf[key])[:limit]
+    return [{**info[key], "rrf": rrf[key]} for key in sorted_keys]
+
+
+def search_multi_query_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
+    """Experimental RO2 retriever: split cross-concept questions and fuse hybrid results."""
+    variants = query_variants(query)
+    candidate_limit = max(50, limit)
+    original = search_hybrid(variants[0], standard, limit=candidate_limit)
+    auxiliary = [search_hybrid(variant, standard, limit=candidate_limit) for variant in variants[1:]]
+    # Preserve the current hybrid baseline and use subqueries as auxiliary evidence.
+    result_sets = [original, original, original, *auxiliary]
+    return rrf_fuse_results(result_sets, limit=limit)
 
 
 def main(argv: list[str] | None = None) -> None:
