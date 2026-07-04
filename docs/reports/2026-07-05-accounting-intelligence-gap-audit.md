@@ -19,6 +19,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | field_feedback_capture | `docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md` | present |
 | client_private_intake_readiness | `docs/reports/2026-07-05-client-private-intake-readiness.md` | present |
 | client_private_close_gate | `docs/reports/2026-07-05-cp4-client-private-close-report.md` | present |
+| live_external_source_validation | `docs/reports/2026-07-05-lev1-live-external-source-validation.md` | present |
 
 ## Demo Outputs
 
@@ -46,12 +47,12 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 - actual accountant session evidence is still external/user-owned
 - client-private local-only path is closed, but upload/parser UX is not implemented
-- external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion
+- external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented
 - default retriever promotion remains deferred until real session demo validation
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or live external source/retriever validation
+real-accountant-session RS2/RS3 evidence capture, or opt-in retriever demo validation
 
 ## Machine Result
 
@@ -67,11 +68,11 @@ real-accountant-session RS2/RS3 evidence capture, or live external source/retrie
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or live external source/retriever validation",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or opt-in retriever demo validation",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
     "client-private local-only path is closed, but upload/parser UX is not implemented",
-    "external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion",
+    "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
     "default retriever promotion remains deferred until real session demo validation"
   ],
   "errors": []

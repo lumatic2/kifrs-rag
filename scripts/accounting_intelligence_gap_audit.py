@@ -28,6 +28,7 @@ REQUIRED_REPORTS = {
     "field_feedback_capture": ROOT / "docs" / "reports" / "2026-07-05-fc4-field-feedback-capture-close-report.md",
     "client_private_intake_readiness": ROOT / "docs" / "reports" / "2026-07-05-client-private-intake-readiness.md",
     "client_private_close_gate": ROOT / "docs" / "reports" / "2026-07-05-cp4-client-private-close-report.md",
+    "live_external_source_validation": ROOT / "docs" / "reports" / "2026-07-05-lev1-live-external-source-validation.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -83,7 +84,7 @@ def build_gap_audit() -> GapAudit:
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
         "client-private local-only path is closed, but upload/parser UX is not implemented",
-        "external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion",
+        "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
         "default retriever promotion remains deferred until real session demo validation",
     ]
 
@@ -100,7 +101,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or live external source/retriever validation",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or opt-in retriever demo validation",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )
