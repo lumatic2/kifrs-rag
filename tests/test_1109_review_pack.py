@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from kifrs.workflows.kifrs1109.fixtures import FIXTURES
+from kifrs.runtime.evidence import load_runtime_evidence
 from kifrs.workflows.kifrs1109.review_pack import (
     generate_review_pack,
     render_review_pack_markdown,
@@ -76,3 +77,14 @@ def test_all_1109_fixtures_generate_review_pack_statuses():
         "scenario_10_foreign_currency_bond_1109_1021",
     }
     assert all(p.judgment_summary for p in packs)
+
+
+def test_1109_review_pack_renders_external_evidence_panel_without_body_text():
+    pack = generate_review_pack(_fixture("scenario_01_corporate_bond_ac"), load_runtime_evidence())
+
+    rendered = render_review_pack_markdown(pack)
+
+    assert "## 외부 근거" in rendered
+    assert "### 수치 사실 근거" in rendered
+    assert "synthetic-dart-2025-annual-001-revenue" in rendered
+    assert "copied source" not in rendered

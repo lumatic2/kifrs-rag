@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from kifrs.workflows.kifrs1116.fixtures import FIXTURES
+from kifrs.runtime.evidence import load_runtime_evidence
 from kifrs.workflows.kifrs1116.review_pack import (
     generate_review_pack,
     render_review_pack_markdown,
@@ -66,3 +67,16 @@ def test_all_fixtures_generate_review_pack_statuses():
     assert len(needs_review) == 1
     assert needs_review[0].case_id == "scenario_09_lessee_modification_expand_shrink"
     assert all(p.judgment_summary for p in packs)
+
+
+def test_1116_review_pack_renders_external_evidence_panel_without_body_text():
+    pack = generate_review_pack(_fixture("scenario_01_simple_office_lease").txn, load_runtime_evidence())
+
+    rendered = render_review_pack_markdown(pack)
+
+    assert "## 외부 근거" in rendered
+    assert "### 해석 보조 근거" in rendered
+    assert "### 법적 경계 근거" in rendered
+    assert "### 수치 사실 근거" in rendered
+    assert "ev-kasb-interpretation-catalog-seed" in {item["evidence_id"] for item in pack.external_evidence}
+    assert "copied source" not in rendered

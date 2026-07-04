@@ -10,6 +10,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import re
 
+from kifrs.runtime.evidence import EvidenceBundle
+from kifrs.runtime.evidence_panel import evidence_references, render_external_evidence_panel
+
 from .initial_entry import JournalEntry
 from .fx_dual_track import generate_fx_dual_track_memo
 from .reclassification import generate_reclassification_memo
@@ -46,6 +49,7 @@ class ReviewPack:
     review_checklist: list[ReviewChecklistItem] = field(default_factory=list)
     needs_human_review: list[HumanReviewAction] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
+    external_evidence: list[dict[str, object]] = field(default_factory=list)
 
 
 def _extract_citations(*texts: str | None) -> list[str]:
@@ -189,7 +193,7 @@ def _checklist(outcome: ScenarioOutcome, needs_review: list[HumanReviewAction]) 
     ]
 
 
-def generate_review_pack(fixture: ScenarioFixture) -> ReviewPack:
+def generate_review_pack(fixture: ScenarioFixture, evidence_bundle: EvidenceBundle | None = None) -> ReviewPack:
     """Run the 1109 pipeline and compose a F-ACC workpaper pack."""
     outcome = run_scenario(fixture)
     needs_review = _human_review_actions(fixture, outcome)
@@ -215,6 +219,7 @@ def generate_review_pack(fixture: ScenarioFixture) -> ReviewPack:
         review_checklist=_checklist(outcome, needs_review),
         needs_human_review=needs_review,
         citations=citations,
+        external_evidence=evidence_references(evidence_bundle),
     )
 
 
@@ -251,6 +256,7 @@ def render_review_pack_markdown(pack: ReviewPack) -> str:
         if action.candidate_guidance:
             md.append("- 기준서 처리 방향:")
             md.extend(f"  - {item}" for item in action.candidate_guidance)
+    md.extend(["", *render_external_evidence_panel(pack.external_evidence)])
     md.extend(["", "## 5. 인용"])
     for citation in pack.citations:
         md.append(f"- {citation}")

@@ -2,6 +2,9 @@
 
 from dataclasses import dataclass, field
 
+from kifrs.runtime.evidence import EvidenceBundle
+from kifrs.runtime.evidence_panel import evidence_references, render_external_evidence_panel
+
 from .classify import NeedsHumanReview, RevenueDecision, evaluate_revenue
 from .fixtures import ScenarioFixture
 from .journal_entry import JournalEntry, draft_journal_entries
@@ -39,10 +42,15 @@ class ReviewPack:
     review_checklist: list[ReviewChecklistItem] = field(default_factory=list)
     needs_human_review: list[HumanReviewAction] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
+    external_evidence: list[dict[str, object]] = field(default_factory=list)
 
 
-def generate_review_pack(source: ScenarioFixture | Revenue1115) -> ReviewPack:
+def generate_review_pack(
+    source: ScenarioFixture | Revenue1115,
+    evidence_bundle: EvidenceBundle | None = None,
+) -> ReviewPack:
     txn = source.txn if isinstance(source, ScenarioFixture) else source
+    external_evidence = evidence_references(evidence_bundle)
     try:
         decision = evaluate_revenue(txn)
         measurement = measure_revenue(txn, decision)
@@ -58,6 +66,7 @@ def generate_review_pack(source: ScenarioFixture | Revenue1115) -> ReviewPack:
             judgment_summary=str(exc),
             review_checklist=_needs_review_checklist(actions),
             needs_human_review=actions,
+            external_evidence=external_evidence,
         )
 
     actions = _automated_human_review_actions(txn, decision)
@@ -73,6 +82,7 @@ def generate_review_pack(source: ScenarioFixture | Revenue1115) -> ReviewPack:
         review_checklist=_automated_checklist(decision, measurement, entries),
         needs_human_review=actions,
         citations=_collect_citations(decision),
+        external_evidence=external_evidence,
     )
 
 
@@ -114,6 +124,7 @@ def render_review_pack_markdown(pack: ReviewPack) -> str:
             md.append("- 기준서 처리 방향:")
             md.extend(f"  - {item}" for item in action.candidate_guidance)
 
+    md.extend(["", *render_external_evidence_panel(pack.external_evidence)])
     md.extend(["", "## 5. 인용"])
     for citation in pack.citations:
         md.append(f"- {citation}")

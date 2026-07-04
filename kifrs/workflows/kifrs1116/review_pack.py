@@ -9,6 +9,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import re
 
+from kifrs.runtime.evidence import EvidenceBundle
+from kifrs.runtime.evidence_panel import evidence_references, render_external_evidence_panel
+
 from .disclosure import aggregate_portfolio, generate_disclosure_note
 from .initial_entry import JournalEntry
 from .runner import LeaseOutcome, run_lease
@@ -43,6 +46,7 @@ class ReviewPack:
     review_checklist: list[ReviewChecklistItem] = field(default_factory=list)
     needs_human_review: list[HumanReviewAction] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
+    external_evidence: list[dict[str, object]] = field(default_factory=list)
 
 
 def _extract_citations(*texts: str | None) -> list[str]:
@@ -184,7 +188,7 @@ def _checklist(
     return items
 
 
-def generate_review_pack(lease: Lease1116) -> ReviewPack:
+def generate_review_pack(lease: Lease1116, evidence_bundle: EvidenceBundle | None = None) -> ReviewPack:
     """Run the 1116 pipeline and compose a F-ACC workpaper pack."""
     outcome = run_lease(lease)
 
@@ -206,6 +210,7 @@ def generate_review_pack(lease: Lease1116) -> ReviewPack:
         review_checklist=_checklist(lease, outcome, disclosure_draft, needs_review),
         needs_human_review=needs_review,
         citations=citations,
+        external_evidence=evidence_references(evidence_bundle),
     )
 
 
@@ -244,6 +249,7 @@ def render_review_pack_markdown(pack: ReviewPack) -> str:
         if action.candidate_guidance:
             md.append("- 기준서 처리 방향:")
             md.extend(f"  - {item}" for item in action.candidate_guidance)
+    md.extend(["", *render_external_evidence_panel(pack.external_evidence)])
     md.extend(["", "## 6. 인용"])
     for citation in pack.citations:
         md.append(f"- {citation}")

@@ -15,6 +15,14 @@
     {
       "id": "RT2",
       "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:36:00+09:00",
+      "completed_at": "2026-07-05T04:39:09+09:00",
+      "summary": "Added optional external evidence panel to 1116/1109/1115 review packs. kifrs/runtime/evidence_panel.py renders role-separated safe references, generate_review_pack accepts evidence_bundle without changing existing calls, and tests verify Korean external evidence sections plus no copied source text."
+    },
+    {
+      "id": "RT3",
+      "file": "step3.md",
       "status": "pending"
     }
   ]

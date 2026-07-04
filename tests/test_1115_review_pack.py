@@ -1,6 +1,7 @@
 """F-ACC review pack composition tests for K-IFRS 1115."""
 
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES
+from kifrs.runtime.evidence import load_runtime_evidence
 from kifrs.workflows.kifrs1115.review_pack import (
     generate_review_pack,
     render_review_pack_markdown,
@@ -60,3 +61,14 @@ def test_all_1115_fixtures_generate_automated_review_packs():
     assert all(pack.judgment_summary for pack in packs)
     assert all(pack.review_memo for pack in packs)
     assert sum(len(pack.journal_entries) for pack in packs) == 5
+
+
+def test_1115_review_pack_renders_external_evidence_panel_without_body_text():
+    pack = generate_review_pack(FIXTURES[0], load_runtime_evidence())
+
+    rendered = render_review_pack_markdown(pack)
+
+    assert "## 외부 근거" in rendered
+    assert "### 해석 보조 근거" in rendered
+    assert "kasb-interpretation-material" in rendered
+    assert "copied source" not in rendered
