@@ -1,6 +1,6 @@
 # Step 4: f-acc-output-linkage
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -26,3 +26,10 @@ git diff --check
 
 - 연결을 감사 결론으로 승격하지 않는다. 이유: linkage는 추가 검토 후보를 묶는 기능이다.
 - F-ACC statement candidate schema를 깨지 않는다.
+
+## 완료 요약
+
+`LinkedStatementCandidate`와 `link_statement_candidates()`를 추가했다. audit finding의 연결 후보명과
+F-ACC `StatementLineCandidate.line_item`을 매칭해, 예를 들어 부채비율 상승 finding을 1115 금융부채
+candidate와 연결한다. 연결은 감사 결론이 아니라 추가 검토 link로 유지한다.
+`tests/test_audit_analytics.py tests/test_statement_draft.py` 14개가 통과했다.

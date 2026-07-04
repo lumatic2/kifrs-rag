@@ -27,6 +27,13 @@
     {
       "step": 4,
       "name": "f-acc-output-linkage",
+      "status": "completed",
+      "summary": "AP4 added LinkedStatementCandidate and link_statement_candidates(), connecting AnomalyFinding targets to F-ACC StatementLineCandidate rows without turning them into audit conclusions. Verified with audit analytics and statement draft tests.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 5,
+      "name": "analytical-procedure-report",
       "status": "pending"
     }
   ]

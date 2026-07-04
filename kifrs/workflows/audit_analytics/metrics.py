@@ -1,6 +1,13 @@
 """Ratio and trend metric calculation for audit analytical procedures."""
 
-from .schema import AnalyticalMetric, AnalyticalProcedureInput, AnomalyFinding
+from kifrs.workflows.statement_draft.schema import StatementLineCandidate
+
+from .schema import (
+    AnalyticalMetric,
+    AnalyticalProcedureInput,
+    AnomalyFinding,
+    LinkedStatementCandidate,
+)
 
 
 def calculate_metrics(source: AnalyticalProcedureInput) -> list[AnalyticalMetric]:
@@ -135,6 +142,32 @@ def render_anomaly_note(entity: str, findings: list[AnomalyFinding]) -> str:
             lines.append("- 리뷰 질문:")
             lines.extend(f"  - {question}" for question in finding.review_questions)
     return "\n".join(lines)
+
+
+def link_statement_candidates(
+    findings: list[AnomalyFinding],
+    candidates: list[StatementLineCandidate],
+) -> list[LinkedStatementCandidate]:
+    """Link audit findings to F-ACC statement candidates by candidate line item."""
+    linked: list[LinkedStatementCandidate] = []
+    for finding in findings:
+        targets = set(finding.linked_statement_candidates)
+        for candidate in candidates:
+            if candidate.line_item not in targets:
+                continue
+            linked.append(
+                LinkedStatementCandidate(
+                    finding_id=finding.finding_id,
+                    source_standard=candidate.source_standard,
+                    source_case_id=candidate.source_case_id,
+                    source_field=candidate.source_field,
+                    statement=candidate.statement,
+                    line_item=candidate.line_item,
+                    amount=candidate.amount,
+                    presentation_status=candidate.presentation_status,
+                )
+            )
+    return linked
 
 
 def _amount(source: AnalyticalProcedureInput, period: str, line_item: str) -> float | None:

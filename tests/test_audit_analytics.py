@@ -6,9 +6,13 @@ from kifrs.workflows.audit_analytics import (
     SYNTHETIC_FS,
     calculate_metrics,
     detect_anomalies,
+    link_statement_candidates,
     render_anomaly_note,
 )
 from kifrs.workflows.audit_analytics.schema import AnalyticalProcedureInput
+from kifrs.workflows.kifrs1115.fixtures import FIXTURES as FIXTURES_1115
+from kifrs.workflows.kifrs1115.review_pack import generate_review_pack as pack_1115
+from kifrs.workflows.statement_draft import from_1115_review_pack
 
 
 def _metric(metric_id: str):
@@ -69,3 +73,13 @@ def test_render_anomaly_note_keeps_audit_boundary_visible():
     assert "감사결론, 중요성, 표본설계, KAM 판단은 포함하지 않음" in note
     assert "ratio:operating_margin_drop" in note
     assert "리뷰 질문" in note
+
+
+def test_link_statement_candidates_keeps_findings_as_review_links():
+    findings = detect_anomalies(calculate_metrics(SYNTHETIC_FS))
+    candidates = from_1115_review_pack(pack_1115(FIXTURES_1115[3]))
+    linked = link_statement_candidates(findings, candidates)
+
+    assert any(item.finding_id == "ratio:debt_to_equity_rise" for item in linked)
+    assert any(item.line_item == "금융부채" and item.source_standard == "KIFRS1115" for item in linked)
+    assert all(item.presentation_status == "draft" for item in linked)

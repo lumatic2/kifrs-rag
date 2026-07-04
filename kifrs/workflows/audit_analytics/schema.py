@@ -40,3 +40,15 @@ class AnomalyFinding:
     message: str
     review_questions: list[str]
     linked_statement_candidates: list[str]
+
+
+@dataclass(frozen=True)
+class LinkedStatementCandidate:
+    finding_id: str
+    source_standard: str
+    source_case_id: str
+    source_field: str
+    statement: str
+    line_item: str
+    amount: float | None
+    presentation_status: str
