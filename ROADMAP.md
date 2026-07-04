@@ -34,11 +34,17 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 `docs/horizons/f-acc-disclosure-generalization.md`.
 
 ### Next Candidates
-- DG1 — disclosure surface inventory: 1116/1115/1109 산출물 중 주석 checklist/draft로 재사용 가능한 field 정리
 - DG2 — common disclosure checklist schema
 - DG3 — 1115 disclosure pilot
 - DG4 — 1109 disclosure pilot
 - DG5 — cross-domain disclosure report
+
+### Completed Milestones (f-acc-disclosure-generalization)
+<!-- harness:milestone id="DG1" status="completed" priority="P0" evidence="docs/reports/2026-07-05-dg1-disclosure-surface-inventory.md;phases/disclosure-generalization/step1.md" -->
+#### DG1 — disclosure surface inventory
+- DoD: 1116/1115/1109 산출물 중 주석 checklist/draft로 재사용 가능한 field를 inventory로 정리한다.
+- Evidence: docs/reports/2026-07-05-dg1-disclosure-surface-inventory.md;phases/disclosure-generalization/step1.md
+- Status: [x]
 
 ## Closed Horizons
 
@@ -93,7 +99,8 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
 `f-acc-disclosure-generalization`이다. 1115 revenue engine은 R15-1~R15-6까지 완료했고,
-다음은 DG1 disclosure surface inventory.
+DG1에서 1116/1115/1109 disclosure surface inventory를 완료했다. 다음은 DG2 common disclosure
+checklist schema.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → **F-ACC disclosure generalization(현재)**.
 

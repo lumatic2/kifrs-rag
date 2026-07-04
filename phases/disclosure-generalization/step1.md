@@ -1,6 +1,6 @@
 # Step 1: disclosure-surface-inventory
 
-Status: pending
+Status: completed (2026-07-05)
 
 ## 읽어야 할 파일
 
@@ -23,3 +23,10 @@ git diff --check
 ## 결과물
 
 - `docs/reports/2026-07-05-dg1-disclosure-surface-inventory.md`
+
+## 결과
+
+- 1116: 기존 `DisclosureRequirement`/portfolio contribution이 common schema 기준점.
+- 1115: path, measurement, human review action을 주석 후보 source로 재사용.
+- 1109: classification, SPPI/사업모형, 후속측정/위험자료 요청을 주석 후보 source로 재사용.
+- DG2 구현 방향: `DisclosureChecklistItem` schema + domain adapter.
