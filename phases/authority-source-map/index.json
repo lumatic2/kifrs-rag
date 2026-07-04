@@ -25,6 +25,15 @@
     {
       "id": "AS3",
       "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-as3-storage-boundary.md",
+      "summary": "Storage boundary fixed: public metadata-only rule, local-private body/data labels, public report rules, ingestion prerequisites, and special cases for law/DART/client/supporting material are documented."
+    },
+    {
+      "id": "AS4",
+      "file": "step4.md",
       "status": "next"
     }
   ]
