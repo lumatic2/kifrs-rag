@@ -34,6 +34,7 @@ def build_run_sheet(
             "Optionally create the notes scaffold with python scripts\\real_accountant_notes_scaffold.py --out docs\\reports\\real-accountant-session\\actual-feedback-notes.md.",
             "Write docs/reports/real-accountant-session/actual-feedback-notes.md from public-safe notes only.",
             "Run python scripts\\real_accountant_notes_check.py --notes docs\\reports\\real-accountant-session\\actual-feedback-notes.md.",
+            "Run python scripts\\real_accountant_capture.py --notes docs\\reports\\real-accountant-session\\actual-feedback-notes.md --out docs\\reports\\real-accountant-session.",
             "Update outreach ledger to scheduled/completed through real_accountant_outreach_update.py.",
             "Do not close the horizon until real_accountant_close_check.py passes.",
         ],

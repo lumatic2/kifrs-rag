@@ -83,6 +83,13 @@ python scripts\real_accountant_notes_check.py --notes docs\reports\real-accounta
 이 checker는 세션 템플릿의 빈칸, 미확인 boundary checkbox, 고객/회사 식별자 패턴, protected marker가
 남아 있으면 실패한다.
 
+checker가 통과한 actual notes는 아래 명령으로 capture pipeline에 넣는다. 이 명령은
+`capture-manifest.json`, `feedback-queue.jsonl`, `capture-report.md`, `feedback-queue-report.md`를 쓴다.
+
+```powershell
+python scripts\real_accountant_capture.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md --out docs\reports\real-accountant-session
+```
+
 세션 직후 notes 작성을 시작할 때는 아래 scaffold를 먼저 만들 수 있다. 이 scaffold는 실제 피드백 내용과
 boundary 확인을 채우기 전에는 checker에 실패해야 정상이다.
 
