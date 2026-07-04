@@ -1,0 +1,40 @@
+{
+  "id": "real-case-feedback-loop",
+  "status": "completed",
+  "horizon": "../../docs/horizons/real-case-feedback-loop.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "RC1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:45:00+09:00",
+      "completed_at": "2026-07-05T05:52:00+09:00",
+      "summary": "Added kifrs/feedback/case_intake.py, kifrs/feedback/__init__.py, and tests/test_real_case_feedback.py. CaseIntake validates public-safe anonymized case inputs, blocks raw body/customer identifier fields and Korean business/resident id patterns, and accepts only structured facts plus requested output labels. Verification: python -m pytest tests/test_real_case_feedback.py -q -> 9 passed, with existing .pytest_cache warning."
+    },
+    {
+      "id": "RC2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:52:00+09:00",
+      "completed_at": "2026-07-05T05:52:00+09:00",
+      "summary": "Implemented ReviewerCorrection in kifrs/feedback/case_intake.py. Corrections capture issue, severity, suggested_fix, missing_evidence, disposition, and affected_outputs without source payload. case_to_eval_seed_candidate converts a validated case/correction pair into an eval/backlog candidate and enforces matching case_id."
+    },
+    {
+      "id": "RC3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:52:00+09:00",
+      "completed_at": "2026-07-05T05:52:00+09:00",
+      "summary": "Implemented route_case and RoutingCandidate. Routing distinguishes KIFRS1109/KIFRS1115/KIFRS1116 review-pack candidates by minimum structured fact keys, returns needs_more_facts when incomplete, and keeps TAX/DEAL/VALUATION/KSOX/AUDIT_ONLY out of scope."
+    },
+    {
+      "id": "RC4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:52:00+09:00",
+      "completed_at": "2026-07-05T06:02:00+09:00",
+      "summary": "Added scripts/real_case_feedback_report.py and generated docs/reports/2026-07-05-rc4-real-case-feedback-loop-report.md. Close gate passed: tests/test_real_case_feedback.py and tests/test_source_aware_rebuild.py -> 13 passed; quality_preflight ok/public_safe True; git diff --check only LF->CRLF warnings. Recommended next horizon is feedback-eval-backlog-integration."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Workflow Rebuild on Richer Knowledge 완료)
+> 마지막 업데이트: 2026-07-05 (Real Case Feedback Loop 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,15 +26,20 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — waiting for real-case feedback loop
+## Current Horizon — waiting for feedback eval/backlog integration
 
-`workflow-rebuild-on-richer-knowledge`은 완료. 다음 추천 horizon은 `real-case-feedback-loop`.
-회계사 피드백 패키지와 source-aware rebuild report를 바탕으로 익명 실제 사례 intake/correction loop를 만든다.
+`real-case-feedback-loop`은 완료. 다음 추천 horizon은 `feedback-eval-backlog-integration`.
+회계사 correction candidate를 파일/리포트 단위 backlog 또는 eval seed 후보로 누적하는 통합 단계다.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.
 
 ## Closed Horizons
+
+<!-- harness:goal id="real-case-feedback-loop" status="closed" -->
+`docs/horizons/real-case-feedback-loop.md` — close (2026-07-05). RC1~RC4 완료:
+anonymized case intake schema, reviewer correction capture, review-pack routing stub, public-safe sample report.
+Evidence: `docs/reports/2026-07-05-rc4-real-case-feedback-loop-report.md`.
 
 <!-- harness:goal id="workflow-rebuild-on-richer-knowledge" status="closed" -->
 `docs/horizons/workflow-rebuild-on-richer-knowledge.md` — close (2026-07-05). WR1~WR4 완료:
@@ -96,8 +101,8 @@ practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. 방금 완료한 horizon은 `workflow-rebuild-on-richer-knowledge`.
-다음 추천 horizon: `real-case-feedback-loop`.
+**[현재 active]** 없음. 방금 완료한 horizon은 `real-case-feedback-loop`.
+다음 추천 horizon: `feedback-eval-backlog-integration`.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.
