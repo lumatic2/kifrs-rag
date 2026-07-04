@@ -1,6 +1,7 @@
 """FS2 tests for common financial-statement draft adapters."""
 
 from kifrs.workflows.kifrs1109.fixtures import FIXTURES as FIXTURES_1109
+from kifrs.runtime.evidence import load_runtime_evidence
 from kifrs.workflows.kifrs1109.review_pack import generate_review_pack as pack_1109
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES as FIXTURES_1115
 from kifrs.workflows.kifrs1115.review_pack import generate_review_pack as pack_1115
@@ -96,3 +97,21 @@ def test_needs_human_review_pack_generates_needs_review_note_candidate():
     assert items
     assert all(item.presentation_status == "needs_human_review" for item in items)
     assert any(item.source_field == "needs_human_review" for item in items)
+
+
+def test_statement_draft_links_fact_evidence_to_amount_lines_only():
+    pack = pack_1115(FIXTURES_1115[0], load_runtime_evidence())
+    items = from_1115_review_pack(pack)
+
+    amount_items = [item for item in items if item.amount is not None and item.statement != "note"]
+    note_items = [item for item in items if item.statement == "note"]
+
+    assert amount_items
+    assert any(item.evidence_refs for item in amount_items)
+    assert all(not item.evidence_refs for item in note_items)
+    assert all("record" not in ref for item in amount_items for ref in item.evidence_refs)
+    assert any(
+        ref["record_id"] == "synthetic-dart-2025-annual-001-revenue"
+        for item in amount_items
+        for ref in item.evidence_refs
+    )

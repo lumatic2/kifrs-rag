@@ -39,6 +39,7 @@ _ACCOUNT_MAP: dict[str, tuple[StatementKind, str]] = {
 
 def from_1109_review_pack(pack: ReviewPack1109) -> list[StatementLineCandidate]:
     questions = _review_questions(pack)
+    fact_evidence_refs = _fact_evidence_refs(pack)
     items: list[StatementLineCandidate] = []
     if pack.journal_entry is not None:
         items.extend(
@@ -50,6 +51,7 @@ def from_1109_review_pack(pack: ReviewPack1109) -> list[StatementLineCandidate]:
                 status=_status(pack.status),
                 review_questions=questions,
                 note_links=pack.citations,
+                evidence_refs=fact_evidence_refs,
             )
         )
     for entry_index, entry in enumerate(pack.subsequent_entries):
@@ -62,6 +64,7 @@ def from_1109_review_pack(pack: ReviewPack1109) -> list[StatementLineCandidate]:
                 status=_status(pack.status),
                 review_questions=questions,
                 note_links=pack.citations,
+                evidence_refs=fact_evidence_refs,
             )
         )
     items.append(
@@ -81,6 +84,7 @@ def from_1109_review_pack(pack: ReviewPack1109) -> list[StatementLineCandidate]:
 
 def from_1115_review_pack(pack: ReviewPack1115) -> list[StatementLineCandidate]:
     questions = _review_questions(pack)
+    fact_evidence_refs = _fact_evidence_refs(pack)
     items: list[StatementLineCandidate] = []
     for entry_index, entry in enumerate(pack.journal_entries):
         items.extend(
@@ -92,6 +96,7 @@ def from_1115_review_pack(pack: ReviewPack1115) -> list[StatementLineCandidate]:
                 status=_status(pack.status),
                 review_questions=questions,
                 note_links=pack.citations,
+                evidence_refs=fact_evidence_refs,
             )
         )
     if pack.measurement is not None:
@@ -120,6 +125,7 @@ def from_1115_review_pack(pack: ReviewPack1115) -> list[StatementLineCandidate]:
 
 def from_1116_review_pack(pack: ReviewPack1116) -> list[StatementLineCandidate]:
     questions = _review_questions(pack)
+    fact_evidence_refs = _fact_evidence_refs(pack)
     items: list[StatementLineCandidate] = []
     if pack.journal_entry is not None:
         items.extend(
@@ -131,6 +137,7 @@ def from_1116_review_pack(pack: ReviewPack1116) -> list[StatementLineCandidate]:
                 status=_status(pack.status),
                 review_questions=questions,
                 note_links=pack.citations,
+                evidence_refs=fact_evidence_refs,
             )
         )
     if pack.disclosure_draft:
@@ -160,11 +167,13 @@ def _from_entry_lines(
     status: PresentationStatus,
     review_questions: list[str],
     note_links: list[str],
+    evidence_refs: list[dict[str, object]] | None = None,
 ) -> list[StatementLineCandidate]:
     candidates: list[StatementLineCandidate] = []
     for index, line in enumerate(lines):
         statement, line_item = _ACCOUNT_MAP.get(line.account, ("note", line.account))
         amount, debit_credit = _amount_and_side(line)
+        line_evidence_refs = list(evidence_refs or []) if amount is not None and statement != "note" else []
         candidates.append(
             StatementLineCandidate(
                 statement=statement,
@@ -177,6 +186,7 @@ def _from_entry_lines(
                 presentation_status=status,
                 review_questions=review_questions,
                 note_links=note_links,
+                evidence_refs=line_evidence_refs,
             )
         )
     return candidates
@@ -199,6 +209,14 @@ def _review_questions(pack: Any) -> list[str]:
     for action in pack.needs_human_review:
         questions.extend(action.review_questions)
     return questions
+
+
+def _fact_evidence_refs(pack: Any) -> list[dict[str, object]]:
+    return [
+        dict(item)
+        for item in getattr(pack, "external_evidence", [])
+        if item.get("citation_role") == "fact_evidence"
+    ]
 
 
 def _human_review_note_candidates(

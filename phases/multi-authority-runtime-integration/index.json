@@ -23,6 +23,14 @@
     {
       "id": "RT3",
       "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:40:00+09:00",
+      "completed_at": "2026-07-05T04:41:18+09:00",
+      "summary": "Added StatementLineCandidate.evidence_refs and linked review-pack fact_evidence references to amount-bearing statement draft line candidates only. Note candidates remain evidence-free, evidence refs use safe reference dicts without source record payload, and tests cover synthetic DART revenue linkage."
+    },
+    {
+      "id": "RT4",
+      "file": "step4.md",
       "status": "pending"
     }
   ]

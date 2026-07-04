@@ -20,3 +20,4 @@ class StatementLineCandidate:
     debit_credit: DebitCredit = "none"
     review_questions: list[str] = field(default_factory=list)
     note_links: list[str] = field(default_factory=list)
+    evidence_refs: list[dict[str, object]] = field(default_factory=list)
