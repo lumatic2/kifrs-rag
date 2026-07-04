@@ -1,4 +1,4 @@
-"""First-pass 1115 decision-path classifier for R15-1."""
+"""1115 decision-path classifier and five-step assessment engine."""
 
 from dataclasses import dataclass, field
 from typing import Literal
@@ -13,10 +13,19 @@ class NeedsHumanReview(Exception):
 
 
 @dataclass
+class FiveStepConclusion:
+    step: int
+    name: str
+    conclusion: str
+    citations: list[str] = field(default_factory=list)
+
+
+@dataclass
 class RevenueDecision:
     label: str
     status: DecisionStatus
     path: str
+    five_step: list[FiveStepConclusion] = field(default_factory=list)
     performance_obligations: list[str] = field(default_factory=list)
     allocation_basis: str = ""
     measurement_summary: dict[str, float | int | str] = field(default_factory=dict)
@@ -29,17 +38,35 @@ def evaluate_revenue(txn: Revenue1115) -> RevenueDecision:
 
     if txn.special_case:
         raise NeedsHumanReview(f"{txn.label}: special_case={txn.special_case}")
+    _validate_contract_identification(txn)
 
     if txn.scenario_type == "customer_option":
-        return _customer_option(txn)
+        decision = _customer_option(txn)
     if txn.scenario_type == "discount_right":
-        return _discount_right(txn)
+        decision = _discount_right(txn)
     if txn.scenario_type == "significant_financing":
-        return _significant_financing(txn)
+        decision = _significant_financing(txn)
     if txn.scenario_type == "repurchase_call_option":
-        return _repurchase_call_option(txn)
+        decision = _repurchase_call_option(txn)
+    if txn.scenario_type not in {
+        "customer_option",
+        "discount_right",
+        "significant_financing",
+        "repurchase_call_option",
+    }:
+        raise NeedsHumanReview(f"{txn.label}: unsupported scenario_type={txn.scenario_type!r}")
 
-    raise NeedsHumanReview(f"{txn.label}: unsupported scenario_type={txn.scenario_type!r}")
+    decision.five_step = _build_five_step(txn, decision)
+    return decision
+
+
+def _validate_contract_identification(txn: Revenue1115) -> None:
+    if not txn.contract_identified:
+        raise NeedsHumanReview(f"{txn.label}: contract identification facts incomplete")
+    if not txn.payment_terms_identified:
+        raise NeedsHumanReview(f"{txn.label}: payment terms are not identified")
+    if not txn.collectability_probable:
+        raise NeedsHumanReview(f"{txn.label}: collectability assessment is not probable")
 
 
 def _customer_option(txn: Revenue1115) -> RevenueDecision:
@@ -149,3 +176,88 @@ def _repurchase_call_option(txn: Revenue1115) -> RevenueDecision:
         ],
         citations=["1115-B64~B69"],
     )
+
+
+def _build_five_step(txn: Revenue1115, decision: RevenueDecision) -> list[FiveStepConclusion]:
+    return [
+        FiveStepConclusion(
+            step=1,
+            name="contract_identification",
+            conclusion="contract is identified with payment terms and probable collectability",
+            citations=["1115-9"],
+        ),
+        FiveStepConclusion(
+            step=2,
+            name="performance_obligations",
+            conclusion="; ".join(decision.performance_obligations),
+            citations=_step2_citations(decision),
+        ),
+        FiveStepConclusion(
+            step=3,
+            name="transaction_price",
+            conclusion=_transaction_price_conclusion(txn, decision),
+            citations=_step3_citations(decision),
+        ),
+        FiveStepConclusion(
+            step=4,
+            name="allocate_transaction_price",
+            conclusion=decision.allocation_basis,
+            citations=_step4_citations(decision),
+        ),
+        FiveStepConclusion(
+            step=5,
+            name="recognize_revenue",
+            conclusion=_recognition_conclusion(txn, decision),
+            citations=_step5_citations(decision),
+        ),
+    ]
+
+
+def _step2_citations(decision: RevenueDecision) -> list[str]:
+    if "material_right" in decision.path:
+        return ["1115-B39~B43"]
+    if decision.path.startswith("repurchase_"):
+        return ["1115-B64~B69"]
+    return ["1115-22"]
+
+
+def _step3_citations(decision: RevenueDecision) -> list[str]:
+    if decision.path == "significant_financing_component":
+        return ["1115-60", "1115-61", "1115-64", "1115-65"]
+    return ["1115-47"]
+
+
+def _step4_citations(decision: RevenueDecision) -> list[str]:
+    if "material_right" in decision.path:
+        return ["1115-74", "1115-77"]
+    return ["1115-73"]
+
+
+def _step5_citations(decision: RevenueDecision) -> list[str]:
+    if decision.path.startswith("repurchase_"):
+        return ["1115-B64~B69"]
+    if "material_right" in decision.path:
+        return ["1115-B40", "1115-B43"]
+    return ["1115-31"]
+
+
+def _transaction_price_conclusion(txn: Revenue1115, decision: RevenueDecision) -> str:
+    if decision.path == "significant_financing_component":
+        cash_price = decision.measurement_summary["cash_selling_price"]
+        promised = decision.measurement_summary["promised_consideration"]
+        return f"use cash selling price {cash_price:,.0f}; separate financing effect from promised consideration {promised:,.0f}"
+    if decision.path.startswith("repurchase_"):
+        return "assess repurchase terms before treating the consideration as ordinary sale revenue"
+    return f"start from contract price {txn.contract_price:,.0f} and include the option right in allocation"
+
+
+def _recognition_conclusion(txn: Revenue1115, decision: RevenueDecision) -> str:
+    if "material_right" in decision.path:
+        return "recognize current goods or services separately and defer the material right until exercise or expiry"
+    if decision.path == "significant_financing_component":
+        return f"recognize revenue for the promised goods or services and present financing over {txn.financing_months or 0} months"
+    if decision.path == "repurchase_financing_arrangement":
+        return "do not treat as an ordinary sale; account for the arrangement as financing until repurchase economics are resolved"
+    if decision.path == "repurchase_lease_arrangement":
+        return "do not treat as an ordinary sale; account for the arrangement as a lease-type repurchase outcome"
+    return f"recognize revenue based on {txn.transfer_timing}"

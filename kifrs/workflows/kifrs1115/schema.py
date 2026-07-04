@@ -13,10 +13,13 @@ ScenarioType = Literal[
 
 @dataclass
 class Revenue1115:
-    """Minimal public facts needed for the first 1115 decision branches."""
+    """Structured public facts for 1115 five-step revenue assessment."""
 
     label: str
     scenario_type: ScenarioType
+    contract_identified: bool = True
+    payment_terms_identified: bool = True
+    collectability_probable: bool = True
     contract_price: float = 0.0
     standalone_selling_price_main: float | None = None
     option_standalone_selling_price: float | None = None
@@ -32,4 +35,5 @@ class Revenue1115:
     original_sale_price: float | None = None
     repurchase_price: float | None = None
     repurchase_price_includes_time_value: bool = False
+    transfer_timing: str = "point_in_time"
     special_case: str | None = None

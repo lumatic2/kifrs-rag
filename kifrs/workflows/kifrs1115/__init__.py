@@ -6,12 +6,18 @@ expected decision paths, and citation ids only. Later R15 milestones extend this
 surface into measurement, journal entries, review memo, and review pack.
 """
 
-from .classify import NeedsHumanReview, RevenueDecision, evaluate_revenue
+from .classify import (
+    FiveStepConclusion,
+    NeedsHumanReview,
+    RevenueDecision,
+    evaluate_revenue,
+)
 from .fixtures import FIXTURES, ScenarioFixture
 from .schema import Revenue1115
 
 __all__ = [
     "FIXTURES",
+    "FiveStepConclusion",
     "NeedsHumanReview",
     "Revenue1115",
     "RevenueDecision",
