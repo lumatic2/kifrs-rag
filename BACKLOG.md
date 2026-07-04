@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-05 — Accounting Intelligence feedback/PoC recent closed horizons
+- Completed: 2026-07-05
+- Result: ROADMAP 150-line cap 유지를 위해 최근 Accounting Intelligence Expansion closed horizon 일부를 압축 보관. 포함: `field-feedback-ready-demo`(FF1~FF4), `workflow-rebuild-on-richer-knowledge`(WR1~WR4), `real-case-feedback-loop`(RC1~RC4), `feedback-eval-backlog-integration`(FI1~FI4).
+- Evidence: `docs/reports/2026-07-05-ff4-feedback-package-close-report.md`; `docs/reports/2026-07-05-wr4-workflow-rebuild-close-report.md`; `docs/reports/2026-07-05-rc4-real-case-feedback-loop-report.md`; `docs/reports/2026-07-05-fi4-feedback-eval-backlog-close-report.md`.
+- Verification: 각 horizon별 focused tests/close report 기준. 원문 horizon과 phase status는 `docs/horizons/`, `phases/`에 유지.
+
 ### 2026-07-05 — Compressed closed horizon archive
 - Completed: 2026-07-04~2026-07-05
 - Result: ROADMAP 150-line cap 유지를 위해 오래된 closed horizon 상세를 압축 보관. 포함: `workflow-automation`, `practice-map`, `automation-expansion`, `firm-service-map`, F-ACC sequence(`f-acc-review-pack`, `f-acc-1109-review-pack`, `f-acc-1115-revenue-engine`, `f-acc-disclosure-generalization`, `f-acc-1109-hardening`, `f-acc-financial-statement-draft`), `f-audit-analytical-procedures`, `product-packaging-poc`, `rag-quality-refresh`, `authority-source-map`, `multi-source-ingestion-pipeline`, `multi-authority-runtime-integration`.

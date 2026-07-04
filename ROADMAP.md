@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Field Feedback Runbook 완료)
+> 마지막 업데이트: 2026-07-05 (Field Feedback Capture 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,16 +26,21 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — waiting for field feedback capture
+## Current Horizon — waiting for real accountant session
 
-`field-feedback-runbook`은 완료. 다음 추천 horizon은 `field-feedback-capture`.
-one-page brief, demo bundle, real-transaction sample, incorporation report를 묶은 회계사 30분 피드백
-세션 runbook이 생겼으므로, 이제 실제 회계사 피드백을 기록하고 safe correction을 queue record로 변환한다.
+`field-feedback-capture`은 완료. 다음 추천 horizon은 `real-accountant-session`.
+feedback notes를 public-safe 구조로 기록하고 safe correction만 queue record로 변환하는 pipeline이
+생겼으므로, 다음 proof는 실제 회계사 세션을 runbook으로 운영하고 safe notes를 capture하는 것이다.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.
 
 ## Closed Horizons
+
+<!-- harness:goal id="field-feedback-capture" status="closed" -->
+`docs/horizons/field-feedback-capture.md` — close (2026-07-05). FC1~FC4 완료:
+horizon/plan/phase setup, feedback notes capture contract, sample capture package command, close gate.
+Evidence: `docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md`.
 
 <!-- harness:goal id="field-feedback-runbook" status="closed" -->
 `docs/horizons/field-feedback-runbook.md` — close (2026-07-05). FB1~FB4 완료:
@@ -62,27 +67,8 @@ Evidence: `docs/reports/2026-07-05-pb4-firm-facing-poc-brief-close-report.md`.
 readiness manifest/README, checker/tests, readiness report, close gate.
 Evidence: `docs/reports/2026-07-05-tk4-toolkit-readiness-close-report.md`.
 
-<!-- harness:goal id="feedback-eval-backlog-integration" status="closed" -->
-`docs/horizons/feedback-eval-backlog-integration.md` — close (2026-07-05). FI1~FI4 완료:
-feedback queue JSONL store, eval/backlog split, sample queue/report, close gate.
-Evidence: `docs/reports/2026-07-05-fi4-feedback-eval-backlog-close-report.md`.
-
-<!-- harness:goal id="real-case-feedback-loop" status="closed" -->
-`docs/horizons/real-case-feedback-loop.md` — close (2026-07-05). RC1~RC4 완료:
-anonymized case intake schema, reviewer correction capture, review-pack routing stub, public-safe sample report.
-Evidence: `docs/reports/2026-07-05-rc4-real-case-feedback-loop-report.md`.
-
-<!-- harness:goal id="workflow-rebuild-on-richer-knowledge" status="closed" -->
-`docs/horizons/workflow-rebuild-on-richer-knowledge.md` — close (2026-07-05). WR1~WR4 완료:
-source-aware review pack analyzer, rebuild report command, 1109/1115/1116 coverage report, close gate.
-Evidence: `docs/reports/2026-07-05-wr4-workflow-rebuild-close-report.md`.
-
-<!-- harness:goal id="field-feedback-ready-demo" status="closed" -->
-`docs/horizons/field-feedback-ready-demo.md` — close (2026-07-05). FF1~FF4 완료:
-runtime-aware demo brief, feedback questionnaire, known limitations/human-review boundary, feedback package smoke.
-Evidence: `docs/reports/2026-07-05-ff4-feedback-package-close-report.md`.
-
-Older closed horizons are archived in `BACKLOG.md`: multi-authority runtime, multi-source ingestion,
+Older closed horizons are archived in `BACKLOG.md`: field-feedback-ready-demo, workflow-rebuild, real-case feedback,
+feedback eval/backlog, multi-authority runtime, multi-source ingestion,
 authority source map, rag quality refresh, product packaging PoC, audit analytical procedures, F-ACC sequence,
 firm-service-map, automation-expansion, practice-map, workflow-automation.
 
@@ -106,8 +92,8 @@ firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. 방금 완료한 horizon은 `field-feedback-runbook`.
-다음 추천 horizon: `field-feedback-capture`.
+**[현재 active]** 없음. 방금 완료한 horizon은 `field-feedback-capture`.
+다음 추천 horizon: `real-accountant-session`.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.

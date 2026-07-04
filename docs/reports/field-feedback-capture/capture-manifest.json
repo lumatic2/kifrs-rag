@@ -1,0 +1,15 @@
+{
+  "actual_feedback_evidence": false,
+  "case_id": "anon-lease-poc-001",
+  "files": {
+    "capture_report": "docs/reports/field-feedback-capture/capture-report.md",
+    "manifest": "docs/reports/field-feedback-capture/capture-manifest.json",
+    "notes": "docs/reports/field-feedback-capture/feedback-notes.sample.md",
+    "queue_jsonl": "docs/reports/field-feedback-capture/feedback-queue.jsonl",
+    "queue_report": "docs/reports/field-feedback-capture/feedback-queue-report.md"
+  },
+  "public_safe": true,
+  "queue_records": 1,
+  "session_id": "sample-session-001",
+  "source": "sample"
+}

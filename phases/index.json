@@ -79,6 +79,10 @@
     {
       "dir": "field-feedback-runbook",
       "status": "completed"
+    },
+    {
+      "dir": "field-feedback-capture",
+      "status": "completed"
     }
   ]
 }

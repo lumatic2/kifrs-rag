@@ -1,0 +1,41 @@
+{
+  "id": "field-feedback-capture",
+  "status": "completed",
+  "horizon": "../../docs/horizons/field-feedback-capture.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "plan": "../../docs/plans/2026-07-05-field-feedback-capture.md",
+  "steps": [
+    {
+      "id": "FC1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T10:10:00+09:00",
+      "completed_at": "2026-07-05T10:18:00+09:00",
+      "summary": "Compressed older ROADMAP closed horizons to BACKLOG, opened docs/horizons/field-feedback-capture.md, docs/plans/2026-07-05-field-feedback-capture.md, and phases/field-feedback-capture with FC1~FC4. ROADMAP/OBJECTIVE were moved to active field-feedback-capture."
+    },
+    {
+      "id": "FC2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T10:18:00+09:00",
+      "completed_at": "2026-07-05T10:28:00+09:00",
+      "summary": "Added kifrs/feedback/capture.py and tests/test_field_feedback_capture.py. The capture contract validates public-safe feedback notes, rejects protected payloads, and converts safe captured corrections into feedback queue records. Verification: python -m pytest tests/test_field_feedback_capture.py -q -> 5 passed with existing pytest cache warning."
+    },
+    {
+      "id": "FC3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T10:28:00+09:00",
+      "completed_at": "2026-07-05T10:34:00+09:00",
+      "summary": "Added scripts/field_feedback_capture.py and generated docs/reports/field-feedback-capture/. The package includes sample notes, capture report, feedback queue JSONL/report, and a manifest that marks actual_feedback_evidence false."
+    },
+    {
+      "id": "FC4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T10:34:00+09:00",
+      "completed_at": "2026-07-05T10:42:00+09:00",
+      "summary": "Closed field-feedback-capture with docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md. Focused tests passed 12, sample capture package regenerated, quality_preflight ok/public_safe True, and git diff --check produced only LF->CRLF warnings."
+    }
+  ]
+}
