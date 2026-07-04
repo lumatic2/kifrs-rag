@@ -1,6 +1,6 @@
 {
   "id": "multi-source-ingestion-pipeline",
-  "status": "active",
+  "status": "completed",
   "horizon": "../../docs/horizons/multi-source-ingestion-pipeline.md",
   "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
   "steps": [

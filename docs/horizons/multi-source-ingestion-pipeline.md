@@ -1,6 +1,6 @@
 # Horizon: Multi-Source Ingestion Pipeline
 
-> Status: planned next
+> Status: closed
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 > Previous: `docs/horizons/authority-source-map.md`
@@ -61,4 +61,3 @@ Deliverable:
 
 - ingestion gate
 - close report
-
