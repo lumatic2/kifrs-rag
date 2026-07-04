@@ -1,6 +1,6 @@
 # Step 1: analytical-procedure-scope-fixture-inventory
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -23,3 +23,9 @@ git diff --check
 ## 결과물
 
 - `docs/reports/2026-07-05-ap1-analytical-procedure-scope-inventory.md`
+
+## 완료 요약
+
+감사 분석적 절차 PoC는 DART/API 없이 synthetic F/S fixture로 먼저 닫기로 했다. 포함 범위는 기간별
+F/S line item, 증감액/증감률, gross/operating/current/debt ratio, threshold 기반 anomaly 후보와
+review question이다. 감사의견, KAM, 중요성, 표본설계, 내부통제 결론은 제외했다.
