@@ -84,6 +84,13 @@ retrieval 평가 쪽이다. `gold_ranks` 진단상 Q039는 `1116-24`만 잡고 `
 안으로 회복하면서 기존 top-20 required citation을 보존했다. 다음 leaf는 이 두 후보만 reviewed
 `user_note_v2` seed로 승격할지 결정하고 적용/재측정하는 것이다.
 
+## RO2 reviewed seed 적용 결과 (2026-07-05)
+
+`scripts/seed_user_notes.py`에 위 두 후보를 추가하고 `--apply`로 로컬 DB에 반영했다. 적용 후
+`python -m kifrs.eval.retrieval --k 20 --retrievers hybrid --only Q039 Q048 --no-save` 결과,
+focused hybrid recall@20은 0.500에서 1.000으로 회복됐다. 다만 MRR/nDCG는 하락했으므로 이 변경은
+general ranking improvement가 아니라 targeted recall repair로 해석한다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는

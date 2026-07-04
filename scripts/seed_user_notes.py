@@ -103,6 +103,17 @@ SEEDS = [
         "8",
         "type=term_bridge; trigger=재측정요소; expansion=보험수리적손익; source=engine-hardening-cs5; rationale=구 TERM_BRIDGE dict 이관",
     ),
+    # RO2 term bridge candidate evaluation (2026-07-05): docs/reports/2026-07-05-ro2-term-bridge-candidate-eval.md
+    (
+        "1037",
+        "14",
+        "type=term_bridge; trigger=충당부채; expansion=현재의무 과거사건 자원 유출 가능성 신뢰성 있는 추정; source=ro2-term-bridge; rationale=Q039 misses 1037-14 because the original lease-focused question lacks provision recognition criteria terms",
+    ),
+    (
+        "1036",
+        "18",
+        "type=term_bridge; trigger=손상차손; expansion=회수가능액 순공정가치 사용가치; source=ro2-term-bridge; rationale=Q048 misses 1036-18 while already finding 1036-59; this bridge recovers 1036-18 and preserves 1036-59",
+    ),
 ]
 
 

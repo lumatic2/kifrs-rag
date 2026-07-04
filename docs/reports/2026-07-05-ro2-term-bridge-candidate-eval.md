@@ -49,10 +49,41 @@ These are not applied to the DB yet. They are candidates for a later reviewed `u
 
 ## Next Step
 
-Create a reviewed seed change only for the two seed candidates, then rerun:
+Reviewed seed change was applied for the two seed candidates only:
 
 ```powershell
 python scripts\seed_user_notes.py --apply
-python -m kifrs.eval.retrieval --k 20 --retrievers hybrid --only Q039 Q048 --no-save
-python scripts\quality_preflight.py --format text
 ```
+
+Observed:
+
+```text
+seed rows: 19
+existing rows: 17
+new rows: 2
+inserted: 2
+```
+
+The command is idempotent after insertion:
+
+```text
+seed rows: 19
+existing rows: 19
+new rows: 0
+nothing to insert
+```
+
+Focused hybrid retrieval after applying the seed:
+
+```powershell
+python -m kifrs.eval.retrieval --k 20 --retrievers hybrid --only Q039 Q048 --no-save
+```
+
+Observed:
+
+| Retriever | recall@1 | recall@3 | recall@5 | recall@10 | recall@20 | MRR | nDCG@10 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| hybrid | 0.000 | 0.000 | 0.250 | 0.250 | 1.000 | 0.161 | 0.132 |
+
+Interpretation: the reviewed seed recovers top-20 recall for Q039/Q048, but rank quality is worse than the
+pre-seed baseline. This is acceptable as a targeted recall repair, not a general ranking improvement.
