@@ -16,6 +16,15 @@
     {
       "id": "AS2",
       "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-as2-authority-citation-policy.md",
+      "summary": "Authority/citation policy fixed: answer evidence sections, question-type priority order, conflict handling, insufficient-evidence rule, and future schema fields are documented without changing registry schema."
+    },
+    {
+      "id": "AS3",
+      "file": "step3.md",
       "status": "next"
     }
   ]
