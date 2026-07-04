@@ -25,6 +25,7 @@
 5. `docs/reports/field-feedback-capture/INDEX.md`
 6. `docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md`
 7. `docs/reports/field-feedback/2026-07-05-incorporated-review-questions.md`
+8. `docs/reports/2026-07-05-accounting-intelligence-gap-audit.md`
 
 ## Before Sending
 

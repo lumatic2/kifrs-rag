@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from scripts.accounting_intelligence_gap_audit import build_gap_audit
     from scripts.real_accountant_invite_packet import build_invite_packet
     from scripts.real_accountant_run_sheet import build_run_sheet
     from scripts.real_accountant_status import summarize_status
@@ -16,10 +17,12 @@ except ModuleNotFoundError:
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     try:
+        from scripts.accounting_intelligence_gap_audit import build_gap_audit
         from scripts.real_accountant_invite_packet import build_invite_packet
         from scripts.real_accountant_run_sheet import build_run_sheet
         from scripts.real_accountant_status import summarize_status
     except ModuleNotFoundError:
+        from accounting_intelligence_gap_audit import build_gap_audit
         from real_accountant_invite_packet import build_invite_packet
         from real_accountant_run_sheet import build_run_sheet
         from real_accountant_status import summarize_status
@@ -38,6 +41,7 @@ def build_operator_brief(
     status = summarize_status(root=root, manifest=manifest, outreach_ledger=outreach_ledger)
     invite = build_invite_packet(ledger_path=outreach_ledger)
     run_sheet = build_run_sheet()
+    gap_audit = build_gap_audit()
     return {
         "title": "Real Accountant Session Operator Brief",
         "horizon": status["horizon"],
@@ -45,6 +49,14 @@ def build_operator_brief(
         "close_ready": status["close_ready"],
         "next_action": status["next_action"],
         "blocked_by": status["blocked_by"],
+        "proof_snapshot": {
+            "automation_rate": gap_audit.automation_rate,
+            "total_review_packs": gap_audit.total_review_packs,
+            "automated_packs": gap_audit.automated_packs,
+            "human_review_packs": gap_audit.human_review_packs,
+            "objective_ready_claim": gap_audit.objective_ready_claim,
+            "remaining_gaps": gap_audit.remaining_gaps,
+        },
         "send_now": {
             "subject": invite["subject"],
             "body": invite["body"],
@@ -106,6 +118,21 @@ def render_markdown(brief: dict[str, Any]) -> str:
     if brief["blocked_by"]:
         lines.extend(["", "## Blocked By", ""])
         lines.extend(f"- {item}" for item in brief["blocked_by"])
+    snapshot = brief["proof_snapshot"]
+    lines.extend(
+        [
+            "",
+            "## Proof Snapshot",
+            "",
+            f"- Claim: {snapshot['objective_ready_claim']}",
+            f"- Review packs: {snapshot['total_review_packs']}",
+            f"- Automated: {snapshot['automated_packs']}",
+            f"- Needs human review: {snapshot['human_review_packs']}",
+            f"- Automation rate: {snapshot['automation_rate']:.2%}",
+            "- Remaining gaps:",
+        ]
+    )
+    lines.extend(f"  - {item}" for item in snapshot["remaining_gaps"])
     lines.extend(
         [
             "",

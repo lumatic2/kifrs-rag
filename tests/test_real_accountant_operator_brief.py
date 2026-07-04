@@ -15,6 +15,8 @@ def test_build_operator_brief_combines_status_invite_and_run_sheet() -> None:
     assert brief["session_mode"] == "ready_to_schedule"
     assert brief["next_action"] == "Send reviewer invite and update outreach ledger to sent."
     assert "post_send_update_command" in brief["send_now"]
+    assert brief["proof_snapshot"]["total_review_packs"] == 24
+    assert brief["proof_snapshot"]["automated_packs"] >= 20
     assert "docs/reports/firm-facing-poc/2026-07-05-one-page-brief.md" in brief["open_files"]
     assert "capture" in brief["commands"]
 
@@ -49,6 +51,8 @@ def test_render_markdown_includes_send_now_and_boundaries() -> None:
 
     assert "# Real Accountant Session Operator Brief" in rendered
     assert "## Send Now" in rendered
+    assert "## Proof Snapshot" in rendered
+    assert "Automation rate" in rendered
     assert "real_accountant_outreach_update.py" in rendered
     assert "real_accountant_capture.py" in rendered
     assert "Do not store reviewer real name" in rendered

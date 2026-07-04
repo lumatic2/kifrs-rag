@@ -23,6 +23,8 @@ python scripts\demo_poc.py --scenario revenue-financing --out docs\reports\demo-
    - 회계사 검토 필요성과 자동화 경계.
 6. `docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md`
    - 피드백 기록용 질문지.
+7. `docs/reports/2026-07-05-accounting-intelligence-gap-audit.md`
+   - 현재 기술 증거, 24개 review pack 자동화율, 남은 PoC gap.
 
 ## 피드백 목표
 
@@ -39,4 +41,3 @@ python scripts\demo_poc.py --scenario revenue-financing --out docs\reports\demo-
    - 익명화 실제 거래 1건으로 demo를 재구성.
 3. `firm-introduction-material`
    - 법인 소개용 one-pager/deck/script 제작.
-

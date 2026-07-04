@@ -6,6 +6,19 @@ import re
 from pathlib import Path
 from typing import Any
 
+try:
+    from scripts.accounting_intelligence_gap_audit import build_gap_audit
+except ModuleNotFoundError:
+    import sys
+
+    ROOT = Path(__file__).resolve().parents[1]
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    try:
+        from scripts.accounting_intelligence_gap_audit import build_gap_audit
+    except ModuleNotFoundError:
+        from accounting_intelligence_gap_audit import build_gap_audit
+
 
 DEFAULT_PACKET = Path("docs/reports/real-accountant-session/SESSION_PACKET.md")
 DEFAULT_RUNBOOK = Path("docs/reports/field-feedback-runbook/2026-07-05-30min-session-runbook.md")
@@ -21,11 +34,20 @@ def build_run_sheet(
     packet = packet_path.read_text(encoding="utf-8")
     runbook = runbook_path.read_text(encoding="utf-8")
     checklist = checklist_path.read_text(encoding="utf-8")
+    gap_audit = build_gap_audit()
     return {
         "title": "Real Accountant 30-Minute Run Sheet",
         "status_command": "python scripts\\real_accountant_status.py",
         "invite_packet_command": "python scripts\\real_accountant_invite_packet.py",
         "preflight_check_command": "python scripts\\real_accountant_preflight.py",
+        "proof_snapshot": {
+            "automation_rate": gap_audit.automation_rate,
+            "total_review_packs": gap_audit.total_review_packs,
+            "automated_packs": gap_audit.automated_packs,
+            "human_review_packs": gap_audit.human_review_packs,
+            "next_leaf": gap_audit.next_leaf,
+            "remaining_gaps": gap_audit.remaining_gaps,
+        },
         "open_files": _numbered_items_after(packet, "## Files to Open During Session"),
         "preflight_commands": _checklist_commands(checklist),
         "opening_script": _checklist_items_after(checklist, "## Opening Script"),
@@ -57,6 +79,18 @@ def render_text(sheet: dict[str, Any]) -> str:
         "Preflight Commands:",
     ]
     lines.extend(f"- {item}" for item in sheet["preflight_commands"])
+    snapshot = sheet["proof_snapshot"]
+    lines.extend(
+        [
+            "",
+            "Proof Snapshot:",
+            f"- Review packs: {snapshot['total_review_packs']}",
+            f"- Automated: {snapshot['automated_packs']}",
+            f"- Needs human review: {snapshot['human_review_packs']}",
+            f"- Automation rate: {snapshot['automation_rate']:.2%}",
+            f"- Next leaf: {snapshot['next_leaf']}",
+        ]
+    )
     lines.extend(["", "Open Files:"])
     lines.extend(f"{index}. {item}" for index, item in enumerate(sheet["open_files"], start=1))
     lines.extend(["", "Opening Script:"])
