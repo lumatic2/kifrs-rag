@@ -31,6 +31,14 @@
     {
       "id": "RT4",
       "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:42:00+09:00",
+      "completed_at": "2026-07-05T04:43:11+09:00",
+      "summary": "Added answer boundary composer in kifrs/runtime/answer_boundary.py. compose_evidence_boundary keeps primary_kifrs_evidence separate from supporting_interpretation, legal_boundary, and fact_evidence; external evidence is not promoted to primary when primary citations are absent; tests cover role separation and output without source payload/quotes."
+    },
+    {
+      "id": "RT5",
+      "file": "step5.md",
       "status": "pending"
     }
   ]
