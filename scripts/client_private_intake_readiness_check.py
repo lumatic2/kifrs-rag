@@ -12,6 +12,7 @@ REQUIRED_EXISTING_ARTIFACTS = {
     "case_intake_contract": ROOT / "kifrs" / "feedback" / "case_intake.py",
     "client_private_contract_check": ROOT / "scripts" / "client_private_contract_check.py",
     "client_private_redaction_gate_check": ROOT / "scripts" / "client_private_redaction_gate_check.py",
+    "client_private_routing_bridge_check": ROOT / "scripts" / "client_private_routing_bridge_check.py",
     "transaction_poc_bridge": ROOT / "kifrs" / "feedback" / "transaction_poc.py",
     "real_transaction_package": ROOT / "docs" / "reports" / "real-transaction-poc" / "INDEX.md",
     "gap_audit": ROOT / "docs" / "reports" / "2026-07-05-accounting-intelligence-gap-audit.md",
@@ -31,6 +32,7 @@ REQUIRED_REPORT_TERMS = {
     "LocalPrivateCaseIntake",
     "redact_local_private_case_for_public",
     "render_redacted_client_private_summary",
+    "route_redacted_client_private_summary",
     "Status: complete",
 }
 

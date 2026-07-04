@@ -5,6 +5,7 @@ from kifrs.feedback import (
     redact_local_private_case_for_public,
     render_local_private_intake_card,
     render_redacted_client_private_summary,
+    route_redacted_client_private_summary,
     validate_local_private_case_intake,
 )
 
@@ -105,3 +106,33 @@ def test_render_redacted_client_private_summary_preserves_public_boundary() -> N
     assert "source locator" in rendered
     assert "local-private://cases" not in rendered
     assert "Original contract remains outside repo" not in rendered
+
+
+def test_route_redacted_summary_to_1116_review_pack_candidate() -> None:
+    summary = redact_local_private_case_for_public(_case())
+
+    route = route_redacted_client_private_summary(summary, domain_hint="KIFRS1116")
+
+    assert route.status == "candidate"
+    assert route.route == "kifrs1116_review_pack"
+    assert route.missing_facts == []
+
+
+def test_route_redacted_summary_reports_missing_1109_facts() -> None:
+    summary = redact_local_private_case_for_public(_case())
+
+    route = route_redacted_client_private_summary(summary, domain_hint="KIFRS1109")
+
+    assert route.status == "needs_more_facts"
+    assert route.missing_facts == ["instrument_type", "business_model", "cash_flow_terms"]
+
+
+def test_route_redacted_summary_blocks_schema_only_output_level() -> None:
+    summary = redact_local_private_case_for_public(
+        LocalPrivateCaseIntake(**{**_case().to_dict(), "allowed_output_level": "schema_only"})
+    )
+
+    route = route_redacted_client_private_summary(summary, domain_hint="KIFRS1116")
+
+    assert route.status == "blocked"
+    assert route.route == "redaction_gate"

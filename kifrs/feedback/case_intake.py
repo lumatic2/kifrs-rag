@@ -286,6 +286,51 @@ def route_case(case: CaseIntake) -> RoutingCandidate:
     )
 
 
+def route_redacted_client_private_summary(
+    summary: RedactedClientPrivateSummary,
+    *,
+    domain_hint: str,
+) -> RoutingCandidate:
+    if summary.allowed_output_level != "review_pack_summary":
+        return RoutingCandidate(
+            case_id=summary.case_id,
+            domain=domain_hint.upper(),
+            route="redaction_gate",
+            status="blocked",
+            reason="review-pack routing requires allowed_output_level review_pack_summary",
+        )
+    if summary.redaction_status != "reviewed_public_safe":
+        return RoutingCandidate(
+            case_id=summary.case_id,
+            domain=domain_hint.upper(),
+            route="redaction_gate",
+            status="blocked",
+            reason="review-pack routing requires redaction_status reviewed_public_safe",
+        )
+    if not summary.reviewer_original_document_check:
+        return RoutingCandidate(
+            case_id=summary.case_id,
+            domain=domain_hint.upper(),
+            route="redaction_gate",
+            status="blocked",
+            reason="reviewer must check original documents outside this repo",
+        )
+
+    case = CaseIntake(
+        case_id=summary.case_id,
+        domain_hint=domain_hint.upper(),
+        anonymized_title=f"Redacted client-private {summary.document_type}",
+        fact_pattern_summary="Redacted local-only client-private structured facts.",
+        structured_facts=dict(summary.structured_facts),
+        requested_outputs=["review_pack", "human_review_questions"],
+        source_boundaries=[
+            "source locator removed from public output",
+            "reviewer checks original documents outside this repo",
+        ],
+    )
+    return route_case(case)
+
+
 def case_to_eval_seed_candidate(case: CaseIntake, correction: ReviewerCorrection) -> dict[str, Any]:
     case_issues = validate_case_intake(case)
     correction_issues = validate_reviewer_correction(correction)

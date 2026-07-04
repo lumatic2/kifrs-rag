@@ -108,6 +108,9 @@ Status: complete. Implemented as `redact_local_private_case_for_public` and
 
 Route only sanitized structured facts into existing 1109/1115/1116 review-pack generators.
 
+Status: complete. Implemented as `route_redacted_client_private_summary` in
+`kifrs/feedback/case_intake.py`, checked by `scripts/client_private_routing_bridge_check.py`.
+
 ### CP4. Local-Only Close Gate
 
 Prove:
