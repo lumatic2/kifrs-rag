@@ -44,13 +44,13 @@ technical demo package is ready for review, but final PoC proof requires an actu
 ## Remaining Gaps
 
 - actual accountant session evidence is still external/user-owned
-- client-private local-only intake contract exists, but upload/parser UX is not implemented
+- client-private local-only intake and redaction gate exist, but review-pack routing bridge is not implemented
 - external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion
 - default retriever promotion remains deferred until real session demo validation
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or CP2 public-safe redaction gate
+real-accountant-session RS2/RS3 evidence capture, or CP3 client-private review-pack routing bridge
 
 ## Machine Result
 
@@ -66,10 +66,10 @@ real-accountant-session RS2/RS3 evidence capture, or CP2 public-safe redaction g
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or CP2 public-safe redaction gate",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or CP3 client-private review-pack routing bridge",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "client-private local-only intake contract exists, but upload/parser UX is not implemented",
+    "client-private local-only intake and redaction gate exist, but review-pack routing bridge is not implemented",
     "external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion",
     "default retriever promotion remains deferred until real session demo validation"
   ],

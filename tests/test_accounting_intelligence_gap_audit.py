@@ -16,7 +16,7 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert audit.human_review_packs <= 4
     joined_gaps = " ".join(audit.remaining_gaps)
     assert "actual accountant session" in joined_gaps
-    assert "upload/parser UX" in joined_gaps
+    assert "review-pack routing bridge" in joined_gaps
 
 
 def test_gap_audit_markdown_is_public_safe_summary() -> None:

@@ -100,6 +100,10 @@ Reject:
 - private filing body
 - embedded document payload
 
+Status: complete. Implemented as `redact_local_private_case_for_public` and
+`render_redacted_client_private_summary` in `kifrs/feedback/case_intake.py`, checked by
+`scripts/client_private_redaction_gate_check.py`.
+
 ### CP3. Review-Pack Routing Bridge
 
 Route only sanitized structured facts into existing 1109/1115/1116 review-pack generators.

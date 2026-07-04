@@ -103,6 +103,20 @@ class LocalPrivateCaseIntake:
 
 
 @dataclass(frozen=True)
+class RedactedClientPrivateSummary:
+    case_id: str
+    document_type: str
+    redaction_status: str
+    allowed_output_level: str
+    reviewer_original_document_check: bool
+    structured_fact_keys: list[str] = field(default_factory=list)
+    structured_facts: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class ReviewerCorrection:
     case_id: str
     issue: str
@@ -180,6 +194,33 @@ def validate_local_private_case_intake(case: LocalPrivateCaseIntake) -> list[Val
         )
     issues.extend(_public_safe_issues(case.to_dict()))
     return issues
+
+
+def redact_local_private_case_for_public(case: LocalPrivateCaseIntake) -> RedactedClientPrivateSummary:
+    issues = validate_local_private_case_intake(case)
+    if issues:
+        joined = "; ".join(f"{issue.path}: {issue.message}" for issue in issues)
+        raise ValueError(f"cannot redact local-private case: {joined}")
+
+    structured_fact_keys = sorted(str(key) for key in case.structured_facts)
+    structured_facts: dict[str, Any] = {}
+    if case.allowed_output_level in {"structured_facts_only", "review_pack_summary"}:
+        structured_facts = {key: case.structured_facts[key] for key in structured_fact_keys}
+
+    summary = RedactedClientPrivateSummary(
+        case_id=case.case_id,
+        document_type=case.document_type,
+        redaction_status=case.redaction_status,
+        allowed_output_level=case.allowed_output_level,
+        reviewer_original_document_check=case.reviewer_original_document_check,
+        structured_fact_keys=structured_fact_keys,
+        structured_facts=structured_facts,
+    )
+    summary_issues = _public_safe_issues(summary.to_dict())
+    if summary_issues:
+        joined = "; ".join(f"{issue.path}: {issue.message}" for issue in summary_issues)
+        raise ValueError(f"redacted summary is not public-safe: {joined}")
+    return summary
 
 
 def validate_reviewer_correction(correction: ReviewerCorrection) -> list[ValidationIssue]:
@@ -360,6 +401,45 @@ def render_local_private_intake_card(case: LocalPrivateCaseIntake) -> str:
         "- This card is a local-only control record.",
         "- It does not store raw contracts, customer identifiers, copied source bodies, private filings, parsed standards, embeddings, or workpaper payloads.",
         "- The reviewer checks original documents outside this repo.",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+def render_redacted_client_private_summary(summary: RedactedClientPrivateSummary) -> str:
+    lines = [
+        f"# Redacted Client-Private Summary - {summary.case_id}",
+        "",
+        f"- Document type: {summary.document_type}",
+        f"- Redaction status: {summary.redaction_status}",
+        f"- Allowed output level: {summary.allowed_output_level}",
+        f"- Reviewer original-document check: {summary.reviewer_original_document_check}",
+        "",
+        "## Structured Fact Keys",
+        "",
+    ]
+    if summary.structured_fact_keys:
+        lines.extend(f"- {key}" for key in summary.structured_fact_keys)
+    else:
+        lines.append("- none")
+
+    if summary.structured_facts:
+        lines.extend(["", "## Structured Facts", "", "| Field | Value |", "|---|---|"])
+        for key, value in sorted(summary.structured_facts.items()):
+            lines.append(f"| {key} | {value} |")
+
+    lines.extend([
+        "",
+        "## Removed From Public Output",
+        "",
+        "- source locator",
+        "- original notes",
+        "- private document body",
+        "- customer or company identifiers",
+        "",
+        "## Boundary",
+        "",
+        "- This summary is derived from a local-only control record.",
+        "- It does not include source document payloads, private filings, parsed standards, embeddings, or workpaper payloads.",
     ])
     return "\n".join(lines) + "\n"
 
