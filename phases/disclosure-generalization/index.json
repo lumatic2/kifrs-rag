@@ -30,6 +30,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1109 review pack에서 금융상품 분류와 사람 보완 항목을 가진 disclosure skeleton을 생성"
+    },
+    {
+      "step": 5,
+      "name": "cross-domain-disclosure-report",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1116/1115/1109 disclosure surface 자동화 가능성과 NeedsHumanReview 경계를 비교"
     }
   ]
 }

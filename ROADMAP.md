@@ -26,42 +26,28 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — f-acc-disclosure-generalization
+## Current Horizon — f-acc-1109-hardening
 
-<!-- harness:goal id="f-acc-disclosure-generalization" status="active" -->
-목표: 1116에서 실증한 주석 checklist/초안/DART 대사 표면을 1115·1109 output까지 일반화한다.
+<!-- harness:goal id="f-acc-1109-hardening" status="active" -->
+목표: 1109 review pack의 잔여 NeedsHumanReview 케이스를 분석하고, 자동화 가능한 케이스부터 hardening해
+완료율과 제품 신뢰도를 높인다.
 큰 실행 순서 → `docs/horizons/f-acc-technical-expansion.md`; 상세 plan →
-`docs/horizons/f-acc-disclosure-generalization.md`.
+`docs/horizons/f-acc-1109-hardening.md`.
 
 ### Next Candidates
-- DG5 — cross-domain disclosure report
-
-### Completed Milestones (f-acc-disclosure-generalization)
-<!-- harness:milestone id="DG1" status="completed" priority="P0" evidence="docs/reports/2026-07-05-dg1-disclosure-surface-inventory.md;phases/disclosure-generalization/step1.md" -->
-#### DG1 — disclosure surface inventory
-- DoD: 1116/1115/1109 산출물 중 주석 checklist/draft로 재사용 가능한 field를 inventory로 정리한다.
-- Evidence: docs/reports/2026-07-05-dg1-disclosure-surface-inventory.md;phases/disclosure-generalization/step1.md
-- Status: [x]
-
-<!-- harness:milestone id="DG2" status="completed" priority="P0" evidence="kifrs/workflows/disclosure/;tests/test_disclosure_common.py;phases/disclosure-generalization/step2.md" -->
-#### DG2 — common disclosure checklist schema
-- DoD: 1116 요구항목, 1115 review pack, 1109 review pack을 공통 DisclosureChecklistItem으로 변환한다.
-- Evidence: kifrs/workflows/disclosure/;tests/test_disclosure_common.py;phases/disclosure-generalization/step2.md
-- Status: [x]
-
-<!-- harness:milestone id="DG3" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/disclosure.py;tests/test_1115_disclosure.py;phases/disclosure-generalization/step3.md" -->
-#### DG3 — 1115 disclosure pilot
-- DoD: 1115 review pack에서 자동 산출 후보와 사람 보완 필요 항목을 가진 disclosure skeleton을 생성한다.
-- Evidence: kifrs/workflows/kifrs1115/disclosure.py;tests/test_1115_disclosure.py;phases/disclosure-generalization/step3.md
-- Status: [x]
-
-<!-- harness:milestone id="DG4" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/disclosure.py;tests/test_1109_disclosure.py;phases/disclosure-generalization/step4.md" -->
-#### DG4 — 1109 disclosure pilot
-- DoD: 1109 review pack에서 자동 분류 후보와 사람 보완 필요 항목을 가진 disclosure skeleton을 생성한다.
-- Evidence: kifrs/workflows/kifrs1109/disclosure.py;tests/test_1109_disclosure.py;phases/disclosure-generalization/step4.md
-- Status: [x]
+- FH1 — 1109 blocker taxonomy
+- FH2 — SPPI reset nuance hardening
+- FH3 — reclassification memo skeleton
+- FH4 — FX dual-track boundary
+- FH5 — completion-rate delta report
 
 ## Closed Horizons
+
+<!-- harness:goal id="f-acc-disclosure-generalization" status="closed" -->
+`docs/horizons/f-acc-disclosure-generalization.md` — close (2026-07-05). DG1~DG5 완료: 1116/1115/1109
+disclosure surface inventory, common `DisclosureChecklistItem`, 1115/1109 skeleton renderer, cross-domain
+report. Evidence: `kifrs/workflows/disclosure/`, `kifrs/workflows/kifrs1115/disclosure.py`,
+`kifrs/workflows/kifrs1109/disclosure.py`, `docs/reports/2026-07-05-dg5-cross-domain-disclosure-report.md`.
 
 <!-- harness:goal id="f-acc-1115-revenue-engine" status="closed" -->
 `docs/horizons/f-acc-1115-revenue-engine.md` — close (2026-07-05). R15-1~R15-6 완료: 1115 seed 4개 유형을
@@ -113,11 +99,10 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
-`f-acc-disclosure-generalization`이다. 1115 revenue engine은 R15-1~R15-6까지 완료했고,
-DG1에서 inventory, DG2에서 common schema, DG3에서 1115 skeleton, DG4에서 1109 skeleton을 완료했다.
-다음은 DG5 cross-domain disclosure report.
+`f-acc-1109-hardening`이다. disclosure-generalization은 DG1~DG5까지 완료했다. 다음은 FH1 1109
+blocker taxonomy.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → **F-ACC disclosure generalization(현재)**.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → **F-ACC 1109 hardening(현재)**.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

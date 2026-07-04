@@ -1,0 +1,12 @@
+{
+  "project": "kifrs-rag",
+  "phase": "1109-hardening",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "1109-blocker-taxonomy",
+      "status": "pending"
+    }
+  ]
+}

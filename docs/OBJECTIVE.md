@@ -75,6 +75,6 @@
 
 ## Active horizon
 
-`docs/horizons/f-acc-disclosure-generalization.md` (F-ACC 주석 일반화)
+`docs/horizons/f-acc-1109-hardening.md` (F-ACC 1109 hardening)
 
 큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`
