@@ -59,6 +59,16 @@
       "keywords": ["시험 관습", "모범답안", "중간 정산 순이자", "반올림", "해석 분기"],
       "status": "metadata-only",
       "note": "Use only as answer convention, not as primary accounting authority."
+    },
+    {
+      "id": "opendart-structured-financials",
+      "title": "OpenDART structured financial statement data",
+      "authority_type": "regulatory_guidance",
+      "priority": 50,
+      "scope": "Structured public filing facts for financial statement draft and audit analytics workflows",
+      "keywords": ["OpenDART", "DART", "공시", "재무제표", "XBRL", "감사분석"],
+      "status": "metadata-only",
+      "note": "Fact source candidate only. Public repo stores schema and synthetic fixtures, not raw filings or API payloads."
     }
   ]
 }

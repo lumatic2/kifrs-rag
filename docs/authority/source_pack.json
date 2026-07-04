@@ -101,6 +101,22 @@
       "status": "available-local-private",
       "keywords": ["시험 관습", "반올림", "모범답안", "표시", "해석 분기"],
       "notes": "Author-written convention metadata. Do not commit dogfood source question body."
+    },
+    {
+      "id": "opendart-structured-financials-seed",
+      "source_id": "opendart-structured-financials",
+      "title": "OpenDART structured financial statement data seed",
+      "publisher": "OpenDART",
+      "authority_type": "regulatory_guidance",
+      "allowed_use": "collection_seed",
+      "priority": 50,
+      "locator": {
+        "kind": "api_index",
+        "ref": "opendart-structured-financials"
+      },
+      "status": "collection_seed",
+      "keywords": ["OpenDART", "DART", "공시", "재무제표", "XBRL", "감사분석"],
+      "notes": "Structured fact source seed only. Keep API payloads, raw filings, and parsed real-company caches out of the public repo."
     }
   ]
 }

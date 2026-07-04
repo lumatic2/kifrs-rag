@@ -119,6 +119,96 @@
       ],
       "chunk_strategy": "law_article_locator",
       "allowed_use": "legal_boundary"
+    },
+    {
+      "record_type": "structured_fact",
+      "connector_id": "opendart-structured-financials",
+      "connector_version": "0.1.0",
+      "source_id": "opendart-structured-financials",
+      "source_class": "filing_data",
+      "namespace": "external.opendart.synthetic",
+      "body_storage_policy": "public_synthetic_fixture",
+      "citation_role": "fact_evidence",
+      "locator": {
+        "type": "synthetic_filing",
+        "filing_id": "synthetic-dart-2025-annual-001"
+      },
+      "retrieved_at": "2026-07-05T04:24:00+09:00",
+      "public_manifest_safe": true,
+      "provenance": {
+        "produced_by": "synthetic-fixture",
+        "source_note": "Synthetic OpenDART-like fact; no real filing payload copied."
+      },
+      "warnings": [
+        "synthetic_fixture",
+        "not_real_company_data"
+      ],
+      "fact_id": "synthetic-dart-2025-annual-001-assets-current",
+      "company_id": "SYNTH-DART-001",
+      "filing_id": "synthetic-dart-2025-annual-001",
+      "period": "2025",
+      "statement_type": "financial_position",
+      "line_item": "current_assets",
+      "value": 1250000000,
+      "unit": "KRW",
+      "dimensions": {
+        "consolidated": true,
+        "duration": "instant"
+      },
+      "filing_locator": {
+        "type": "synthetic_filing",
+        "filing_id": "synthetic-dart-2025-annual-001",
+        "line_item": "current_assets"
+      },
+      "quality_flags": [
+        "synthetic",
+        "schema_probe"
+      ]
+    },
+    {
+      "record_type": "structured_fact",
+      "connector_id": "opendart-structured-financials",
+      "connector_version": "0.1.0",
+      "source_id": "opendart-structured-financials",
+      "source_class": "filing_data",
+      "namespace": "external.opendart.synthetic",
+      "body_storage_policy": "public_synthetic_fixture",
+      "citation_role": "fact_evidence",
+      "locator": {
+        "type": "synthetic_filing",
+        "filing_id": "synthetic-dart-2025-annual-001"
+      },
+      "retrieved_at": "2026-07-05T04:24:00+09:00",
+      "public_manifest_safe": true,
+      "provenance": {
+        "produced_by": "synthetic-fixture",
+        "source_note": "Synthetic OpenDART-like fact; no real filing payload copied."
+      },
+      "warnings": [
+        "synthetic_fixture",
+        "not_real_company_data"
+      ],
+      "fact_id": "synthetic-dart-2025-annual-001-revenue",
+      "company_id": "SYNTH-DART-001",
+      "filing_id": "synthetic-dart-2025-annual-001",
+      "period": "2025",
+      "statement_type": "profit_or_loss",
+      "line_item": "revenue",
+      "value": 3780000000,
+      "unit": "KRW",
+      "dimensions": {
+        "consolidated": true,
+        "duration": "period"
+      },
+      "filing_locator": {
+        "type": "synthetic_filing",
+        "filing_id": "synthetic-dart-2025-annual-001",
+        "line_item": "revenue"
+      },
+      "quality_flags": [
+        "synthetic",
+        "schema_probe"
+      ]
     }
   ]
 }

@@ -23,6 +23,14 @@
     {
       "id": "MSI3",
       "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:24:00+09:00",
+      "completed_at": "2026-07-05T04:26:04+09:00",
+      "summary": "Added opendart-structured-financials as a collection_seed fact source, added 2 synthetic structured_fact records to docs/ingestion/source_manifest.example.json, hardened structured fact validation for numeric value/dimensions/locator/quality_flags and fact_evidence/public_synthetic_fixture boundaries, and expanded tests for accept/raw dump reject/shape reject."
+    },
+    {
+      "id": "MSI4",
+      "file": "step4.md",
       "status": "pending"
     }
   ]

@@ -142,6 +142,7 @@ def validate_manifest(
             record_id = record.get("document_id")
         elif record_type == "structured_fact":
             errors.extend(_validate_required_fields(record, STRUCTURED_FACT_REQUIRED_FIELDS, prefix))
+            errors.extend(_validate_structured_fact(record, prefix))
             record_id = record.get("fact_id")
         else:
             errors.append(f"{prefix}: invalid record_type {record_type}")
@@ -191,6 +192,24 @@ def _validate_required_fields(record: dict[str, Any], required: set[str], prefix
     return [f"{prefix}: missing {field}" for field in sorted(required) if field not in record]
 
 
+def _validate_structured_fact(record: dict[str, Any], prefix: str) -> list[str]:
+    errors: list[str] = []
+    value = record.get("value")
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        errors.append(f"{prefix}: value must be numeric")
+    if not isinstance(record.get("dimensions"), dict):
+        errors.append(f"{prefix}: dimensions must be object")
+    if not isinstance(record.get("filing_locator"), dict) or not record.get("filing_locator"):
+        errors.append(f"{prefix}: filing_locator must be non-empty object")
+    if not isinstance(record.get("quality_flags"), list):
+        errors.append(f"{prefix}: quality_flags must be list")
+    if record.get("citation_role") != "fact_evidence":
+        errors.append(f"{prefix}: structured_fact must use fact_evidence citation_role")
+    if record.get("body_storage_policy") != "public_synthetic_fixture":
+        errors.append(f"{prefix}: public structured_fact fixture must use public_synthetic_fixture")
+    return errors
+
+
 def _find_forbidden_fields(value: Any, path: str = "$") -> list[str]:
     errors: list[str] = []
     if isinstance(value, dict):
@@ -203,4 +222,3 @@ def _find_forbidden_fields(value: Any, path: str = "$") -> list[str]:
         for idx, nested in enumerate(value):
             errors.extend(_find_forbidden_fields(nested, f"{path}[{idx}]"))
     return errors
-
