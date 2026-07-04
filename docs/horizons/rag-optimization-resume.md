@@ -138,6 +138,17 @@ Full 50-item retrieval-only eval 기준 `source_routed_hybrid` recall@20은 0.95
 `source_routed_hybrid_gate.py`는 이제 accepted route 5개, reviewed seed Q029, rejected hard miss 4개를
 분리해서 검증한다.
 
+## 남은 hard miss triage (2026-07-05)
+
+`scripts/remaining_hard_miss_triage.py`와
+`docs/reports/2026-07-05-remaining-hard-miss-triage.md`로 Q001/Q006/Q008/Q040을 다시 분류했다.
+추가 seed 후보는 없다. Q001은 1115-27이 rank 28인 near miss, Q006은 1115-55만 잡히고 1115-51이
+absent인 concept gap, Q008은 1116 리스 측정 문단은 잡히지만 1109 scope exclusion이 absent인
+cross-standard scope gap, Q040은 1109-4.1.4가 rank 22까지 오는 K-boundary near miss다.
+
+다음 구현 후보는 ① 1115-focused subquery/rerank(Q001/Q006), ② 1109 scope-exclusion decomposition(Q008),
+③ 1109 classification rerank 또는 K-boundary gate review(Q040)이다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는
