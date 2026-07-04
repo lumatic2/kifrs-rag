@@ -23,6 +23,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1115 material right 배분, significant financing 조정, repurchase financing 분개 초안을 추가"
+    },
+    {
+      "step": 4,
+      "name": "review-memo-renderer",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1115 판단, 5단계 결론, 측정표, 분개 초안을 검토메모 markdown으로 렌더링"
     }
   ]
 }

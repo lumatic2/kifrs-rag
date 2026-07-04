@@ -15,6 +15,7 @@ from .classify import (
 from .fixtures import FIXTURES, ScenarioFixture
 from .journal_entry import EntryLine, JournalEntry, draft_journal_entries
 from .measurement import AllocationLine, RevenueMeasurement, measure_revenue
+from .review_memo import SECTION_TITLES, generate_review_memo
 from .schema import Revenue1115
 
 __all__ = [
@@ -27,8 +28,10 @@ __all__ = [
     "Revenue1115",
     "RevenueDecision",
     "RevenueMeasurement",
+    "SECTION_TITLES",
     "ScenarioFixture",
     "draft_journal_entries",
     "evaluate_revenue",
+    "generate_review_memo",
     "measure_revenue",
 ]

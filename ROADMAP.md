@@ -56,8 +56,14 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - Gap: R15-2는 판단 구조만 있었고, 회계사가 바로 검토할 숫자/분개 초안은 없었다.
 - Status: [x]
 
+<!-- harness:milestone id="R15-4" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/review_memo.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step4.md" -->
+#### R15-4 — review memo renderer
+- DoD: 1115 판단 결과가 거래개요, 5단계 판단, 측정, 분개 초안, 결론 섹션을 가진 검토메모 markdown으로 렌더된다.
+- Evidence: kifrs/workflows/kifrs1115/review_memo.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step4.md
+- Gap: R15-3 산출물은 구조화 데이터였고, 회계사가 바로 읽는 workpaper 초안은 없었다.
+- Status: [x]
+
 ### Next Candidates
-- R15-4 — review memo renderer: 1115 판단 결과를 회계자문팀 검토메모 초안으로 렌더링
 - R15-5 — review pack integration: 1115를 1109/1116과 비교 가능한 F-ACC pack으로 통합
 - R15-6 — fixture regression + completion report: 완료율과 NeedsHumanReview 경계 리포트
 
@@ -108,8 +114,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
 `f-acc-1115-revenue-engine`이다. R15-1에서 1115 seed 4개 유형을 fixture/결정 함수로 이식했고,
-R15-2에서 5단계 수익인식 판단 구조를 추가했으며, R15-3에서 측정표와 분개 초안을 추가했다.
-다음은 R15-4 review memo renderer.
+R15-2에서 5단계 판단, R15-3에서 측정표/분개 초안, R15-4에서 검토메모 markdown을 추가했다.
+다음은 R15-5 review pack integration.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → **F-ACC 1115 revenue engine(현재)**.
 

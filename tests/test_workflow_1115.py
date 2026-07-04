@@ -6,6 +6,7 @@ from kifrs.workflows.kifrs1115.classify import NeedsHumanReview, evaluate_revenu
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES
 from kifrs.workflows.kifrs1115.journal_entry import draft_journal_entries
 from kifrs.workflows.kifrs1115.measurement import measure_revenue
+from kifrs.workflows.kifrs1115.review_memo import SECTION_TITLES, generate_review_memo
 from kifrs.workflows.kifrs1115.schema import Revenue1115
 
 
@@ -151,3 +152,23 @@ def test_repurchase_financing_entries_do_not_recognize_revenue():
         for entry in entries
         for line in entry.lines
     )
+
+
+def test_review_memo_contains_all_sections_and_five_step_assessment():
+    memo = generate_review_memo(FIXTURES[0].txn)
+
+    for idx, title in enumerate(SECTION_TITLES, start=1):
+        assert f"## {idx}. {title}" in memo
+    assert "Step 1 contract_identification" in memo
+    assert "Step 5 recognize_revenue" in memo
+    assert "계약부채(중요한 권리)" in memo
+    assert "1115-B39~B43" in memo
+
+
+def test_review_memo_renders_repurchase_without_revenue_line():
+    memo = generate_review_memo(FIXTURES[3].txn)
+
+    assert "재매입약정 초안" in memo
+    assert "금융부채" in memo
+    assert "재매입스프레드 초안" in memo
+    assert "(대) 수익" not in memo
