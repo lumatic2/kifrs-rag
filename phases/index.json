@@ -42,7 +42,31 @@
     },
     {
       "dir": "multi-source-ingestion-pipeline",
-      "status": "active"
+      "status": "completed"
+    },
+    {
+      "dir": "multi-authority-runtime-integration",
+      "status": "completed"
+    },
+    {
+      "dir": "workflow-rebuild-on-richer-knowledge",
+      "status": "completed"
+    },
+    {
+      "dir": "real-case-feedback-loop",
+      "status": "completed"
+    },
+    {
+      "dir": "feedback-eval-backlog-integration",
+      "status": "completed"
+    },
+    {
+      "dir": "toolkit-packaging-readiness",
+      "status": "completed"
+    },
+    {
+      "dir": "firm-facing-poc-brief",
+      "status": "completed"
     }
   ]
 }

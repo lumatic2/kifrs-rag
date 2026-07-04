@@ -1,0 +1,40 @@
+{
+  "id": "firm-facing-poc-brief",
+  "status": "completed",
+  "horizon": "../../docs/horizons/firm-facing-poc-brief.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "PB1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T07:20:00+09:00",
+      "completed_at": "2026-07-05T07:28:00+09:00",
+      "summary": "Opened docs/horizons/firm-facing-poc-brief.md and phases/firm-facing-poc-brief with PB1~PB4. ROADMAP/OBJECTIVE were moved from waiting state to active firm-facing-poc-brief."
+    },
+    {
+      "id": "PB2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T07:28:00+09:00",
+      "completed_at": "2026-07-05T07:34:00+09:00",
+      "summary": "Wrote docs/reports/firm-facing-poc/2026-07-05-poc-brief.md. It targets F-ACC first, F-AUD second, and covers team context, problem, current proof, demo path, risk boundary, expected PoC output, and PoC ask."
+    },
+    {
+      "id": "PB3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T07:34:00+09:00",
+      "completed_at": "2026-07-05T07:38:00+09:00",
+      "summary": "Created docs/reports/firm-facing-poc/2026-07-05-one-page-brief.md and docs/reports/firm-facing-poc/INDEX.md for meeting use. The one-pager separates 10-minute introduction and 30-minute demo flow, and keeps PoC asks to three items."
+    },
+    {
+      "id": "PB4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T07:38:00+09:00",
+      "completed_at": "2026-07-05T07:44:00+09:00",
+      "summary": "Closed firm-facing-poc-brief with docs/reports/2026-07-05-pb4-firm-facing-poc-brief-close-report.md. toolkit_readiness ok True, quality_preflight ok/public_safe True, git diff --check exit 0 with LF->CRLF warnings only."
+    }
+  ]
+}

@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon 없음. 방금 완료한 horizon은 `toolkit-packaging-readiness`이다.
+현재 active horizon 없음. 방금 완료한 horizon은 `firm-facing-poc-brief`이다.
 
 field feedback package는 회계사 피드백을 받을 준비를 마쳤고, workflow rebuild는 기존 1109/1115/1116
 review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence, NeedsHumanReview 항목을
@@ -91,10 +91,15 @@ feedback-eval-backlog-integration은 correction candidate를 JSONL queue와 mark
 toolkit-packaging-readiness는 회계법인 소개/PoC 전에 로컬 도구킷 설치·실행·demo 재현 절차를 readiness
 manifest/checker/report로 정리했다.
 
-다음 추천 horizon은 `firm-facing-poc-brief`이다. 목표는 회계법인에 보여줄 PoC narrative, demo path,
-risk boundary, ask/request를 한 패키지로 정리하는 것이다.
+`firm-facing-poc-brief`는 회계법인에 보여줄 PoC narrative, demo path, risk boundary, ask/request를
+한 패키지로 정리했다. 1순위 대상은 F-ACC(Accounting Advisory / F-S support), 보조 적용처는
+F-AUD 회계이슈 검토와 주석 요구사항 대사다.
+
+다음 추천 horizon은 `real-anonymized-transaction-poc`이다. 목표는 실제 익명화 거래 1건을 F-ACC
+review pack으로 처리하고, 회계사 reviewer correction을 eval/backlog queue에 반영하는 것이다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
+최근 완료 horizon 상세: `docs/horizons/firm-facing-poc-brief.md`
 최근 완료 horizon 상세: `docs/horizons/toolkit-packaging-readiness.md`
 최근 완료 horizon 상세: `docs/horizons/feedback-eval-backlog-integration.md`
 최근 완료 horizon 상세: `docs/horizons/real-case-feedback-loop.md`
