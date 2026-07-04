@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon 없음. 방금 완료한 horizon은 `accountant-feedback-incorporation`이다.
+현재 active horizon 없음. 방금 완료한 horizon은 `field-feedback-runbook`이다.
 
 field feedback package는 회계사 피드백을 받을 준비를 마쳤고, workflow rebuild는 기존 1109/1115/1116
 review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence, NeedsHumanReview 항목을
@@ -101,10 +101,14 @@ F-AUD 회계이슈 검토와 주석 요구사항 대사다.
 `accountant-feedback-incorporation`은 feedback queue correction을 demo brief, review questions,
 eval/backlog rules에 반영 가능한 action plan으로 변환했다.
 
-다음 추천 horizon은 `field-feedback-runbook`이다. 목표는 one-page brief, demo bundle, real-transaction
-sample, incorporation report를 묶어 회계사 30분 피드백 세션을 운영할 runbook을 만드는 것이다.
+`field-feedback-runbook`은 one-page brief, demo bundle, real-transaction sample, incorporation report를
+묶어 회계사 30분 피드백 세션을 운영할 runbook을 만들었다.
+
+다음 추천 horizon은 `field-feedback-capture`이다. 목표는 실제 회계사 피드백 세션을 기록하고,
+public-safe correction을 queue record로 변환하는 것이다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
+최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`
 최근 완료 horizon 상세: `docs/horizons/real-anonymized-transaction-poc.md`
 최근 완료 horizon 상세: `docs/horizons/firm-facing-poc-brief.md`

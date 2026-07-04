@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "name": "field-feedback-runbook",
+  "description": "Public-safe manifest for the 30-minute accountant feedback session runbook.",
+  "required_artifacts": [
+    "docs/reports/field-feedback-runbook/2026-07-05-30min-session-runbook.md",
+    "docs/reports/field-feedback-runbook/2026-07-05-operator-checklist.md",
+    "docs/reports/firm-facing-poc/2026-07-05-one-page-brief.md",
+    "docs/reports/demo-poc/MANIFEST.md",
+    "docs/reports/real-transaction-poc/INDEX.md",
+    "docs/reports/2026-07-05-af3-feedback-incorporation-report.md",
+    "docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md",
+    "docs/reports/field-feedback/2026-07-05-incorporated-review-questions.md"
+  ],
+  "required_sections": {
+    "docs/reports/field-feedback-runbook/2026-07-05-30min-session-runbook.md": [
+      "## Purpose",
+      "## Inputs",
+      "## Before Session",
+      "## 30-Minute Timeline",
+      "## Required Questions",
+      "## Recording Template",
+      "## After Session",
+      "## Boundary"
+    ],
+    "docs/reports/field-feedback-runbook/2026-07-05-operator-checklist.md": [
+      "## Preflight",
+      "## Opening Script",
+      "## During Session",
+      "## Close",
+      "## After Session"
+    ]
+  },
+  "protected_assets_policy": {
+    "excluded": [
+      "data/",
+      "embeddings/",
+      "*.db",
+      "*.pdf",
+      "data/dogfood/",
+      "raw_contract",
+      "customer_identifier"
+    ]
+  }
+}

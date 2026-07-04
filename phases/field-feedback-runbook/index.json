@@ -1,0 +1,41 @@
+{
+  "id": "field-feedback-runbook",
+  "status": "completed",
+  "horizon": "../../docs/horizons/field-feedback-runbook.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "plan": "../../docs/plans/2026-07-05-field-feedback-runbook.md",
+  "steps": [
+    {
+      "id": "FB1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T09:25:00+09:00",
+      "completed_at": "2026-07-05T09:32:00+09:00",
+      "summary": "Opened docs/horizons/field-feedback-runbook.md, docs/plans/2026-07-05-field-feedback-runbook.md, and phases/field-feedback-runbook with FB1~FB4. ROADMAP/OBJECTIVE were moved to active field-feedback-runbook."
+    },
+    {
+      "id": "FB2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T09:32:00+09:00",
+      "completed_at": "2026-07-05T09:40:00+09:00",
+      "summary": "Created docs/reports/field-feedback-runbook/2026-07-05-30min-session-runbook.md and 2026-07-05-operator-checklist.md. The runbook links one-page brief, demo bundle, real-transaction sample, incorporation report, questionnaire, and review question supplement into a 30-minute session flow."
+    },
+    {
+      "id": "FB3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T09:40:00+09:00",
+      "completed_at": "2026-07-05T09:48:00+09:00",
+      "summary": "Added docs/reports/field-feedback-runbook/runbook_manifest.json, scripts/field_feedback_runbook_check.py, and tests/test_field_feedback_runbook.py. Verification: python -m pytest tests/test_field_feedback_runbook.py -q -> 4 passed; checker ok True."
+    },
+    {
+      "id": "FB4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T09:48:00+09:00",
+      "completed_at": "2026-07-05T09:56:00+09:00",
+      "summary": "Closed field-feedback-runbook with docs/reports/2026-07-05-fb4-field-feedback-runbook-close-report.md. Focused tests passed 4, runbook checker ok True, quality_preflight ok/public_safe True, and git diff --check produced only LF->CRLF warnings."
+    }
+  ]
+}
