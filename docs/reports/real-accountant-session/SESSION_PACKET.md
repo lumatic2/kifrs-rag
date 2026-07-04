@@ -70,6 +70,12 @@ actual notes, actual capture manifest, queue JSONL이 모두 생긴 뒤에는 �
 python scripts\real_accountant_manifest_build.py --out docs\reports\real-accountant-session\session_manifest.json --notes docs\reports\real-accountant-session\actual-feedback-notes.md --capture-manifest docs\reports\real-accountant-session\capture-manifest.json --queue-jsonl docs\reports\real-accountant-session\feedback-queue.jsonl --reviewer-role "CPA reviewer" --reviewer-service-line "F-ACC" --reviewer-experience-context "reviewed accounting advisory workpapers"
 ```
 
+horizon을 close하기 전에는 아래 close gate가 통과해야 한다.
+
+```powershell
+python scripts\real_accountant_close_check.py --manifest docs\reports\real-accountant-session\session_manifest.json --outreach-ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --run-quality-preflight
+```
+
 ## Outreach Check
 
 초대 발송 후에는 alias 기반 ledger를 아래 명령으로 확인한다.

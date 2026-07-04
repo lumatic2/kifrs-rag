@@ -18,7 +18,7 @@ CLI까지 준비했다.
   `python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08`;
   notes gate: `python scripts\real_accountant_notes_check.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md`)
 - [ ] RS3 — capture and queue conversion. (verify: actual notes gate + actual capture manifest with `actual_feedback_evidence: true` + `real_accountant_manifest_build.py`)
-- [ ] RS4 — close gate. (verify: quality preflight + actual feedback evidence)
+- [ ] RS4 — close gate. (verify: `real_accountant_close_check.py --run-quality-preflight` + actual feedback evidence)
 
 ## 결정 로그
 
@@ -27,6 +27,7 @@ CLI까지 준비했다.
 - 결정: actual feedback evidence는 reviewer metadata와 public-safe notes가 있을 때만 true로 표시한다.
 - 결정: actual notes는 `real_accountant_notes_check.py`를 통과하기 전에는 capture/queue 변환하지 않는다.
 - 결정: actual session manifest는 수동 편집이 아니라 `real_accountant_manifest_build.py`로 생성한다.
+- 결정: horizon close는 `real_accountant_close_check.py`가 actual manifest, notes, queue, outreach completed, quality preflight를 통과할 때만 한다.
 - 사용자 소유 결정: 회계사 reviewer 섭외, 일정 조율, 실제 세션 진행.
 
 ## 중단점

@@ -29,7 +29,7 @@
       "id": "RS4",
       "file": "step4.md",
       "status": "pending",
-      "summary": "Close the horizon only after actual session evidence and queue conversion exist."
+      "summary": "Close the horizon only after real_accountant_close_check.py verifies actual session evidence, public-safe notes, non-empty queue records, completed outreach, and quality preflight."
     }
   ]
 }

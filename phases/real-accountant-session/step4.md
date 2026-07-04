@@ -15,6 +15,7 @@ actual session evidence와 queue conversion을 검증하고 horizon을 닫는다
 
 ```powershell
 python scripts\real_accountant_session_check.py --manifest docs\reports\real-accountant-session\session_manifest.json
+python scripts\real_accountant_close_check.py --manifest docs\reports\real-accountant-session\session_manifest.json --outreach-ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --run-quality-preflight
 python scripts\quality_preflight.py --format text
 git diff --check
 ```
@@ -22,9 +23,12 @@ git diff --check
 ## 검증 절차
 
 1. actual feedback evidence가 실제로 있는지 확인한다.
-2. quality preflight가 public-safe인지 확인한다.
-3. close report를 작성하고 ROADMAP/OBJECTIVE를 갱신한다.
+2. outreach ledger에 completed reviewer session이 있는지 확인한다.
+3. queue record가 비어 있지 않은지 확인한다.
+4. quality preflight가 public-safe인지 확인한다.
+5. close report를 작성하고 ROADMAP/OBJECTIVE를 갱신한다.
 
 ## 금지사항
 
 - 실제 회계사 세션 없이 이 horizon을 close하지 않는다.
+- `real_accountant_close_check.py`가 실패하면 close report를 쓰지 않는다.
