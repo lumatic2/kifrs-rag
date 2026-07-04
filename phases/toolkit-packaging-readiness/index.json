@@ -1,0 +1,40 @@
+{
+  "id": "toolkit-packaging-readiness",
+  "status": "completed",
+  "horizon": "../../docs/horizons/toolkit-packaging-readiness.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "TK1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:45:00+09:00",
+      "completed_at": "2026-07-05T06:52:00+09:00",
+      "summary": "Created docs/toolkit/readiness_manifest.json and docs/toolkit/README.md. The manifest lists public-safe required artifacts and reproduction commands for quality_preflight, demo_poc, workflow_rebuild_report, and feedback_queue_report. Protected paths such as data/, embeddings/, *.db, *.pdf, and data/dogfood/ are explicitly excluded from public readiness artifacts."
+    },
+    {
+      "id": "TK2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:52:00+09:00",
+      "completed_at": "2026-07-05T06:52:00+09:00",
+      "summary": "Added scripts/toolkit_readiness.py and tests/test_toolkit_readiness.py. The checker loads readiness manifest, validates required artifacts, rejects protected required artifacts, optionally runs reproduction commands, and renders a markdown readiness report. Verification: python -m pytest tests/test_toolkit_readiness.py -q -> 5 passed, with existing .pytest_cache warning."
+    },
+    {
+      "id": "TK3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:52:00+09:00",
+      "completed_at": "2026-07-05T06:56:00+09:00",
+      "summary": "Generated docs/reports/2026-07-05-tk3-toolkit-readiness-report.md with scripts/toolkit_readiness.py. The report is Overall PASS: required public artifacts exist and quality_preflight, demo_poc, workflow_rebuild_report, and feedback_queue_report commands all pass."
+    },
+    {
+      "id": "TK4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T06:56:00+09:00",
+      "completed_at": "2026-07-05T07:02:00+09:00",
+      "summary": "Closed toolkit-packaging-readiness with docs/reports/2026-07-05-tk4-toolkit-readiness-close-report.md. Close gate passed: tests/test_toolkit_readiness.py + tests/test_feedback_queue.py -> 12 passed; toolkit_readiness ok True; quality_preflight ok/public_safe True; git diff --check only LF->CRLF warnings. Recommended next horizon is firm-facing-poc-brief."
+    }
+  ]
+}

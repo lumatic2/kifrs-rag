@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Feedback Eval Backlog Integration 완료)
+> 마지막 업데이트: 2026-07-05 (Toolkit Packaging Readiness 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,16 +26,20 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — waiting for toolkit packaging readiness
+## Current Horizon — waiting for firm-facing PoC brief
 
-`feedback-eval-backlog-integration`은 완료. 다음 추천 horizon은 `toolkit-packaging-readiness`.
-source-aware demo -> anonymized intake -> reviewer correction -> eval/backlog queue가 이어졌으므로,
-법인 소개/PoC 전에 로컬 도구킷 설치·실행·demo 재현 readiness를 정리한다.
+`toolkit-packaging-readiness`은 완료. 다음 추천 horizon은 `firm-facing-poc-brief`.
+기술 재현 readiness package가 생겼으므로, 회계법인에 보여줄 PoC narrative/ask/risk boundary를 정리한다.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.
 
 ## Closed Horizons
+
+<!-- harness:goal id="toolkit-packaging-readiness" status="closed" -->
+`docs/horizons/toolkit-packaging-readiness.md` — close (2026-07-05). TK1~TK4 완료:
+readiness manifest/README, checker/tests, readiness report, close gate.
+Evidence: `docs/reports/2026-07-05-tk4-toolkit-readiness-close-report.md`.
 
 <!-- harness:goal id="feedback-eval-backlog-integration" status="closed" -->
 `docs/horizons/feedback-eval-backlog-integration.md` — close (2026-07-05). FI1~FI4 완료:
@@ -81,8 +85,8 @@ firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. 방금 완료한 horizon은 `feedback-eval-backlog-integration`.
-다음 추천 horizon: `toolkit-packaging-readiness`.
+**[현재 active]** 없음. 방금 완료한 horizon은 `toolkit-packaging-readiness`.
+다음 추천 horizon: `firm-facing-poc-brief`.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.

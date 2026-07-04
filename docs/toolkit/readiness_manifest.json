@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "name": "kifrs-rag-local-toolkit-readiness",
+  "description": "Public-safe readiness manifest for reproducing the local accounting intelligence demo package.",
+  "protected_assets_policy": {
+    "required_for_public_readiness": false,
+    "excluded_paths": [
+      "data/",
+      "embeddings/",
+      "*.db",
+      "*.pdf",
+      "data/dogfood/"
+    ],
+    "note": "K-IFRS source PDFs, parsed text, DB dumps, embeddings, dogfood questions, customer data, and raw filings are not readiness artifacts."
+  },
+  "required_artifacts": [
+    "CLAUDE.md",
+    "ROADMAP.md",
+    "docs/OBJECTIVE.md",
+    "docs/reports/field-feedback/INDEX.md",
+    "docs/reports/demo-poc/MANIFEST.md",
+    "docs/reports/2026-07-05-wr3-source-aware-rebuild-report.md",
+    "docs/feedback/feedback_queue.sample.jsonl"
+  ],
+  "reproduction_commands": [
+    {
+      "id": "quality_preflight",
+      "cmd": "python scripts\\quality_preflight.py --format text",
+      "required": true,
+      "description": "Public-safe quality and authority checks."
+    },
+    {
+      "id": "demo_poc",
+      "cmd": "python scripts\\demo_poc.py --scenario revenue-financing --out docs\\reports\\demo-poc",
+      "required": true,
+      "description": "Regenerate the public synthetic demo bundle."
+    },
+    {
+      "id": "workflow_rebuild_report",
+      "cmd": "python scripts\\workflow_rebuild_report.py --out docs\\reports\\2026-07-05-wr3-source-aware-rebuild-report.md",
+      "required": true,
+      "description": "Regenerate source-aware workflow coverage report."
+    },
+    {
+      "id": "feedback_queue_report",
+      "cmd": "python scripts\\feedback_queue_report.py --queue docs\\feedback\\feedback_queue.sample.jsonl --out docs\\reports\\2026-07-05-fi3-feedback-queue-report.md",
+      "required": true,
+      "description": "Regenerate feedback eval/backlog queue sample and report."
+    }
+  ],
+  "expected_reports": [
+    "docs/reports/demo-poc/MANIFEST.md",
+    "docs/reports/2026-07-05-wr3-source-aware-rebuild-report.md",
+    "docs/reports/2026-07-05-fi3-feedback-queue-report.md"
+  ]
+}
