@@ -15,6 +15,14 @@
     {
       "id": "MSI2",
       "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:21:00+09:00",
+      "completed_at": "2026-07-05T04:23:55+09:00",
+      "summary": "Implemented metadata-only ingestion manifest prototype: docs/ingestion/source_manifest.example.json contains 3 public-safe document_metadata records; kifrs/ingestion/manifest.py and scripts/validate_ingestion_manifest.py validate policy, source_id, storage/citation roles, required fields, and recursive forbidden fields; tests/test_ingestion_manifest.py covers accept, forbidden body field reject, and unknown source_id reject."
+    },
+    {
+      "id": "MSI3",
+      "file": "step3.md",
       "status": "pending"
     }
   ]

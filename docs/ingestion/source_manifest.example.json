@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "policy": {
+    "public_manifest_safe": true,
+    "body_text_committed": false,
+    "forbidden_fields_rejected": true
+  },
+  "records": [
+    {
+      "record_type": "document_metadata",
+      "connector_id": "kasb-fss-interpretive-catalog",
+      "connector_version": "0.1.0",
+      "source_id": "kasb-interpretation-material",
+      "source_class": "interpretive_accounting_material",
+      "namespace": "external.kasb_fss",
+      "body_storage_policy": "public_metadata_only",
+      "citation_role": "supporting_interpretation",
+      "locator": {
+        "type": "url",
+        "url": "https://www.kasb.or.kr/"
+      },
+      "retrieved_at": "2026-07-05T04:21:00+09:00",
+      "public_manifest_safe": true,
+      "provenance": {
+        "produced_by": "manual-public-metadata-fixture",
+        "source_note": "Metadata-only catalog seed; no source body copied."
+      },
+      "warnings": [
+        "supporting_interpretation_only",
+        "body_not_committed"
+      ],
+      "document_id": "kasb-interpretation-material-catalog-seed",
+      "title": "KASB interpretation and education materials catalog seed",
+      "publisher": "KASB",
+      "document_type": "interpretive_material",
+      "publication_date": null,
+      "effective_date": null,
+      "related_standards": [],
+      "topics": [
+        "interpretation",
+        "education",
+        "implementation"
+      ],
+      "chunk_strategy": "metadata_only",
+      "allowed_use": "supporting_interpretation"
+    },
+    {
+      "record_type": "document_metadata",
+      "connector_id": "kasb-fss-interpretive-catalog",
+      "connector_version": "0.1.0",
+      "source_id": "fss-accounting-inquiry",
+      "source_class": "interpretive_accounting_material",
+      "namespace": "external.fss_accounting_inquiry",
+      "body_storage_policy": "public_metadata_only",
+      "citation_role": "supporting_interpretation",
+      "locator": {
+        "type": "url",
+        "url": "https://www.fss.or.kr/"
+      },
+      "retrieved_at": "2026-07-05T04:21:00+09:00",
+      "public_manifest_safe": true,
+      "provenance": {
+        "produced_by": "manual-public-metadata-fixture",
+        "source_note": "Metadata-only catalog seed; no inquiry reply copied."
+      },
+      "warnings": [
+        "supporting_interpretation_only",
+        "body_not_committed"
+      ],
+      "document_id": "fss-accounting-inquiry-catalog-seed",
+      "title": "FSS accounting inquiry and supervision catalog seed",
+      "publisher": "Financial Supervisory Service",
+      "document_type": "interpretive_material",
+      "publication_date": null,
+      "effective_date": null,
+      "related_standards": [],
+      "topics": [
+        "accounting_inquiry",
+        "supervision",
+        "practice_context"
+      ],
+      "chunk_strategy": "metadata_only",
+      "allowed_use": "supporting_interpretation"
+    },
+    {
+      "record_type": "document_metadata",
+      "connector_id": "law-regulation-locator",
+      "connector_version": "0.1.0",
+      "source_id": "commercial-act-capital",
+      "source_class": "law_regulation",
+      "namespace": "external.law_locator",
+      "body_storage_policy": "no_store_link_only",
+      "citation_role": "legal_boundary",
+      "locator": {
+        "type": "official_registry",
+        "url": "https://www.law.go.kr/",
+        "article_locator": "capital-transactions"
+      },
+      "retrieved_at": "2026-07-05T04:21:00+09:00",
+      "public_manifest_safe": true,
+      "provenance": {
+        "produced_by": "manual-public-metadata-fixture",
+        "source_note": "Locator-only seed; no legal article copied."
+      },
+      "warnings": [
+        "legal_boundary_only",
+        "body_not_committed"
+      ],
+      "document_id": "commercial-act-capital-locator-seed",
+      "title": "Korean Commercial Act capital transaction locator seed",
+      "publisher": "Korean Law Information Center",
+      "document_type": "law_locator",
+      "publication_date": null,
+      "effective_date": null,
+      "related_standards": [],
+      "topics": [
+        "capital_transactions",
+        "legal_boundary"
+      ],
+      "chunk_strategy": "law_article_locator",
+      "allowed_use": "legal_boundary"
+    }
+  ]
+}
