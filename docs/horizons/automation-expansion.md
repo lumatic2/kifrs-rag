@@ -2,9 +2,31 @@
 
 > Created: 2026-07-04
 > ROADMAP goal id: `automation-expansion`
-> Status: active
+> Status: closed (2026-07-04 — AE1+AE2 완료, close criteria 충족)
 > Objective: `docs/OBJECTIVE.md`
 > 입력: `docs/horizons/practice-map.md` Close 판정 + `docs/practice-map/candidates.md` PM3 추천
+
+## Close 판정 (2026-07-04)
+
+AE1(1116 리스 엔진 이식, 완료율 9/10) + AE2(1116 리스 주석 초안, 요구항목 8/11 자동 + DART
+3사 대사) 완료 — close criteria(두 핵심 milestone) 충족. AE3(NeedsHumanReview 명시
+인터페이스)는 신호 종속(현재 NHR 1건뿐, 조건부 항목 자동화 요구도 미발생)이라 close 조건 아님 —
+Next Candidate로 이월. 두 milestone 모두 같은 날 단일 세션에서 완료(horizon-run 연쇄).
+
+## Objective 임팩트 (horizon close, 2026-07-04)
+
+두 축을 동시에 움직였다:
+- **완료율 축**: 1109 단일 도메인(6/10) → 1116 추가(9/10)로 **2-도메인 벡터화**. "엔진 패턴이
+  도메인을 넘어 이식되는가"(구 workflow-automation 닫는 기준 (a))가 검증됐다 — WA1 9모듈 +
+  grounding + 회귀 하네스를 통째로 복제해 재현.
+- **커버리지 축**: 실증 3/33 → **4/33**. B5(주석 초안)를 "미실험-유망"에서 "조건부(실증)"로 —
+  법인 AI 공백 지대(판단 본질 task) 첫 신규 개척. DART 상장 3사 대사로 "엔진 자동 8항목 =
+  보편 공시 8항목" 일치를 실측, 자동화 경계가 실무 관행과 정합함을 확인.
+
+Objective 차별점 가설("결정준비 초안까지 + 판단 본질 task")이 2차 지지됐다: 주석 초안이라는
+판단 본질 task를 실제 공시 데이터로 커버 경계까지 그렸다. Objective 재측정 필요 여부: 아직
+아니다 — 다음은 프로덕트 패키징(설치·데모·현업 피드백)이 성공 모습(법인 소개/PoC)에 실제로
+다가가는지 보는 단계. 두 축이 계속 움직이는 한 방향 재검토 신호는 없다.
 
 ## Why now
 

@@ -26,23 +26,22 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — 자동화 확장 (Automation Expansion)
+## Current Horizon — [active 없음] 다음 horizon 결정 대기
 
-<!-- harness:goal id="automation-expansion" -->
-목표: PM3가 실무 가치 기준으로 고른 업무 2개를 엔진화 — ① 1116 리스 엔진 이식으로 완료율 축 2-도메인화 ② 주석 초안 생성으로 커버리지 축 실증 4/33. 상세 계획: `docs/horizons/automation-expansion.md`
+> automation-expansion 2026-07-04 close (AE1+AE2 완료). 다음 방향은 §B0.5 Beat 2로 사용자와 결정.
+> 유력 후보: **프로덕트 패키징**(설치·데모·현업 피드백 → 성공 모습 법인 소개/PoC 접근).
 
-**상태**: 2026-07-04 신설 (practice-map 조건부 close 후속). 구 workflow-automation의 WA2 흡수, WA3는 AE3 후보로 이관.
-**세부 계획**: `docs/plans/2026-07-04-ae1-1116-lease-engine.md`
-
-### Active Milestones
-<!-- harness:milestone id="AE2" status="active" priority="P0" -->
+### Completed Milestones (automation-expansion, closed)
+<!-- harness:milestone id="AE2" status="completed" priority="P0" evidence="tests/test_1116_disclosure.py;docs/reports/2026-07-04-ae2-disclosure-coverage.md" -->
 #### AE2 — B5 주석(공시) 초안 생성 파일럿 (1116 리스 주석)
 - DoD: 1116 이용자 공시 요구사항 체크리스트([1116-53~58], DB grounding) + AE1 엔진 산출물 매핑 + markdown 주석 초안 생성기 + DART 공개 리스 주석 ≥3개 대사로 "요구항목 커버리지 %" 측정치 리포트(수치 낮아도 무방).
-- Evidence: kifrs/workflows/kifrs1116/disclosure.py;tests/test_1116_disclosure.py;docs/reports/2026-07-04-ae2-disclosure-coverage.md
+- Evidence: tests/test_1116_disclosure.py;docs/reports/2026-07-04-ae2-disclosure-coverage.md
 - Gap: 커버리지 축 B5(주석)가 미실험 — 법인 AI 공백 지대(판단 본질 task). 신규 개척으로 3/33→4/33.
-- Status: [ ]
+- Status: [x]
 
 - 세부 계획: `docs/plans/2026-07-04-ae2-1116-disclosure-draft.md`
+- Completed at: 2026-07-04
+- Summary: 1116 리스 주석 초안 8/11 자동, DART 3사 대사, 커버리지 4/33
 <!-- harness:milestone id="AE1" status="completed" priority="P0" evidence="tests/test_workflow_1116_regression.py;docs/reports/2026-07-04-ae1-completion-rate.md" -->
 #### AE1 — 1116 리스 결정 엔진 이식
 - DoD: `kifrs/workflows/kifrs1116/` 엔진(WA1 9모듈 패턴 + grounding)이 기존 10개 시나리오 fixture를 회귀 테스트로 재현하고, 2번째 도메인 완료율 측정치가 리포트로 기록됨(수치가 낮아도 무방 — 측정 가능 상태가 목표).
@@ -57,6 +56,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정)**, 접촉 가능 시 재개 (practice-map에서 이월)
 
 ## Closed Horizons
+
+<!-- harness:goal id="automation-expansion" status="closed" -->
+`docs/horizons/automation-expansion.md` — close (2026-07-04). AE1(1116 엔진 9/10) + AE2(1116 주석 8/11 자동, DART 3사 대사) 완료. 완료율 축 2-도메인화 + 커버리지 축 3→4/33. AE3(NeedsHumanReview 인터페이스)는 신호 종속으로 이월. Objective 임팩트: 두 축 동시 전진, 차별점 가설 2차 지지.
 
 <!-- harness:goal id="practice-map" status="closed" -->
 `docs/horizons/practice-map.md` — 조건부 close (2026-07-04). PM1(taxonomy 33 task) + PM3(전수 판정 + 추천: 1116 먼저 + 주석 다음) 완료, PM2는 위 Next Candidates로 이월. 상세 marker 이력 → `BACKLOG.md`.
@@ -87,11 +89,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[active] AE2 — B5 주석 초안 생성 파일럿** (`docs/plans/2026-07-04-ae2-1116-disclosure-draft.md`). 사용자 확정(2026-07-04): DART 공개 주석 파싱 · 1116 리스 이용자 주석 도메인. Step 1~3(체크리스트·매핑·초안 생성)은 DART 무관하게 선행, Step 4에서 DART 접근(API key BLOCKED-until-issued 또는 keyless HTML) 결정.
+**[현재 active 없음]** automation-expansion horizon close(AE1 9/10 + AE2 8/11). **다음: §B0.5 Beat 2로 새 horizon 결정** — 유력 후보 **프로덕트 패키징**(설치 가능한 도구킷 정비 + 데모 + 현업 피드백 → 성공 모습 법인 소개/PoC 접근). 대안: AE3(NeedsHumanReview 인터페이스, 신호 종속), 제공자 주석([1116-89~97]) 확장, paused horizon 재개.
 
-**[AE1 완료 2026-07-04]** 1116 리스 엔진 이식 완료율 9/10, 커버리지 실증 3/33 (`docs/reports/2026-07-04-ae1-completion-rate.md`). 엔진 패턴 2-도메인 이식 검증됨.
-
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. horizon 경로: ~~업무 지도~~ ✅ → **자동화 확장(현재)** → 프로덕트 패키징.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → **프로덕트 패키징(다음 유력)**.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
