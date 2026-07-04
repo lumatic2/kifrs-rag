@@ -1,7 +1,7 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-06-30 (Engine Quality Ops 현재 scope 완료)
-> K-IFRS 기준서 + AI 도구체인으로 회계사 실무의 상당 부분을 본인이 수행하는 개인용 시스템. 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
+> 마지막 업데이트: 2026-07-04 (Objective 프로덕트 지향 재정의 + PM1 완료)
+> "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
 ## 배경 / 포지셔닝
@@ -35,13 +35,15 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-04-pm1-practice-taxonomy.md`
 
 ### Active Milestones
-<!-- harness:milestone id="PM1" status="active" priority="P0" -->
+<!-- harness:milestone id="PM1" status="completed" priority="P0" evidence="docs/practice-map/taxonomy.md;docs/practice-map/sources.md" -->
 #### PM1 — 회계사 업무 taxonomy 초안
 - DoD: 공개 자료 기반 업무 분해 문서(`docs/practice-map/taxonomy.md`) — 세부 task ≥30개, 각 task에 빈도·판단강도·입출력·현 AI활용 메타, 기존 자산 위치 표기, 커버리지 축 0차 측정값.
 - Evidence: docs/practice-map/taxonomy.md;docs/practice-map/sources.md
 - Gap: "어디까지 자동화 가능한가"에 답할 업무 전체 지도가 없다 — 도메인 선택이 실무 가치가 아니라 기준서 구조 기준이었다.
-- Status: [ ]
+- Status: [x]
 
+- Completed at: 2026-07-04
+- Summary: 회계사 업무 taxonomy v0 -- 33 task 5대분류, 커버리지 0차 측정 2/33(6%)
 ### Next Candidates
 - PM2 — 현업 검증 (회계사 인터뷰/피드백) — **사용자 액션 필요**, 착수 시점 사용자 소유
 - PM3 — 자동화 가능성 매핑 + 다음 자동화 대상 선정 (커버리지 축 1차 측정)
@@ -74,7 +76,7 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** PM1 — 회계사 업무 taxonomy 초안 (`docs/plans/2026-07-04-pm1-practice-taxonomy.md`, step 3개, 착수 대기).
+**[현재 active 없음]** PM1 완료 — taxonomy v0(33 task, 커버리지 0차 2/33=6%, `docs/practice-map/taxonomy.md`). 다음: PM3(가능성 매핑) scope 확정(§B0.5 Beat 3) 또는 PM2(현업 인터뷰, 사용자 액션).
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. 후속 horizon 예정 경로: 업무 지도 → 자동화 확장(WA2/WA3 흡수 검토) → 프로덕트 패키징.
 

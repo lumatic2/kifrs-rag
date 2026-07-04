@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-04 — PM1: 회계사 업무 taxonomy 초안
+- Completed: 2026-07-04
+- Result: 공개자료 20건 + 사용자 1차 관찰 기반 taxonomy v0 — 5대분류(감사·인증/결산·F/S지원/세무(tax-agent 경계)/재무자문/기타인증) 33 task, 각 task에 빈도·판단강도·입출력·현AI활용 4메타. 핵심 발견: 법인 AI는 리서치(A8)·문서 대량처리(A6)에 집중, 판단 본질 task(B3 회계처리판단·B5 주석·A10 감사보고서)는 공백 — Objective 차별점과 일치. 커버리지 축 0차 측정 2/33(6%): A8=가능(dogfood 86%), B3=조건부(1109 엔진 6/10).
+- Evidence: `docs/practice-map/taxonomy.md`; `docs/practice-map/sources.md`; `docs/plans/2026-07-04-pm1-practice-taxonomy.md`
+- Verification: `python -m pytest tests/ -q` 92/92 (문서 작업, 비퇴행).
+
 ### 2026-07-03 — RO1: 잔여 검색 miss 진단
 - Completed: 2026-07-03
 - Result: M4(2026-06-27) 이후 잔여 miss 9건 재검증. 얕은 랭킹 2건(Q004/Q041)은 `search_reranked`가 이미 top-20 안(순위 6, 13)에 넣고 있었다 — 코드 변경 불필요, eval 스크립트의 hybrid 전용 miss 출력이 오독을 유발했을 뿐. 깊은 랭킹 7건은 3개 원인 카테고리(A: 순수 어휘 부재, B: 일반어 매칭 판별력 부족, C: 크로스 개념/표준 쏠림)로 분류, RO2는 카테고리 C(2건, 멀티 쿼리 분해)만 좁게 스코프하기로 권고.

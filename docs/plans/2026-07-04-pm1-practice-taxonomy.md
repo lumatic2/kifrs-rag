@@ -20,22 +20,20 @@ Out of scope:
 
 ## Step tree
 
-- [ ] **Step 1 — 공개 자료 리서치 + 대분류 골격** (WebSearch/ncli: 한공회 자료, 회계법인
-  서비스 소개·채용 JD, 감사 실무 가이드, 회계사 수험/실무 커뮤니티)
-  대분류(감사 / 재무제표 작성·결산 지원 / 재무자문(FAS) / 세무 / 기타) 골격과 출처 목록 확정.
-  (verify: `docs/practice-map/sources.md`에 출처 ≥8건 + 대분류 골격 기록)
+- [x] **Step 1 — 공개 자료 리서치 + 대분류 골격** ✅ 2026-07-04
+  출처 20건(법인 구조·신입 실무·로컬 vs Big4·법인 AI 도입 현황·내부회계·실사/평가 + 사용자 1차
+  관찰) + 5대분류(A 감사·인증 / B 결산·F/S 지원 / C 세무(tax-agent 경계) / D 재무자문 / E 기타
+  인증·컨설팅). (verify: `docs/practice-map/sources.md` — 20건 ≥8 ✓)
 
-- [ ] **Step 2 — 세부 task 분해 + 메타 부여** (`docs/practice-map/taxonomy.md`)
-  대분류별 세부 task(예: 감사 → 계정별 실증절차, 조서 작성, 왕복문서 관리, 감사보고서 작성 …)
-  분해. 각 task에 빈도 추정 / 판단 강도(기계적~고판단) / 입출력 형태(문서→문서, 데이터→분개 등)
-  / 현재 법인 AI 활용 여부(리서치·자료정리 관찰 반영) 메타. (verify: task ≥30개, 전 task에
-  4개 메타 필드)
+- [x] **Step 2 — 세부 task 분해 + 메타 부여** ✅ 2026-07-04
+  33개 task, 전 task에 빈도/판단강도/입출력/현AI활용 4필드. 핵심 관찰: 법인 AI는 A8(리서치)·
+  A6(문서 대량처리)에 집중, 판단 본질 task(B3·B5·A10)는 공백 — Objective 차별점과 일치.
+  (verify: `docs/practice-map/taxonomy.md` — 33 ≥30 ✓)
 
-- [ ] **Step 3 (integration) — 기존 자산 위치 표기 + 커버리지 축 0차 측정**
-  1109 결정 엔진, Phase 3/4 시나리오(1116/1115/1113/1019 문서), /accounting 스킬(리서치),
-  검색 인프라가 taxonomy의 어느 task에 해당하는지 표기. "실험이 닿은 task 수 / 전체 task 수"로
-  축 1의 0차 측정값 기록. (verify: taxonomy.md에 자산 매핑 섹션 + 측정값 한 줄,
-  `python -m pytest tests/ -q` 비퇴행 — 문서 작업이므로 92개 그대로)
+- [x] **Step 3 (integration) — 기존 자산 위치 표기 + 커버리지 축 0차 측정** ✅ 2026-07-04
+  /accounting→A8(가능, dogfood 86%), 1109 엔진→B3(조건부, 6/10), Phase3/4 문서→B3 확장 후보.
+  **커버리지 0차 = 2/33 (6%)**. (verify: taxonomy.md 자산 매핑 섹션 ✓ + `pytest tests/ -q`
+  92/92 ✓)
 
 ## 결정 로그
 
