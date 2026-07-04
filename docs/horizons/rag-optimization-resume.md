@@ -149,6 +149,17 @@ cross-standard scope gap, Q040은 1109-4.1.4가 rank 22까지 오는 K-boundary 
 다음 구현 후보는 ① 1115-focused subquery/rerank(Q001/Q006), ② 1109 scope-exclusion decomposition(Q008),
 ③ 1109 classification rerank 또는 K-boundary gate review(Q040)이다.
 
+## 1115-focused subquery 후보 평가 (2026-07-05)
+
+`scripts/ifrs1115_subquery_candidate_eval.py`와
+`docs/reports/2026-07-05-ifrs1115-subquery-candidate-eval.md`로 Q001/Q006을 평가했다. baseline
+`source_routed_hybrid` 결과를 유지하면서 1115-focused subquery 결과를 weight 2로 RRF fuse하면 Q001
+`1115-27`은 rank 15, Q006 `1115-51`은 rank 7로 top-20에 들어오고 기존 hit도 보존된다.
+
+아직 기본 runtime으로 승격하지 않는다. 다음 leaf는 opt-in 1115 subquery retriever 또는 source-aware query
+decomposition policy를 구현하고, Q001/Q006 회복과 기존 accepted route/Q029 seed/rejected hard miss 경계
+보존을 gate로 묶는 것이다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는
