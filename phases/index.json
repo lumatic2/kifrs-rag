@@ -67,6 +67,10 @@
     {
       "dir": "firm-facing-poc-brief",
       "status": "completed"
+    },
+    {
+      "dir": "real-anonymized-transaction-poc",
+      "status": "completed"
     }
   ]
 }

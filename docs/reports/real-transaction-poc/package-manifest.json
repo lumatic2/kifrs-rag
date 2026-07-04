@@ -1,0 +1,14 @@
+{
+  "case_id": "anon-lease-poc-001",
+  "domain": "KIFRS1116",
+  "files": {
+    "input_card": "docs/reports/real-transaction-poc/anonymized-input-card.md",
+    "package_manifest": "docs/reports/real-transaction-poc/package-manifest.json",
+    "queue_jsonl": "docs/reports/real-transaction-poc/feedback-queue.jsonl",
+    "queue_report": "docs/reports/real-transaction-poc/feedback-queue-report.md",
+    "review_pack": "docs/reports/real-transaction-poc/review-pack.md"
+  },
+  "public_safe": true,
+  "queue_records": 1,
+  "review_pack_status": "automated"
+}
