@@ -27,9 +27,39 @@ PoC 표면이다. 이유는 이 팀의 산출물이 검토메모, 분개, 주석
 | 3 | `f-acc-1115-revenue-engine` | 1115 수익인식 판단 엔진 | F-ACC 복잡 계약 판단 업무와 직접 연결되고, 새 도메인 확장 증거가 가장 크다 | R15 milestones |
 | 4 | `f-acc-disclosure-generalization` | 기준서별 주석 checklist/초안/DART 대사 | 1116에서 실증한 B5 주석 작성 자동화를 여러 기준서로 확장 | disclosure coverage report |
 | 5 | `f-acc-1109-hardening` | 1109 잔여 NeedsHumanReview hardening | 기존 6/10 자동화율을 높여 신뢰도를 개선 | completion-rate delta |
-| 6 | `f-acc-financial-statement-draft` | 재무제표 본문 작성 지원 | F-S support 산출물로 확장하되, 표시/양식 자동화 성격이라 판단 엔진 뒤에 둔다 | F/S draft fixture |
-| 7 | `f-audit-analytical-procedures` | 감사 분석적 절차 | F-AUD 보조 적용처. DART 공개 F/S로 검증 가능하지만 K-IFRS 판단 엔진보다는 뒤 | analytical procedure report |
-| 8 | `product-packaging-poc` | CLI/demo/sample/README/피드백 질문지 | 기술 표면이 충분히 쌓인 뒤 법인 소개 가능한 도구킷으로 묶는다 | 10분 demo pack |
+| 6 | `f-acc-financial-statement-draft` | 재무제표 본문 작성 지원 | F-S support 산출물로 확장하되, 표시/양식 자동화 성격이라 판단 엔진 뒤에 둔다 | statement line schema + 1109/1115 pilot |
+| 7 | `f-audit-analytical-procedures` | 감사 분석적 절차 | F-AUD 보조 적용처. DART 공개 F/S로 검증 가능하지만 K-IFRS 판단 엔진보다는 뒤 | analytical procedure fixture + report |
+| 8 | `product-packaging-poc` | CLI/demo/sample/README/피드백 질문지 | 기술 표면이 충분히 쌓인 뒤 법인 소개 가능한 도구킷으로 묶는다 | 10분 demo pack + 피드백 질문지 |
+
+## 남은 sequence의 구체 산출물
+
+### 6. `f-acc-financial-statement-draft` — 지금 하는 일
+
+회계자문/F-S support 팀이 받는 산출물을 "검토메모"에서 "재무제표 표시 초안"까지 올린다.
+
+- 입력: 1109/1115/1116 review pack의 판단 결과, 분개 초안, 주석 checklist.
+- 만들 것: `StatementLineCandidate` schema, 1109 금융자산 표시 pilot, 1115 수익/계약부채 표시 pilot.
+- 검증: fixture review pack을 넣으면 재무상태표/손익/OCI/주석 연결 후보가 deterministic하게 나온다.
+- 경계: 회사별 TB, 계정과목 mapping, 최종 표시 판단은 이번 horizon 범위 밖이다.
+
+### 7. `f-audit-analytical-procedures` — 다음 업무 축 확장
+
+F-ACC에서 만든 회계 이슈 산출물을 F-AUD의 보조 업무로 연결한다. 감사 결론이 아니라 분석적 절차
+초안과 이상징후 메모까지만 다룬다.
+
+- 입력: 공개 DART F/S 또는 synthetic F/S fixture.
+- 만들 것: 전년 대비/비율/추세 계산, anomaly note, 회계이슈 review pack 연결.
+- 검증: 동일 fixture에서 계산표와 anomaly memo가 재현된다.
+- 경계: 감사계획, 중요성 판단, KAM, 감사의견은 사람 책임으로 남긴다.
+
+### 8. `product-packaging-poc` — 법인 소개용 묶음
+
+기술 실험을 설치 가능한 제품 이야기로 묶는다. 패키징은 여기서 처음 시작한다.
+
+- 입력: 1116/1109/1115 review pack, disclosure skeleton, F/S draft, audit analysis report.
+- 만들 것: demo CLI, sample inputs, generated outputs, README, 10분 소개 script, 회계사 피드백 질문지.
+- 검증: 새 사용자에게 "계약/거래 입력 → 검토메모/분개/주석/F/S 표시 후보" 흐름을 10분 안에 보여준다.
+- 경계: 기준서 원문/DB/embedding은 배포하지 않고, 로컬 인덱싱 전제를 유지한다.
 
 ## 보류/이관
 
@@ -40,5 +70,6 @@ PoC 표면이다. 이유는 이 팀의 산출물이 검토메모, 분개, 주석
 
 ## 현재 실행 포인터
 
-현재 다음 실행은 `f-acc-1115-revenue-engine`이다. 이 horizon은 1115 수익 계약 판단을 구조화 입력,
-결정 엔진, 분개/측정 초안, 검토메모, review pack까지 이어 붙인다.
+현재 실행은 `f-acc-financial-statement-draft`이다. 이미 1116 review pack, 1109 review pack,
+1115 revenue engine, disclosure generalization, 1109 hardening은 닫혔다. 지금은 review pack output을
+재무제표 본문/표시 draft skeleton으로 연결한다.
