@@ -11,7 +11,7 @@
       "status": "completed",
       "started_at": "2026-07-05T11:00:00+09:00",
       "completed_at": "2026-07-05T11:10:00+09:00",
-      "summary": "Prepared docs/reports/real-accountant-session/SESSION_PACKET.md, session invite, evidence template, and session_manifest.json. The packet is ready to schedule and explicitly marks actual_feedback_evidence false until a real reviewer session is completed."
+      "summary": "Prepared docs/reports/real-accountant-session/SESSION_PACKET.md, session invite, evidence template, and session_manifest.json. The packet is ready to schedule and explicitly marks actual_feedback_evidence false until a real reviewer session is completed. Added real_accountant_session_check gate in the packet follow-up to distinguish ready_to_schedule from actual_feedback evidence."
     },
     {
       "id": "RS2",

@@ -14,6 +14,7 @@ actual session evidence와 queue conversion을 검증하고 horizon을 닫는다
 ## Acceptance Criteria
 
 ```powershell
+python scripts\real_accountant_session_check.py --manifest docs\reports\real-accountant-session\session_manifest.json
 python scripts\quality_preflight.py --format text
 git diff --check
 ```

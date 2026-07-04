@@ -14,6 +14,7 @@ actual feedback notes를 capture pipeline에 넣고 safe correction을 queue rec
 ```powershell
 Test-Path docs\reports\real-accountant-session\capture-manifest.json
 rg -n '"actual_feedback_evidence": true' docs\reports\real-accountant-session\capture-manifest.json
+python scripts\real_accountant_session_check.py --manifest docs\reports\real-accountant-session\session_manifest.json
 ```
 
 ## 검증 절차

@@ -41,3 +41,14 @@
 - actual public-safe feedback notes
 - actual capture manifest with `actual_feedback_evidence: true`
 - safe feedback queue records generated from the actual notes
+
+## Evidence Check
+
+세션 전에는 아래 명령이 `mode: ready_to_schedule`로 통과해야 한다.
+
+```powershell
+python scripts\real_accountant_session_check.py --manifest docs\reports\real-accountant-session\session_manifest.json
+```
+
+세션 후에는 같은 checker가 `mode: actual_feedback`로 통과해야 하며, manifest에는 reviewer metadata,
+actual notes, capture manifest, queue JSONL이 연결되어 있어야 한다.
