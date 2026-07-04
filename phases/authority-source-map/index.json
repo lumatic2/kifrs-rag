@@ -7,8 +7,16 @@
     {
       "id": "AS1",
       "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-as1-source-taxonomy.md",
+      "summary": "Source taxonomy fixed: seven source classes defined, current authority registry mapped, missing audit/DART/client-private/supporting classes identified, and AS2 policy questions prepared."
+    },
+    {
+      "id": "AS2",
+      "file": "step2.md",
       "status": "next"
     }
   ]
 }
-
