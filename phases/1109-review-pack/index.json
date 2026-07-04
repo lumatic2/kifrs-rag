@@ -9,6 +9,13 @@
       "status": "completed",
       "summary": "Added kifrs/workflows/kifrs1109/review_pack.py plus tests/test_1109_review_pack.py. FR1 composes existing 1109 runner, review memo, and initial journal entry into a F-ACC review pack without changing classification logic. Fixture result: 6 automated packs and 4 needs_human_review packs. Verification passed: 1109 workflow/regression/review-pack tests plus 1116 review-pack regression.",
       "completed_at": "2026-07-05T00:45:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "cross-domain-review-pack-comparison",
+      "status": "completed",
+      "summary": "Compared 1116 and 1109 review packs and documented the common F-ACC pack structure, domain-specific extension fields, NeedsHumanReview differences, and schema decision. Decision: keep domain-specific modules for now; defer common Python schema extraction until a third surface exists. Verification passed: 1109 and 1116 review-pack tests plus diff check.",
+      "completed_at": "2026-07-05T01:10:00+09:00"
     }
   ]
 }

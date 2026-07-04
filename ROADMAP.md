@@ -43,8 +43,16 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 - Completed at: 2026-07-05
 - Summary: 1109 F-ACC review pack 구현 — fixture 10개 중 automated 6, needs_human_review 4, 기존 1109/1116 review pack 테스트 통과
+<!-- harness:milestone id="FR2" status="completed" priority="P0" evidence="docs/reports/2026-07-05-fr2-cross-domain-review-pack-comparison.md;docs/plans/2026-07-05-fr2-cross-domain-review-pack-comparison.md;phases/1109-review-pack/step2.md" -->
+#### FR2 — cross-domain review pack comparison
+- DoD: 1116과 1109 review pack의 공통 필드, 도메인별 확장 필드, renderer 차이, NeedsHumanReview 차이를 비교하고 공통 schema 추출 여부를 결정한다.
+- Evidence: docs/reports/2026-07-05-fr2-cross-domain-review-pack-comparison.md;docs/plans/2026-07-05-fr2-cross-domain-review-pack-comparison.md;phases/1109-review-pack/step2.md
+- Gap: 1109 pack 이식으로 반복 가능성은 보였지만, 무엇이 제품 공통 구조이고 무엇이 기준서별 차이인지 정리되지 않았다.
+- Status: [x]
+
+- Completed at: 2026-07-05
+- Summary: 1116/1109 review pack 비교 완료 — 공통 필드 후보와 도메인별 확장 필드 정리, 공통 Python schema 추출은 세 번째 표면 이후로 보류
 ### Next Candidates
-- FR2 — cross-domain review pack comparison / 공통 schema 추출 여부 판단
 - FR3 — next-domain readiness decision: 1115 신규 엔진 vs 1109 잔여 4개 hardening vs 주석 대사 확장
 
 ## Closed Horizons
@@ -87,9 +95,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** FR1 완료 — 1116 review pack 패턴을 1109 금융상품 엔진에 이식했고, 1109 fixture
-10개 전체에서 review pack 생성 상태를 검증했다. 다음은 FR2(cross-domain comparison) 또는 FR3(next-domain
-readiness decision).
+**[현재 active 없음]** FR1/FR2 완료 — 1116 review pack 패턴을 1109 금융상품 엔진에 이식했고, 두
+도메인의 공통 pack 구조와 차이를 비교했다. 다음은 FR3(next-domain readiness decision).
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → **F-ACC 1109 review pack(현재)**.
 
