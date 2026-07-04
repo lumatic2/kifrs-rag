@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "name": "real-accountant-session",
+  "status": "ready_to_schedule",
+  "actual_feedback_evidence": false,
+  "required_before_close": [
+    "actual reviewer metadata",
+    "actual public-safe feedback notes",
+    "actual capture manifest with actual_feedback_evidence true",
+    "safe feedback queue records generated from actual notes"
+  ],
+  "packet_files": [
+    "docs/reports/real-accountant-session/SESSION_PACKET.md",
+    "docs/reports/real-accountant-session/2026-07-05-session-invite.md",
+    "docs/reports/real-accountant-session/2026-07-05-session-evidence-template.md"
+  ],
+  "session_files": [
+    "docs/reports/firm-facing-poc/2026-07-05-one-page-brief.md",
+    "docs/reports/field-feedback-runbook/2026-07-05-30min-session-runbook.md",
+    "docs/reports/demo-poc/MANIFEST.md",
+    "docs/reports/real-transaction-poc/INDEX.md",
+    "docs/reports/field-feedback-capture/INDEX.md",
+    "docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md",
+    "docs/reports/field-feedback/2026-07-05-incorporated-review-questions.md"
+  ],
+  "protected_assets_policy": {
+    "do_not_store": [
+      "raw contracts",
+      "customer identifiers",
+      "private filing bodies",
+      "K-IFRS source text",
+      "parsed standards DB",
+      "embeddings",
+      "workpaper payloads"
+    ]
+  }
+}

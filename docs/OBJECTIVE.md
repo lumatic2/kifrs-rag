@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon 없음. 방금 완료한 horizon은 `field-feedback-capture`이다.
+현재 active horizon은 `real-accountant-session`이다.
 
 field feedback package는 회계사 피드백을 받을 준비를 마쳤고, workflow rebuild는 기존 1109/1115/1116
 review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence, NeedsHumanReview 항목을
@@ -107,10 +107,12 @@ eval/backlog rules에 반영 가능한 action plan으로 변환했다.
 `field-feedback-capture`는 회계사 피드백 세션 notes를 public-safe 구조로 기록하고, safe correction을
 queue record로 변환하는 capture pipeline을 만들었다.
 
-다음 추천 horizon은 `real-accountant-session`이다. 목표는 실제 회계사 세션을 runbook으로 운영하고,
-safe notes를 capture pipeline에 넣어 queue record로 변환하는 것이다.
+`real-accountant-session`의 목표는 실제 회계사 세션을 runbook으로 운영하고, safe notes를 capture
+pipeline에 넣어 queue record로 변환하는 것이다. 현재는 세션 패킷 준비 단계이며, 실제 reviewer와
+일정이 필요하다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
+현재 horizon 상세: `docs/horizons/real-accountant-session.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`

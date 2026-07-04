@@ -1,0 +1,35 @@
+{
+  "id": "real-accountant-session",
+  "status": "active",
+  "horizon": "../../docs/horizons/real-accountant-session.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "plan": "../../docs/plans/2026-07-05-real-accountant-session.md",
+  "steps": [
+    {
+      "id": "RS1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T11:00:00+09:00",
+      "completed_at": "2026-07-05T11:10:00+09:00",
+      "summary": "Prepared docs/reports/real-accountant-session/SESSION_PACKET.md, session invite, evidence template, and session_manifest.json. The packet is ready to schedule and explicitly marks actual_feedback_evidence false until a real reviewer session is completed."
+    },
+    {
+      "id": "RS2",
+      "file": "step2.md",
+      "status": "pending",
+      "summary": "Run the actual accountant session using the field-feedback runbook. Requires external reviewer and schedule."
+    },
+    {
+      "id": "RS3",
+      "file": "step3.md",
+      "status": "pending",
+      "summary": "Capture actual public-safe notes and convert safe corrections into queue records."
+    },
+    {
+      "id": "RS4",
+      "file": "step4.md",
+      "status": "pending",
+      "summary": "Close the horizon only after actual session evidence and queue conversion exist."
+    }
+  ]
+}

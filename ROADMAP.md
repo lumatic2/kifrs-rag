@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Field Feedback Capture 완료)
+> 마지막 업데이트: 2026-07-05 (Real Accountant Session 진행 중)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,11 +26,17 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — waiting for real accountant session
+## Current Horizon — real-accountant-session
 
-`field-feedback-capture`은 완료. 다음 추천 horizon은 `real-accountant-session`.
-feedback notes를 public-safe 구조로 기록하고 safe correction만 queue record로 변환하는 pipeline이
-생겼으므로, 다음 proof는 실제 회계사 세션을 runbook으로 운영하고 safe notes를 capture하는 것이다.
+`real-accountant-session` 진행 중. feedback notes를 public-safe 구조로 기록하고 safe correction만
+queue record로 변환하는 pipeline이 생겼으므로, 다음 proof는 실제 회계사 세션을 runbook으로 운영하고
+safe notes를 capture하는 것이다.
+
+Active milestones:
+- RS1 session packet prep — 완료
+- RS2 actual accountant session — external reviewer 필요
+- RS3 actual notes capture + queue conversion
+- RS4 close gate
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.
@@ -92,8 +98,8 @@ firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. 방금 완료한 horizon은 `field-feedback-capture`.
-다음 추천 horizon: `real-accountant-session`.
+**[현재 active]** `real-accountant-session` — RS1 완료 후 RS2는 실제 reviewer/schedule 필요.
+현재 작업: session invite, evidence template, session packet 준비.
 
 병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
 질문지 답변을 받는다.

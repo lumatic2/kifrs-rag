@@ -83,6 +83,10 @@
     {
       "dir": "field-feedback-capture",
       "status": "completed"
+    },
+    {
+      "dir": "real-accountant-session",
+      "status": "active"
     }
   ]
 }
