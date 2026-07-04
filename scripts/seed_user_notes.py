@@ -114,6 +114,12 @@ SEEDS = [
         "18",
         "type=term_bridge; trigger=손상차손; expansion=회수가능액 순공정가치 사용가치; source=ro2-term-bridge; rationale=Q048 misses 1036-18 while already finding 1036-59; this bridge recovers 1036-18 and preserves 1036-59",
     ),
+    # Remaining hard miss candidate evaluation (2026-07-05): docs/reports/2026-07-05-hard-miss-candidate-eval.md
+    (
+        "1116",
+        "45",
+        "type=term_bridge; trigger=리스 범위를 좁히는; expansion=리스변경 별도 리스 아님 리스 범위 감소 사용권자산 장부금액 감소 손익 인식; source=hard-miss-q029; rationale=Q029 misses 1116-45 while already finding 1116-46; this bridge recovers the scope-decrease lease modification paragraph",
+    ),
 ]
 
 

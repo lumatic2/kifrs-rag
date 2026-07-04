@@ -38,7 +38,7 @@ Candidate means:
 
 | Standard | Paragraph | Type | Trigger | Expansion | Rationale |
 |---|---|---|---|---|---|
-| 1116 | 45 | term_bridge | 리스 범위 감소 | 리스변경 별도 리스 아님 리스 범위 감소 사용권자산 장부금액 감소 손익 인식 | Q029 misses the scope-decrease lease modification paragraph while already finding 1116-46. |
+| 1116 | 45 | term_bridge | 리스 범위를 좁히는 | 리스변경 별도 리스 아님 리스 범위 감소 사용권자산 장부금액 감소 손익 인식 | Q029 misses the scope-decrease lease modification paragraph while already finding 1116-46. |
 
 ## Rejected Candidates
 
@@ -51,6 +51,27 @@ Candidate means:
 
 ## Decision
 
-The next implementation leaf can safely promote only the Q029 bridge to reviewed `user_note_v2` seed, then re-run
-focused retrieval. Q001/Q006/Q008/Q040 need a different approach: deeper query design, chunk/routing changes, or manual
-review of whether the gold citation is overly strict for the question wording.
+Promote only the Q029 bridge to reviewed `user_note_v2` seed. Q001/Q006/Q008/Q040 need a different approach: deeper
+query design, chunk/routing changes, or manual review of whether the gold citation is overly strict for the question
+wording.
+
+## Seed Application Result
+
+The reviewed Q029 seed was added to `scripts/seed_user_notes.py` and applied to local `user_note_v2`.
+
+Implementation note: the candidate's original trigger, `리스 범위 감소`, did not fire because runtime expansion only
+uses exact query substring matches. The implemented trigger is therefore the actual Q029 wording, `리스 범위를 좁히는`.
+
+Verification:
+
+```powershell
+python scripts\audit_user_notes.py --source v2 --format json
+python -m kifrs.eval.retrieval --k 20 --retrievers hybrid source_routed_hybrid --only Q029 --no-save
+```
+
+Focused Q029 result:
+
+| Retriever | recall@1 | recall@3 | recall@5 | recall@10 | recall@20 | MRR | nDCG@10 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| hybrid | 0.500 | 0.500 | 0.500 | 0.500 | 1.000 | 1.000 | 0.613 |
+| source_routed_hybrid | 0.500 | 0.500 | 0.500 | 0.500 | 1.000 | 1.000 | 0.613 |

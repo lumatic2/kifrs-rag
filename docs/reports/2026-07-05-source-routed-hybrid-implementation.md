@@ -27,7 +27,7 @@ Focused accepted-cluster check:
 python -m kifrs.eval.retrieval --k 20 --retrievers hybrid source_routed_hybrid --only Q004 Q013 Q025 Q026 Q041 --no-save
 ```
 
-Rejected-cluster preservation check:
+Hard-miss cluster check after the Q029 reviewed seed:
 
 ```powershell
 python -m kifrs.eval.retrieval --k 20 --retrievers hybrid source_routed_hybrid --only Q008 Q001 Q006 Q029 Q040 --no-save
@@ -48,48 +48,50 @@ Focused accepted cluster:
 | hybrid | 0.000 | 0.267 | 0.267 | 0.267 | 0.333 | 0.300 | 0.214 |
 | source_routed_hybrid | 0.267 | 0.267 | 0.267 | 0.600 | 1.000 | 0.633 | 0.460 |
 
-Rejected cluster:
+Hard-miss cluster after the Q029 reviewed seed:
 
 | Retriever | recall@1 | recall@3 | recall@5 | recall@10 | recall@20 | MRR | nDCG@10 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| hybrid | 0.000 | 0.167 | 0.267 | 0.267 | 0.433 | 0.217 | 0.172 |
-| source_routed_hybrid | 0.000 | 0.167 | 0.267 | 0.267 | 0.433 | 0.217 | 0.172 |
+| hybrid | 0.100 | 0.167 | 0.267 | 0.267 | 0.533 | 0.317 | 0.217 |
+| source_routed_hybrid | 0.100 | 0.167 | 0.267 | 0.267 | 0.533 | 0.317 | 0.217 |
 
-Full 50-item retrieval-only eval:
+Full 50-item retrieval-only eval after the Q029 reviewed seed:
 
 | Retriever | recall@1 | recall@3 | recall@5 | recall@10 | recall@20 | MRR | nDCG@10 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| hybrid | 0.187 | 0.387 | 0.547 | 0.713 | 0.877 | 0.454 | 0.478 |
-| source_routed_hybrid | 0.213 | 0.387 | 0.547 | 0.747 | 0.943 | 0.487 | 0.502 |
+| hybrid | 0.197 | 0.387 | 0.547 | 0.713 | 0.887 | 0.464 | 0.482 |
+| source_routed_hybrid | 0.223 | 0.387 | 0.547 | 0.747 | 0.953 | 0.497 | 0.507 |
 
 Citation bucket summary:
 
 | Retriever | hit@5 | hit@10 | hit@20 | beyond@20 | absent |
 |---|---:|---:|---:|---:|---:|
-| source_routed_hybrid | 45 | 17 | 15 | 0 | 5 |
+| source_routed_hybrid | 45 | 17 | 16 | 0 | 4 |
 
 ## Gate Output
 
 ```text
 ok: True
 k: 20
-baseline_recall@20: 0.383
-source_routed_recall@20: 0.717
+baseline_recall@20: 0.433
+source_routed_recall@20: 0.767
 accepted:
   Q004: baseline_miss=[('1001', '69')] routed_miss=[]
   Q013: baseline_miss=[('1037', '68')] routed_miss=[]
   Q025: baseline_miss=[('1037', '83')] routed_miss=[]
   Q026: baseline_miss=[('1037', '60')] routed_miss=[]
   Q041: baseline_miss=[('1102', '11')] routed_miss=[]
+seeded:
+  Q029: baseline_miss=[] routed_miss=[]
 rejected:
   Q001: baseline_miss=[('1115', '27')] routed_miss=[('1115', '27')]
   Q006: baseline_miss=[('1115', '51')] routed_miss=[('1115', '51')]
   Q008: baseline_miss=[('1109', '2.1')] routed_miss=[('1109', '2.1')]
-  Q029: baseline_miss=[('1116', '45')] routed_miss=[('1116', '45')]
   Q040: baseline_miss=[('1109', '4.1.4')] routed_miss=[('1109', '4.1.4')]
 ```
 
 ## Decision
 
 Keep `source_routed_hybrid` opt-in for now. It improves the evaluation set, but it is still rule-triggered and needs
-more real usage before becoming the default retriever. The remaining hard misses are Q001, Q006, Q008, Q029, and Q040.
+more real usage before becoming the default retriever. After the Q029 reviewed seed, the remaining hard misses are
+Q001, Q006, Q008, and Q040.

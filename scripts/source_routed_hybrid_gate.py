@@ -17,14 +17,15 @@ except ModuleNotFoundError:
 
 DEFAULT_GOLDSET = Path("data/eval/goldset.json")
 ACCEPTED_ITEMS = ("Q004", "Q013", "Q025", "Q026", "Q041")
-REJECTED_ITEMS = ("Q001", "Q006", "Q008", "Q029", "Q040")
+SEEDED_ITEMS = ("Q029",)
+REJECTED_ITEMS = ("Q001", "Q006", "Q008", "Q040")
 ROUTED_RETRIEVER = "source_routed_hybrid"
 BASELINE_RETRIEVER = "hybrid"
 DEFAULT_K = 20
 
 
 def build_report(*, goldset: Path = DEFAULT_GOLDSET, k: int = DEFAULT_K) -> dict[str, Any]:
-    wanted = set(ACCEPTED_ITEMS + REJECTED_ITEMS)
+    wanted = set(ACCEPTED_ITEMS + SEEDED_ITEMS + REJECTED_ITEMS)
     items = [item for item in _load_goldset(goldset) if item.id in wanted]
     missing = sorted(wanted - {item.id for item in items})
     if missing:
@@ -38,6 +39,7 @@ def evaluate_gate(report: dict[str, Any]) -> dict[str, Any]:
     baseline_items = _items_by_id(report, BASELINE_RETRIEVER)
     routed_items = _items_by_id(report, ROUTED_RETRIEVER)
     accepted: dict[str, dict[str, Any]] = {}
+    seeded: dict[str, dict[str, Any]] = {}
     rejected: dict[str, dict[str, Any]] = {}
 
     for item_id in ACCEPTED_ITEMS:
@@ -46,6 +48,16 @@ def evaluate_gate(report: dict[str, Any]) -> dict[str, Any]:
         accepted[item_id] = {"baseline_miss": baseline_miss, "routed_miss": routed_miss}
         if routed_miss:
             failures.append(f"{item_id} accepted route still misses {routed_miss}")
+
+    for item_id in SEEDED_ITEMS:
+        baseline_miss = baseline_items[item_id]["miss"]
+        routed_miss = routed_items[item_id]["miss"]
+        seeded[item_id] = {"baseline_miss": baseline_miss, "routed_miss": routed_miss}
+        if baseline_miss or routed_miss:
+            failures.append(
+                f"{item_id} reviewed seed should recover both retrievers: "
+                f"baseline={baseline_miss}, routed={routed_miss}"
+            )
 
     for item_id in REJECTED_ITEMS:
         baseline_miss = baseline_items[item_id]["miss"]
@@ -67,6 +79,7 @@ def evaluate_gate(report: dict[str, Any]) -> dict[str, Any]:
         "baseline_recall20": baseline_recall20,
         "routed_recall20": routed_recall20,
         "accepted": accepted,
+        "seeded": seeded,
         "rejected": rejected,
         "failures": failures,
     }
@@ -81,6 +94,9 @@ def render_text(payload: dict[str, Any]) -> str:
         "accepted:",
     ]
     for item_id, row in payload["accepted"].items():
+        lines.append(f"  {item_id}: baseline_miss={row['baseline_miss']} routed_miss={row['routed_miss']}")
+    lines.append("seeded:")
+    for item_id, row in payload["seeded"].items():
         lines.append(f"  {item_id}: baseline_miss={row['baseline_miss']} routed_miss={row['routed_miss']}")
     lines.append("rejected:")
     for item_id, row in payload["rejected"].items():

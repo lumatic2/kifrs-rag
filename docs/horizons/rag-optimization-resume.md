@@ -124,8 +124,19 @@ retriever이므로 기본 retriever로 승격하지 않는다.
 
 `scripts/hard_miss_candidate_eval.py`로 source_routed_hybrid 이후에도 남은 Q001/Q006/Q008/Q029/Q040을
 각각 expansion 후보 1개씩 평가했다. `docs/reports/2026-07-05-hard-miss-candidate-eval.md` 기준 Q029
-`1116-45`만 candidate다. Q001/Q006/Q008/Q040은 reject다. 다음 leaf는 Q029 bridge만 reviewed
-`user_note_v2` seed로 승격하고 focused retrieval을 재측정하는 것이다.
+`1116-45`만 candidate다. Q001/Q006/Q008/Q040은 reject다.
+
+## Q029 reviewed seed 적용 결과 (2026-07-05)
+
+Q029 bridge를 `scripts/seed_user_notes.py`의 reviewed `user_note_v2` seed로 승격했다. 최초 후보 trigger
+`리스 범위 감소`는 실제 문항 문자열에 없어서 runtime expansion이 발화하지 않았고, 적용 trigger는 실제
+질문 표현인 `리스 범위를 좁히는`으로 고쳤다. 적용 후 focused Q029 eval에서 `hybrid`와
+`source_routed_hybrid` 모두 recall@20 1.000으로 회복됐다.
+
+Full 50-item retrieval-only eval 기준 `source_routed_hybrid` recall@20은 0.953이고 citation-level absent는
+4개다. 남은 hard misses는 Q001 `1115-27`, Q006 `1115-51`, Q008 `1109-2.1`, Q040 `1109-4.1.4`다.
+`source_routed_hybrid_gate.py`는 이제 accepted route 5개, reviewed seed Q029, rejected hard miss 4개를
+분리해서 검증한다.
 
 ## Objective 임팩트
 

@@ -11,13 +11,17 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(source_routed_hybrid_gate)
 
 
-def _report(*, accepted_routed_miss=None, rejected_changed=False):
+def _report(*, accepted_routed_miss=None, seeded_miss=False, rejected_changed=False):
     accepted_routed_miss = accepted_routed_miss or {}
     per_baseline = []
     per_routed = []
     for item_id in source_routed_hybrid_gate.ACCEPTED_ITEMS:
         per_baseline.append({"id": item_id, "miss": [("T", item_id)]})
         per_routed.append({"id": item_id, "miss": accepted_routed_miss.get(item_id, [])})
+    for item_id in source_routed_hybrid_gate.SEEDED_ITEMS:
+        miss = [("S", item_id)] if seeded_miss else []
+        per_baseline.append({"id": item_id, "miss": miss})
+        per_routed.append({"id": item_id, "miss": miss})
     for item_id in source_routed_hybrid_gate.REJECTED_ITEMS:
         miss = [("R", item_id)]
         per_baseline.append({"id": item_id, "miss": miss})
@@ -51,6 +55,13 @@ def test_evaluate_gate_fails_when_accepted_item_still_misses():
 
     assert payload["ok"] is False
     assert "Q004 accepted route still misses [('1001', '69')]" in payload["failures"]
+
+
+def test_evaluate_gate_fails_when_reviewed_seed_does_not_recover():
+    payload = source_routed_hybrid_gate.evaluate_gate(_report(seeded_miss=True))
+
+    assert payload["ok"] is False
+    assert any("reviewed seed should recover both retrievers" in failure for failure in payload["failures"])
 
 
 def test_evaluate_gate_fails_when_rejected_item_changes_miss_list():
