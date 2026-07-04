@@ -44,13 +44,15 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 - Completed at: 2026-07-04
 - Summary: 회계사 업무 taxonomy v0 -- 33 task 5대분류, 커버리지 0차 측정 2/33(6%)
-<!-- harness:milestone id="PM3" status="active" priority="P0" -->
+<!-- harness:milestone id="PM3" status="completed" priority="P0" evidence="docs/practice-map/taxonomy.md;docs/practice-map/candidates.md;docs/horizons/practice-map.md" -->
 #### PM3 — 자동화 가능성 매핑 + 다음 자동화 대상 선정
 - DoD: 33개 task 전수에 판정(가능/조건부/불가/미실험-유망·보류)+근거, 유망 후보 3~5개 심층 분석(`candidates.md`), 다음 자동화 대상 1~2개 추천(최종 선택은 사용자), 커버리지 축 1차 측정.
 - Evidence: docs/practice-map/taxonomy.md;docs/practice-map/candidates.md;docs/horizons/practice-map.md
 - Gap: taxonomy는 있으나 판정이 2/33뿐 — "어디까지 자동화 가능한가"의 경계선이 아직 안 그려짐. 다음 자동화 대상을 고를 근거 부재.
-- Status: [ ]
+- Status: [x]
 
+- Completed at: 2026-07-04
+- Summary: 33 task 전수 판정 + 후보 5개 심층분석, 추천: 1116 엔진 이식 먼저 + 주석 초안 다음
 ### Next Candidates
 - PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정: 당장 현업 접촉 어려움)**, 로컬 작업 우선. horizon close 시 이월.
 
@@ -82,9 +84,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** PM1 완료 — taxonomy v0(33 task, 커버리지 0차 2/33=6%, `docs/practice-map/taxonomy.md`). 다음: PM3(가능성 매핑) scope 확정(§B0.5 Beat 3) 또는 PM2(현업 인터뷰, 사용자 액션).
+**[현재 active 없음]** practice-map horizon **조건부 close**(PM1+PM3 완료, PM2 이월 — `docs/horizons/practice-map.md` Close 판정). PM3 추천: 다음 "자동화 확장" horizon에 **1116 엔진 이식(먼저) + 주석 초안 생성(다음)** — 근거 `docs/practice-map/candidates.md`. 사용자 확정 후 §B0.5 Beat 2로 새 horizon 작성.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. 후속 horizon 예정 경로: 업무 지도 → 자동화 확장(WA2/WA3 흡수 검토) → 프로덕트 패키징.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. 후속 horizon 예정 경로: ~~업무 지도~~ ✅ → 자동화 확장(WA2/WA3 흡수 검토) → 프로덕트 패키징.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

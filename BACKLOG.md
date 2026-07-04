@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-04 — PM3: 자동화 가능성 매핑 + 다음 대상 추천
+- Completed: 2026-07-04
+- Result: 33 task 전수 판정(가능 6/조건부 5/불가 5/미실험-유망 6/미실험-보류 11 — 로컬 검증성 rubric 포함), 유망 후보 5개 심층 분석. 추천: 자동화 확장 horizon에 B3-확장(1116 엔진 이식, 먼저) + B5(주석 초안, 다음). D3(비상장 주식평가)은 tax-agent 이관 권고, A5·E2 보류. practice-map horizon 조건부 close(PM2 현업검증 이월).
+- Evidence: `docs/practice-map/taxonomy.md`; `docs/practice-map/candidates.md`; `docs/horizons/practice-map.md`
+- Verification: `python -m pytest tests/ -q` 92/92 (문서 작업, 비퇴행).
+
 ### 2026-07-04 — PM1: 회계사 업무 taxonomy 초안
 - Completed: 2026-07-04
 - Result: 공개자료 20건 + 사용자 1차 관찰 기반 taxonomy v0 — 5대분류(감사·인증/결산·F/S지원/세무(tax-agent 경계)/재무자문/기타인증) 33 task, 각 task에 빈도·판단강도·입출력·현AI활용 4메타. 핵심 발견: 법인 AI는 리서치(A8)·문서 대량처리(A6)에 집중, 판단 본질 task(B3 회계처리판단·B5 주석·A10 감사보고서)는 공백 — Objective 차별점과 일치. 커버리지 축 0차 측정 2/33(6%): A8=가능(dogfood 86%), B3=조건부(1109 엔진 6/10).
