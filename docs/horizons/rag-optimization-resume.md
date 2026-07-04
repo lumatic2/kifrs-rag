@@ -76,6 +76,14 @@ multi-query가 아니라 reviewed `user_note_v2` term bridge, structured source 
 retrieval 평가 쪽이다. `gold_ranks` 진단상 Q039는 `1116-24`만 잡고 `1037-14`가 absent, Q048은
 `1036-59`만 잡고 `1036-18`이 absent다.
 
+## RO2 term bridge 후보 평가 (2026-07-05)
+
+`docs/reports/2026-07-05-ro2-term-bridge-candidate-eval.md` 참조. DB를 바꾸지 않고 후보 expansion을
+붙여 평가한 결과, Q039는 `충당부채 -> 현재의무 과거사건 자원 유출 가능성 신뢰성 있는 추정`, Q048은
+`손상차손 -> 회수가능액 순공정가치 사용가치`가 seed 후보로 남았다. 두 후보 모두 누락 target을 top-20
+안으로 회복하면서 기존 top-20 required citation을 보존했다. 다음 leaf는 이 두 후보만 reviewed
+`user_note_v2` seed로 승격할지 결정하고 적용/재측정하는 것이다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는

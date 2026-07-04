@@ -73,6 +73,11 @@ Better next candidates:
 3. use per-must-cite retrieval ranks (`gold_ranks`) to decide which required citation is actually absent,
 4. keep `multi_query_hybrid` opt-in for experiments only.
 
+Follow-up:
+
+- `docs/reports/2026-07-05-ro2-term-bridge-candidate-eval.md` evaluates reviewed term bridge candidates without
+  mutating `user_note_v2`.
+
 ## Verification
 
 ```powershell
