@@ -17,6 +17,7 @@ CLI까지 준비했다.
 - [x] RS1 — session packet prep. (verify: `Test-Path docs\reports\real-accountant-session\SESSION_PACKET.md`)
 - [ ] RS2 — run actual accountant session. (verify: actual public-safe notes exist; prep CLI:
   `python scripts\real_accountant_invite_packet.py`;
+  `python scripts\real_accountant_operator_brief.py`;
   `python scripts\real_accountant_response_packet.py --response schedule`;
   `python scripts\real_accountant_run_sheet.py`;
   `python scripts\real_accountant_preflight.py`;

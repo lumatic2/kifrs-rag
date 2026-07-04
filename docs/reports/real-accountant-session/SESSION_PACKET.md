@@ -51,6 +51,12 @@
 python scripts\real_accountant_status.py
 ```
 
+초대 발송부터 세션 후 capture까지 한 번에 볼 때는 아래 operator brief를 먼저 렌더한다.
+
+```powershell
+python scripts\real_accountant_operator_brief.py
+```
+
 세션 당일 운영표는 아래 명령으로 확인한다.
 
 ```powershell
