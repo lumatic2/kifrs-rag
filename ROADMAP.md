@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-04 (Objective 프로덕트 지향 재정의 + PM1 완료)
+> 마지막 업데이트: 2026-07-04 (firm-service-map horizon 신설 + FM1 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,10 +26,35 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — [active 없음] 다음 horizon 결정 대기
+## Current Horizon — firm-service-map
 
-> automation-expansion 2026-07-04 close (AE1+AE2 완료). 다음 방향은 §B0.5 Beat 2로 사용자와 결정.
-> 유력 후보: **프로덕트 패키징**(설치·데모·현업 피드백 → 성공 모습 법인 소개/PoC 접근).
+<!-- harness:goal id="firm-service-map" status="active" -->
+목표: 회계법인 service-line/company map을 세우고 팀별 workflow와 AI insertion point를 재매핑해,
+다음 구현 후보를 "법인 팀/산출물" 기준으로 다시 고른다. 상세 plan → `docs/horizons/firm-service-map.md`.
+
+### Active Milestones
+<!-- harness:milestone id="FM2" status="active" priority="P0" evidence="docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md" -->
+#### FM2 — 팀별 회계사 workflow 문서화
+- DoD: FM1 service-line map을 기준으로 Audit / Accounting Advisory / Tax / Deal / Risk / Consulting workflow를 자료수집→판단→계산/대사→문서화→리뷰 흐름으로 쓰고, 기존 33개 task를 service-line·산출물·AI insertion point에 재매핑한다.
+- Evidence: docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md
+- Gap: 기존 taxonomy는 task 목록은 있지만 감사팀·회계자문팀·세무팀 등 실제 팀별 업무 흐름과 산출물 맥락이 약해 다음 자동화 후보가 제품/PoC 관점에서 설명력이 부족하다.
+- Status: [ ]
+
+### Completed Milestones (firm-service-map)
+<!-- harness:milestone id="FM1" status="completed" priority="P0" evidence="docs/practice-map/company-map.md;docs/plans/2026-07-04-fm1-company-service-line-map.md" -->
+#### FM1 — 회계법인 company/service-line map
+- DoD: Big4·로컬 회계법인의 공개 서비스 구조를 기준으로 service-line v0를 만들고, 각 팀의 고객·산출물·AI insertion point·기존 자산 위치를 정리한다.
+- Evidence: docs/practice-map/company-map.md;docs/plans/2026-07-04-fm1-company-service-line-map.md
+- Gap: `practice-map`은 회계사 task taxonomy는 만들었지만, 회계법인의 팀/company map을 별도 evidence로 두지 않아 조직 맥락 없이 자동화 후보가 선정됐다.
+- Status: [x]
+
+- Completed at: 2026-07-04
+- Summary: `company-map.md` v0 작성 — Audit, Accounting Advisory, Tax, Deal/FAS, Risk/K-SOX, Consulting/AI, ESG, Forensic service-line과 기존 자산 위치 재해석.
+
+### Next Candidates
+- FM3 — service-line 기반 AI 후보 재판정
+- FM4 — 다음 구현 horizon 선정
+- PM2 — 현업 검증(회계사 인터뷰/피드백), 접촉 가능 시 재개
 
 ### Completed Milestones (automation-expansion, closed)
 <!-- harness:milestone id="AE2" status="completed" priority="P0" evidence="tests/test_1116_disclosure.py;docs/reports/2026-07-04-ae2-disclosure-coverage.md" -->
@@ -51,10 +76,6 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 - Completed at: 2026-07-04
 - Summary: 1116 리스 엔진 이식 완료율 9/10, 커버리지 실증 3/33
-### Next Candidates
-- AE3 — NeedsHumanReview 명시 인터페이스 (구 WA3 이관, signal-triggered)
-- PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정)**, 접촉 가능 시 재개 (practice-map에서 이월)
-
 ## Closed Horizons
 
 <!-- harness:goal id="automation-expansion" status="closed" -->
@@ -89,9 +110,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** automation-expansion horizon close(AE1 9/10 + AE2 8/11). **다음: §B0.5 Beat 2로 새 horizon 결정** — 유력 후보 **프로덕트 패키징**(설치 가능한 도구킷 정비 + 데모 + 현업 피드백 → 성공 모습 법인 소개/PoC 접근). 대안: AE3(NeedsHumanReview 인터페이스, 신호 종속), 제공자 주석([1116-89~97]) 확장, paused horizon 재개.
+**[현재 active]** FM2 — 팀별 회계사 workflow 문서화. `docs/practice-map/company-map.md`를 기준으로
+Audit / Accounting Advisory / Tax / Deal / Risk / Consulting workflow를 다시 쓰고 33개 task를
+service-line·산출물·AI insertion point에 재매핑한다.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → **프로덕트 패키징(다음 유력)**.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → **회계법인 서비스라인 지도(현재)** → 지도 기반 자동화 확장 → 프로덕트 패키징.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
