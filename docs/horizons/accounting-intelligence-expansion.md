@@ -125,6 +125,23 @@ K-IFRS 문단 검색만으로 끝나지 않는다.
 - DART-linked examples
 - delta report
 
+### Cross-Horizon Gap Audit
+
+목표: RAG 품질, source map, ingestion, runtime, workflow rebuild, field feedback 준비물이 현재 Objective에
+실제로 충분한지 한 번에 재검증한다.
+
+산출물:
+
+- `docs/reports/2026-07-05-accounting-intelligence-gap-audit.md`
+- `scripts/accounting_intelligence_gap_audit.py`
+
+현재 결론:
+
+- 기술 demo package는 회계사 검토에 들어갈 수 있다.
+- source-aware F-ACC review pack 24개 중 20개가 automated, 4개가 human review다.
+- 남은 objective gap은 실제 회계사 세션 증거, client-private intake, live external source ingestion,
+  opt-in retriever의 실사용 검증이다.
+
 ### Horizon 6. Real Case Feedback Loop
 
 목표: 익명화된 실제 업무 사례를 입력받아 회계사가 피드백할 수 있는 루프를 만든다.
@@ -147,4 +164,3 @@ K-IFRS 문단 검색만으로 끝나지 않는다.
 4. multi-authority runtime이 있어야 답변에 반영한다.
 5. workflow를 다시 돌려야 업무 자동화 효과를 측정한다.
 6. 실제 피드백 루프가 있어야 제품으로 간다.
-
