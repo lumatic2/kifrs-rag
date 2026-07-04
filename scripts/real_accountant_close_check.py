@@ -18,10 +18,16 @@ except ModuleNotFoundError:
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     from kifrs.feedback.queue import load_queue
-    from scripts.quality_preflight import run_preflight
-    from scripts.real_accountant_notes_check import check_actual_notes
-    from scripts.real_accountant_outreach_check import check_outreach
-    from scripts.real_accountant_session_check import check_session_manifest
+    try:
+        from scripts.quality_preflight import run_preflight
+        from scripts.real_accountant_notes_check import check_actual_notes
+        from scripts.real_accountant_outreach_check import check_outreach
+        from scripts.real_accountant_session_check import check_session_manifest
+    except ModuleNotFoundError:
+        from quality_preflight import run_preflight
+        from real_accountant_notes_check import check_actual_notes
+        from real_accountant_outreach_check import check_outreach
+        from real_accountant_session_check import check_session_manifest
 
 
 def check_close_gate(

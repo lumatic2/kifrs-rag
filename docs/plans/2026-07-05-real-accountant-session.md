@@ -10,6 +10,7 @@
 queue record로 변환하는 것을 목표로 한다. RS1 세션 패킷은 완료됐고, RS2는 실제 reviewer 섭외/일정이
 필요하므로 pending이다. 다만 RS2를 바로 실행할 수 있도록 alias-only outreach ledger checker와 update
 CLI까지 준비했다.
+현재 위치와 다음 액션은 `python scripts\real_accountant_status.py`로 확인한다.
 
 ## Step Tree
 

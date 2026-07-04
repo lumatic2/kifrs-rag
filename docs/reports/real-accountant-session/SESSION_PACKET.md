@@ -45,6 +45,12 @@
 
 ## Evidence Check
 
+현재 위치와 다음 액션은 아래 명령으로 먼저 확인한다.
+
+```powershell
+python scripts\real_accountant_status.py
+```
+
 세션 전에는 아래 명령이 `mode: ready_to_schedule`로 통과해야 한다.
 
 ```powershell
