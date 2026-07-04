@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (F-AUD analytical procedures 완료 + product packaging PoC 시작)
+> 마지막 업데이트: 2026-07-05 (F-ACC technical expansion sequence 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,21 +26,21 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — product-packaging-poc
+## Current Horizon — none
 
-<!-- harness:goal id="product-packaging-poc" status="active" -->
-목표: 누적 기술 표면을 회계법인 소개 가능한 10분 demo pack으로 묶는다.
-큰 실행 순서 → `docs/horizons/f-acc-technical-expansion.md`; 상세 plan →
-`docs/horizons/product-packaging-poc.md`.
+F-ACC technical expansion sequence 완료. 다음 horizon은 회계사 피드백 또는 법인 소개 준비 결과를 보고 별도 결정한다.
 
 ### Next Candidates
-- PK1 — demo scenario selection
-- PK2 — demo command surface
-- PK3 — sample input/output bundle
-- PK4 — README/setup guide
-- PK5 — demo brief and feedback questionnaire
+- 회계사 피드백 수집/반영
+- 법인 소개 자료 고도화
+- 실제 익명화 거래 PoC
 
 ## Closed Horizons
+
+<!-- harness:goal id="product-packaging-poc" status="closed" -->
+`docs/horizons/product-packaging-poc.md` — close (2026-07-05). PK1~PK5 완료: 1115 중심 demo scenario,
+demo command, sample output bundle, README setup guide, 10분 brief/feedback questionnaire. Evidence:
+`scripts/demo_poc.py`, `docs/reports/demo-poc/`, `docs/reports/2026-07-05-pk5-demo-brief-feedback.md`.
 
 <!-- harness:goal id="f-audit-analytical-procedures" status="closed" -->
 `docs/horizons/f-audit-analytical-procedures.md` — close (2026-07-05). AP1~AP5 완료: synthetic F/S metrics,
@@ -108,9 +108,9 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** F-AUD analytical procedures까지 완료했고, 현재 실행 포인터는 `product-packaging-poc`이다. 다음은 PK1 demo scenario selection.
+**[현재 active]** 없음. F-ACC technical expansion sequence 완료. 다음은 회계사 피드백 또는 법인 소개 준비 결과를 보고 새 horizon 결정.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → ~~F-ACC 1109 hardening~~ ✅ → ~~F-ACC financial statement draft~~ ✅ → ~~F-AUD analytical procedures~~ ✅ → **product packaging PoC(현재)**.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → ~~F-ACC 1109 hardening~~ ✅ → ~~F-ACC financial statement draft~~ ✅ → ~~F-AUD analytical procedures~~ ✅ → ~~product packaging PoC~~ ✅.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

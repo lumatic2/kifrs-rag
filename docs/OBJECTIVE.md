@@ -75,6 +75,7 @@
 
 ## Active horizon
 
-`docs/horizons/product-packaging-poc.md` (제품 패키징 PoC)
+없음. F-ACC technical expansion sequence는 `docs/horizons/f-acc-technical-expansion.md` 기준으로 완료했다.
+다음 horizon은 회계사 피드백 또는 법인 소개 준비 결과를 보고 별도 결정한다.
 
 큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`

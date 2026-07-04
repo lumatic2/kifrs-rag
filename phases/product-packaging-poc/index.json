@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "demo-brief-feedback-questionnaire",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PK5 produced the 10-minute demo brief and accountant feedback questionnaire. The packaging PoC is framed as a firm-introduction and feedback-collection demo pack, not a production release. Completion gate passed with demo, audit analytics, and statement draft tests.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }
