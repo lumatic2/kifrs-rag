@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Authority Source Map 시작)
+> 마지막 업데이트: 2026-07-05 (Multi-Source Ingestion Pipeline 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,20 +26,25 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — authority-source-map
+## Current Horizon — multi-source-ingestion-pipeline
 
-<!-- harness:goal id="authority-source-map" status="active" -->
-K-IFRS 외 회계 업무 정보원을 권위 수준, 사용 목적, 저장 정책, ingestion 가능성, citation policy 기준으로 catalog화한다.
-큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md` · 상세: `docs/horizons/authority-source-map.md`
+<!-- harness:goal id="multi-source-ingestion-pipeline" status="active" -->
+metadata-only document source와 structured fact source를 보호 자료 없이 등록·검증할 수 있는 ingestion pipeline skeleton을 만든다.
+큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md` · 상세: `docs/horizons/multi-source-ingestion-pipeline.md`
 
 ### Next Candidates
-- AS1 — source taxonomy
-- AS2 — authority and citation policy
-- AS3 — copyright and storage boundary
-- AS4 — ingestion feasibility matrix
-- AS5 — first connector recommendation
+- MSI1 — connector contract and source manifest
+- MSI2 — metadata-only document catalog prototype
+- MSI3 — structured fact fixture prototype
+- MSI4 — provenance and citation manifest
+- MSI5 — ingestion gate and close report
 
 ## Closed Horizons
+
+<!-- harness:goal id="authority-source-map" status="closed" -->
+`docs/horizons/authority-source-map.md` — close (2026-07-05). AS1~AS5 완료: source taxonomy,
+authority/citation policy, storage boundary, ingestion feasibility, first connector recommendation. Evidence:
+`docs/reports/2026-07-05-as5-first-connector-recommendation.md`.
 
 <!-- harness:goal id="rag-quality-refresh" status="closed" -->
 `docs/horizons/rag-quality-refresh.md` — close (2026-07-05). RQ1~RQ5 완료: current quality baseline,
@@ -59,16 +64,10 @@ eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality
 `docs/horizons/f-acc-1109-hardening.md` — close (2026-07-05). FH1~FH5 완료: blocker taxonomy, SPPI reset, reclassification/FX boundary, completion delta 6/10→7/10.
 
 <!-- harness:goal id="f-acc-disclosure-generalization" status="closed" -->
-`docs/horizons/f-acc-disclosure-generalization.md` — close (2026-07-05). DG1~DG5 완료: 1116/1115/1109
-disclosure surface inventory, common `DisclosureChecklistItem`, 1115/1109 skeleton renderer, cross-domain
-report. Evidence: `kifrs/workflows/disclosure/`, `kifrs/workflows/kifrs1115/disclosure.py`,
-`kifrs/workflows/kifrs1109/disclosure.py`, `docs/reports/2026-07-05-dg5-cross-domain-disclosure-report.md`.
+`docs/horizons/f-acc-disclosure-generalization.md` — close (2026-07-05). DG1~DG5 완료: common disclosure checklist + 1115/1109 skeleton renderer. Evidence: `kifrs/workflows/disclosure/`.
 
 <!-- harness:goal id="f-acc-1115-revenue-engine" status="closed" -->
-`docs/horizons/f-acc-1115-revenue-engine.md` — close (2026-07-05). R15-1~R15-6 완료: 1115 seed 4개 유형을
-schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pack, completion report까지 연결.
-자동화율 4/4. Evidence: `kifrs/workflows/kifrs1115/`, `tests/test_workflow_1115.py`,
-`tests/test_1115_review_pack.py`, `docs/reports/2026-07-05-r15-1115-revenue-engine-completion.md`.
+`docs/horizons/f-acc-1115-revenue-engine.md` — close (2026-07-05). R15-1~R15-6 완료: 1115 4개 seed를 판단·측정·분개·memo·review pack으로 연결(4/4). Evidence: `kifrs/workflows/kifrs1115/`.
 
 <!-- harness:goal id="f-acc-1109-review-pack" status="closed" -->
 `docs/horizons/f-acc-1109-review-pack.md` — close (2026-07-05). FR1~FR2 완료: 1109 review pack contract,
@@ -110,8 +109,8 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `authority-source-map`. 다음 step은 AS1 source taxonomy:
-source class 분류 → RAG 역할/권위/storage boundary → 현재 authority JSON gap → AS2 쟁점 정리.
+**[현재 active]** `multi-source-ingestion-pipeline`. 다음 step은 MSI1 connector contract:
+metadata document source + structured fact source 공통 contract → public-safe manifest → validator 후보.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

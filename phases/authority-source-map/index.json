@@ -1,6 +1,6 @@
 {
   "id": "authority-source-map",
-  "status": "active",
+  "status": "completed",
   "horizon": "../../docs/horizons/authority-source-map.md",
   "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
   "steps": [
@@ -43,7 +43,11 @@
     {
       "id": "AS5",
       "file": "step5.md",
-      "status": "next"
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-as5-first-connector-recommendation.md",
+      "summary": "First connector recommendation fixed: next horizon should build metadata-only KASB/FSS catalog, OpenDART structured facts, and law locator support; audit/client-private/supporting connectors are deferred."
     }
   ]
 }

@@ -38,6 +38,10 @@
     },
     {
       "dir": "authority-source-map",
+      "status": "completed"
+    },
+    {
+      "dir": "multi-source-ingestion-pipeline",
       "status": "active"
     }
   ]

@@ -76,8 +76,8 @@
 
 ## Active horizon
 
-`authority-source-map` — K-IFRS 외 회계 업무 정보원을 권위 수준, 사용 목적, 저작권/저장 정책,
-ingestion 가능성, citation policy 기준으로 catalog화한다.
+`multi-source-ingestion-pipeline` — metadata-only document source와 structured fact source를 보호 자료 없이
+등록·검증할 수 있는 ingestion pipeline skeleton을 만든다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-현재 horizon 상세: `docs/horizons/authority-source-map.md`
+현재 horizon 상세: `docs/horizons/multi-source-ingestion-pipeline.md`

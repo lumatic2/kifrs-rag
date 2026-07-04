@@ -1,0 +1,14 @@
+{
+  "id": "multi-source-ingestion-pipeline",
+  "status": "active",
+  "horizon": "../../docs/horizons/multi-source-ingestion-pipeline.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "MSI1",
+      "file": "step1.md",
+      "status": "next"
+    }
+  ]
+}
+
