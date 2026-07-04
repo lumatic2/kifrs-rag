@@ -27,6 +27,7 @@ REQUIRED_REPORTS = {
     "workflow_rebuild": ROOT / "docs" / "reports" / "2026-07-05-wr4-workflow-rebuild-close-report.md",
     "field_feedback_capture": ROOT / "docs" / "reports" / "2026-07-05-fc4-field-feedback-capture-close-report.md",
     "client_private_intake_readiness": ROOT / "docs" / "reports" / "2026-07-05-client-private-intake-readiness.md",
+    "client_private_close_gate": ROOT / "docs" / "reports" / "2026-07-05-cp4-client-private-close-report.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -81,7 +82,7 @@ def build_gap_audit() -> GapAudit:
 
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
-        "client-private intake can route redacted structured facts, but local-only close gate is not implemented",
+        "client-private local-only path is closed, but upload/parser UX is not implemented",
         "external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion",
         "default retriever promotion remains deferred until real session demo validation",
     ]
@@ -99,7 +100,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or CP4 local-only close gate",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or live external source/retriever validation",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )

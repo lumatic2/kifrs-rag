@@ -119,8 +119,11 @@ Prove:
 - generated review pack is decision-prep only
 - reviewer original-document check remains outside repo
 
+Status: complete. Implemented as `scripts/client_private_close_gate.py`.
+Close report: `docs/reports/2026-07-05-cp4-client-private-close-report.md`.
+
 ## Decision
 
-The next implementation should not jump straight to file upload, OCR, or private document parsing. It should first add
-a local-only intake contract and redaction gate. Until then, `client-private-case-intake` remains a planned capability,
-not a completed product feature.
+The public-safe local-only planning path is complete. The product still should not jump straight to file upload, OCR,
+or private document parsing. The next implementation should either use this path in a real accountant session or start
+a separate local-only upload/parser design with storage and deletion policy.

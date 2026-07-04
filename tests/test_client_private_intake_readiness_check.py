@@ -36,8 +36,10 @@ CP1 CP2 CP3 CP4
 
     assert not result["ok"]
     assert result["missing_report_terms"] == [
+        "Close report",
         "LocalPrivateCaseIntake",
         "Status: complete",
+        "client_private_close_gate.py",
         "do not parse private source body",
         "redact_local_private_case_for_public",
         "render_redacted_client_private_summary",
