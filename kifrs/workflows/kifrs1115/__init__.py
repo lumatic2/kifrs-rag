@@ -13,14 +13,22 @@ from .classify import (
     evaluate_revenue,
 )
 from .fixtures import FIXTURES, ScenarioFixture
+from .journal_entry import EntryLine, JournalEntry, draft_journal_entries
+from .measurement import AllocationLine, RevenueMeasurement, measure_revenue
 from .schema import Revenue1115
 
 __all__ = [
     "FIXTURES",
+    "AllocationLine",
+    "EntryLine",
     "FiveStepConclusion",
+    "JournalEntry",
     "NeedsHumanReview",
     "Revenue1115",
     "RevenueDecision",
+    "RevenueMeasurement",
     "ScenarioFixture",
+    "draft_journal_entries",
     "evaluate_revenue",
+    "measure_revenue",
 ]

@@ -4,6 +4,8 @@ import pytest
 
 from kifrs.workflows.kifrs1115.classify import NeedsHumanReview, evaluate_revenue
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES
+from kifrs.workflows.kifrs1115.journal_entry import draft_journal_entries
+from kifrs.workflows.kifrs1115.measurement import measure_revenue
 from kifrs.workflows.kifrs1115.schema import Revenue1115
 
 
@@ -98,3 +100,54 @@ def test_needs_human_review_when_contract_identification_fails():
 
     with pytest.raises(NeedsHumanReview):
         evaluate_revenue(txn)
+
+
+def test_material_right_measurement_allocates_contract_price():
+    measurement = measure_revenue(FIXTURES[0].txn)
+
+    assert measurement.path == "material_right_renewal_option"
+    assert round(measurement.recognized_revenue, 2) == 922_330.1
+    assert round(measurement.deferred_revenue, 2) == 77_669.9
+    assert sum(line.allocated_transaction_price for line in measurement.allocation) == pytest.approx(
+        1_000_000
+    )
+
+
+def test_discount_right_measurement_uses_expected_incremental_discount():
+    measurement = measure_revenue(FIXTURES[1].txn)
+
+    assert measurement.path == "material_right_discount_option"
+    assert measurement.deferred_revenue == pytest.approx(38_745.387, abs=0.001)
+    assert measurement.recognized_revenue + measurement.deferred_revenue == pytest.approx(
+        500_000
+    )
+
+
+def test_significant_financing_entry_balances_and_defers_financing_income():
+    entries = draft_journal_entries(FIXTURES[2].txn)
+
+    assert len(entries) == 1
+    entry = entries[0]
+    assert entry.total_debit == entry.total_credit
+    assert entry.total_debit == 1_100_000
+    assert [(line.account, line.debit, line.credit) for line in entry.lines] == [
+        ("매출채권", 1_100_000, 0.0),
+        ("수익", 0.0, 1_000_000),
+        ("이연금융수익", 0.0, 100_000),
+    ]
+
+
+def test_repurchase_financing_entries_do_not_recognize_revenue():
+    measurement = measure_revenue(FIXTURES[3].txn)
+    entries = draft_journal_entries(FIXTURES[3].txn, measurement=measurement)
+
+    assert measurement.recognized_revenue == 0
+    assert measurement.repurchase_liability == 1_000_000
+    assert measurement.financing_effect == 80_000
+    assert len(entries) == 2
+    assert all(entry.total_debit == entry.total_credit for entry in entries)
+    assert all(
+        line.account != "수익"
+        for entry in entries
+        for line in entry.lines
+    )

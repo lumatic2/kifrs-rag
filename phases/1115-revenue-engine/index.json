@@ -16,6 +16,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "evaluate_revenue()가 계약 식별, 수행의무, 거래가격, 배분, 수익인식 5단계 결론을 반환하도록 확장"
+    },
+    {
+      "step": 3,
+      "name": "measurement-and-journal-entry-draft",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1115 material right 배분, significant financing 조정, repurchase financing 분개 초안을 추가"
     }
   ]
 }
