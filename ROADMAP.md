@@ -35,6 +35,14 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 **세부 계획**: `docs/plans/2026-07-04-ae1-1116-lease-engine.md`
 
 ### Active Milestones
+<!-- harness:milestone id="AE2" status="active" priority="P0" -->
+#### AE2 — B5 주석(공시) 초안 생성 파일럿 (1116 리스 주석)
+- DoD: 1116 이용자 공시 요구사항 체크리스트([1116-53~58], DB grounding) + AE1 엔진 산출물 매핑 + markdown 주석 초안 생성기 + DART 공개 리스 주석 ≥3개 대사로 "요구항목 커버리지 %" 측정치 리포트(수치 낮아도 무방).
+- Evidence: kifrs/workflows/kifrs1116/disclosure.py;tests/test_1116_disclosure.py;docs/reports/2026-07-04-ae2-disclosure-coverage.md
+- Gap: 커버리지 축 B5(주석)가 미실험 — 법인 AI 공백 지대(판단 본질 task). 신규 개척으로 3/33→4/33.
+- Status: [ ]
+
+- 세부 계획: `docs/plans/2026-07-04-ae2-1116-disclosure-draft.md`
 <!-- harness:milestone id="AE1" status="completed" priority="P0" evidence="tests/test_workflow_1116_regression.py;docs/reports/2026-07-04-ae1-completion-rate.md" -->
 #### AE1 — 1116 리스 결정 엔진 이식
 - DoD: `kifrs/workflows/kifrs1116/` 엔진(WA1 9모듈 패턴 + grounding)이 기존 10개 시나리오 fixture를 회귀 테스트로 재현하고, 2번째 도메인 완료율 측정치가 리포트로 기록됨(수치가 낮아도 무방 — 측정 가능 상태가 목표).
@@ -45,7 +53,6 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - Completed at: 2026-07-04
 - Summary: 1116 리스 엔진 이식 완료율 9/10, 커버리지 실증 3/33
 ### Next Candidates
-- AE2 — B5 주석(공시) 초안 생성 파일럿 (1116 리스 주석 1개 도메인, DART 대사) — AE1 완료 후 §B0.5 Beat 3로 DoD 확정
 - AE3 — NeedsHumanReview 명시 인터페이스 (구 WA3 이관, signal-triggered)
 - PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정)**, 접촉 가능 시 재개 (practice-map에서 이월)
 
@@ -80,7 +87,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[AE1 완료 2026-07-04]** 1116 리스 엔진 이식 완료율 9/10, 커버리지 실증 3/33 (`docs/reports/2026-07-04-ae1-completion-rate.md`). 엔진 패턴 2-도메인 이식 검증됨(구 workflow-automation 닫는 기준 (a) 충족). **[현재 active 없음]** — 다음 후보 AE2(주석 초안)는 DoD 미확정 + DART 파싱 인프라 결정 필요 → 사용자와 §B0.5 Beat 3 논의 후 착수. AE3(NeedsHumanReview 인터페이스)는 신호 미발생(NHR 1건뿐), PM2는 현업 접촉 대기.
+**[active] AE2 — B5 주석 초안 생성 파일럿** (`docs/plans/2026-07-04-ae2-1116-disclosure-draft.md`). 사용자 확정(2026-07-04): DART 공개 주석 파싱 · 1116 리스 이용자 주석 도메인. Step 1~3(체크리스트·매핑·초안 생성)은 DART 무관하게 선행, Step 4에서 DART 접근(API key BLOCKED-until-issued 또는 keyless HTML) 결정.
+
+**[AE1 완료 2026-07-04]** 1116 리스 엔진 이식 완료율 9/10, 커버리지 실증 3/33 (`docs/reports/2026-07-04-ae1-completion-rate.md`). 엔진 패턴 2-도메인 이식 검증됨.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. horizon 경로: ~~업무 지도~~ ✅ → **자동화 확장(현재)** → 프로덕트 패키징.
 
