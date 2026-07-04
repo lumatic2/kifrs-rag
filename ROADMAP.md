@@ -26,11 +26,19 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — next runtime horizon selection
+## Current Horizon — multi-authority-runtime-integration
 
-`multi-source-ingestion-pipeline`은 완료. 다음 추천 horizon은
-`multi-authority-runtime-integration`: ingestion/evidence manifest를 실제 review pack, statement draft,
-answer composer가 쓰도록 연결한다. 제안 근거: `docs/reports/2026-07-05-msi5-ingestion-gate-close-report.md`.
+<!-- harness:goal id="multi-authority-runtime-integration" status="active" -->
+ingestion/evidence manifest를 실제 review pack, statement draft, answer composer가 쓸 수 있는 runtime
+evidence layer로 연결한다.
+상세: `docs/horizons/multi-authority-runtime-integration.md`
+
+### Next Candidates
+- RT1 — runtime evidence loader
+- RT2 — review-pack evidence panel
+- RT3 — statement draft fact evidence hook
+- RT4 — answer boundary composer
+- RT5 — runtime close demo
 
 ## Closed Horizons
 
@@ -107,8 +115,8 @@ eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. `multi-source-ingestion-pipeline` 완료. 다음 추천:
-`multi-authority-runtime-integration` — ingestion/evidence manifest를 review pack/statement draft/answer composer에 연결.
+**[현재 active]** `multi-authority-runtime-integration`. 다음 step은 RT1 runtime evidence loader:
+source/evidence manifest를 validated runtime evidence object로 변환.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

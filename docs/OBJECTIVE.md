@@ -76,8 +76,8 @@
 
 ## Active horizon
 
-`multi-source-ingestion-pipeline` — metadata-only document source와 structured fact source를 보호 자료 없이
-등록·검증할 수 있는 ingestion pipeline skeleton을 만든다.
+`multi-authority-runtime-integration` — ingestion/evidence manifest를 실제 review pack, statement draft,
+answer composer가 쓸 수 있는 runtime evidence layer로 연결한다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-현재 horizon 상세: `docs/horizons/multi-source-ingestion-pipeline.md`
+현재 horizon 상세: `docs/horizons/multi-authority-runtime-integration.md`

@@ -1,0 +1,21 @@
+{
+  "id": "multi-authority-runtime-integration",
+  "status": "active",
+  "horizon": "../../docs/horizons/multi-authority-runtime-integration.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "RT1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:32:00+09:00",
+      "completed_at": "2026-07-05T04:35:29+09:00",
+      "summary": "Implemented runtime evidence loader in kifrs/runtime/evidence.py. load_runtime_evidence validates source/evidence manifests first, returns immutable EvidenceBundle/RuntimeEvidence objects, groups supporting_interpretation/legal_boundary/fact_evidence by role, exposes safe reference dicts without record payload, and raises ValueError on invalid evidence. Tests cover default load, role grouping, safe reference dict, and invalid evidence failure."
+    },
+    {
+      "id": "RT2",
+      "file": "step2.md",
+      "status": "pending"
+    }
+  ]
+}
