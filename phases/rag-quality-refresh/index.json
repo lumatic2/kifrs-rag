@@ -7,8 +7,16 @@
     {
       "id": "RQ1",
       "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-rq1-current-quality-baseline.md",
+      "summary": "Baseline fixed: preflight PASS, local-rag focused gate PASS, pytest 176 passed, lexical/hybrid retrieval measured, full hierarchical/reranked benchmark timed out and is queued for RQ2/RQ3 split."
+    },
+    {
+      "id": "RQ2",
+      "file": "step2.md",
       "status": "next"
     }
   ]
 }
-
