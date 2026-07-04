@@ -84,6 +84,12 @@ python scripts\real_accountant_close_check.py --manifest docs\reports\real-accou
 
 ## Outreach Check
 
+초대문을 보내기 전에는 아래 명령으로 보낼 본문과 발송 후 ledger 갱신 명령을 확인한다.
+
+```powershell
+python scripts\real_accountant_invite_packet.py
+```
+
 초대 발송 후에는 alias 기반 ledger를 아래 명령으로 확인한다.
 
 ```powershell
