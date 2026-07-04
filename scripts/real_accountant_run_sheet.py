@@ -25,6 +25,7 @@ def build_run_sheet(
         "title": "Real Accountant 30-Minute Run Sheet",
         "status_command": "python scripts\\real_accountant_status.py",
         "invite_packet_command": "python scripts\\real_accountant_invite_packet.py",
+        "preflight_check_command": "python scripts\\real_accountant_preflight.py",
         "open_files": _numbered_items_after(packet, "## Files to Open During Session"),
         "preflight_commands": _checklist_commands(checklist),
         "opening_script": _checklist_items_after(checklist, "## Opening Script"),
@@ -50,6 +51,7 @@ def render_text(sheet: dict[str, Any]) -> str:
         "Before Invite:",
         f"- {sheet['status_command']}",
         f"- {sheet['invite_packet_command']}",
+        f"- {sheet['preflight_check_command']}",
         "",
         "Preflight Commands:",
     ]

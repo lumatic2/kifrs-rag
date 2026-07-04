@@ -57,6 +57,14 @@ python scripts\real_accountant_status.py
 python scripts\real_accountant_run_sheet.py
 ```
 
+세션 직전에는 아래 preflight로 열 파일과 준비 manifest를 확인한다. 산출물을 재생성해야 할 때만
+`--run-generators`를 붙인다.
+
+```powershell
+python scripts\real_accountant_preflight.py
+python scripts\real_accountant_preflight.py --run-generators
+```
+
 세션 전에는 아래 명령이 `mode: ready_to_schedule`로 통과해야 한다.
 
 ```powershell

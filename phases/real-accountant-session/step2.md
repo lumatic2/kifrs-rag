@@ -15,6 +15,7 @@
 python scripts\real_accountant_invite_packet.py
 python scripts\real_accountant_response_packet.py --response schedule
 python scripts\real_accountant_run_sheet.py
+python scripts\real_accountant_preflight.py
 python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08
 python scripts\real_accountant_notes_scaffold.py --out docs\reports\real-accountant-session\actual-feedback-notes.md --date 2026-07-05 --reviewer-role "CPA reviewer" --reviewer-service-line "F-ACC" --reviewer-experience-context "reviewed accounting advisory workpapers" --session-mode "async review"
 Test-Path docs\reports\real-accountant-session\actual-feedback-notes.md
@@ -27,12 +28,13 @@ python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-acco
 1. invite packet이 public-safe alias와 발송 후 ledger 갱신 명령을 출력하는지 확인한다.
 2. response packet이 follow-up/schedule/decline별 public-safe 문구와 ledger 갱신 명령을 출력하는지 확인한다.
 3. run sheet가 세션 전 preflight, 열 파일, 질문, 세션 후 명령을 출력하는지 확인한다.
-4. notes scaffold가 작성 시작점으로 생성되는지 확인한다.
-5. reviewer role/service-line metadata가 있는지 확인한다.
-6. raw contract/customer identifier가 없는지 확인한다.
-7. actual feedback notes checker가 통과하는지 확인한다.
-8. outreach ledger가 `scheduled` 또는 `completed` 상태를 포함하는지 확인한다.
-9. RS2를 completed로 업데이트한다.
+4. preflight가 세션 전 open files와 `ready_to_schedule` manifest를 확인하는지 확인한다.
+5. notes scaffold가 작성 시작점으로 생성되는지 확인한다.
+6. reviewer role/service-line metadata가 있는지 확인한다.
+7. raw contract/customer identifier가 없는지 확인한다.
+8. actual feedback notes checker가 통과하는지 확인한다.
+9. outreach ledger가 `scheduled` 또는 `completed` 상태를 포함하는지 확인한다.
+10. RS2를 completed로 업데이트한다.
 
 ## 금지사항
 
