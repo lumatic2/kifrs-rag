@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Field Feedback Ready Demo 완료)
+> 마지막 업데이트: 2026-07-05 (Workflow Rebuild on Richer Knowledge 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,13 +26,20 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — waiting for field feedback
+## Current Horizon — waiting for real-case feedback loop
 
-`field-feedback-ready-demo`은 완료. 다음 구현 horizon은 실제 회계사 피드백을 받은 뒤 선택한다.
-피드백 패키지: `docs/reports/field-feedback/INDEX.md`.
-후보: `feedback-incorporation`, `real-anonymized-transaction-poc`, `firm-introduction-material`.
+`workflow-rebuild-on-richer-knowledge`은 완료. 다음 추천 horizon은 `real-case-feedback-loop`.
+회계사 피드백 패키지와 source-aware rebuild report를 바탕으로 익명 실제 사례 intake/correction loop를 만든다.
+
+병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
+질문지 답변을 받는다.
 
 ## Closed Horizons
+
+<!-- harness:goal id="workflow-rebuild-on-richer-knowledge" status="closed" -->
+`docs/horizons/workflow-rebuild-on-richer-knowledge.md` — close (2026-07-05). WR1~WR4 완료:
+source-aware review pack analyzer, rebuild report command, 1109/1115/1116 coverage report, close gate.
+Evidence: `docs/reports/2026-07-05-wr4-workflow-rebuild-close-report.md`.
 
 <!-- harness:goal id="field-feedback-ready-demo" status="closed" -->
 `docs/horizons/field-feedback-ready-demo.md` — close (2026-07-05). FF1~FF4 완료:
@@ -65,37 +72,9 @@ eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality
 <!-- harness:goal id="f-audit-analytical-procedures" status="closed" -->
 `docs/horizons/f-audit-analytical-procedures.md` — close (2026-07-05). AP1~AP5 완료: synthetic F/S metrics, anomaly memo, F-ACC linkage. Evidence: `kifrs/workflows/audit_analytics/`.
 
-<!-- harness:goal id="f-acc-financial-statement-draft" status="closed" -->
-`docs/horizons/f-acc-financial-statement-draft.md` — close (2026-07-05). FS1~FS5 완료: review pack output을 재무상태표/손익/OCI/주석 후보로 변환. Evidence: `kifrs/workflows/statement_draft/`, `tests/test_statement_draft.py`, `docs/reports/2026-07-05-fs5-statement-draft-report.md`.
-
-<!-- harness:goal id="f-acc-1109-hardening" status="closed" -->
-`docs/horizons/f-acc-1109-hardening.md` — close (2026-07-05). FH1~FH5 완료: blocker taxonomy, SPPI reset, reclassification/FX boundary, completion delta 6/10→7/10.
-
-<!-- harness:goal id="f-acc-disclosure-generalization" status="closed" -->
-`docs/horizons/f-acc-disclosure-generalization.md` — close (2026-07-05). DG1~DG5 완료: common disclosure checklist + 1115/1109 skeleton renderer. Evidence: `kifrs/workflows/disclosure/`.
-
-<!-- harness:goal id="f-acc-1115-revenue-engine" status="closed" -->
-`docs/horizons/f-acc-1115-revenue-engine.md` — close (2026-07-05). R15-1~R15-6 완료: 1115 4개 seed를 판단·측정·분개·memo·review pack으로 연결(4/4). Evidence: `kifrs/workflows/kifrs1115/`.
-
-<!-- harness:goal id="f-acc-1109-review-pack" status="closed" -->
-`docs/horizons/f-acc-1109-review-pack.md` — close (2026-07-05). FR1~FR2 완료: 1109 review pack contract,
-10-fixture regression, 1116/1109 cross-domain comparison. 공통 Python schema 추출은 세 번째 표면 이후로
-보류. Evidence: `kifrs/workflows/kifrs1109/review_pack.py`, `docs/reports/2026-07-05-fr2-cross-domain-review-pack-comparison.md`.
-
-<!-- harness:goal id="f-acc-review-pack" status="closed" -->
-`docs/horizons/f-acc-review-pack.md` — close (2026-07-05). RP1~RP4 완료: 1116 review pack contract, fixture regression, NeedsHumanReview checklist, PoC demo brief. Evidence: `kifrs/workflows/kifrs1116/review_pack.py`, `docs/reports/2026-07-05-rp4-poc-demo-brief.md`.
-
-<!-- harness:goal id="firm-service-map" status="closed" -->
-`docs/horizons/firm-service-map.md` — close (2026-07-04). FM1(company/service-line map) + FM2(team workflow map) + FM3(service-line 후보 재판정) 완료. FM4 결정: 다음 구현 horizon은 F-ACC review pack(1116 리스 검토메모+분개+주석)으로 확정. 상세 evidence: `docs/practice-map/company-map.md`, `docs/practice-map/team-workflows.md`, `docs/practice-map/service-line-candidates.md`.
-
-<!-- harness:goal id="automation-expansion" status="closed" -->
-`docs/horizons/automation-expansion.md` — close (2026-07-04). AE1(1116 엔진 9/10) + AE2(1116 주석 8/11 자동, DART 3사 대사) 완료. 완료율 축 2-도메인화 + 커버리지 축 3→4/33. AE3(NeedsHumanReview 인터페이스)는 신호 종속으로 이월. Objective 임팩트: 두 축 동시 전진, 차별점 가설 2차 지지.
-
-<!-- harness:goal id="practice-map" status="closed" -->
-`docs/horizons/practice-map.md` — 조건부 close (2026-07-04). PM1(taxonomy 33 task) + PM3(전수 판정 + 추천: 1116 먼저 + 주석 다음) 완료, PM2는 위 Next Candidates로 이월. 상세 marker 이력 → `BACKLOG.md`.
-
-<!-- harness:goal id="workflow-automation" status="closed" -->
-`docs/horizons/workflow-automation.md` — close (2026-07-04). WA1 완료(6/10, `docs/reports/2026-07-03-wa1-completion-rate.md`), WA2→AE1 흡수, WA3→AE3 이관.
+Older closed horizons are archived in `BACKLOG.md`: F-ACC statement draft, 1109 hardening, disclosure
+generalization, 1115 revenue engine, 1109/1116 review packs, firm-service-map, automation-expansion,
+practice-map, workflow-automation.
 
 ## Paused Horizons
 
@@ -117,8 +96,11 @@ eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. `field-feedback-ready-demo` 완료. 다음은 사용자 액션:
-회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고 질문지 답변을 받는다.
+**[현재 active]** 없음. 방금 완료한 horizon은 `workflow-rebuild-on-richer-knowledge`.
+다음 추천 horizon: `real-case-feedback-loop`.
+
+병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
+질문지 답변을 받는다.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

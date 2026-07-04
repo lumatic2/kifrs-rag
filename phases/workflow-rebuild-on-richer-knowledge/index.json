@@ -1,0 +1,40 @@
+{
+  "id": "workflow-rebuild-on-richer-knowledge",
+  "status": "completed",
+  "horizon": "../../docs/horizons/workflow-rebuild-on-richer-knowledge.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "WR1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:13:00+09:00",
+      "completed_at": "2026-07-05T05:15:00+09:00",
+      "summary": "Created docs/horizons/workflow-rebuild-on-richer-knowledge.md and phases/workflow-rebuild-on-richer-knowledge/. ROADMAP and OBJECTIVE now point to this active horizon while keeping field feedback as a parallel user action. Scope is source-aware coverage measurement for existing 1109/1115/1116 review packs using metadata/synthetic runtime evidence only."
+    },
+    {
+      "id": "WR2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:15:00+09:00",
+      "completed_at": "2026-07-05T05:20:00+09:00",
+      "summary": "Added kifrs/workflows/source_aware_rebuild.py and tests/test_source_aware_rebuild.py. The analyzer reruns public 1109/1115/1116 fixtures with runtime metadata evidence and summarizes status, K-IFRS citation count, external evidence role counts, fact evidence count, ready checklist count, and human-review items. Public-safe guard rejects payload keys such as body/text/content/full_text/source_body. Verification: python -m pytest tests/test_source_aware_rebuild.py -q -> 4 passed, with existing .pytest_cache permission warning."
+    },
+    {
+      "id": "WR3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:20:00+09:00",
+      "completed_at": "2026-07-05T05:25:00+09:00",
+      "summary": "Added scripts/workflow_rebuild_report.py and generated docs/reports/2026-07-05-wr3-source-aware-rebuild-report.md. The command reports 24 public fixture review packs: 20 automated and 4 needs-human-review. It covers KIFRS1109, KIFRS1115, and KIFRS1116, with per-pack citation counts, external evidence role counts, fact evidence counts, and human-review item counts. Manifest paths are rendered repo-relative to avoid local path leakage."
+    },
+    {
+      "id": "WR4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T05:25:00+09:00",
+      "completed_at": "2026-07-05T05:31:00+09:00",
+      "summary": "Closed the horizon with docs/reports/2026-07-05-wr4-workflow-rebuild-close-report.md. Close gate passed: source-aware + review-pack + demo tests 19 passed, quality_preflight ok/public_safe True, git diff --check only LF->CRLF warnings. Recommended next horizon is real-case-feedback-loop: anonymized case intake, routing stub, reviewer correction capture, and eval seed/backlog conversion."
+    }
+  ]
+}

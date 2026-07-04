@@ -76,9 +76,15 @@
 
 ## Active horizon
 
-현재 active horizon 없음. 방금 완료한 horizon은 `field-feedback-ready-demo`이며, 다음은 회계사 피드백
-수집 후 `feedback-incorporation`, `real-anonymized-transaction-poc`, `firm-introduction-material` 중 하나를
-선택한다.
+현재 active horizon 없음. 방금 완료한 horizon은 `workflow-rebuild-on-richer-knowledge`이다.
+
+field feedback package는 회계사 피드백을 받을 준비를 마쳤고, workflow rebuild는 기존 1109/1115/1116
+review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence, NeedsHumanReview 항목을
+얼마나 갖추는지 계량했다.
+
+다음 추천 horizon은 `real-case-feedback-loop`이다. 목표는 익명화된 실제 업무 사례를 intake하고,
+review pack routing/correction capture/eval seed 전환까지 이어지는 feedback loop를 만드는 것이다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-최근 완료 horizon 상세: `docs/horizons/field-feedback-ready-demo.md`
+최근 완료 horizon 상세: `docs/horizons/workflow-rebuild-on-richer-knowledge.md`
+피드백 패키지 horizon 상세: `docs/horizons/field-feedback-ready-demo.md`

@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-05 — Compressed closed horizon archive
+- Completed: 2026-07-04~2026-07-05
+- Result: ROADMAP 150-line cap 유지를 위해 오래된 closed horizon 상세를 압축 보관. 포함: `workflow-automation`, `practice-map`, `automation-expansion`, `firm-service-map`, `f-acc-review-pack`, `f-acc-1109-review-pack`, `f-acc-1115-revenue-engine`, `f-acc-disclosure-generalization`, `f-acc-1109-hardening`, `f-acc-financial-statement-draft`.
+- Evidence: 각 horizon 원문은 `docs/horizons/`에 유지. 주요 산출물은 `docs/practice-map/`, `kifrs/workflows/kifrs1116/`, `kifrs/workflows/kifrs1109/`, `kifrs/workflows/kifrs1115/`, `kifrs/workflows/disclosure/`, `kifrs/workflows/statement_draft/`.
+- Verification: 각 horizon별 close report와 ROADMAP 이전 이력 기준.
+
 ### 2026-07-04 — PM3: 자동화 가능성 매핑 + 다음 대상 추천
 - Completed: 2026-07-04
 - Result: 33 task 전수 판정(가능 6/조건부 5/불가 5/미실험-유망 6/미실험-보류 11 — 로컬 검증성 rubric 포함), 유망 후보 5개 심층 분석. 추천: 자동화 확장 horizon에 B3-확장(1116 엔진 이식, 먼저) + B5(주석 초안, 다음). D3(비상장 주식평가)은 tax-agent 이관 권고, A5·E2 보류. practice-map horizon 조건부 close(PM2 현업검증 이월).
