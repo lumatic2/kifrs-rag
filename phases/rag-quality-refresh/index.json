@@ -25,6 +25,15 @@
     {
       "id": "RQ3",
       "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-rq3-retrieval-failure-taxonomy.md",
+      "summary": "Failure taxonomy fixed: true first-stage misses, cross-concept multi-query candidates, reporting misinterpretation, timeout/operability, and coverage metadata gaps are separated; RQ4 scope set to per-retriever miss reporting plus gate policy."
+    },
+    {
+      "id": "RQ4",
+      "file": "step4.md",
       "status": "next"
     }
   ]
