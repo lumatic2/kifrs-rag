@@ -26,35 +26,34 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — 업무 지도 (Practice Map)
+## Current Horizon — 자동화 확장 (Automation Expansion)
 
-<!-- harness:goal id="practice-map" -->
-목표: 회계사 실무 업무 taxonomy를 작성하고 자동화 가능성을 매핑해, 다음 자동화 대상을 실무 가치 기준으로 고를 수 있게 한다. 상세 계획: `docs/horizons/practice-map.md`
+<!-- harness:goal id="automation-expansion" -->
+목표: PM3가 실무 가치 기준으로 고른 업무 2개를 엔진화 — ① 1116 리스 엔진 이식으로 완료율 축 2-도메인화 ② 주석 초안 생성으로 커버리지 축 실증 4/33. 상세 계획: `docs/horizons/automation-expansion.md`
 
-**상태**: 2026-07-04 Objective 프로덕트 지향 재정의와 함께 신설. 지금까지 도메인 선택이 기준서 구조 기준이었던 것을 실무 가치 기준으로 전환하는 기반 작업.
-**세부 계획**: `docs/plans/2026-07-04-pm1-practice-taxonomy.md`
+**상태**: 2026-07-04 신설 (practice-map 조건부 close 후속). 구 workflow-automation의 WA2 흡수, WA3는 AE3 후보로 이관.
+**세부 계획**: `docs/plans/2026-07-04-ae1-1116-lease-engine.md`
 
 ### Active Milestones
-<!-- harness:milestone id="PM1" status="completed" priority="P0" evidence="docs/practice-map/taxonomy.md;docs/practice-map/sources.md" -->
-#### PM1 — 회계사 업무 taxonomy 초안
-- DoD: 공개 자료 기반 업무 분해 문서(`docs/practice-map/taxonomy.md`) — 세부 task ≥30개, 각 task에 빈도·판단강도·입출력·현 AI활용 메타, 기존 자산 위치 표기, 커버리지 축 0차 측정값.
-- Evidence: docs/practice-map/taxonomy.md;docs/practice-map/sources.md
-- Gap: "어디까지 자동화 가능한가"에 답할 업무 전체 지도가 없다 — 도메인 선택이 실무 가치가 아니라 기준서 구조 기준이었다.
-- Status: [x]
+<!-- harness:milestone id="AE1" status="active" priority="P0" -->
+#### AE1 — 1116 리스 결정 엔진 이식
+- DoD: `kifrs/workflows/kifrs1116/` 엔진(WA1 9모듈 패턴 + grounding)이 기존 10개 시나리오 fixture를 회귀 테스트로 재현하고, 2번째 도메인 완료율 측정치가 리포트로 기록됨(수치가 낮아도 무방 — 측정 가능 상태가 목표).
+- Evidence: tests/test_workflow_1116_regression.py;docs/reports/2026-07-04-ae1-completion-rate.md
+- Gap: 완료율 축이 1109 단일 도메인 — "엔진 패턴이 도메인을 넘어 이식되는가"(구 workflow-automation 닫는 기준 (a))가 미검증.
+- Status: [ ]
 
-- Completed at: 2026-07-04
-- Summary: 회계사 업무 taxonomy v0 -- 33 task 5대분류, 커버리지 0차 측정 2/33(6%)
-<!-- harness:milestone id="PM3" status="completed" priority="P0" evidence="docs/practice-map/taxonomy.md;docs/practice-map/candidates.md;docs/horizons/practice-map.md" -->
-#### PM3 — 자동화 가능성 매핑 + 다음 자동화 대상 선정
-- DoD: 33개 task 전수에 판정(가능/조건부/불가/미실험-유망·보류)+근거, 유망 후보 3~5개 심층 분석(`candidates.md`), 다음 자동화 대상 1~2개 추천(최종 선택은 사용자), 커버리지 축 1차 측정.
-- Evidence: docs/practice-map/taxonomy.md;docs/practice-map/candidates.md;docs/horizons/practice-map.md
-- Gap: taxonomy는 있으나 판정이 2/33뿐 — "어디까지 자동화 가능한가"의 경계선이 아직 안 그려짐. 다음 자동화 대상을 고를 근거 부재.
-- Status: [x]
-
-- Completed at: 2026-07-04
-- Summary: 33 task 전수 판정 + 후보 5개 심층분석, 추천: 1116 엔진 이식 먼저 + 주석 초안 다음
 ### Next Candidates
-- PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정: 당장 현업 접촉 어려움)**, 로컬 작업 우선. horizon close 시 이월.
+- AE2 — B5 주석(공시) 초안 생성 파일럿 (1116 리스 주석 1개 도메인, DART 대사) — AE1 완료 후 §B0.5 Beat 3로 DoD 확정
+- AE3 — NeedsHumanReview 명시 인터페이스 (구 WA3 이관, signal-triggered)
+- PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정)**, 접촉 가능 시 재개 (practice-map에서 이월)
+
+## Closed Horizons
+
+<!-- harness:goal id="practice-map" status="closed" -->
+`docs/horizons/practice-map.md` — 조건부 close (2026-07-04). PM1(taxonomy 33 task) + PM3(전수 판정 + 추천: 1116 먼저 + 주석 다음) 완료, PM2는 위 Next Candidates로 이월. 상세 marker 이력 → `BACKLOG.md`.
+
+<!-- harness:goal id="workflow-automation" status="closed" -->
+`docs/horizons/workflow-automation.md` — close (2026-07-04). WA1 완료(6/10, `docs/reports/2026-07-03-wa1-completion-rate.md`), WA2→AE1 흡수, WA3→AE3 이관.
 
 ## Paused Horizons
 
@@ -63,11 +62,6 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 <!-- harness:goal id="rag-agent-integration" status="paused" -->
 `docs/horizons/rag-agent-integration.md`. RGA1 완료(런타임 citation 존재 검증, 완료율 6/10 유지). RGA2(grounding 신뢰성/성능)·RGA3(신규 도메인 표준화)는 DoD 미확정 — 다음 재개 시 §B0.5 Beat 3.
-
-<!-- harness:goal id="workflow-automation" status="paused" -->
-`docs/horizons/workflow-automation.md`. WA1 완료(6/10=60%, `docs/reports/2026-07-03-wa1-completion-rate.md`). WA2/WA3는 RGA1 결과를 보고 이 horizon과 합쳐 재개할지 판단.
-- WA2 — 완료율 결과 기반 확장 결정 (IFRIC19/SPPI재설정불일치/재분류/외화이중트랙 4건 처리 또는 도메인 이식)
-- WA3 — 사람-개입 필요 케이스 명시 인터페이스 (`NeedsHumanReview` MCP/스킬 노출 여부)
 
 ## 성공기준 4축
 
@@ -84,14 +78,13 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** practice-map horizon **조건부 close**(PM1+PM3 완료, PM2 이월 — `docs/horizons/practice-map.md` Close 판정). PM3 추천: 다음 "자동화 확장" horizon에 **1116 엔진 이식(먼저) + 주석 초안 생성(다음)** — 근거 `docs/practice-map/candidates.md`. 사용자 확정 후 §B0.5 Beat 2로 새 horizon 작성.
+**[active] AE1 — 1116 리스 엔진 이식** (`docs/plans/2026-07-04-ae1-1116-lease-engine.md`). automation-expansion horizon 2026-07-04 신설(사용자 확정: 1116 먼저 → 주석 다음, WA2 흡수 + workflow-automation close).
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. 후속 horizon 예정 경로: ~~업무 지도~~ ✅ → 자동화 확장(WA2/WA3 흡수 검토) → 프로덕트 패키징.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md` 결정 이력 참조. horizon 경로: ~~업무 지도~~ ✅ → **자동화 확장(현재)** → 프로덕트 패키징.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
 - RGA2/RGA3 — `rag-agent-integration` horizon
-- WA2/WA3 — `workflow-automation` horizon (자동화 확장 horizon에 흡수 검토)
 
 **[콘텐츠 축] Phase 4 잔여**
 - 1116 리스: 10/10 완료

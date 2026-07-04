@@ -2,8 +2,22 @@
 
 > Created: 2026-07-03
 > ROADMAP goal id: `workflow-automation`
-> Status: active
+> Status: closed (2026-07-04 — WA2/WA3를 `automation-expansion` horizon으로 흡수·이관)
 > Objective: `docs/OBJECTIVE.md`
+
+## Close 판정 (2026-07-04)
+
+WA1 완료(6/10=60%, `docs/reports/2026-07-03-wa1-completion-rate.md`) 후 사용자 결정으로
+close: WA2(2번째 도메인 이식)는 새 horizon `automation-expansion`의 AE1(1116 엔진 이식)과
+사실상 동일하므로 그리로 흡수, WA3(NeedsHumanReview 인터페이스)는 같은 horizon의 AE3
+후보로 이관. 닫는 기준 (a) "엔진 패턴의 2번째 도메인 이식 검증"은 AE1이 이어받는다.
+
+## Objective 임팩트 (horizon close, 2026-07-04)
+
+"시나리오 완료율" 축을 측정 불가(0/0)에서 첫 실측(1109 6/10)으로 만들었고, 그 측정을
+만드는 엔진 패턴(9모듈 + grounding + 회귀 하네스)을 재사용 가능한 형태로 남겼다. 축이
+벡터(다중 도메인)로 확장되는지는 automation-expansion horizon에서 검증한다. Objective
+재측정 필요 여부: 아니다 — 후속 horizon이 같은 축을 이어서 측정한다.
 
 ## Why now
 
