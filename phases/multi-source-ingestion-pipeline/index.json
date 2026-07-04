@@ -39,7 +39,10 @@
     {
       "id": "MSI5",
       "file": "step5.md",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-07-05T04:29:00+09:00",
+      "completed_at": "2026-07-05T04:30:55+09:00",
+      "summary": "Closed the multi-source ingestion pipeline horizon with docs/reports/2026-07-05-msi5-ingestion-gate-close-report.md. Close gate passed: authority sources/source pack, source manifest, evidence manifest, focused ingestion/authority tests, quality_preflight public_safe, and git diff check. Next recommended horizon is multi-authority-runtime-integration."
     }
   ]
 }

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Multi-Source Ingestion Pipeline 시작)
+> 마지막 업데이트: 2026-07-05 (Multi-Source Ingestion Pipeline 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,20 +26,18 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — multi-source-ingestion-pipeline
+## Current Horizon — next runtime horizon selection
 
-<!-- harness:goal id="multi-source-ingestion-pipeline" status="active" -->
-metadata-only document source와 structured fact source를 보호 자료 없이 등록·검증할 수 있는 ingestion pipeline skeleton을 만든다.
-큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md` · 상세: `docs/horizons/multi-source-ingestion-pipeline.md`
-
-### Next Candidates
-- MSI1 — connector contract and source manifest
-- MSI2 — metadata-only document catalog prototype
-- MSI3 — structured fact fixture prototype
-- MSI4 — provenance and citation manifest
-- MSI5 — ingestion gate and close report
+`multi-source-ingestion-pipeline`은 완료. 다음 추천 horizon은
+`multi-authority-runtime-integration`: ingestion/evidence manifest를 실제 review pack, statement draft,
+answer composer가 쓰도록 연결한다. 제안 근거: `docs/reports/2026-07-05-msi5-ingestion-gate-close-report.md`.
 
 ## Closed Horizons
+
+<!-- harness:goal id="multi-source-ingestion-pipeline" status="closed" -->
+`docs/horizons/multi-source-ingestion-pipeline.md` — close (2026-07-05). MSI1~MSI5 완료:
+connector contract, metadata-only source manifest, synthetic structured facts, evidence manifest, close gate.
+Evidence: `docs/reports/2026-07-05-msi5-ingestion-gate-close-report.md`.
 
 <!-- harness:goal id="authority-source-map" status="closed" -->
 `docs/horizons/authority-source-map.md` — close (2026-07-05). AS1~AS5 완료: source taxonomy,
@@ -109,8 +107,8 @@ eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `multi-source-ingestion-pipeline`. 다음 step은 MSI1 connector contract:
-metadata document source + structured fact source 공통 contract → public-safe manifest → validator 후보.
+**[현재 active]** 없음. `multi-source-ingestion-pipeline` 완료. 다음 추천:
+`multi-authority-runtime-integration` — ingestion/evidence manifest를 review pack/statement draft/answer composer에 연결.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
