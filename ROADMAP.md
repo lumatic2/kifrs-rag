@@ -44,9 +44,15 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 - Completed at: 2026-07-04
 - Summary: 회계사 업무 taxonomy v0 -- 33 task 5대분류, 커버리지 0차 측정 2/33(6%)
+<!-- harness:milestone id="PM3" status="active" priority="P0" -->
+#### PM3 — 자동화 가능성 매핑 + 다음 자동화 대상 선정
+- DoD: 33개 task 전수에 판정(가능/조건부/불가/미실험-유망·보류)+근거, 유망 후보 3~5개 심층 분석(`candidates.md`), 다음 자동화 대상 1~2개 추천(최종 선택은 사용자), 커버리지 축 1차 측정.
+- Evidence: docs/practice-map/taxonomy.md;docs/practice-map/candidates.md;docs/horizons/practice-map.md
+- Gap: taxonomy는 있으나 판정이 2/33뿐 — "어디까지 자동화 가능한가"의 경계선이 아직 안 그려짐. 다음 자동화 대상을 고를 근거 부재.
+- Status: [ ]
+
 ### Next Candidates
-- PM2 — 현업 검증 (회계사 인터뷰/피드백) — **사용자 액션 필요**, 착수 시점 사용자 소유
-- PM3 — 자동화 가능성 매핑 + 다음 자동화 대상 선정 (커버리지 축 1차 측정)
+- PM2 — 현업 검증 (회계사 인터뷰/피드백) — **보류(2026-07-04 사용자 결정: 당장 현업 접촉 어려움)**, 로컬 작업 우선. horizon close 시 이월.
 
 ## Paused Horizons
 
