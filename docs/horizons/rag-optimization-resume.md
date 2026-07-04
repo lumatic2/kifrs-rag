@@ -160,6 +160,17 @@ cross-standard scope gap, Q040은 1109-4.1.4가 rank 22까지 오는 K-boundary 
 decomposition policy를 구현하고, Q001/Q006 회복과 기존 accepted route/Q029 seed/rejected hard miss 경계
 보존을 gate로 묶는 것이다.
 
+## 1115-focused subquery hybrid 구현 (2026-07-05)
+
+`ifrs1115_subquery_hybrid` opt-in retriever를 추가했다. 기본 `hybrid`는 변경하지 않았다.
+`source_routed_hybrid`를 baseline으로 유지하면서, Q001/Q006류 1115 gap에만 focused subquery를 weight 2로
+RRF fuse한다. `docs/reports/2026-07-05-ifrs1115-subquery-hybrid-implementation.md` 기준 full 50-item
+recall@20은 0.953에서 0.973으로 올랐고, citation-level absent는 4개에서 2개로 줄었다. 남은 misses는
+Q008 `1109-2.1`, Q040 `1109-4.1.4`다.
+
+`scripts/ifrs1115_subquery_gate.py`는 accepted source route 5개, recovered 1115 2개, Q029 seed, rejected
+Q008/Q040 경계를 함께 검증한다. 아직 rule-triggered 실험 retriever이므로 기본 retriever로 승격하지 않는다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는

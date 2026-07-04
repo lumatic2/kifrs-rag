@@ -1,6 +1,7 @@
 from kifrs.eval.retrieval import (
     citation_rank_bucket,
     gold_rank_summary,
+    ifrs1115_subquery,
     miss_summary_by_retriever,
     must_cite_rank_rows,
     must_cite_rank_summary,
@@ -188,3 +189,16 @@ def test_source_route_standard_accepts_only_reviewed_clusters():
 def test_source_route_standard_rejects_known_failed_clusters():
     assert source_route_standard("리스부채는 1109호 금융부채로 회계처리해야 하는가?") is None
     assert source_route_standard("SPPI 불충족 채무상품은 어떻게 분류 측정하는가?") is None
+
+
+def test_ifrs1115_subquery_accepts_reviewed_1115_gaps():
+    assert ifrs1115_subquery(
+        "소프트웨어 라이선스와 설치용역을 패키지로 판매한다. 수행의무를 몇 개로 구분해야 하는가?"
+    ) == "고객 효익 쉽게 구할 수 있는 다른 자원 별도 식별 계약 내 다른 약속 구별"
+    assert ifrs1115_subquery(
+        "누적 구매액을 초과하면 초과분의 5%를 현금으로 환불하는 리베이트 프로그램"
+    ) == "리베이트 환불 가격할인 변동대가 미래 사건 거래가격 환불부채"
+
+
+def test_ifrs1115_subquery_rejects_non_1115_scope_gap():
+    assert ifrs1115_subquery("리스부채는 1109호 금융부채로 회계처리해야 하는가?") is None

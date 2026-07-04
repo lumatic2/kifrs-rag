@@ -80,6 +80,19 @@ SOURCE_ROUTE_RULES = (
     },
 )
 
+IFRS1115_SUBQUERY_RULES = (
+    {
+        "all": ("소프트웨어", "설치"),
+        "any": ("수행의무", "구분", "구별"),
+        "subquery": "고객 효익 쉽게 구할 수 있는 다른 자원 별도 식별 계약 내 다른 약속 구별",
+    },
+    {
+        "all": ("환불",),
+        "any": ("리베이트", "누적 구매액", "변동대가", "가격할인"),
+        "subquery": "리베이트 환불 가격할인 변동대가 미래 사건 거래가격 환불부채",
+    },
+)
+
 
 # retriever 이름 → (query, limit) → list[dict(standard, no, ...)]
 RETRIEVERS = {
@@ -88,6 +101,7 @@ RETRIEVERS = {
     "hybrid": lambda q, k: search_hybrid(q, None, limit=k),
     "multi_query_hybrid": lambda q, k: search_multi_query_hybrid(q, None, limit=k),
     "source_routed_hybrid": lambda q, k: search_source_routed_hybrid(q, None, limit=k),
+    "ifrs1115_subquery_hybrid": lambda q, k: search_ifrs1115_subquery_hybrid(q, None, limit=k),
     "hierarchical": lambda q, k: search_hierarchical(q, None, limit=k),
     "reranked": lambda q, k: search_reranked(q, None, limit=k, candidates=50),
 }
@@ -309,6 +323,14 @@ def source_route_standard(query: str) -> str | None:
     return None
 
 
+def ifrs1115_subquery(query: str) -> str | None:
+    """Return a narrow public-safe 1115 subquery for accepted Q001/Q006-style gaps."""
+    for rule in IFRS1115_SUBQUERY_RULES:
+        if all(term in query for term in rule["all"]) and any(term in query for term in rule["any"]):
+            return str(rule["subquery"])
+    return None
+
+
 def search_source_routed_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
     """Experimental retriever: fuse baseline hybrid with accepted-cluster standard routing.
 
@@ -323,6 +345,21 @@ def search_source_routed_hybrid(query: str, standard: str | None = None, limit: 
     baseline = search_hybrid(query, None, limit=candidate_limit)
     routed = search_hybrid(query, route_standard, limit=candidate_limit)
     return rrf_fuse_results([baseline, baseline, routed], limit=limit)
+
+
+def search_ifrs1115_subquery_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
+    """Experimental retriever: source-routed baseline plus focused 1115 subquery.
+
+    The subquery rule is intentionally opt-in and narrow. It implements candidates
+    accepted by docs/reports/2026-07-05-ifrs1115-subquery-candidate-eval.md.
+    """
+    subquery = ifrs1115_subquery(query)
+    if standard or not subquery:
+        return search_source_routed_hybrid(query, standard, limit=limit)
+    candidate_limit = max(100, limit)
+    baseline = search_source_routed_hybrid(query, None, limit=candidate_limit)
+    supplemental = search_hybrid(subquery, "1115", limit=candidate_limit)
+    return rrf_fuse_results([baseline, supplemental, supplemental], limit=limit)
 
 
 def main(argv: list[str] | None = None) -> None:
