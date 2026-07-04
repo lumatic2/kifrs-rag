@@ -63,6 +63,13 @@ python scripts\real_accountant_notes_check.py --notes docs\reports\real-accounta
 이 checker는 세션 템플릿의 빈칸, 미확인 boundary checkbox, 고객/회사 식별자 패턴, protected marker가
 남아 있으면 실패한다.
 
+actual notes, actual capture manifest, queue JSONL이 모두 생긴 뒤에는 수동으로
+`actual_feedback_evidence`를 켜지 말고 아래 builder로 actual session manifest를 만든다.
+
+```powershell
+python scripts\real_accountant_manifest_build.py --out docs\reports\real-accountant-session\session_manifest.json --notes docs\reports\real-accountant-session\actual-feedback-notes.md --capture-manifest docs\reports\real-accountant-session\capture-manifest.json --queue-jsonl docs\reports\real-accountant-session\feedback-queue.jsonl --reviewer-role "CPA reviewer" --reviewer-service-line "F-ACC" --reviewer-experience-context "reviewed accounting advisory workpapers"
+```
+
 ## Outreach Check
 
 초대 발송 후에는 alias 기반 ledger를 아래 명령으로 확인한다.

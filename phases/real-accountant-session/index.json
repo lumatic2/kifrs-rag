@@ -23,7 +23,7 @@
       "id": "RS3",
       "file": "step3.md",
       "status": "pending",
-      "summary": "Capture actual public-safe notes and convert safe corrections into queue records."
+      "summary": "Capture actual public-safe notes, convert safe corrections into queue records, and build the actual session manifest through real_accountant_manifest_build.py rather than manual actual_feedback_evidence edits."
     },
     {
       "id": "RS4",
