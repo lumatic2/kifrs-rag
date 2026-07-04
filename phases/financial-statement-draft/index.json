@@ -1,0 +1,12 @@
+{
+  "project": "kifrs-rag",
+  "phase": "financial-statement-draft",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "statement-draft-surface-inventory",
+      "status": "pending"
+    }
+  ]
+}

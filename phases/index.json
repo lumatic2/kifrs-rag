@@ -18,6 +18,10 @@
     },
     {
       "dir": "1109-hardening",
+      "status": "completed"
+    },
+    {
+      "dir": "financial-statement-draft",
       "status": "active"
     }
   ]

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (1115 revenue engine 완료 + disclosure generalization 시작)
+> 마지막 업데이트: 2026-07-05 (1109 hardening 완료 + F/S draft 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,43 +26,28 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — f-acc-1109-hardening
+## Current Horizon — f-acc-financial-statement-draft
 
-<!-- harness:goal id="f-acc-1109-hardening" status="active" -->
-목표: 1109 review pack의 잔여 NeedsHumanReview 케이스를 분석하고, 자동화 가능한 케이스부터 hardening해
-완료율과 제품 신뢰도를 높인다.
+<!-- harness:goal id="f-acc-financial-statement-draft" status="active" -->
+목표: 기존 1109/1115/1116 review pack output을 재무제표 본문/표시 draft skeleton으로 연결한다.
 큰 실행 순서 → `docs/horizons/f-acc-technical-expansion.md`; 상세 plan →
-`docs/horizons/f-acc-1109-hardening.md`.
+`docs/horizons/f-acc-financial-statement-draft.md`.
 
 ### Next Candidates
-- FH5 — completion-rate delta report
-
-### Completed Milestones (f-acc-1109-hardening)
-<!-- harness:milestone id="FH1" status="completed" priority="P0" evidence="docs/reports/2026-07-05-fh1-1109-blocker-taxonomy.md;phases/1109-hardening/step1.md" -->
-#### FH1 — 1109 blocker taxonomy
-- DoD: 1109 NeedsHumanReview 4개 케이스를 자동화 후보, skeleton 강화, 경계 유지로 분류한다.
-- Evidence: docs/reports/2026-07-05-fh1-1109-blocker-taxonomy.md;phases/1109-hardening/step1.md
-- Status: [x]
-
-<!-- harness:milestone id="FH2" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/sppi.py;kifrs/workflows/kifrs1109/fixtures.py;docs/reports/2026-07-05-fh2-sppi-reset-hardening.md" -->
-#### FH2 — SPPI reset nuance hardening
-- DoD: 변동금리 reset mismatch fixture가 automated review pack으로 승격되고 1109 완료율이 6/10→7/10이 된다.
-- Evidence: kifrs/workflows/kifrs1109/sppi.py;kifrs/workflows/kifrs1109/fixtures.py;docs/reports/2026-07-05-fh2-sppi-reset-hardening.md
-- Status: [x]
-
-<!-- harness:milestone id="FH3" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/reclassification.py;tests/test_1109_reclassification.py;docs/reports/2026-07-05-fh3-reclassification-skeleton.md" -->
-#### FH3 — reclassification memo skeleton
-- DoD: 사업모형 변경 재분류 NeedsHumanReview pack이 구조화 검토메모 skeleton을 제공한다.
-- Evidence: kifrs/workflows/kifrs1109/reclassification.py;tests/test_1109_reclassification.py;docs/reports/2026-07-05-fh3-reclassification-skeleton.md
-- Status: [x]
-
-<!-- harness:milestone id="FH4" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/fx_dual_track.py;tests/test_1109_fx_dual_track.py;docs/reports/2026-07-05-fh4-fx-dual-track-boundary.md" -->
-#### FH4 — FX dual-track boundary
-- DoD: 외화 금융상품 NeedsHumanReview pack이 1109/1021 입력과 표시 질문을 분리한 boundary memo를 제공한다.
-- Evidence: kifrs/workflows/kifrs1109/fx_dual_track.py;tests/test_1109_fx_dual_track.py;docs/reports/2026-07-05-fh4-fx-dual-track-boundary.md
-- Status: [x]
+- FS1 — statement draft surface inventory
+- FS2 — statement line schema
+- FS3 — 1109 statement draft pilot
+- FS4 — 1115 statement draft pilot
+- FS5 — F/S draft report
 
 ## Closed Horizons
+
+<!-- harness:goal id="f-acc-1109-hardening" status="closed" -->
+`docs/horizons/f-acc-1109-hardening.md` — close (2026-07-05). FH1~FH5 완료: 1109 blocker taxonomy,
+SPPI reset hardening, 재분류 skeleton, FX dual-track boundary, completion-rate delta. 자동화율 6/10→7/10,
+남은 NeedsHumanReview 3개 중 2개 skeleton/boundary memo 제공. Evidence:
+`docs/reports/2026-07-05-fh5-1109-hardening-delta.md`, `kifrs/workflows/kifrs1109/sppi.py`,
+`kifrs/workflows/kifrs1109/reclassification.py`, `kifrs/workflows/kifrs1109/fx_dual_track.py`.
 
 <!-- harness:goal id="f-acc-disclosure-generalization" status="closed" -->
 `docs/horizons/f-acc-disclosure-generalization.md` — close (2026-07-05). DG1~DG5 완료: 1116/1115/1109
@@ -120,10 +105,10 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
-`f-acc-1109-hardening`이다. disclosure-generalization은 DG1~DG5까지 완료했다. 다음은 FH1 1109
-FH1~FH4를 완료했다. 다음은 FH5 completion-rate delta report.
+`f-acc-financial-statement-draft`이다. 1109 hardening은 FH1~FH5까지 완료했다. 다음은 FS1 statement
+draft surface inventory.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → **F-ACC 1109 hardening(현재)**.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → ~~F-ACC 1109 hardening~~ ✅ → **F-ACC financial statement draft(현재)**.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

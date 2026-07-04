@@ -75,6 +75,6 @@
 
 ## Active horizon
 
-`docs/horizons/f-acc-1109-hardening.md` (F-ACC 1109 hardening)
+`docs/horizons/f-acc-financial-statement-draft.md` (F-ACC 재무제표 draft)
 
 큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`

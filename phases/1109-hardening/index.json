@@ -30,6 +30,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "외화 금융상품 NeedsHumanReview pack에 1109/1021 boundary memo를 추가"
+    },
+    {
+      "step": 5,
+      "name": "completion-rate-delta-report",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1109 automated 6/10→7/10, 남은 NeedsHumanReview 3개와 skeleton 경계를 정리"
     }
   ]
 }
