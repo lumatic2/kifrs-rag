@@ -1,6 +1,6 @@
 # Step 5: fs-draft-report
 
-Status: pending
+Status: in_progress
 
 ## 읽어야 할 파일
 

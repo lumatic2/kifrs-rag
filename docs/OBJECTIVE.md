@@ -75,6 +75,6 @@
 
 ## Active horizon
 
-`docs/horizons/f-acc-financial-statement-draft.md` (F-ACC 재무제표 draft)
+`docs/horizons/f-audit-analytical-procedures.md` (F-AUD 분석적 절차)
 
 큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`

@@ -22,6 +22,10 @@
     },
     {
       "dir": "financial-statement-draft",
+      "status": "completed"
+    },
+    {
+      "dir": "audit-analytical-procedures",
       "status": "active"
     }
   ]

@@ -1,0 +1,12 @@
+{
+  "project": "kifrs-rag",
+  "phase": "audit-analytical-procedures",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "analytical-procedure-scope-fixture-inventory",
+      "status": "pending"
+    }
+  ]
+}
