@@ -1,6 +1,6 @@
 {
   "id": "rag-quality-refresh",
-  "status": "active",
+  "status": "completed",
   "horizon": "../../docs/horizons/rag-quality-refresh.md",
   "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
   "steps": [
@@ -43,7 +43,11 @@
     {
       "id": "RQ5",
       "file": "step5.md",
-      "status": "next"
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-rq5-quality-gate-report.md",
+      "summary": "Quality gate report fixed: mandatory gates, diagnostic slow gates, private/local boundaries, and next-horizon entry conditions are documented; rag-quality-refresh can close."
     }
   ]
 }
