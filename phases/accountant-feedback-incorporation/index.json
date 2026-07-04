@@ -1,0 +1,41 @@
+{
+  "id": "accountant-feedback-incorporation",
+  "status": "completed",
+  "horizon": "../../docs/horizons/accountant-feedback-incorporation.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "plan": "../../docs/plans/2026-07-05-accountant-feedback-incorporation.md",
+  "steps": [
+    {
+      "id": "AF1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T08:45:00+09:00",
+      "completed_at": "2026-07-05T08:52:00+09:00",
+      "summary": "Opened docs/horizons/accountant-feedback-incorporation.md, docs/plans/2026-07-05-accountant-feedback-incorporation.md, and phases/accountant-feedback-incorporation with AF1~AF4. ROADMAP/OBJECTIVE were moved to active accountant-feedback-incorporation."
+    },
+    {
+      "id": "AF2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T08:52:00+09:00",
+      "completed_at": "2026-07-05T09:00:00+09:00",
+      "summary": "Added kifrs/feedback/incorporation.py and tests/test_feedback_incorporation.py. The planner converts queue records into create_eval_seed, create_backlog_item, record_no_action, add_review_question, and update_review_pack_checklist actions with severity-based priority. Verification: python -m pytest tests/test_feedback_incorporation.py -q -> 5 passed with existing pytest cache warning."
+    },
+    {
+      "id": "AF3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T09:00:00+09:00",
+      "completed_at": "2026-07-05T09:04:00+09:00",
+      "summary": "Added scripts/feedback_incorporation_report.py and generated docs/reports/2026-07-05-af3-feedback-incorporation-report.md plus docs/reports/field-feedback/2026-07-05-incorporated-review-questions.md from the real-transaction-poc feedback queue."
+    },
+    {
+      "id": "AF4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T09:04:00+09:00",
+      "completed_at": "2026-07-05T09:12:00+09:00",
+      "summary": "Closed accountant-feedback-incorporation with docs/reports/2026-07-05-af4-accountant-feedback-incorporation-close-report.md. Focused tests passed 12, incorporation reports regenerated, quality_preflight ok/public_safe True, and git diff --check produced only LF->CRLF warnings."
+    }
+  ]
+}

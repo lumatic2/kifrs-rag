@@ -11,6 +11,12 @@ from .case_intake import (
     validate_case_intake,
     validate_reviewer_correction,
 )
+from .incorporation import (
+    IncorporationAction,
+    plan_incorporation,
+    render_incorporation_report,
+    render_review_question_supplement,
+)
 from .queue import (
     FeedbackQueueRecord,
     FeedbackQueueSummary,
@@ -33,8 +39,12 @@ __all__ = [
     "ReviewerCorrection",
     "RoutingCandidate",
     "ValidationIssue",
+    "IncorporationAction",
     "case_to_eval_seed_candidate",
+    "plan_incorporation",
     "render_feedback_summary_markdown",
+    "render_incorporation_report",
+    "render_review_question_supplement",
     "route_case",
     "validate_case_intake",
     "validate_reviewer_correction",

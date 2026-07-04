@@ -71,6 +71,10 @@
     {
       "dir": "real-anonymized-transaction-poc",
       "status": "completed"
+    },
+    {
+      "dir": "accountant-feedback-incorporation",
+      "status": "completed"
     }
   ]
 }
