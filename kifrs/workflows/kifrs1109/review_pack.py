@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 import re
 
 from .initial_entry import JournalEntry
+from .fx_dual_track import generate_fx_dual_track_memo
 from .reclassification import generate_reclassification_memo
 from .runner import ScenarioOutcome, run_scenario
 from .fixtures import ScenarioFixture
@@ -126,10 +127,22 @@ def _human_review_actions(fixture: ScenarioFixture, outcome: ScenarioOutcome) ->
             return [
                 HumanReviewAction(
                     issue="외화 금융상품 1109+1021 이중 트랙",
-                    why_blocked="분류·측정은 1109, 외화환산은 1021 판단이 함께 필요해 WA1 core pipeline 밖이다.",
-                    required_inputs=["기능통화", "계약통화", "취득일·보고일 환율", "공정가치 변동과 환산차이 분해 자료"],
-                    review_questions=["환산차이와 공정가치 변동을 어느 손익/OCI 라인에 표시할지?", "FVOCI 부채상품인지 FVPL인지?"],
-                    candidate_guidance=["K-IFRS 1109 분류 결과와 K-IFRS 1021 외화환산 표시를 함께 검토"],
+                    why_blocked="분류·측정은 1109, 외화환산은 1021 판단이므로 입력과 표시 질문을 분리한 boundary memo가 필요하다.",
+                    required_inputs=[
+                        "기능통화",
+                        "계약통화",
+                        "취득일 환율",
+                        "보고일 환율",
+                        "이자/원금 수취일 환율",
+                        "공정가치 변동 자료",
+                        "1109 분류 후보(AC/FVOCI/FVPL)",
+                    ],
+                    review_questions=[
+                        "환산차이와 공정가치 변동을 어느 손익/OCI 라인에 표시할지?",
+                        "FVOCI 부채상품이면 상각후원가 환산차이와 공정가치 변동을 어떻게 분리할지?",
+                        "기능통화 판단이 회사 회계정책과 일치하는지?",
+                    ],
+                    candidate_guidance=["K-IFRS 1109 분류 결과와 K-IFRS 1021 외화환산 표시를 분리 검토"],
                 )
             ]
         return [
@@ -182,6 +195,8 @@ def generate_review_pack(fixture: ScenarioFixture) -> ReviewPack:
     review_memo = outcome.review_memo
     if fixture.txn.special_case == "reclassification":
         review_memo = generate_reclassification_memo(fixture.txn)
+    if fixture.txn.special_case == "fx_dual_track":
+        review_memo = generate_fx_dual_track_memo(fixture.txn)
     citations = _extract_citations(review_memo)
     for action in needs_review:
         citations.extend(_extract_citations(*action.candidate_guidance))

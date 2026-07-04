@@ -23,6 +23,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "사업모형 변경 재분류 NeedsHumanReview pack에 구조화 검토메모 skeleton을 추가"
+    },
+    {
+      "step": 4,
+      "name": "fx-dual-track-boundary",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "외화 금융상품 NeedsHumanReview pack에 1109/1021 boundary memo를 추가"
     }
   ]
 }
