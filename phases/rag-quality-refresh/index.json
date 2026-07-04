@@ -16,6 +16,15 @@
     {
       "id": "RQ2",
       "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-rq2-eval-coverage-refresh.md",
+      "summary": "Coverage refresh fixed: goldset has 50 items across 14 standards, but enforced answer gate is only Q019-Q023; retrieval benchmark covers 50 items but needs split due timeout; RQ3 candidate miss list prepared."
+    },
+    {
+      "id": "RQ3",
+      "file": "step3.md",
       "status": "next"
     }
   ]
