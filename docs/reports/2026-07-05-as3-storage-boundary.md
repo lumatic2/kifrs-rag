@@ -52,13 +52,13 @@ Current public-allowed fields:
 
 | Source class | Public repo allowed | Public repo forbidden | Private/local allowed |
 |---|---|---|---|
-| Primary accounting standards | source id, standard id, paragraph locator, aggregate metrics | K-IFRS body text, PDF, parsed DB, embeddings | local DB, parsed text, embeddings |
-| Interpretive accounting material | source metadata, URL, document title, publisher, date, author-written summary | copied inquiry replies, copied education text, PDF body, excerpt/quote | private body cache after policy approval |
-| Audit standards | source metadata, locator, authority type, applicability note | copied standard text, PDF body, embedded chunks | private audit-standard index |
-| Law/regulation | law id, article locator, official URL, effective date metadata | copied article body in public reports unless separately approved | private law chunk store or API/cache |
-| Filing/data | company id, report id, filing locator, line-item schema, aggregate sample metrics | full filing body copy, XBRL dump if copyrighted/restricted, raw downloaded docs | structured local cache, parsed XBRL |
-| Client-private | anonymized case id, synthetic/public fixture, field schema | contracts, TB, policies, workpapers, management memo body | local encrypted/private namespace |
-| Supporting material | source metadata, title, URL, why-supporting note | guide/article body, copied checklist, long quote | private reading notes if licensed/allowed |
+| `primary_accounting_standard` | source id, standard id, paragraph locator, aggregate metrics | K-IFRS body text, PDF, parsed DB, embeddings | local DB, parsed text, embeddings |
+| `interpretive_accounting_material` | source metadata, URL, document title, publisher, date, author-written summary | copied inquiry replies, copied education text, PDF body, excerpt/quote | private body cache after policy approval |
+| `primary_audit_standard` | source metadata, locator, authority type, applicability note | copied standard text, PDF body, embedded chunks | private audit-standard index |
+| `law_regulation` | law id, article locator, official URL, effective date metadata | copied article body in public reports unless separately approved | private law chunk store or API/cache |
+| `filing_data` | company id, report id, filing locator, line-item schema, aggregate sample metrics | full filing body copy, XBRL dump if copyrighted/restricted, raw downloaded docs | structured local cache, parsed XBRL |
+| `client_private` | anonymized case id, synthetic/public fixture, field schema | contracts, TB, policies, workpapers, management memo body | local encrypted/private namespace |
+| `supporting_material` | source metadata, title, URL, why-supporting note | guide/article body, copied checklist, long quote | private reading notes if licensed/allowed |
 
 ## Storage Policy Labels
 
@@ -145,4 +145,3 @@ AS3 is complete enough to move to AS4.
 
 AS4 should evaluate ingestion feasibility only under these storage labels. A source that cannot fit a safe storage
 policy should not get a connector yet.
-

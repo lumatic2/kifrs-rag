@@ -44,6 +44,9 @@ Deliverable:
 
 - `docs/reports/2026-07-05-as3-storage-boundary.md`
 
+Status: complete. Storage labels are fixed and checked against ingestion manifest policy by
+`scripts/authority_storage_boundary_check.py`.
+
 ### AS4. Ingestion Feasibility Matrix
 
 각 source class를 fetch/parse/chunk/embed/index 가능성 기준으로 평가한다.
