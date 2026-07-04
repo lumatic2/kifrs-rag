@@ -51,8 +51,16 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 - Completed at: 2026-07-04
 - Summary: 1116 fixture 10개 review pack 생성 검증 완료 — automated 9, needs_human_review 1, 신규/기존 1116 테스트 20개 통과
+<!-- harness:milestone id="RP3" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-05-rp3-needs-human-review-checklist.md" -->
+#### RP3 — NeedsHumanReview checklist hardening
+- DoD: 자동 판단이 멈추는 케이스를 회계사가 바로 처리할 수 있는 추가자료·리뷰질문·기준서 방향 checklist로 노출한다.
+- Evidence: kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-05-rp3-needs-human-review-checklist.md
+- Gap: RP1/RP2는 NeedsHumanReview 경계를 보존했지만, 회계사가 다음에 무엇을 확인할지 action 단위로 제시하지 못했다.
+- Status: [x]
+
+- Completed at: 2026-07-05
+- Summary: needs_human_review를 구조화된 회계사 action checklist로 강화 — scenario_09에 추가자료·리뷰질문·1116-46 방향 노출, 신규/기존 1116 테스트 20개 통과
 ### Next Candidates
-- RP3 — NeedsHumanReview checklist hardening
 - RP4 — PoC demo brief
 - PM2 — 현업 검증(회계사 인터뷰/피드백), 접촉 가능 시 재개
 
@@ -93,8 +101,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** RP1/RP2 완료 — 기존 1116 엔진과 주석 초안을 회계자문팀 workpaper pack으로
-묶었고, 1116 fixture 10개 전체에서 review pack 생성 상태를 검증했다. 다음은 RP3 또는 RP4.
+**[현재 active 없음]** RP1/RP2/RP3 완료 — 기존 1116 엔진과 주석 초안을 회계자문팀 workpaper pack으로
+묶었고, 1116 fixture 10개 전체에서 review pack 생성 상태를 검증했으며, NeedsHumanReview를 회계사
+action checklist로 강화했다. 다음은 RP4 또는 PM2.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → **F-ACC review pack(현재)** → 프로덕트 패키징.
 

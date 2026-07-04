@@ -21,6 +21,7 @@ def test_lessee_review_pack_contains_core_sections():
     assert pack.review_memo and "검토 메모" in pack.review_memo
     assert pack.disclosure_draft and "리스 주석" in pack.disclosure_draft
     assert any(item.label == "리스 주석 초안 검토" for item in pack.review_checklist)
+    assert any(action.issue == "조건부 리스 주석 항목" for action in pack.needs_human_review)
     assert "[1116-53]" in pack.citations
 
     rendered = render_review_pack_markdown(pack)
@@ -29,6 +30,7 @@ def test_lessee_review_pack_contains_core_sections():
     assert "## 2. 분개 초안" in rendered
     assert "## 3. 주석 초안" in rendered
     assert "## 4. 리뷰 체크리스트" in rendered
+    assert "변동리스료" in rendered
 
 
 def test_needs_human_review_pack_keeps_blocker_visible():
@@ -40,9 +42,17 @@ def test_needs_human_review_pack_keeps_blocker_visible():
     assert pack.needs_human_review
     assert pack.review_checklist[0].status == "needs_human_review"
 
+    action = pack.needs_human_review[0]
+    assert "확장+축소" in action.issue
+    assert any("수정 할인율" in item for item in action.required_inputs)
+    assert any("별도 리스" in item for item in action.review_questions)
+    assert any("[1116-46(a)]" in item for item in action.candidate_guidance)
+
     rendered = render_review_pack_markdown(pack)
-    assert "사람 검토 필요" in rendered
-    assert "modification_expand_shrink_two_dimensional" in rendered
+    assert "리스범위 확장+축소 동시 변경" in rendered
+    assert "필요한 추가자료" in rendered
+    assert "리뷰 질문" in rendered
+    assert "[1116-46(a)]" in rendered
 
 
 def test_all_fixtures_generate_review_pack_statuses():

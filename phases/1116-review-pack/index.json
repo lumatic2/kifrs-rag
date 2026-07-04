@@ -16,6 +16,13 @@
       "status": "completed",
       "summary": "Extended tests/test_1116_review_pack.py to cover all 10 fixtures and added docs/reports/2026-07-04-rp2-1116-review-pack-fixture-summary.md. Result: 9 automated review packs and 1 needs_human_review, matching AE1 completion boundary. Verification passed: 20 tests.",
       "completed_at": "2026-07-04T22:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "needs-human-review-checklist",
+      "status": "completed",
+      "summary": "Structured review_pack.needs_human_review as accountant action checklist items with issue, blocker reason, required inputs, review questions, and candidate K-IFRS 1116 guidance. scenario_09 now renders 추가자료/리뷰질문/1116-46 direction while automated packs expose company-policy and conditional disclosure follow-ups. Verification passed: 20 tests.",
+      "completed_at": "2026-07-05T00:04:08+09:00"
     }
   ]
 }
