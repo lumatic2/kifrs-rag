@@ -6,6 +6,7 @@ from kifrs.eval.retrieval import (
     must_cite_rank_summary,
     query_variants,
     rrf_fuse_results,
+    source_route_standard,
 )
 
 
@@ -170,3 +171,20 @@ def test_must_cite_rank_summary_counts_buckets_per_retriever():
             "absent": 1,
         }
     }
+
+
+def test_source_route_standard_accepts_only_reviewed_clusters():
+    assert source_route_standard(
+        "보고기간 말 이후 차환 계약을 체결했다. 이 차입금은 유동부채인가 비유동부채인가?"
+    ) == "1001"
+    assert source_route_standard(
+        "충당부채를 측정할 때 예상되는 자산 처분이익은 충당부채 금액에 반영하는가?"
+    ) == "1037"
+    assert source_route_standard(
+        "주식결제형 주식기준보상거래에서 종업원의 경우 측정기준일은 언제인가?"
+    ) == "1102"
+
+
+def test_source_route_standard_rejects_known_failed_clusters():
+    assert source_route_standard("리스부채는 1109호 금융부채로 회계처리해야 하는가?") is None
+    assert source_route_standard("SPPI 불충족 채무상품은 어떻게 분류 측정하는가?") is None

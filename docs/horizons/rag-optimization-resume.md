@@ -111,6 +111,15 @@ source routing(1115·1109·1037 cluster), 추가 term bridge, standard-specific 
 source routing은 부분 후보일 뿐이며 기본 retriever로 승격하지 않는다. 다음 구현을 한다면 blanket filter가
 아니라 accepted cluster에 한정한 supplemental retriever/gate여야 한다.
 
+## Source routed hybrid 구현 (2026-07-05)
+
+`source_routed_hybrid` opt-in retriever를 추가했다. 기본 `hybrid`는 변경하지 않고, accepted cluster인
+1001/1037/1102 trigger에 한해서만 baseline hybrid와 standard-restricted hybrid를 RRF로 섞는다.
+`docs/reports/2026-07-05-source-routed-hybrid-implementation.md` 기준 full 50-item recall@20은
+0.877에서 0.943으로 올랐고, citation-level absent는 10개에서 5개로 줄었다. `source_routed_hybrid_gate.py`
+는 accepted 5개가 회복되고 rejected 5개는 기존 hard miss로 남는지 확인한다. 아직 rule-triggered 실험
+retriever이므로 기본 retriever로 승격하지 않는다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는

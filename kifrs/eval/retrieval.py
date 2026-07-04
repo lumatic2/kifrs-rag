@@ -62,6 +62,24 @@ MULTI_QUERY_EXPANSIONS = {
     ),
 }
 
+SOURCE_ROUTE_RULES = (
+    {
+        "standard": "1001",
+        "all": ("차입금",),
+        "any": ("유동부채", "비유동부채", "차환"),
+    },
+    {
+        "standard": "1037",
+        "all": ("충당부채",),
+        "any": ("손실부담계약", "회피불가능", "처분이익", "현재가치", "할인액 환입"),
+    },
+    {
+        "standard": "1102",
+        "all": ("주식결제형",),
+        "any": ("주식기준보상", "측정기준일", "종업원"),
+    },
+)
+
 
 # retriever 이름 → (query, limit) → list[dict(standard, no, ...)]
 RETRIEVERS = {
@@ -69,6 +87,7 @@ RETRIEVERS = {
     "semantic": lambda q, k: semantic_search(q, None, limit=k),
     "hybrid": lambda q, k: search_hybrid(q, None, limit=k),
     "multi_query_hybrid": lambda q, k: search_multi_query_hybrid(q, None, limit=k),
+    "source_routed_hybrid": lambda q, k: search_source_routed_hybrid(q, None, limit=k),
     "hierarchical": lambda q, k: search_hierarchical(q, None, limit=k),
     "reranked": lambda q, k: search_reranked(q, None, limit=k, candidates=50),
 }
@@ -280,6 +299,30 @@ def search_multi_query_hybrid(query: str, standard: str | None = None, limit: in
     # Preserve the current hybrid baseline and use subqueries as auxiliary evidence.
     result_sets = [original, original, original, *auxiliary]
     return rrf_fuse_results(result_sets, limit=limit)
+
+
+def source_route_standard(query: str) -> str | None:
+    """Return a narrow supplemental standard route for accepted source-routing clusters."""
+    for rule in SOURCE_ROUTE_RULES:
+        if all(term in query for term in rule["all"]) and any(term in query for term in rule["any"]):
+            return str(rule["standard"])
+    return None
+
+
+def search_source_routed_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
+    """Experimental retriever: fuse baseline hybrid with accepted-cluster standard routing.
+
+    This is intentionally opt-in. It only routes clusters accepted by
+    docs/reports/2026-07-05-source-routing-candidate-eval.md and leaves other
+    cross-standard questions on the current hybrid baseline.
+    """
+    route_standard = standard or source_route_standard(query)
+    if not route_standard:
+        return search_hybrid(query, standard, limit=limit)
+    candidate_limit = max(50, limit)
+    baseline = search_hybrid(query, None, limit=candidate_limit)
+    routed = search_hybrid(query, route_standard, limit=candidate_limit)
+    return rrf_fuse_results([baseline, baseline, routed], limit=limit)
 
 
 def main(argv: list[str] | None = None) -> None:
