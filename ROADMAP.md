@@ -32,15 +32,16 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 목표: 회계법인 service-line/company map을 세우고 팀별 workflow와 AI insertion point를 재매핑해,
 다음 구현 후보를 "법인 팀/산출물" 기준으로 다시 고른다. 상세 plan → `docs/horizons/firm-service-map.md`.
 
-### Active Milestones
-<!-- harness:milestone id="FM2" status="active" priority="P0" evidence="docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md" -->
+### Completed Milestones (firm-service-map)
+<!-- harness:milestone id="FM2" status="completed" priority="P0" evidence="docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md" -->
 #### FM2 — 팀별 회계사 workflow 문서화
 - DoD: FM1 service-line map을 기준으로 Audit / Accounting Advisory / Tax / Deal / Risk / Consulting workflow를 자료수집→판단→계산/대사→문서화→리뷰 흐름으로 쓰고, 기존 33개 task를 service-line·산출물·AI insertion point에 재매핑한다.
 - Evidence: docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md
 - Gap: 기존 taxonomy는 task 목록은 있지만 감사팀·회계자문팀·세무팀 등 실제 팀별 업무 흐름과 산출물 맥락이 약해 다음 자동화 후보가 제품/PoC 관점에서 설명력이 부족하다.
-- Status: [ ]
+- Status: [x]
 
-### Completed Milestones (firm-service-map)
+- Completed at: 2026-07-04
+- Summary: 팀별 workflow 문서화 완료 — Audit/F-ACC 중심 재매핑, 33 task service-line 매핑
 <!-- harness:milestone id="FM1" status="completed" priority="P0" evidence="docs/practice-map/company-map.md;docs/plans/2026-07-04-fm1-company-service-line-map.md" -->
 #### FM1 — 회계법인 company/service-line map
 - DoD: Big4·로컬 회계법인의 공개 서비스 구조를 기준으로 service-line v0를 만들고, 각 팀의 고객·산출물·AI insertion point·기존 자산 위치를 정리한다.
@@ -110,9 +111,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** FM2 — 팀별 회계사 workflow 문서화. `docs/practice-map/company-map.md`를 기준으로
-Audit / Accounting Advisory / Tax / Deal / Risk / Consulting workflow를 다시 쓰고 33개 task를
-service-line·산출물·AI insertion point에 재매핑한다.
+**[현재 active 없음]** FM2 완료 — `docs/practice-map/team-workflows.md`에서 Audit / Accounting
+Advisory / Tax / Deal / Risk / Consulting workflow를 정리하고 33개 task를 service-line·산출물·
+AI insertion point에 재매핑했다. 다음은 FM3 — service-line 기반 AI 후보 재판정.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → **회계법인 서비스라인 지도(현재)** → 지도 기반 자동화 확장 → 프로덕트 패키징.
 

@@ -18,23 +18,23 @@ Out of scope:
 
 ## Step tree
 
-- [ ] **Step 1 — workflow template 확정**  
+- [x] **Step 1 — workflow template 확정**
   각 service-line을 자료수집 → 판단 → 계산/대사 → 문서화 → 리뷰/커뮤니케이션으로 통일해 쓴다.  
   (verify: `docs/practice-map/team-workflows.md` template section)
 
-- [ ] **Step 2 — Audit / Assurance workflow 작성**  
+- [x] **Step 2 — Audit / Assurance workflow 작성**
   감사계획, 내부통제, 세부테스트, 회계이슈, 보고서/KAM 흐름을 A task와 연결한다.  
   (verify: `docs/practice-map/team-workflows.md` F-AUD section)
 
-- [ ] **Step 3 — Accounting Advisory / F-S 지원 workflow 작성**  
+- [x] **Step 3 — Accounting Advisory / F-S 지원 workflow 작성**
   회계처리 판단, 결산분개, 재무제표/주석 작성, 리스/금융상품 검토메모 흐름을 B task와 연결한다.  
   (verify: `docs/practice-map/team-workflows.md` F-ACC section)
 
-- [ ] **Step 4 — Tax / Deal / Risk / Consulting workflow 요약**  
+- [x] **Step 4 — Tax / Deal / Risk / Consulting workflow 요약**
   자동화 실험 경계와 보류 이유를 service-line별로 분리한다.  
   (verify: `docs/practice-map/team-workflows.md` remaining sections)
 
-- [ ] **Step 5 — 기존 taxonomy 재매핑 표 작성**  
+- [x] **Step 5 — 기존 taxonomy 재매핑 표 작성**
   33개 task를 service-line, 산출물, AI insertion point에 다시 연결한다.  
   (verify: `docs/practice-map/team-workflows.md` remap table)
 
