@@ -20,6 +20,13 @@
     {
       "step": 3,
       "name": "anomaly-note-renderer",
+      "status": "completed",
+      "summary": "AP3 added AnomalyFinding, detect_anomalies(), and render_anomaly_note(). The synthetic fixture now produces threshold findings for large line changes, operating margin drop, and debt-to-equity rise, with review questions and explicit audit-boundary wording. Verified by tests/test_audit_analytics.py.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 4,
+      "name": "f-acc-output-linkage",
       "status": "pending"
     }
   ]

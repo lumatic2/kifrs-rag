@@ -1,6 +1,6 @@
 # Step 3: anomaly-note-renderer
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -25,3 +25,9 @@ git diff --check
 
 - finding을 감사결론으로 표현하지 않는다. 이유: AP3는 이상징후 메모 초안이다.
 - 산업 benchmark나 외부 데이터를 사용하지 않는다.
+
+## 완료 요약
+
+`AnomalyFinding`, `detect_anomalies()`, `render_anomaly_note()`를 추가했다. synthetic fixture에서 큰 line
+변동, 영업이익률 하락, 부채비율 상승을 finding으로 만들고 review question과 감사 책임 경계를 markdown
+메모에 표시한다. `tests/test_audit_analytics.py` 6개가 통과했다.

@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 StatementKind = Literal["balance_sheet", "income_statement"]
+FindingSeverity = Literal["info", "warning", "critical"]
 
 
 @dataclass(frozen=True)
@@ -29,3 +30,13 @@ class AnalyticalMetric:
     prior_value: float | None = None
     change_amount: float | None = None
     change_pct: float | None = None
+
+
+@dataclass(frozen=True)
+class AnomalyFinding:
+    finding_id: str
+    severity: FindingSeverity
+    metric_id: str
+    message: str
+    review_questions: list[str]
+    linked_statement_candidates: list[str]

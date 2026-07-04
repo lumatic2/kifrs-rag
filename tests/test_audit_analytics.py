@@ -2,7 +2,12 @@
 
 import pytest
 
-from kifrs.workflows.audit_analytics import SYNTHETIC_FS, calculate_metrics
+from kifrs.workflows.audit_analytics import (
+    SYNTHETIC_FS,
+    calculate_metrics,
+    detect_anomalies,
+    render_anomaly_note,
+)
 from kifrs.workflows.audit_analytics.schema import AnalyticalProcedureInput
 
 
@@ -45,3 +50,22 @@ def test_requires_at_least_two_periods():
 
     with pytest.raises(ValueError):
         calculate_metrics(source)
+
+
+def test_detect_anomalies_from_thresholds():
+    findings = detect_anomalies(calculate_metrics(SYNTHETIC_FS))
+
+    assert any(f.finding_id == "line-change:매출채권" for f in findings)
+    assert any(f.finding_id == "ratio:operating_margin_drop" and f.severity == "critical" for f in findings)
+    assert any(f.finding_id == "ratio:debt_to_equity_rise" for f in findings)
+    assert all(f.review_questions for f in findings)
+
+
+def test_render_anomaly_note_keeps_audit_boundary_visible():
+    findings = detect_anomalies(calculate_metrics(SYNTHETIC_FS))
+    note = render_anomaly_note(SYNTHETIC_FS.entity, findings)
+
+    assert "# 분석적 절차 이상징후 메모" in note
+    assert "감사결론, 중요성, 표본설계, KAM 판단은 포함하지 않음" in note
+    assert "ratio:operating_margin_drop" in note
+    assert "리뷰 질문" in note
