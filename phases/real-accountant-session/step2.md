@@ -12,6 +12,7 @@
 ## Acceptance Criteria
 
 ```powershell
+python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08
 Test-Path docs\reports\real-accountant-session\actual-feedback-notes.md
 python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl
 ```

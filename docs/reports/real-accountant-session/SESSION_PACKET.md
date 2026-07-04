@@ -63,3 +63,9 @@ python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-acco
 ```
 
 실제 ledger도 reviewer 실명, 회사명, 고객명, 계약 정보 없이 alias와 상태만 기록한다.
+
+ledger를 직접 편집하지 말고 아래 명령으로 상태를 갱신한다.
+
+```powershell
+python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes "invite sent"
+```
