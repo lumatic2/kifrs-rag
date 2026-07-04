@@ -101,6 +101,14 @@ IFRS1109_SCOPE_RULES = (
     },
 )
 
+IFRS1109_CLASSIFICATION_RULES = (
+    {
+        "all": ("SPPI",),
+        "any": ("불충족", "원리금", "당기손익", "공정가치"),
+        "subquery": "상각후원가 기타포괄손익 공정가치 조건 아니라면 당기손익 공정가치 측정 금융자산",
+    },
+)
+
 
 # retriever 이름 → (query, limit) → list[dict(standard, no, ...)]
 RETRIEVERS = {
@@ -111,6 +119,7 @@ RETRIEVERS = {
     "source_routed_hybrid": lambda q, k: search_source_routed_hybrid(q, None, limit=k),
     "ifrs1115_subquery_hybrid": lambda q, k: search_ifrs1115_subquery_hybrid(q, None, limit=k),
     "ifrs1109_scope_hybrid": lambda q, k: search_ifrs1109_scope_hybrid(q, None, limit=k),
+    "ifrs1109_classification_hybrid": lambda q, k: search_ifrs1109_classification_hybrid(q, None, limit=k),
     "hierarchical": lambda q, k: search_hierarchical(q, None, limit=k),
     "reranked": lambda q, k: search_reranked(q, None, limit=k, candidates=50),
 }
@@ -348,6 +357,14 @@ def ifrs1109_scope_subquery(query: str) -> str | None:
     return None
 
 
+def ifrs1109_classification_subquery(query: str) -> str | None:
+    """Return a narrow 1109 classification subquery for accepted Q040-style gaps."""
+    for rule in IFRS1109_CLASSIFICATION_RULES:
+        if all(term in query for term in rule["all"]) and any(term in query for term in rule["any"]):
+            return str(rule["subquery"])
+    return None
+
+
 def search_source_routed_hybrid(query: str, standard: str | None = None, limit: int = 20) -> list[dict]:
     """Experimental retriever: fuse baseline hybrid with accepted-cluster standard routing.
 
@@ -424,6 +441,21 @@ def search_ifrs1109_scope_hybrid(query: str, standard: str | None = None, limit:
         supplemental_limit=1,
         limit=limit,
     )
+
+
+def search_ifrs1109_classification_hybrid(
+    query: str,
+    standard: str | None = None,
+    limit: int = 20,
+) -> list[dict]:
+    """Experimental retriever: add 1109 residual FVTPL classification evidence."""
+    subquery = ifrs1109_classification_subquery(query)
+    if standard or not subquery:
+        return search_ifrs1109_scope_hybrid(query, standard, limit=limit)
+    candidate_limit = max(100, limit)
+    baseline = search_ifrs1109_scope_hybrid(query, None, limit=candidate_limit)
+    supplemental = search_hybrid(subquery, "1109", limit=candidate_limit)
+    return rrf_fuse_results([baseline, supplemental], limit=limit)
 
 
 def main(argv: list[str] | None = None) -> None:

@@ -1,6 +1,7 @@
 from kifrs.eval.retrieval import (
     citation_rank_bucket,
     gold_rank_summary,
+    ifrs1109_classification_subquery,
     ifrs1109_scope_subquery,
     ifrs1115_subquery,
     insert_supplemental_results,
@@ -241,3 +242,13 @@ def test_insert_supplemental_results_preserves_baseline_order_and_deduplicates()
         ("1116", "26"),
         ("1115", "22"),
     ]
+
+
+def test_ifrs1109_classification_subquery_accepts_reviewed_sppi_gap():
+    assert ifrs1109_classification_subquery(
+        "SPPI 불충족 채무상품은 당기손익 공정가치로 분류하는가?"
+    ) == "상각후원가 기타포괄손익 공정가치 조건 아니라면 당기손익 공정가치 측정 금융자산"
+
+
+def test_ifrs1109_classification_subquery_rejects_scope_gap():
+    assert ifrs1109_classification_subquery("리스부채는 1109호 금융부채로 회계처리해야 하는가?") is None
