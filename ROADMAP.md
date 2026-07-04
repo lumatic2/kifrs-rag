@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-04 (FM3 service-line 후보 재판정 완료)
+> 마지막 업데이트: 2026-07-04 (F-ACC review pack horizon 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,46 +26,40 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — firm-service-map
+## Current Horizon — f-acc-review-pack
 
-<!-- harness:goal id="firm-service-map" status="active" -->
-목표: 회계법인 service-line/company map을 세우고 팀별 workflow와 AI insertion point를 재매핑해,
-다음 구현 후보를 "법인 팀/산출물" 기준으로 다시 고른다. 상세 plan → `docs/horizons/firm-service-map.md`.
+<!-- harness:goal id="f-acc-review-pack" status="active" -->
+목표: 1116 리스 엔진과 주석 초안을 회계자문팀(F-ACC) workpaper pack으로 묶어, 법인 PoC에서
+"이 팀의 이 산출물을 줄인다"가 보이는 제품 표면을 만든다. 상세 plan → `docs/horizons/f-acc-review-pack.md`.
 
-### Completed Milestones (firm-service-map)
-<!-- harness:milestone id="FM3" status="completed" priority="P0" evidence="docs/practice-map/service-line-candidates.md;docs/plans/2026-07-04-fm3-service-line-candidate-reprioritization.md" -->
-#### FM3 — service-line 기반 AI 후보 재판정
-- DoD: 기존 PM3 후보를 Audit용, Accounting Advisory용, Tax-agent 이관, Deal/FAS 후보, 내부자료 필요 보류로 다시 나누고, service-line 설명력·산출물 명확성·현업 피드백 가능성 기준으로 다음 구현 후보를 재정렬한다.
-- Evidence: docs/practice-map/service-line-candidates.md;docs/plans/2026-07-04-fm3-service-line-candidate-reprioritization.md
-- Gap: PM3 후보는 로컬 검증성 중심이라 법인 PoC에서 어느 팀의 어떤 산출물에 붙는지 설명력이 약했다.
+### Completed Milestones (f-acc-review-pack)
+<!-- harness:milestone id="RP1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp1-1116-review-pack-sample.md" -->
+#### RP1 — 1116 review pack contract + renderer
+- DoD: 기존 1116 runner/review memo/disclosure output을 하나의 structured review pack과 markdown workpaper 초안으로 묶고, fixture 기반 테스트와 sample report를 남긴다.
+- Evidence: kifrs/workflows/kifrs1116/review_pack.py;tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp1-1116-review-pack-sample.md
+- Gap: 1116 엔진과 주석 초안은 있지만 회계자문팀이 실제로 받을 수 있는 검토메모+분개+주석+리뷰 checklist 패키지 산출물이 없다.
 - Status: [x]
 
 - Completed at: 2026-07-04
-- Summary: F-ACC review pack(1116 리스 검토메모+분개+주석)을 FM4 1순위 후보로 재판정. 1115 수익 계약 엔진은 2순위, A5/E2/D2/D3는 보류 또는 이관.
-<!-- harness:milestone id="FM2" status="completed" priority="P0" evidence="docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md" -->
-#### FM2 — 팀별 회계사 workflow 문서화
-- DoD: FM1 service-line map을 기준으로 Audit / Accounting Advisory / Tax / Deal / Risk / Consulting workflow를 자료수집→판단→계산/대사→문서화→리뷰 흐름으로 쓰고, 기존 33개 task를 service-line·산출물·AI insertion point에 재매핑한다.
-- Evidence: docs/practice-map/team-workflows.md;docs/plans/2026-07-04-fm2-team-workflow-map.md
-- Gap: 기존 taxonomy는 task 목록은 있지만 감사팀·회계자문팀·세무팀 등 실제 팀별 업무 흐름과 산출물 맥락이 약해 다음 자동화 후보가 제품/PoC 관점에서 설명력이 부족하다.
+- Summary: 1116 F-ACC review pack contract+renderer 구현, 신규/기존 1116 테스트 20개 통과
+<!-- harness:milestone id="RP2" status="completed" priority="P0" evidence="tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp2-1116-review-pack-fixture-summary.md" -->
+#### RP2 — fixture regression + sample pack 확장
+- DoD: 기존 1116 fixture 전체에서 review pack 생성 상태를 검증하고, automated / needs_human_review 경계가 AE1 완료율과 일치하는지 요약 리포트로 남긴다.
+- Evidence: tests/test_1116_review_pack.py;docs/reports/2026-07-04-rp2-1116-review-pack-fixture-summary.md
+- Gap: RP1은 대표 fixture 산출물은 만들었지만, 전체 1116 fixture에 review pack contract가 안정적으로 적용되는지 별도 evidence가 없었다.
 - Status: [x]
 
 - Completed at: 2026-07-04
-- Summary: 팀별 workflow 문서화 완료 — Audit/F-ACC 중심 재매핑, 33 task service-line 매핑
-<!-- harness:milestone id="FM1" status="completed" priority="P0" evidence="docs/practice-map/company-map.md;docs/plans/2026-07-04-fm1-company-service-line-map.md" -->
-#### FM1 — 회계법인 company/service-line map
-- DoD: Big4·로컬 회계법인의 공개 서비스 구조를 기준으로 service-line v0를 만들고, 각 팀의 고객·산출물·AI insertion point·기존 자산 위치를 정리한다.
-- Evidence: docs/practice-map/company-map.md;docs/plans/2026-07-04-fm1-company-service-line-map.md
-- Gap: `practice-map`은 회계사 task taxonomy는 만들었지만, 회계법인의 팀/company map을 별도 evidence로 두지 않아 조직 맥락 없이 자동화 후보가 선정됐다.
-- Status: [x]
-
-- Completed at: 2026-07-04
-- Summary: `company-map.md` v0 작성 — Audit, Accounting Advisory, Tax, Deal/FAS, Risk/K-SOX, Consulting/AI, ESG, Forensic service-line과 기존 자산 위치 재해석.
-
+- Summary: 1116 fixture 10개 review pack 생성 검증 완료 — automated 9, needs_human_review 1, 신규/기존 1116 테스트 20개 통과
 ### Next Candidates
-- FM4 — 다음 구현 horizon 선정
+- RP3 — NeedsHumanReview checklist hardening
+- RP4 — PoC demo brief
 - PM2 — 현업 검증(회계사 인터뷰/피드백), 접촉 가능 시 재개
 
 ## Closed Horizons
+
+<!-- harness:goal id="firm-service-map" status="closed" -->
+`docs/horizons/firm-service-map.md` — close (2026-07-04). FM1(company/service-line map) + FM2(team workflow map) + FM3(service-line 후보 재판정) 완료. FM4 결정: 다음 구현 horizon은 F-ACC review pack(1116 리스 검토메모+분개+주석)으로 확정. 상세 evidence: `docs/practice-map/company-map.md`, `docs/practice-map/team-workflows.md`, `docs/practice-map/service-line-candidates.md`.
 
 <!-- harness:goal id="automation-expansion" status="closed" -->
 `docs/horizons/automation-expansion.md` — close (2026-07-04). AE1(1116 엔진 9/10) + AE2(1116 주석 8/11 자동, DART 3사 대사) 완료. 완료율 축 2-도메인화 + 커버리지 축 3→4/33. AE3(NeedsHumanReview 인터페이스)는 신호 종속으로 이월. Objective 임팩트: 두 축 동시 전진, 차별점 가설 2차 지지.
@@ -99,11 +93,10 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** FM3 완료 — `docs/practice-map/service-line-candidates.md`에서 기존 PM3 후보를
-service-line 기준으로 재판정했다. 결론은 F-ACC(Accounting Advisory / F-S support) 집중. 다음은
-FM4 — 다음 구현 horizon 선정.
+**[현재 active 없음]** RP1/RP2 완료 — 기존 1116 엔진과 주석 초안을 회계자문팀 workpaper pack으로
+묶었고, 1116 fixture 10개 전체에서 review pack 생성 상태를 검증했다. 다음은 RP3 또는 RP4.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → **회계법인 서비스라인 지도(현재)** → 지도 기반 자동화 확장 → 프로덕트 패키징.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → **F-ACC review pack(현재)** → 프로덕트 패키징.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

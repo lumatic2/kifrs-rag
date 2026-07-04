@@ -10,10 +10,21 @@
 
 1. **시험 수준** — 2차 기출 정확 인용 + 적용 해설 ✅ (누적 86%)
 2. **실무 시나리오 자동화** — 1109 결정 엔진, 완료율 6/10 ✅
-3. **업무 지도** — 회계사 업무 taxonomy + 자동화 가능성 매핑 — **현재 진행 단계**
-4. **자동화 확장 → 프로덕트 패키징 → 법인 소개** — 지도가 고른 업무의 엔진화, 도구킷 정비, 현업 피드백
+3. **업무 지도 / 회계법인 service-line 지도** — 회계사 업무 taxonomy + 회계법인 팀별 workflow + 자동화 가능성 매핑 ✅
+4. **F-ACC review pack 구현 → 프로덕트 패키징 → 법인 소개** — 회계자문팀 산출물 단위 workpaper pack, 도구킷 정비, 현업 피드백
 
 각 단계는 **이전 단계가 검증된 후에만** 다음 단계로 진행. 단계 건너뛰기 금지.
+
+### Firm Service Map 빠른 위치
+
+회계법인 조직/팀별 업무 맥락을 다시 물으면 아래 순서로 답한다.
+
+1. `docs/horizons/firm-service-map.md` — 왜 회계법인 service-line 지도를 만들었는지, FM1~FM4의 전체 맥락
+2. `docs/practice-map/company-map.md` — 감사, 회계자문/F-S support, 세무, Deal/FAS, Risk/K-SOX, Consulting/ESG/Forensic 등 회계법인 팀 구조
+3. `docs/practice-map/team-workflows.md` — 팀별 workflow: 자료수집 → 판단 → 계산/대사 → 문서화 → 리뷰/커뮤니케이션
+4. `docs/practice-map/service-line-candidates.md` — AI가 어디에 들어가면 효과가 큰지와 다음 구현 후보
+
+현재 결론: 다음 구현은 **F-ACC(Accounting Advisory / F-S support) review pack**이다. 즉 1116 리스 계약을 입력하면 검토메모, 계산/분개, 주석 초안, 사람 검토 필요 항목을 묶어 회계자문팀 workpaper pack으로 내는 방향이다. 감사팀은 보조 적용처, 세무/D3는 `tax-agent`, Deal/Risk는 내부자료 의존 때문에 후순위다.
 
 ## 배경 및 포지셔닝
 

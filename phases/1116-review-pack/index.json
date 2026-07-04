@@ -1,0 +1,21 @@
+{
+  "project": "kifrs-rag",
+  "phase": "1116-review-pack",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "review-pack-contract-renderer",
+      "status": "completed",
+      "summary": "Added kifrs/workflows/kifrs1116/review_pack.py plus tests/test_1116_review_pack.py and a public sample report; RP1 composes existing 1116 runner, memo, journal entry, disclosure, checklist without adding new judgment logic. Verification passed: 20 tests.",
+      "completed_at": "2026-07-04T21:55:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "fixture-review-pack-regression",
+      "status": "completed",
+      "summary": "Extended tests/test_1116_review_pack.py to cover all 10 fixtures and added docs/reports/2026-07-04-rp2-1116-review-pack-fixture-summary.md. Result: 9 automated review packs and 1 needs_human_review, matching AE1 completion boundary. Verification passed: 20 tests.",
+      "completed_at": "2026-07-04T22:00:00+09:00"
+    }
+  ]
+}
