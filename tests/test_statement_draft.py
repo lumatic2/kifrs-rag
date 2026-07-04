@@ -51,8 +51,33 @@ def test_1115_review_pack_adapts_revenue_contract_liability_and_measurement_note
 
     assert any(item.statement == "income_statement" and item.line_item == "수익" for item in items)
     assert any(item.statement == "balance_sheet" and item.line_item == "계약부채" for item in items)
-    assert any(item.statement == "note" and item.source_field == "measurement" for item in items)
+    assert any(
+        item.statement == "note" and item.source_field == "measurement" and "deferred=" in item.line_item
+        for item in items
+    )
     assert any(item.review_questions for item in items)
+
+
+def test_1115_statement_draft_pilot_covers_financing_component_lines():
+    pack = pack_1115(FIXTURES_1115[2])
+    items = from_1115_review_pack(pack)
+
+    assert any(item.line_item == "매출채권" and item.statement == "balance_sheet" for item in items)
+    assert any(item.line_item == "수익" and item.statement == "income_statement" for item in items)
+    assert any(item.line_item == "이연금융수익" and item.statement == "balance_sheet" for item in items)
+    assert any(item.source_field == "measurement" and "financing=100,000" in item.line_item for item in items)
+
+
+def test_1115_statement_draft_pilot_covers_repurchase_financing_lines():
+    pack = pack_1115(FIXTURES_1115[3])
+    items = from_1115_review_pack(pack)
+
+    assert any(item.line_item == "금융부채" and item.statement == "balance_sheet" for item in items)
+    assert any(item.line_item == "금융비용" and item.statement == "income_statement" for item in items)
+    assert any(
+        item.source_field == "measurement" and "repurchase_liability=1,000,000" in item.line_item
+        for item in items
+    )
 
 
 def test_1116_review_pack_adapts_lease_asset_liability_and_disclosure_note():

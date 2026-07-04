@@ -1,6 +1,6 @@
 # Step 4: 1115-statement-draft-pilot
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -28,3 +28,10 @@ git diff --check
 
 - 1115 판단 path를 새로 늘리지 않는다. 이유: FS4는 표시 pilot이지 revenue engine 확장이 아니다.
 - 계약 원문 검토, SSP 확률 검증, 지급조건 판단을 자동 확정하지 않는다.
+
+## 완료 요약
+
+1115 statement draft pilot을 테스트로 고정했다. material right는 수익/계약부채, significant financing은
+매출채권/수익/이연금융수익, repurchase financing은 금융부채/금융비용 후보를 생성한다. measurement
+note 후보에는 revenue/deferred/financing/repurchase liability 금액이 들어간다.
+`tests/test_statement_draft.py`, `tests/test_workflow_1115.py`, `tests/test_1115_review_pack.py`가 통과했다.

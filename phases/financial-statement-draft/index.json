@@ -27,6 +27,13 @@
     {
       "step": 4,
       "name": "1115-statement-draft-pilot",
+      "status": "completed",
+      "summary": "FS4 hardened the 1115 statement draft pilot: material-right, significant-financing, and repurchase financing review packs now produce explicit revenue, contract liability, receivable, deferred financing income, financial liability, and finance cost candidates, with measurement note amounts. Verified with statement draft, 1115 workflow, and 1115 review-pack tests.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 5,
+      "name": "fs-draft-report",
       "status": "pending"
     }
   ]

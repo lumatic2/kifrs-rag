@@ -98,7 +98,13 @@ def from_1115_review_pack(pack: ReviewPack1115) -> list[StatementLineCandidate]:
         items.append(
             StatementLineCandidate(
                 statement="note",
-                line_item=f"수익인식 측정: {pack.measurement.path}",
+                line_item=(
+                    f"수익인식 측정: {pack.measurement.path}; "
+                    f"revenue={pack.measurement.recognized_revenue:,.0f}; "
+                    f"deferred={pack.measurement.deferred_revenue:,.0f}; "
+                    f"financing={pack.measurement.financing_effect:,.0f}; "
+                    f"repurchase_liability={pack.measurement.repurchase_liability:,.0f}"
+                ),
                 source_standard=pack.standard,
                 source_case_id=pack.case_id,
                 source_field="measurement",
