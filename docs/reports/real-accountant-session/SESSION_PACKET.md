@@ -109,6 +109,14 @@ python scripts\real_accountant_invite_packet.py
 python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl
 ```
 
+초대 후 응답 상황별 follow-up/schedule/decline 문구와 ledger 갱신 명령은 아래 명령으로 출력한다.
+
+```powershell
+python scripts\real_accountant_response_packet.py --response follow_up
+python scripts\real_accountant_response_packet.py --response schedule
+python scripts\real_accountant_response_packet.py --response decline
+```
+
 실제 ledger도 reviewer 실명, 회사명, 고객명, 계약 정보 없이 alias와 상태만 기록한다.
 
 ledger를 직접 편집하지 말고 아래 명령으로 상태를 갱신한다.

@@ -17,6 +17,7 @@ CLI까지 준비했다.
 - [x] RS1 — session packet prep. (verify: `Test-Path docs\reports\real-accountant-session\SESSION_PACKET.md`)
 - [ ] RS2 — run actual accountant session. (verify: actual public-safe notes exist; prep CLI:
   `python scripts\real_accountant_invite_packet.py`;
+  `python scripts\real_accountant_response_packet.py --response schedule`;
   `python scripts\real_accountant_run_sheet.py`;
   `python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08`;
   scaffold: `python scripts\real_accountant_notes_scaffold.py --out docs\reports\real-accountant-session\actual-feedback-notes.md --date 2026-07-05 --reviewer-role "CPA reviewer" --reviewer-service-line "F-ACC" --reviewer-experience-context "reviewed accounting advisory workpapers" --session-mode "async review"`;
