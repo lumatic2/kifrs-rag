@@ -76,8 +76,9 @@
 
 ## Active horizon
 
-현재 active horizon 없음. 방금 완료한 horizon은 `multi-authority-runtime-integration`이며, 다음 추천 horizon은
-`field-feedback-ready-demo`다.
+현재 active horizon 없음. 방금 완료한 horizon은 `field-feedback-ready-demo`이며, 다음은 회계사 피드백
+수집 후 `feedback-incorporation`, `real-anonymized-transaction-poc`, `firm-introduction-material` 중 하나를
+선택한다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-최근 완료 horizon 상세: `docs/horizons/multi-authority-runtime-integration.md`
+최근 완료 horizon 상세: `docs/horizons/field-feedback-ready-demo.md`

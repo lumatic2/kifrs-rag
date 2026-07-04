@@ -1,0 +1,40 @@
+{
+  "id": "field-feedback-ready-demo",
+  "status": "completed",
+  "horizon": "../../docs/horizons/field-feedback-ready-demo.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "FF1",
+      "file": "step1.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:48:00+09:00",
+      "completed_at": "2026-07-05T04:49:43+09:00",
+      "summary": "Created docs/reports/field-feedback/2026-07-05-demo-brief.md. The brief updates the 10-minute flow around current demo outputs, including review-pack external evidence panels, statement-candidates Evidence column, evidence-boundary.md, audit analytics linkage, and explicit human-review/non-substitution boundaries."
+    },
+    {
+      "id": "FF2",
+      "file": "step2.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:50:00+09:00",
+      "completed_at": "2026-07-05T04:50:58+09:00",
+      "summary": "Created docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md. The questionnaire collects score and narrative feedback across accuracy/evidence, usefulness, review burden, risk/control, and next PoC candidates, with explicit questions about evidence boundary and synthetic fact risk."
+    },
+    {
+      "id": "FF3",
+      "file": "step3.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:51:00+09:00",
+      "completed_at": "2026-07-05T04:51:52+09:00",
+      "summary": "Created docs/reports/field-feedback/2026-07-05-known-limitations.md. It separates data/copyright boundary, judgment responsibility, external evidence boundary, synthetic fact boundary, audit analytics boundary, and next-PoC questions, emphasizing that accountant review remains required."
+    },
+    {
+      "id": "FF4",
+      "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:52:00+09:00",
+      "completed_at": "2026-07-05T04:52:20+09:00",
+      "summary": "Closed field feedback package with docs/reports/field-feedback/INDEX.md and docs/reports/2026-07-05-ff4-feedback-package-close-report.md. The package links the refreshed demo brief, questionnaire, known limitations, demo bundle, evidence boundary, and statement candidates; close gate passed demo regeneration, focused tests, quality_preflight, and diff check."
+    }
+  ]
+}

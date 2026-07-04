@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Multi-Authority Runtime Integration 완료)
+> 마지막 업데이트: 2026-07-05 (Field Feedback Ready Demo 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,13 +26,18 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — next feedback-ready demo selection
+## Current Horizon — waiting for field feedback
 
-`multi-authority-runtime-integration`은 완료. 다음 추천 horizon은 `field-feedback-ready-demo`:
-최신 runtime evidence demo를 회계사 피드백용 brief/questionnaire/known-limitations package로 정리한다.
-제안 근거: `docs/reports/2026-07-05-rt5-runtime-close-demo.md`.
+`field-feedback-ready-demo`은 완료. 다음 구현 horizon은 실제 회계사 피드백을 받은 뒤 선택한다.
+피드백 패키지: `docs/reports/field-feedback/INDEX.md`.
+후보: `feedback-incorporation`, `real-anonymized-transaction-poc`, `firm-introduction-material`.
 
 ## Closed Horizons
+
+<!-- harness:goal id="field-feedback-ready-demo" status="closed" -->
+`docs/horizons/field-feedback-ready-demo.md` — close (2026-07-05). FF1~FF4 완료:
+runtime-aware demo brief, feedback questionnaire, known limitations/human-review boundary, feedback package smoke.
+Evidence: `docs/reports/2026-07-05-ff4-feedback-package-close-report.md`.
 
 <!-- harness:goal id="multi-authority-runtime-integration" status="closed" -->
 `docs/horizons/multi-authority-runtime-integration.md` — close (2026-07-05). RT1~RT5 완료:
@@ -112,8 +117,8 @@ eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. `multi-authority-runtime-integration` 완료. 다음 추천:
-`field-feedback-ready-demo` — 최신 runtime evidence demo를 회계사 피드백용 package로 정리.
+**[현재 active]** 없음. `field-feedback-ready-demo` 완료. 다음은 사용자 액션:
+회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고 질문지 답변을 받는다.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
