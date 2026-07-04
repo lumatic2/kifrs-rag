@@ -34,6 +34,10 @@
     },
     {
       "dir": "rag-quality-refresh",
+      "status": "completed"
+    },
+    {
+      "dir": "authority-source-map",
       "status": "active"
     }
   ]

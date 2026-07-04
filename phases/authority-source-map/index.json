@@ -1,0 +1,14 @@
+{
+  "id": "authority-source-map",
+  "status": "active",
+  "horizon": "../../docs/horizons/authority-source-map.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "AS1",
+      "file": "step1.md",
+      "status": "next"
+    }
+  ]
+}
+

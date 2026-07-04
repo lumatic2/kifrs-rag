@@ -76,8 +76,8 @@
 
 ## Active horizon
 
-`rag-quality-refresh` — K-IFRS RAG 자체 품질을 다시 검증하고, K-IFRS 외 정보원 확장 전에 검색/답변/eval
-기반을 단단하게 만든다.
+`authority-source-map` — K-IFRS 외 회계 업무 정보원을 권위 수준, 사용 목적, 저작권/저장 정책,
+ingestion 가능성, citation policy 기준으로 catalog화한다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-현재 horizon 상세: `docs/horizons/rag-quality-refresh.md`
+현재 horizon 상세: `docs/horizons/authority-source-map.md`

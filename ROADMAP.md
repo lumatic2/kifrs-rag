@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Accounting Intelligence Expansion 시작)
+> 마지막 업데이트: 2026-07-05 (Authority Source Map 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,39 +26,37 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — rag-quality-refresh
+## Current Horizon — authority-source-map
 
-<!-- harness:goal id="rag-quality-refresh" status="active" -->
-K-IFRS RAG 자체 품질을 다시 검증하고, K-IFRS 외 정보원 확장 전에 검색/답변/eval 기반을 단단하게 만든다.
-큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md` · 상세: `docs/horizons/rag-quality-refresh.md`
+<!-- harness:goal id="authority-source-map" status="active" -->
+K-IFRS 외 회계 업무 정보원을 권위 수준, 사용 목적, 저장 정책, ingestion 가능성, citation policy 기준으로 catalog화한다.
+큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md` · 상세: `docs/horizons/authority-source-map.md`
 
 ### Next Candidates
-- RQ1 — current quality baseline
-- RQ2 — eval coverage refresh
-- RQ3 — retrieval failure taxonomy
-- RQ4 — retrieval/answer policy upgrade
-- RQ5 — quality gate report
+- AS1 — source taxonomy
+- AS2 — authority and citation policy
+- AS3 — copyright and storage boundary
+- AS4 — ingestion feasibility matrix
+- AS5 — first connector recommendation
 
 ## Closed Horizons
 
+<!-- harness:goal id="rag-quality-refresh" status="closed" -->
+`docs/horizons/rag-quality-refresh.md` — close (2026-07-05). RQ1~RQ5 완료: current quality baseline,
+eval coverage, retrieval failure taxonomy, per-retriever miss reporting, quality gate report. Evidence:
+`docs/reports/2026-07-05-rq5-quality-gate-report.md`, `kifrs/eval/retrieval.py`, `tests/test_eval_retrieval.py`.
+
 <!-- harness:goal id="product-packaging-poc" status="closed" -->
-`docs/horizons/product-packaging-poc.md` — close (2026-07-05). PK1~PK5 완료: 1115 중심 demo scenario,
-demo command, sample output bundle, README setup guide, 10분 brief/feedback questionnaire. Evidence:
-`scripts/demo_poc.py`, `docs/reports/demo-poc/`, `docs/reports/2026-07-05-pk5-demo-brief-feedback.md`.
+`docs/horizons/product-packaging-poc.md` — close (2026-07-05). PK1~PK5 완료: demo command/output bundle/README/brief. Evidence: `scripts/demo_poc.py`, `docs/reports/demo-poc/`.
 
 <!-- harness:goal id="f-audit-analytical-procedures" status="closed" -->
-`docs/horizons/f-audit-analytical-procedures.md` — close (2026-07-05). AP1~AP5 완료: synthetic F/S metrics,
-threshold anomaly memo, F-ACC statement candidate linkage. Evidence: `kifrs/workflows/audit_analytics/`, `tests/test_audit_analytics.py`, `docs/reports/2026-07-05-ap5-analytical-procedure-report.md`.
+`docs/horizons/f-audit-analytical-procedures.md` — close (2026-07-05). AP1~AP5 완료: synthetic F/S metrics, anomaly memo, F-ACC linkage. Evidence: `kifrs/workflows/audit_analytics/`.
 
 <!-- harness:goal id="f-acc-financial-statement-draft" status="closed" -->
 `docs/horizons/f-acc-financial-statement-draft.md` — close (2026-07-05). FS1~FS5 완료: review pack output을 재무상태표/손익/OCI/주석 후보로 변환. Evidence: `kifrs/workflows/statement_draft/`, `tests/test_statement_draft.py`, `docs/reports/2026-07-05-fs5-statement-draft-report.md`.
 
 <!-- harness:goal id="f-acc-1109-hardening" status="closed" -->
-`docs/horizons/f-acc-1109-hardening.md` — close (2026-07-05). FH1~FH5 완료: 1109 blocker taxonomy,
-SPPI reset hardening, 재분류 skeleton, FX dual-track boundary, completion-rate delta. 자동화율 6/10→7/10,
-남은 NeedsHumanReview 3개 중 2개 skeleton/boundary memo 제공. Evidence:
-`docs/reports/2026-07-05-fh5-1109-hardening-delta.md`, `kifrs/workflows/kifrs1109/sppi.py`,
-`kifrs/workflows/kifrs1109/reclassification.py`, `kifrs/workflows/kifrs1109/fx_dual_track.py`.
+`docs/horizons/f-acc-1109-hardening.md` — close (2026-07-05). FH1~FH5 완료: blocker taxonomy, SPPI reset, reclassification/FX boundary, completion delta 6/10→7/10.
 
 <!-- harness:goal id="f-acc-disclosure-generalization" status="closed" -->
 `docs/horizons/f-acc-disclosure-generalization.md` — close (2026-07-05). DG1~DG5 완료: 1116/1115/1109
@@ -112,8 +110,8 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `rag-quality-refresh`. 다음 step은 RQ1 current quality baseline:
-품질/평가/테스트 command inventory → public-safe/private 분리 → 현재 결과 기록 → 실패/coverage gap 분류.
+**[현재 active]** `authority-source-map`. 다음 step은 AS1 source taxonomy:
+source class 분류 → RAG 역할/권위/storage boundary → 현재 authority JSON gap → AS2 쟁점 정리.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
