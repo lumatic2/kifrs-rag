@@ -61,6 +61,14 @@
   - significant_financing_component 경로가 실제 계약 조건과 일치하는지?
   - 금액 산정에 사용한 SSP/확률/현금판매가격이 외부 증거와 일치하는지?
 
+## 외부 근거
+### 해석 보조 근거
+- KASB metadata catalog seed (`kasb-interpretation-material` / `kasb-interpretation-material-catalog-seed`): {"type": "url", "url": "https://www.kasb.or.kr/"}
+### 법적 경계 근거
+- Commercial Act capital transaction locator (`commercial-act-capital` / `commercial-act-capital-locator-seed`): {"article_locator": "capital-transactions", "type": "official_registry", "url": "https://www.law.go.kr/"}
+### 수치 사실 근거
+- Synthetic DART revenue fact (`opendart-structured-financials` / `synthetic-dart-2025-annual-001-revenue`): {"filing_id": "synthetic-dart-2025-annual-001", "line_item": "revenue", "type": "synthetic_filing"}
+
 ## 5. 인용
 - 1115-118
 - 1115-22

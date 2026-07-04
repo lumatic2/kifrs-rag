@@ -16,9 +16,10 @@ only. It does not contain K-IFRS source text, parsed DB rows, embeddings, dogfoo
 | 2 | `1115-significant-financing-review-pack.md` | Primary 1115 judgment, measurement, journal entries, review questions |
 | 3 | `1115-repurchase-review-pack.md` | Primary 1115 repurchase financing path and financial liability output |
 | 4 | `statement-candidates.md` | F/S draft candidates generated from 1115 and 1116 review packs |
-| 5 | `audit-analytics-note.md` | Synthetic F/S analytical procedure findings and review questions |
-| 6 | `audit-facc-links.md` | Links between audit findings and F-ACC statement candidates |
-| 7 | `1116-lease-review-pack.md` | Secondary lease review-pack card |
+| 5 | `evidence-boundary.md` | Separates primary K-IFRS evidence, supporting interpretation, legal boundary, and fact evidence |
+| 6 | `audit-analytics-note.md` | Synthetic F/S analytical procedure findings and review questions |
+| 7 | `audit-facc-links.md` | Links between audit findings and F-ACC statement candidates |
+| 8 | `1116-lease-review-pack.md` | Secondary lease review-pack card |
 
 ## Regeneration
 
@@ -33,3 +34,4 @@ python -m pytest tests/test_demo_poc.py
 - Human accountant review remains required.
 - No protected K-IFRS assets are bundled.
 - No network, DART API, or external credential is required.
+- External evidence is locator/fact metadata only, not copied source body.

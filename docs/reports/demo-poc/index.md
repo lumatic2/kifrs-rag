@@ -6,6 +6,7 @@ Demo scenario: 1115 수익인식 + F/S draft + audit analytics linkage.
 - `1115-significant-financing-review-pack.md`
 - `1115-repurchase-review-pack.md`
 - `statement-candidates.md`
+- `evidence-boundary.md`
 - `audit-analytics-note.md`
 - `audit-facc-links.md`
 - `1116-lease-review-pack.md`

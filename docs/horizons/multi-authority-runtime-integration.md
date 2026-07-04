@@ -1,6 +1,6 @@
 # Horizon: Multi-Authority Runtime Integration
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 > Previous: `docs/horizons/multi-source-ingestion-pipeline.md`
@@ -64,4 +64,3 @@ Deliverable:
 
 - runtime demo report
 - close gate
-

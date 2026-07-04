@@ -105,6 +105,14 @@
   - [1116-53] 리스이용자 주석 요구사항
   - [1116-59] 추가 질적·양적 정보 제공
 
+## 외부 근거
+### 해석 보조 근거
+- KASB metadata catalog seed (`kasb-interpretation-material` / `kasb-interpretation-material-catalog-seed`): {"type": "url", "url": "https://www.kasb.or.kr/"}
+### 법적 경계 근거
+- Commercial Act capital transaction locator (`commercial-act-capital` / `commercial-act-capital-locator-seed`): {"article_locator": "capital-transactions", "type": "official_registry", "url": "https://www.law.go.kr/"}
+### 수치 사실 근거
+- Synthetic DART revenue fact (`opendart-structured-financials` / `synthetic-dart-2025-annual-001-revenue`): {"filing_id": "synthetic-dart-2025-annual-001", "line_item": "revenue", "type": "synthetic_filing"}
+
 ## 6. 인용
 - [1107-39·B11]
 - [1116-22]

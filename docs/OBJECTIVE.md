@@ -76,8 +76,8 @@
 
 ## Active horizon
 
-`multi-authority-runtime-integration` — ingestion/evidence manifest를 실제 review pack, statement draft,
-answer composer가 쓸 수 있는 runtime evidence layer로 연결한다.
+현재 active horizon 없음. 방금 완료한 horizon은 `multi-authority-runtime-integration`이며, 다음 추천 horizon은
+`field-feedback-ready-demo`다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-현재 horizon 상세: `docs/horizons/multi-authority-runtime-integration.md`
+최근 완료 horizon 상세: `docs/horizons/multi-authority-runtime-integration.md`

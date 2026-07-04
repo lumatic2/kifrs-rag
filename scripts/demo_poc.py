@@ -17,6 +17,8 @@ from kifrs.workflows.audit_analytics import (
     link_statement_candidates,
     render_anomaly_note,
 )
+from kifrs.runtime.answer_boundary import compose_evidence_boundary, render_evidence_boundary
+from kifrs.runtime.evidence import load_runtime_evidence
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES as FIXTURES_1115
 from kifrs.workflows.kifrs1115.review_pack import (
     generate_review_pack as generate_1115_pack,
@@ -36,9 +38,16 @@ def generate_demo(scenario: str, out_dir: Path) -> list[Path]:
 
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    significant_financing = generate_1115_pack(_fixture_1115("scenario_03_significant_financing"))
-    repurchase = generate_1115_pack(_fixture_1115("scenario_04_repurchase_call_option"))
-    lease = generate_1116_pack(_fixture_1116("scenario_01_simple_office_lease").txn)
+    evidence_bundle = load_runtime_evidence()
+    significant_financing = generate_1115_pack(
+        _fixture_1115("scenario_03_significant_financing"),
+        evidence_bundle,
+    )
+    repurchase = generate_1115_pack(
+        _fixture_1115("scenario_04_repurchase_call_option"),
+        evidence_bundle,
+    )
+    lease = generate_1116_pack(_fixture_1116("scenario_01_simple_office_lease").txn, evidence_bundle)
 
     statement_candidates = [
         *from_1115_review_pack(significant_financing),
@@ -53,6 +62,9 @@ def generate_demo(scenario: str, out_dir: Path) -> list[Path]:
         "1115-significant-financing-review-pack.md": render_1115_pack(significant_financing),
         "1115-repurchase-review-pack.md": render_1115_pack(repurchase),
         "statement-candidates.md": _statement_candidates_markdown(statement_candidates),
+        "evidence-boundary.md": render_evidence_boundary(
+            compose_evidence_boundary(evidence_bundle, sorted(set(significant_financing.citations + lease.citations)))
+        ),
         "audit-analytics-note.md": render_anomaly_note(SYNTHETIC_FS.entity, findings),
         "audit-facc-links.md": _linked_candidates_markdown(linked),
         "1116-lease-review-pack.md": render_1116_pack(lease),
@@ -85,6 +97,7 @@ def _index_markdown() -> str:
             "- `1115-significant-financing-review-pack.md`",
             "- `1115-repurchase-review-pack.md`",
             "- `statement-candidates.md`",
+            "- `evidence-boundary.md`",
             "- `audit-analytics-note.md`",
             "- `audit-facc-links.md`",
             "- `1116-lease-review-pack.md`",
@@ -100,14 +113,15 @@ def _statement_candidates_markdown(candidates) -> str:
     lines = [
         "# Statement Draft Candidates",
         "",
-        "| Statement | Line item | Amount | Source | Status |",
-        "|---|---|---:|---|---|",
+        "| Statement | Line item | Amount | Source | Status | Evidence |",
+        "|---|---|---:|---|---|---|",
     ]
     for item in candidates:
         amount = "" if item.amount is None else f"{item.amount:,.0f}"
         source = f"{item.source_standard}/{item.source_case_id}/{item.source_field}"
+        evidence = ", ".join(ref["record_id"] for ref in item.evidence_refs)
         lines.append(
-            f"| {item.statement} | {item.line_item} | {amount} | {source} | {item.presentation_status} |"
+            f"| {item.statement} | {item.line_item} | {amount} | {source} | {item.presentation_status} | {evidence} |"
         )
     return "\n".join(lines)
 

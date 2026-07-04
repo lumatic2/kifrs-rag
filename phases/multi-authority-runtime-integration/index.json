@@ -1,6 +1,6 @@
 {
   "id": "multi-authority-runtime-integration",
-  "status": "active",
+  "status": "completed",
   "horizon": "../../docs/horizons/multi-authority-runtime-integration.md",
   "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
   "steps": [
@@ -39,7 +39,10 @@
     {
       "id": "RT5",
       "file": "step5.md",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-07-05T04:44:00+09:00",
+      "completed_at": "2026-07-05T04:45:48+09:00",
+      "summary": "Closed runtime integration with updated demo_poc output. Demo now injects runtime evidence into 1115/1116 review packs, carries fact_evidence refs into statement candidates, writes evidence-boundary.md, and keeps source body/raw payloads out. Close gate passed demo command, focused tests, ingestion validators, quality_preflight, and diff check."
     }
   ]
 }
