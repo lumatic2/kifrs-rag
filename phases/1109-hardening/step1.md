@@ -1,6 +1,6 @@
 # Step 1: 1109-blocker-taxonomy
 
-Status: pending
+Status: completed (2026-07-05)
 
 ## 읽어야 할 파일
 
@@ -23,3 +23,10 @@ git diff --check
 ## 결과물
 
 - `docs/reports/2026-07-05-fh1-1109-blocker-taxonomy.md`
+
+## 결과
+
+- SPPI reset mismatch: FH2 자동화 후보.
+- Reclassification: FH3 검토메모 skeleton 강화.
+- FX dual-track: FH4 1109/1021 boundary 강화.
+- IFRIC19: 이번 FH horizon 자동화 범위 밖 유지.

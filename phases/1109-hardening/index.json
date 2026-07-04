@@ -6,7 +6,9 @@
     {
       "step": 1,
       "name": "1109-blocker-taxonomy",
-      "status": "pending"
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1109 NeedsHumanReview 4개를 자동화 후보, skeleton 강화, 경계 유지로 분류"
     }
   ]
 }
