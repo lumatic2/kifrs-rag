@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 import re
 
 from .initial_entry import JournalEntry
+from .reclassification import generate_reclassification_memo
 from .runner import ScenarioOutcome, run_scenario
 from .fixtures import ScenarioFixture
 
@@ -103,10 +104,22 @@ def _human_review_actions(fixture: ScenarioFixture, outcome: ScenarioOutcome) ->
             return [
                 HumanReviewAction(
                     issue="사업모형 변경에 따른 재분류",
-                    why_blocked="금융자산 재분류는 사업모형 변경의 사실과 적용일 판단이 필요해 단일 fixture 입력으로 자동 결론을 내지 않는다.",
-                    required_inputs=["사업모형 변경 승인 자료", "변경일", "변경 전후 보유 목적", "재분류일 공정가치"],
-                    review_questions=["사업모형 변경이 외부적으로 관찰 가능한지?", "재분류일 이후 전진 적용이 맞는지?"],
-                    candidate_guidance=["K-IFRS 1109 재분류 규정과 전진 적용 여부 검토"],
+                    why_blocked="금융자산 재분류는 사업모형 변경의 사실, 재분류일, 공정가치 입력이 필요해 자동 결론 대신 skeleton을 제공한다.",
+                    required_inputs=[
+                        "사업모형 변경 승인 자료",
+                        "변경일 및 재분류일",
+                        "변경 전후 보유 목적",
+                        "재분류일 공정가치",
+                        "기존 장부금액과 유효이자율",
+                        "변경 전후 분류 후보(AC/FVOCI/FVPL)",
+                    ],
+                    review_questions=[
+                        "사업모형 변경이 외부적으로 관찰 가능한지?",
+                        "경영진 의도 변경만이 아니라 실제 사업 활동 변경인지?",
+                        "재분류일 이후 전진 적용이 맞는지?",
+                        "재분류일 공정가치를 신뢰성 있게 측정할 수 있는지?",
+                    ],
+                    candidate_guidance=["K-IFRS 1109 재분류 규정, 재분류일, 전진 적용 여부 검토"],
                 )
             ]
         if special_case == "fx_dual_track":
@@ -166,7 +179,10 @@ def generate_review_pack(fixture: ScenarioFixture) -> ReviewPack:
     """Run the 1109 pipeline and compose a F-ACC workpaper pack."""
     outcome = run_scenario(fixture)
     needs_review = _human_review_actions(fixture, outcome)
-    citations = _extract_citations(outcome.review_memo)
+    review_memo = outcome.review_memo
+    if fixture.txn.special_case == "reclassification":
+        review_memo = generate_reclassification_memo(fixture.txn)
+    citations = _extract_citations(review_memo)
     for action in needs_review:
         citations.extend(_extract_citations(*action.candidate_guidance))
     citations = sorted(set(citations))
@@ -178,7 +194,7 @@ def generate_review_pack(fixture: ScenarioFixture) -> ReviewPack:
         classification=outcome.classification,
         judgment_summary=_summary_from_outcome(outcome),
         journal_entry=outcome.initial_entry,
-        review_memo=outcome.review_memo,
+        review_memo=review_memo,
         review_checklist=_checklist(outcome, needs_review),
         needs_human_review=needs_review,
         citations=citations,

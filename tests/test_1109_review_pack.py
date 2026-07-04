@@ -37,7 +37,7 @@ def test_needs_human_review_1109_pack_explains_special_case():
 
     assert pack.status == "needs_human_review"
     assert pack.classification is None
-    assert pack.review_memo is None
+    assert pack.review_memo and "1109 재분류 검토메모 skeleton" in pack.review_memo
     assert pack.journal_entry is None
     assert pack.review_checklist[0].status == "needs_human_review"
 

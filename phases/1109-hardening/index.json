@@ -16,6 +16,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "변동금리 reset mismatch를 구조화 입력으로 처리해 scenario_06을 automated AC pack으로 승격"
+    },
+    {
+      "step": 3,
+      "name": "reclassification-memo-skeleton",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "사업모형 변경 재분류 NeedsHumanReview pack에 구조화 검토메모 skeleton을 추가"
     }
   ]
 }
