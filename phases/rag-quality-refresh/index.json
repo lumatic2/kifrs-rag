@@ -34,6 +34,15 @@
     {
       "id": "RQ4",
       "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-rq4-policy-upgrade.md",
+      "summary": "Retrieval reporting upgraded: miss_summary_by_retriever now prints misses per retriever, tests added, lexical/hybrid retrieval output verified, and gate policy separates always-on from slow diagnostic benchmarks."
+    },
+    {
+      "id": "RQ5",
+      "file": "step5.md",
       "status": "next"
     }
   ]

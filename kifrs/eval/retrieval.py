@@ -133,14 +133,28 @@ def _print_table(report: dict) -> None:
         row = f"{name:<10}" + "".join(f"{agg[mk]:>11.3f}" for mk in metric_keys)
         print(row)
     print()
-    # 문항별 miss 요약 (hybrid 기준, 있으면)
-    ref = report["retrievers"].get("hybrid") or next(iter(report["retrievers"].values()))
-    misses = [(p["id"], p["miss"]) for p in ref["per_item"] if p.get("miss")]
-    if misses:
-        print("문항별 정답 miss (top-K 밖):")
-        for iid, miss in misses:
-            print(f"  {iid}: {miss}")
+    misses_by_retriever = miss_summary_by_retriever(report)
+    if misses_by_retriever:
+        print("문항별 정답 miss (top-K 밖, retriever별):")
+        for name, misses in misses_by_retriever.items():
+            print(f"  [{name}]")
+            for iid, miss in misses:
+                print(f"    {iid}: {miss}")
         print()
+
+
+def miss_summary_by_retriever(report: dict) -> dict[str, list[tuple[str, list]]]:
+    """Return non-empty miss lists for each retriever in display order."""
+    out: dict[str, list[tuple[str, list]]] = {}
+    for name, data in report.get("retrievers", {}).items():
+        misses = [
+            (p["id"], p["miss"])
+            for p in data.get("per_item", [])
+            if p.get("miss")
+        ]
+        if misses:
+            out[name] = misses
+    return out
 
 
 def main(argv: list[str] | None = None) -> None:
