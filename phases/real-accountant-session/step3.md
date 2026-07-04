@@ -12,6 +12,7 @@ actual feedback notes를 capture pipeline에 넣고 safe correction을 queue rec
 ## Acceptance Criteria
 
 ```powershell
+python scripts\real_accountant_notes_check.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md
 Test-Path docs\reports\real-accountant-session\capture-manifest.json
 rg -n '"actual_feedback_evidence": true' docs\reports\real-accountant-session\capture-manifest.json
 python scripts\real_accountant_session_check.py --manifest docs\reports\real-accountant-session\session_manifest.json
@@ -20,8 +21,9 @@ python scripts\real_accountant_session_check.py --manifest docs\reports\real-acc
 ## 검증 절차
 
 1. actual feedback evidence manifest가 true인지 확인한다.
-2. generated queue records가 public-safe인지 확인한다.
-3. RS3을 completed로 업데이트한다.
+2. actual notes checker가 public-safe 통과하는지 확인한다.
+3. generated queue records가 public-safe인지 확인한다.
+4. RS3을 completed로 업데이트한다.
 
 ## 금지사항
 

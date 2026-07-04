@@ -17,7 +17,7 @@
       "id": "RS2",
       "file": "step2.md",
       "status": "pending",
-      "summary": "Run the actual accountant session using the field-feedback runbook. Requires external reviewer and schedule. Alias-only outreach ledger checker and update CLI are ready for invite/schedule tracking."
+      "summary": "Run the actual accountant session using the field-feedback runbook. Requires external reviewer and schedule. Alias-only outreach ledger checker/update CLI and actual-notes public-safe checker are ready for invite/schedule/capture gating."
     },
     {
       "id": "RS3",

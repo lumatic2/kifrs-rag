@@ -14,6 +14,7 @@
 ```powershell
 python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08
 Test-Path docs\reports\real-accountant-session\actual-feedback-notes.md
+python scripts\real_accountant_notes_check.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md
 python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl
 ```
 
@@ -21,8 +22,9 @@ python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-acco
 
 1. reviewer role/service-line metadata가 있는지 확인한다.
 2. raw contract/customer identifier가 없는지 확인한다.
-3. outreach ledger가 `scheduled` 또는 `completed` 상태를 포함하는지 확인한다.
-4. RS2를 completed로 업데이트한다.
+3. actual feedback notes checker가 통과하는지 확인한다.
+4. outreach ledger가 `scheduled` 또는 `completed` 상태를 포함하는지 확인한다.
+5. RS2를 completed로 업데이트한다.
 
 ## 금지사항
 

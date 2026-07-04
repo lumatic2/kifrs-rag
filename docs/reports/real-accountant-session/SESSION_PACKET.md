@@ -54,6 +54,15 @@ python scripts\real_accountant_session_check.py --manifest docs\reports\real-acc
 세션 후에는 같은 checker가 `mode: actual_feedback`로 통과해야 하며, manifest에는 reviewer metadata,
 actual notes, capture manifest, queue JSONL이 연결되어 있어야 한다.
 
+actual notes를 capture pipeline에 넣기 전에는 아래 명령이 먼저 통과해야 한다.
+
+```powershell
+python scripts\real_accountant_notes_check.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md
+```
+
+이 checker는 세션 템플릿의 빈칸, 미확인 boundary checkbox, 고객/회사 식별자 패턴, protected marker가
+남아 있으면 실패한다.
+
 ## Outreach Check
 
 초대 발송 후에는 alias 기반 ledger를 아래 명령으로 확인한다.
