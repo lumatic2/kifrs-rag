@@ -28,11 +28,11 @@ AI insertion point를 재매핑한다. 그 결과로 다음 자동화 구현 후
    Big4·로컬 법인의 공개 서비스 구조를 기준으로 Audit, Accounting Advisory, Tax, Deal/FAS,
    Risk/K-SOX, Consulting/AI, ESG, Forensic 등 service-line v0를 만들고, 각 팀의 고객·산출물·AI
    insertion point를 정리한다.
-2. **FM2 — 팀별 회계사 workflow 문서화** (active)
+2. **FM2 — 팀별 회계사 workflow 문서화** (completed, 2026-07-04)
    FM1의 service-line별로 junior/senior/manager가 실제로 처리하는 workflow를 자료수집 → 판단 →
    계산/대사 → 문서화 → 리뷰/커뮤니케이션 흐름으로 쓴다. 기존 `taxonomy.md` 33 task를 이 조직
    지도에 재매핑한다.
-3. **FM3 — service-line 기반 AI 후보 재판정**
+3. **FM3 — service-line 기반 AI 후보 재판정** (completed, 2026-07-04)
    기존 PM3 판정을 폐기하지 않고, service-line 관점으로 다시 정렬한다. 후보는 "Audit용", "Accounting
    Advisory용", "Tax-agent 이관", "Deal/FAS 후보", "내부자료 필요 보류"로 나눈다.
 4. **FM4 — 다음 구현 horizon 선정**
