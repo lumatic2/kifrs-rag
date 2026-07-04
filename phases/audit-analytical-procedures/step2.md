@@ -1,6 +1,6 @@
 # Step 2: ratio-trend-schema
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -25,3 +25,10 @@ git diff --check
 
 - DART API나 외부 파일을 읽지 않는다. 이유: AP2는 no-credential deterministic 계산 surface다.
 - 감사의견, 중요성, KAM, sampling 판단을 만들지 않는다.
+
+## 완료 요약
+
+`kifrs/workflows/audit_analytics/`에 synthetic F/S fixture, `FinancialStatementLine`,
+`AnalyticalProcedureInput`, `AnalyticalMetric`, `calculate_metrics()`를 추가했다. line item별 증감과
+매출총이익률, 영업이익률, 유동비율, 부채비율을 deterministic하게 계산한다.
+`tests/test_audit_analytics.py` 4개가 통과했다.

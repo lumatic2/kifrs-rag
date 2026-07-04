@@ -13,6 +13,13 @@
     {
       "step": 2,
       "name": "ratio-trend-schema",
+      "status": "completed",
+      "summary": "AP2 added kifrs/workflows/audit_analytics with synthetic F/S fixture, FinancialStatementLine and AnalyticalMetric schema, plus calculate_metrics for line-item changes and gross margin, operating margin, current ratio, and debt-to-equity ratio. Verified by tests/test_audit_analytics.py.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "anomaly-note-renderer",
       "status": "pending"
     }
   ]
