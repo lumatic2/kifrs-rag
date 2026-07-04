@@ -31,6 +31,10 @@
     {
       "dir": "product-packaging-poc",
       "status": "completed"
+    },
+    {
+      "dir": "rag-quality-refresh",
+      "status": "active"
     }
   ]
 }

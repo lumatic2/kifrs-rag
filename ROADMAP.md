@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (F-ACC technical expansion sequence 완료)
+> 마지막 업데이트: 2026-07-05 (Accounting Intelligence Expansion 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,14 +26,18 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — none
+## Current Horizon — rag-quality-refresh
 
-F-ACC technical expansion sequence 완료. 다음 horizon은 회계사 피드백 또는 법인 소개 준비 결과를 보고 별도 결정한다.
+<!-- harness:goal id="rag-quality-refresh" status="active" -->
+K-IFRS RAG 자체 품질을 다시 검증하고, K-IFRS 외 정보원 확장 전에 검색/답변/eval 기반을 단단하게 만든다.
+큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md` · 상세: `docs/horizons/rag-quality-refresh.md`
 
 ### Next Candidates
-- 회계사 피드백 수집/반영
-- 법인 소개 자료 고도화
-- 실제 익명화 거래 PoC
+- RQ1 — current quality baseline
+- RQ2 — eval coverage refresh
+- RQ3 — retrieval failure taxonomy
+- RQ4 — retrieval/answer policy upgrade
+- RQ5 — quality gate report
 
 ## Closed Horizons
 
@@ -108,21 +112,17 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. F-ACC technical expansion sequence 완료. 다음은 회계사 피드백 또는 법인 소개 준비 결과를 보고 새 horizon 결정.
+**[현재 active]** `rag-quality-refresh`. 다음 step은 RQ1 current quality baseline:
+품질/평가/테스트 command inventory → public-safe/private 분리 → 현재 결과 기록 → 실패/coverage gap 분류.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → ~~F-ACC 1109 hardening~~ ✅ → ~~F-ACC financial statement draft~~ ✅ → ~~F-AUD analytical procedures~~ ✅ → ~~product packaging PoC~~ ✅.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
+horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
 
-**[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
-- RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)
-- RGA2/RGA3 — `rag-agent-integration` horizon
+**[paused horizon 후보]** RO2(멀티 쿼리 분해), RGA2/RGA3(`rag-agent-integration`).
 
-**[콘텐츠 축] Phase 4 잔여**
-- 1116 리스: 10/10 완료
-- 다른 도메인: 1113(공정가치) entry 완료 / 1019(확정급여) entry 완료
+**[콘텐츠 축]** 1116 리스 10/10 완료, 1113(공정가치)·1019(확정급여) entry 완료.
 
-**[옵션, 신호 발생 시 trigger]**
-- 한국 상법 인덱싱 (Q04 자본거래만 마찰, 빈도 낮음 → 보류)
-- 평가 하네스 50문항 자동 채점 (D축 욕구 살아나면 부활)
+**[옵션]** 한국 상법 인덱싱, 평가 하네스 50문항 자동 채점.
 
 ---
 

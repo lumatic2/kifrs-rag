@@ -1,0 +1,14 @@
+{
+  "id": "rag-quality-refresh",
+  "status": "active",
+  "horizon": "../../docs/horizons/rag-quality-refresh.md",
+  "sequence": "../../docs/horizons/accounting-intelligence-expansion.md",
+  "steps": [
+    {
+      "id": "RQ1",
+      "file": "step1.md",
+      "status": "next"
+    }
+  ]
+}
+

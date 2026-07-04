@@ -62,7 +62,8 @@
 | RAG Optimization (RO1) | 잔여 miss 진단(3 카테고리) | ✅ (2026-07-03, paused — RO2 잔여) |
 | **업무 지도** | 회계사 업무 taxonomy + 자동화 가능성 매핑 | ✅ 조건부 close |
 | **회계법인 서비스라인 지도** | 회계법인 팀/company map + 팀별 workflow + AI insertion point 재판정 | ✅ |
-| **F-ACC 기술 확장 sequence (현재)** | 1116/1109 review pack 이후 1115 수익인식 엔진부터 회계자문팀 업무 자동화 확장 | 진행 중 |
+| **F-ACC 기술 확장 sequence** | 1116/1109/1115 review pack, 주석, 재무제표 후보, 감사분석, demo PoC | ✅ |
+| **Accounting Intelligence Expansion (현재)** | K-IFRS RAG 품질 refresh -> 비IFRS 정보원 지도 -> multi-source ingestion/RAG -> 실제 feedback loop | 진행 중 |
 | (이후) 프로덕트 패키징 | 설치 가능한 도구킷 + 데모 자료 + 회계사 피드백 | 후보 |
 | (최종) 법인 소개/PoC | 성공 모습 | — |
 
@@ -75,7 +76,8 @@
 
 ## Active horizon
 
-없음. F-ACC technical expansion sequence는 `docs/horizons/f-acc-technical-expansion.md` 기준으로 완료했다.
-다음 horizon은 회계사 피드백 또는 법인 소개 준비 결과를 보고 별도 결정한다.
+`rag-quality-refresh` — K-IFRS RAG 자체 품질을 다시 검증하고, K-IFRS 외 정보원 확장 전에 검색/답변/eval
+기반을 단단하게 만든다.
 
-큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`
+큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
+현재 horizon 상세: `docs/horizons/rag-quality-refresh.md`
