@@ -9,6 +9,18 @@
       "status": "completed",
       "summary": "FS1 inventoried 1109/1115/1116 review-pack fields that can feed balance sheet, income statement, OCI, and note candidates. Next FS2 should add a common StatementLineCandidate schema and adapters that start from journal_entry lines, then enrich with classification/path/measurement and human-review questions.",
       "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "statement-line-schema",
+      "status": "completed",
+      "summary": "FS2 added kifrs/workflows/statement_draft with StatementLineCandidate schema plus 1109/1115/1116 review-pack adapters. Journal-entry lines now map to balance_sheet/income_statement/note candidates, enriched with citations and human-review questions. Verified by tests/test_statement_draft.py and review-pack/disclosure regression tests.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "1109-statement-draft-pilot",
+      "status": "pending"
     }
   ]
 }
