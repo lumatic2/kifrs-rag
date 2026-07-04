@@ -34,6 +34,15 @@
     {
       "id": "AS4",
       "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T00:00:00+09:00",
+      "deliverable": "../../docs/reports/2026-07-05-as4-ingestion-feasibility.md",
+      "summary": "Ingestion feasibility fixed: document RAG, structured data, local-private, and metadata-only lanes are separated; KASB/FSS catalog and OpenDART structured facts are the strongest first pipeline candidates."
+    },
+    {
+      "id": "AS5",
+      "file": "step5.md",
       "status": "next"
     }
   ]
