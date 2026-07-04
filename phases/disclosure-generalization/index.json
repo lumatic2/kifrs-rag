@@ -9,6 +9,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1116/1115/1109 output 중 주석 checklist/draft로 재사용할 surface와 common schema 후보를 정리"
+    },
+    {
+      "step": 2,
+      "name": "common-disclosure-checklist-schema",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "DisclosureChecklistItem schema와 1116/1115/1109 adapter를 추가"
     }
   ]
 }
