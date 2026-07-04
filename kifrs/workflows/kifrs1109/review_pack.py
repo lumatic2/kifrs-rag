@@ -42,6 +42,7 @@ class ReviewPack:
     judgment_summary: str
     journal_entry: JournalEntry | None
     review_memo: str | None
+    subsequent_entries: list[JournalEntry] = field(default_factory=list)
     review_checklist: list[ReviewChecklistItem] = field(default_factory=list)
     needs_human_review: list[HumanReviewAction] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
@@ -209,6 +210,7 @@ def generate_review_pack(fixture: ScenarioFixture) -> ReviewPack:
         classification=outcome.classification,
         judgment_summary=_summary_from_outcome(outcome),
         journal_entry=outcome.initial_entry,
+        subsequent_entries=list(outcome.subsequent_entries or []),
         review_memo=review_memo,
         review_checklist=_checklist(outcome, needs_review),
         needs_human_review=needs_review,

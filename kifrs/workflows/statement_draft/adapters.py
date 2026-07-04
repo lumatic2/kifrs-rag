@@ -16,6 +16,12 @@ _ACCOUNT_MAP: dict[str, tuple[StatementKind, str]] = {
     "현금": ("balance_sheet", "현금및현금성자산"),
     "현금(선급·개설직접원가 − 인센티브)": ("balance_sheet", "현금및현금성자산"),
     "수수료비용": ("income_statement", "금융상품 거래비용"),
+    "이자수익": ("income_statement", "이자수익"),
+    "배당수익(PL)": ("income_statement", "배당수익"),
+    "평가이익(PL)": ("income_statement", "평가이익"),
+    "평가손실(PL)": ("income_statement", "평가손실"),
+    "평가이익(OCI)": ("oci", "기타포괄손익-금융자산평가이익"),
+    "평가손실(OCI)": ("oci", "기타포괄손익-금융자산평가손실"),
     "수익": ("income_statement", "수익"),
     "계약부채(중요한 권리)": ("balance_sheet", "계약부채"),
     "매출채권": ("balance_sheet", "매출채권"),
@@ -41,6 +47,18 @@ def from_1109_review_pack(pack: ReviewPack1109) -> list[StatementLineCandidate]:
                 standard=pack.standard,
                 case_id=pack.case_id,
                 source_field="journal_entry.lines",
+                status=_status(pack.status),
+                review_questions=questions,
+                note_links=pack.citations,
+            )
+        )
+    for entry_index, entry in enumerate(pack.subsequent_entries):
+        items.extend(
+            _from_entry_lines(
+                entry.lines,
+                standard=pack.standard,
+                case_id=pack.case_id,
+                source_field=f"subsequent_entries[{entry_index}].lines",
                 status=_status(pack.status),
                 review_questions=questions,
                 note_links=pack.citations,

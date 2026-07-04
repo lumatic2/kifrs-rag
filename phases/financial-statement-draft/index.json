@@ -20,6 +20,13 @@
     {
       "step": 3,
       "name": "1109-statement-draft-pilot",
+      "status": "completed",
+      "summary": "FS3 preserved 1109 subsequent measurement entries in ScenarioOutcome/ReviewPack and extended statement_draft adapters so AC/FVOCI/FVPL interest, PL fair-value gains/losses, and OCI fair-value gains/losses become StatementLineCandidate rows. Verified with statement draft and 1109 regression tests.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 4,
+      "name": "1115-statement-draft-pilot",
       "status": "pending"
     }
   ]

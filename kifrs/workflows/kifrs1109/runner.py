@@ -22,6 +22,7 @@ class ScenarioOutcome:
     classification: str | None = None
     initial_total: float | None = None
     initial_entry: JournalEntry | None = None
+    subsequent_entries: list[JournalEntry] | None = None
     classification_result: ClassificationResult | None = None
     subsequent_entry_count: int = 0
     review_memo: str | None = None
@@ -56,6 +57,7 @@ def run_scenario(fixture: ScenarioFixture) -> ScenarioOutcome:
     return ScenarioOutcome(
         label=txn.label, status="automated",
         classification=result.classification, initial_total=entry.total_debit,
-        initial_entry=entry, classification_result=result,
+        initial_entry=entry, subsequent_entries=subsequent_entries,
+        classification_result=result,
         subsequent_entry_count=len(subsequent_entries), review_memo=memo,
     )

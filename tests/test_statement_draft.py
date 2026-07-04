@@ -31,6 +31,20 @@ def test_1109_review_pack_adapts_journal_lines_and_classification_note():
     assert all(item.presentation_status == "draft" for item in items)
 
 
+def test_1109_statement_draft_pilot_includes_subsequent_pl_and_oci_lines():
+    ac_pack = pack_1109(_fixture_1109("scenario_01_corporate_bond_ac"))
+    ac_items = from_1109_review_pack(ac_pack)
+
+    assert any(item.source_field.startswith("subsequent_entries") for item in ac_items)
+    assert any(item.statement == "income_statement" and item.line_item == "이자수익" for item in ac_items)
+
+    fvoci_pack = pack_1109(_fixture_1109("scenario_02_corporate_bond_fvoci"))
+    fvoci_items = from_1109_review_pack(fvoci_pack)
+
+    assert any(item.statement == "oci" and "금융자산평가이익" in item.line_item for item in fvoci_items)
+    assert any(item.statement == "oci" and "금융자산평가손실" in item.line_item for item in fvoci_items)
+
+
 def test_1115_review_pack_adapts_revenue_contract_liability_and_measurement_note():
     pack = pack_1115(FIXTURES_1115[0])
     items = from_1115_review_pack(pack)
