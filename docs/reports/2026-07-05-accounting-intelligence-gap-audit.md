@@ -17,6 +17,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | multi_authority_runtime | `docs/reports/2026-07-05-rt5-runtime-close-demo.md` | present |
 | workflow_rebuild | `docs/reports/2026-07-05-wr4-workflow-rebuild-close-report.md` | present |
 | field_feedback_capture | `docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md` | present |
+| client_private_intake_readiness | `docs/reports/2026-07-05-client-private-intake-readiness.md` | present |
 
 ## Demo Outputs
 
@@ -43,13 +44,13 @@ technical demo package is ready for review, but final PoC proof requires an actu
 ## Remaining Gaps
 
 - actual accountant session evidence is still external/user-owned
-- client-private intake is not implemented beyond public-safe/anonymized samples
+- client-private intake has readiness planning, but local-only intake contract is not implemented
 - external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion
 - default retriever promotion remains deferred until real session demo validation
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or gap-specific client-private intake planning
+real-accountant-session RS2/RS3 evidence capture, or CP1 local-only client-private intake contract
 
 ## Machine Result
 
@@ -65,10 +66,10 @@ real-accountant-session RS2/RS3 evidence capture, or gap-specific client-private
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or gap-specific client-private intake planning",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or CP1 local-only client-private intake contract",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "client-private intake is not implemented beyond public-safe/anonymized samples",
+    "client-private intake has readiness planning, but local-only intake contract is not implemented",
     "external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion",
     "default retriever promotion remains deferred until real session demo validation"
   ],

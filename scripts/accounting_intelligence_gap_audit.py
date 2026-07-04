@@ -26,6 +26,7 @@ REQUIRED_REPORTS = {
     "multi_authority_runtime": ROOT / "docs" / "reports" / "2026-07-05-rt5-runtime-close-demo.md",
     "workflow_rebuild": ROOT / "docs" / "reports" / "2026-07-05-wr4-workflow-rebuild-close-report.md",
     "field_feedback_capture": ROOT / "docs" / "reports" / "2026-07-05-fc4-field-feedback-capture-close-report.md",
+    "client_private_intake_readiness": ROOT / "docs" / "reports" / "2026-07-05-client-private-intake-readiness.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -80,7 +81,7 @@ def build_gap_audit() -> GapAudit:
 
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
-        "client-private intake is not implemented beyond public-safe/anonymized samples",
+        "client-private intake has readiness planning, but local-only intake contract is not implemented",
         "external sources are metadata/synthetic fixtures, not live KASB/FSS/DART body ingestion",
         "default retriever promotion remains deferred until real session demo validation",
     ]
@@ -98,7 +99,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or gap-specific client-private intake planning",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or CP1 local-only client-private intake contract",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )

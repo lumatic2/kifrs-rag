@@ -139,7 +139,8 @@ K-IFRS 문단 검색만으로 끝나지 않는다.
 
 - 기술 demo package는 회계사 검토에 들어갈 수 있다.
 - source-aware F-ACC review pack 24개 중 20개가 automated, 4개가 human review다.
-- 남은 objective gap은 실제 회계사 세션 증거, client-private intake, live external source ingestion,
+- client-private intake readiness는 생겼지만 실제 local-only intake contract는 아직 없다.
+- 남은 objective gap은 실제 회계사 세션 증거, local-only client-private intake, live external source ingestion,
   opt-in retriever의 실사용 검증이다.
 
 ### Horizon 6. Real Case Feedback Loop

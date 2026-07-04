@@ -14,7 +14,9 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert audit.total_review_packs == 24
     assert audit.automated_packs >= 20
     assert audit.human_review_packs <= 4
-    assert "actual accountant session" in " ".join(audit.remaining_gaps)
+    joined_gaps = " ".join(audit.remaining_gaps)
+    assert "actual accountant session" in joined_gaps
+    assert "local-only intake contract" in joined_gaps
 
 
 def test_gap_audit_markdown_is_public_safe_summary() -> None:
