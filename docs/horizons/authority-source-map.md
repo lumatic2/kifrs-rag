@@ -1,6 +1,6 @@
 # Horizon: Authority Source Map
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 > Previous: `docs/horizons/rag-quality-refresh.md`
@@ -36,6 +36,9 @@ Deliverable:
 
 - `docs/reports/2026-07-05-as2-authority-citation-policy.md`
 
+Status: complete. Authority priority, citation roles, conflict behavior, and insufficient-evidence behavior are
+defined for source-class grouped answers.
+
 ### AS3. Copyright and Storage Boundary
 
 무엇을 공개 repo에 둘 수 있고, 무엇을 local/private namespace에 둬야 하는지 정한다.
@@ -66,8 +69,19 @@ Deliverable:
 
 - `docs/reports/2026-07-05-as5-first-connector-recommendation.md`
 
+Status: complete. First connector choices are checked by `scripts/authority_connector_recommendation_check.py`.
+
 ## Close Criteria
 
 - source class별 authority, use, storage, ingestion feasibility가 표로 정리되어 있다.
 - 다음 horizon(`multi-source-ingestion-pipeline`)에서 바로 connector interface를 설계할 수 있다.
 - public/private boundary가 분리되어 있다.
+
+## Close Evidence
+
+- Close report: `docs/reports/2026-07-05-authority-source-map-close-report.md`
+- AS1: `python scripts\authority_source_taxonomy_check.py --format text`
+- AS3: `python scripts\authority_storage_boundary_check.py --format text`
+- AS4: `python scripts\authority_ingestion_feasibility_check.py --format text`
+- AS5: `python scripts\authority_connector_recommendation_check.py --format text`
+- Public-safe gate: `python scripts\quality_preflight.py --format text`

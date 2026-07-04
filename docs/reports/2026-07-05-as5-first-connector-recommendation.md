@@ -21,7 +21,7 @@ client-private case intake는 중요하지만 첫 파이프라인이 안정된 �
 
 Lane:
 
-- Document RAG metadata-first
+- `document_rag` metadata-first
 
 Why first:
 
@@ -51,7 +51,7 @@ Explicitly out of scope:
 
 Lane:
 
-- Structured data
+- `structured_data`
 
 Why first:
 
@@ -84,7 +84,7 @@ Explicitly out of scope:
 
 Lane:
 
-- Document RAG locator / law API boundary
+- `document_rag` locator / law API boundary
 
 Why first:
 
@@ -161,4 +161,3 @@ What is deliberately not done:
 - no client-private intake.
 
 Those belong to `multi-source-ingestion-pipeline`.
-
