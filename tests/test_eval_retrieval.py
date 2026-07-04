@@ -1,4 +1,12 @@
-from kifrs.eval.retrieval import gold_rank_summary, miss_summary_by_retriever, query_variants, rrf_fuse_results
+from kifrs.eval.retrieval import (
+    citation_rank_bucket,
+    gold_rank_summary,
+    miss_summary_by_retriever,
+    must_cite_rank_rows,
+    must_cite_rank_summary,
+    query_variants,
+    rrf_fuse_results,
+)
 
 
 def test_miss_summary_by_retriever_keeps_retrievers_separate():
@@ -86,3 +94,79 @@ def test_gold_rank_summary_marks_absent_citation_as_none():
     ranks = gold_rank_summary({("1036", "18")}, [("1036", "59")])
 
     assert ranks == {"1036-18": None}
+
+
+def test_citation_rank_bucket_classifies_rank_bands():
+    assert citation_rank_bucket(1) == "hit@5"
+    assert citation_rank_bucket(10) == "hit@10"
+    assert citation_rank_bucket(20) == "hit@20"
+    assert citation_rank_bucket(21) == "beyond@20"
+    assert citation_rank_bucket(None) == "absent"
+
+
+def test_must_cite_rank_rows_flattens_gold_ranks():
+    report = {
+        "retrievers": {
+            "hybrid": {
+                "per_item": [
+                    {"id": "Q039", "gold_ranks": {"1037-14": 16, "1116-24": 4}},
+                    {"id": "Q048", "gold_ranks": {"1036-18": None}},
+                ]
+            }
+        }
+    }
+
+    assert must_cite_rank_rows(report) == [
+        {
+            "retriever": "hybrid",
+            "item_id": "Q039",
+            "citation": "1037-14",
+            "rank": 16,
+            "bucket": "hit@20",
+        },
+        {
+            "retriever": "hybrid",
+            "item_id": "Q039",
+            "citation": "1116-24",
+            "rank": 4,
+            "bucket": "hit@5",
+        },
+        {
+            "retriever": "hybrid",
+            "item_id": "Q048",
+            "citation": "1036-18",
+            "rank": None,
+            "bucket": "absent",
+        },
+    ]
+
+
+def test_must_cite_rank_summary_counts_buckets_per_retriever():
+    report = {
+        "retrievers": {
+            "hybrid": {
+                "per_item": [
+                    {
+                        "id": "Q001",
+                        "gold_ranks": {
+                            "1115-27": 3,
+                            "1115-31": 8,
+                            "1115-35": 18,
+                            "1115-40": 21,
+                            "1115-45": None,
+                        },
+                    }
+                ]
+            }
+        }
+    }
+
+    assert must_cite_rank_summary(report) == {
+        "hybrid": {
+            "hit@5": 1,
+            "hit@10": 1,
+            "hit@20": 1,
+            "beyond@20": 1,
+            "absent": 1,
+        }
+    }

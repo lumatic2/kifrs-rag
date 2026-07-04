@@ -95,6 +95,14 @@ general ranking improvement가 아니라 targeted recall repair로 해석한다.
 hybrid top-20 miss가 비어 있고 recall@20이 1.000인지 확인한다. 이 gate는 랭킹 품질 개선을 주장하지 않고,
 seed가 빠지거나 DB 재생성 후 term bridge가 누락되는 회귀만 잡는다.
 
+## Citation-level 진단 추가 (2026-07-05)
+
+`scripts/retrieval_must_cite_report.py`를 추가해 문항 단위가 아니라 필수 인용 문단 단위로 rank bucket을
+볼 수 있게 했다. `docs/reports/2026-07-05-must-cite-rank-report.md` 기준 hybrid 50문항/82개 필수 인용 중
+45개는 top-5, 14개는 top-10, 13개는 top-20, 10개는 top-20 밖이다. 이 리포트는 다음 개선 후보를
+source routing(1115·1109·1037 cluster), 추가 term bridge, standard-specific routing으로 나누는 진단
+층이며, 그 자체를 RAG 품질 개선으로 해석하지 않는다.
+
 ## Objective 임팩트
 
 이 horizon(RO1)이 실제로 움직인 것은 recall 수치가 아니라 **진단의 정확성**이다 — "9건 miss"라는

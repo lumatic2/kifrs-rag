@@ -194,6 +194,47 @@ def miss_summary_by_retriever(report: dict) -> dict[str, list[tuple[str, list]]]
     return out
 
 
+def citation_rank_bucket(rank: int | None) -> str:
+    """Bucket a required citation rank for citation-level retrieval diagnosis."""
+    if rank is None:
+        return "absent"
+    if rank <= 5:
+        return "hit@5"
+    if rank <= 10:
+        return "hit@10"
+    if rank <= 20:
+        return "hit@20"
+    return "beyond@20"
+
+
+def must_cite_rank_rows(report: dict) -> list[dict]:
+    """Flatten per-item gold_ranks into one row per required citation."""
+    rows: list[dict] = []
+    for retriever, data in report.get("retrievers", {}).items():
+        for item in data.get("per_item", []):
+            for citation, rank in sorted(item.get("gold_ranks", {}).items()):
+                rows.append(
+                    {
+                        "retriever": retriever,
+                        "item_id": item["id"],
+                        "citation": citation,
+                        "rank": rank,
+                        "bucket": citation_rank_bucket(rank),
+                    }
+                )
+    return rows
+
+
+def must_cite_rank_summary(report: dict) -> dict[str, dict[str, int]]:
+    """Count required citation rank buckets per retriever."""
+    order = ("hit@5", "hit@10", "hit@20", "beyond@20", "absent")
+    summary: dict[str, dict[str, int]] = {}
+    for row in must_cite_rank_rows(report):
+        bucket_counts = summary.setdefault(row["retriever"], {bucket: 0 for bucket in order})
+        bucket_counts[row["bucket"]] += 1
+    return summary
+
+
 def query_variants(query: str) -> list[str]:
     """Return public-safe subqueries for cross-concept retrieval experiments.
 
