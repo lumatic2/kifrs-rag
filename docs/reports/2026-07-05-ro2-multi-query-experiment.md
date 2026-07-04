@@ -51,6 +51,15 @@ Misses remained:
 | Q039 | `1037-14` | `1037-14` |
 | Q048 | `1036-18` | `1036-18` |
 
+Per-must-cite rank diagnostic after adding `gold_ranks`:
+
+| Retriever | Item | Required citation ranks |
+|---|---|---|
+| hybrid | Q039 | `1116-24`: 2, `1037-14`: absent |
+| hybrid | Q048 | `1036-59`: 5, `1036-18`: absent |
+| multi_query_hybrid | Q039 | `1116-24`: 10, `1037-14`: absent |
+| multi_query_hybrid | Q048 | `1036-59`: 4, `1036-18`: absent |
+
 ## Interpretation
 
 The simple multi-query approach did not fix the category C miss. It can dilute ranking quality because subqueries
@@ -61,7 +70,7 @@ Better next candidates:
 
 1. move concept expansions into reviewed `user_note_v2` term bridges rather than hardcoded eval variants,
 2. add structured source routing for cross-standard questions,
-3. evaluate per-must-cite retrieval, not only item-level query text,
+3. use per-must-cite retrieval ranks (`gold_ranks`) to decide which required citation is actually absent,
 4. keep `multi_query_hybrid` opt-in for experiments only.
 
 ## Verification

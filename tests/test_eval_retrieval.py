@@ -1,4 +1,4 @@
-from kifrs.eval.retrieval import miss_summary_by_retriever, query_variants, rrf_fuse_results
+from kifrs.eval.retrieval import gold_rank_summary, miss_summary_by_retriever, query_variants, rrf_fuse_results
 
 
 def test_miss_summary_by_retriever_keeps_retrievers_separate():
@@ -71,3 +71,18 @@ def test_rrf_fuse_results_merges_duplicate_hits_and_preserves_best_metadata():
 
     assert [(row["standard"], row["no"]) for row in fused] == [("1116", "45"), ("1037", "14")]
     assert fused[0]["snippet"] == "lease"
+
+
+def test_gold_rank_summary_reports_each_required_citation_rank():
+    ranks = gold_rank_summary(
+        {("1116", "24"), ("1037", "14")},
+        [("1116", "24"), ("1001", "69"), ("1037", "14")],
+    )
+
+    assert ranks == {"1037-14": 3, "1116-24": 1}
+
+
+def test_gold_rank_summary_marks_absent_citation_as_none():
+    ranks = gold_rank_summary({("1036", "18")}, [("1036", "59")])
+
+    assert ranks == {"1036-18": None}

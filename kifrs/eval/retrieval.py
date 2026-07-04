@@ -120,6 +120,12 @@ def _item_metrics(gold: set[tuple[str, str]], ranked: list[tuple[str, str]]) -> 
     return {**recall, "mrr": mrr, f"ndcg@{NDCG_K}": ndcg}
 
 
+def gold_rank_summary(gold: set[tuple[str, str]], ranked: list[tuple[str, str]]) -> dict[str, int | None]:
+    """Return 1-based rank for each required citation, or None if absent from the returned list."""
+    ranks = {key: index for index, key in enumerate(ranked, start=1)}
+    return {f"{standard}-{no}": ranks.get((standard, no)) for standard, no in sorted(gold)}
+
+
 def _mean(dicts: list[dict], key: str) -> float:
     vals = [d[key] for d in dicts if key in d]
     return sum(vals) / len(vals) if vals else 0.0
@@ -144,6 +150,7 @@ def evaluate(items: list[GoldItem], retrievers: list[str], k: int) -> dict:
             m["gold"] = sorted(gold)
             m["hit"] = sorted(set(ranked[:k]) & gold)
             m["miss"] = sorted(gold - set(ranked[:k]))
+            m["gold_ranks"] = gold_rank_summary(gold, ranked)
             per_item.append(m)
         report["retrievers"][name] = {
             "aggregate": {mk: round(_mean(per_item, mk), 4) for mk in metric_keys},

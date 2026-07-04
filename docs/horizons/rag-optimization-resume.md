@@ -73,7 +73,8 @@ expansion을 RRF로 합쳤다.
 결과: **기본 검색으로 승격하지 않는다.** `hybrid` 대비 recall@20은 개선되지 않았고, MRR/nDCG는
 낮아졌다. 단순 split-and-fuse 방식은 category C miss를 회복하지 못했다. 다음 후보는 generic
 multi-query가 아니라 reviewed `user_note_v2` term bridge, structured source routing, per-must-cite
-retrieval 평가 쪽이다.
+retrieval 평가 쪽이다. `gold_ranks` 진단상 Q039는 `1116-24`만 잡고 `1037-14`가 absent, Q048은
+`1036-59`만 잡고 `1036-18`이 absent다.
 
 ## Objective 임팩트
 
