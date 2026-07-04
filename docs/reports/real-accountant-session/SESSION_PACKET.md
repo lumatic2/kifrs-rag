@@ -32,6 +32,7 @@
 - 세션 목적이 도입 결정이 아니라 제품 검증임을 말한다.
 - 익명화 거래는 structured facts card로만 받을 수 있다고 말한다.
 - 세션 후 notes는 public-safe correction 후보만 queue로 변환한다고 말한다.
+- invite 발송/응답 상태는 `outreach-log.sample.jsonl` 형식으로 alias만 기록한다.
 
 ## Completion Boundary
 
@@ -52,3 +53,13 @@ python scripts\real_accountant_session_check.py --manifest docs\reports\real-acc
 
 세션 후에는 같은 checker가 `mode: actual_feedback`로 통과해야 하며, manifest에는 reviewer metadata,
 actual notes, capture manifest, queue JSONL이 연결되어 있어야 한다.
+
+## Outreach Check
+
+초대 발송 후에는 alias 기반 ledger를 아래 명령으로 확인한다.
+
+```powershell
+python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl
+```
+
+실제 ledger도 reviewer 실명, 회사명, 고객명, 계약 정보 없이 alias와 상태만 기록한다.

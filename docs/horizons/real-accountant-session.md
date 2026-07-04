@@ -41,11 +41,13 @@ Deliverable:
 - 실제 회계사 세션 notes
 - reviewer role/service-line metadata
 - public-safe correction 후보
+- alias 기반 outreach/scheduling ledger
 
 Acceptance:
 
 - raw contract/customer identifier 없이 notes가 남는다.
 - reviewer가 실제 회계사 또는 회계 실무 검토 가능한 사람임이 metadata로 표시된다.
+- outreach ledger가 실명/고객명 없이 invite/schedule 상태를 보여준다.
 
 Status: pending external reviewer
 

@@ -13,13 +13,15 @@
 
 ```powershell
 Test-Path docs\reports\real-accountant-session\actual-feedback-notes.md
+python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl
 ```
 
 ## 검증 절차
 
 1. reviewer role/service-line metadata가 있는지 확인한다.
 2. raw contract/customer identifier가 없는지 확인한다.
-3. RS2를 completed로 업데이트한다.
+3. outreach ledger가 `scheduled` 또는 `completed` 상태를 포함하는지 확인한다.
+4. RS2를 completed로 업데이트한다.
 
 ## 금지사항
 

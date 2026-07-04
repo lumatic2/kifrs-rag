@@ -17,7 +17,7 @@
       "id": "RS2",
       "file": "step2.md",
       "status": "pending",
-      "summary": "Run the actual accountant session using the field-feedback runbook. Requires external reviewer and schedule."
+      "summary": "Run the actual accountant session using the field-feedback runbook. Requires external reviewer and schedule; track invite/schedule state in alias-only outreach ledger."
     },
     {
       "id": "RS3",
