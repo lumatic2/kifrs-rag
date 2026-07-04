@@ -61,8 +61,8 @@
 | RAG-Agent Integration (RGA1) | 런타임 citation 존재 검증 | ✅ (2026-07-03, paused — RGA2/RGA3 잔여) |
 | RAG Optimization (RO1) | 잔여 miss 진단(3 카테고리) | ✅ (2026-07-03, paused — RO2 잔여) |
 | **업무 지도** | 회계사 업무 taxonomy + 자동화 가능성 매핑 | ✅ 조건부 close |
-| **회계법인 서비스라인 지도 (현재)** | 회계법인 팀/company map + 팀별 workflow + AI insertion point 재판정 | 진행 중 |
-| (이후) 지도 기반 자동화 확장 | 서비스라인 지도가 고른 업무의 엔진화 | 후보 |
+| **회계법인 서비스라인 지도** | 회계법인 팀/company map + 팀별 workflow + AI insertion point 재판정 | ✅ |
+| **F-ACC 기술 확장 sequence (현재)** | 1116/1109 review pack 이후 1115 수익인식 엔진부터 회계자문팀 업무 자동화 확장 | 진행 중 |
 | (이후) 프로덕트 패키징 | 설치 가능한 도구킷 + 데모 자료 + 회계사 피드백 | 후보 |
 | (최종) 법인 소개/PoC | 성공 모습 | — |
 
@@ -75,4 +75,6 @@
 
 ## Active horizon
 
-`docs/horizons/firm-service-map.md` (회계법인 서비스라인 지도)
+`docs/horizons/f-acc-1115-revenue-engine.md` (F-ACC 1115 수익인식 엔진)
+
+큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`

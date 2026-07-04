@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-04 (F-ACC review pack horizon 시작)
+> 마지막 업데이트: 2026-07-05 (F-ACC technical expansion sequence + 1115 revenue engine 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,36 +26,35 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — f-acc-1109-review-pack
+## Current Horizon — f-acc-1115-revenue-engine
 
-<!-- harness:goal id="f-acc-1109-review-pack" status="active" -->
-목표: 현업 피드백 없이 기술 확장을 계속하기 위해 1116 review pack 패턴을 1109 금융상품 엔진에
-이식하고, F-ACC workpaper pack 표면이 여러 기준서 도메인에서 반복 가능한지 검증한다. 상세 plan →
-`docs/horizons/f-acc-1109-review-pack.md`.
+<!-- harness:goal id="f-acc-1115-revenue-engine" status="active" -->
+목표: F-ACC 회계처리 판단 업무의 다음 핵심 표면으로 1115 수익인식 엔진을 만든다. 구조화 계약 입력에서
+판단 경로, 수행의무/배분, 유의적 금융요소·재매입약정 처리, 분개/측정 초안, 검토메모, review pack까지
+단계적으로 연결한다. 큰 실행 순서 → `docs/horizons/f-acc-technical-expansion.md`; 상세 plan →
+`docs/horizons/f-acc-1115-revenue-engine.md`.
 
-### Completed Milestones (f-acc-1109-review-pack)
-<!-- harness:milestone id="FR1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/review_pack.py;tests/test_1109_review_pack.py;docs/reports/2026-07-05-fr1-1109-review-pack.md" -->
-#### FR1 — 1109 review pack contract + fixture regression
-- DoD: 기존 1109 runner/review memo/journal entry output을 하나의 structured review pack과 markdown workpaper 초안으로 묶고, 10개 fixture 전체 pack 생성 상태를 검증한다.
-- Evidence: kifrs/workflows/kifrs1109/review_pack.py;tests/test_1109_review_pack.py;docs/reports/2026-07-05-fr1-1109-review-pack.md
-- Gap: 1116 review pack은 PoC 표면을 만들었지만, 다른 기준서 도메인에도 이식 가능한 제품 패턴인지 증거가 없었다.
+### Completed Milestones (f-acc-1115-revenue-engine)
+<!-- harness:milestone id="R15-1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/;tests/test_workflow_1115.py;phases/1115-revenue-engine/step1.md" -->
+#### R15-1 — schema + seed fixture inventory
+- DoD: 1115 seed의 4개 판단유형을 공개 가능한 구조화 fixture로 옮기고, 첫 결정 함수가 판단 경로와 근거 인용을 반환한다.
+- Evidence: kifrs/workflows/kifrs1115/;tests/test_workflow_1115.py;phases/1115-revenue-engine/step1.md
+- Gap: 1115는 WORKFLOW seed만 있고 실행 가능한 판단 엔진이 없었다.
 - Status: [x]
 
-- Completed at: 2026-07-05
-- Summary: 1109 F-ACC review pack 구현 — fixture 10개 중 automated 6, needs_human_review 4, 기존 1109/1116 review pack 테스트 통과
-<!-- harness:milestone id="FR2" status="completed" priority="P0" evidence="docs/reports/2026-07-05-fr2-cross-domain-review-pack-comparison.md;docs/plans/2026-07-05-fr2-cross-domain-review-pack-comparison.md;phases/1109-review-pack/step2.md" -->
-#### FR2 — cross-domain review pack comparison
-- DoD: 1116과 1109 review pack의 공통 필드, 도메인별 확장 필드, renderer 차이, NeedsHumanReview 차이를 비교하고 공통 schema 추출 여부를 결정한다.
-- Evidence: docs/reports/2026-07-05-fr2-cross-domain-review-pack-comparison.md;docs/plans/2026-07-05-fr2-cross-domain-review-pack-comparison.md;phases/1109-review-pack/step2.md
-- Gap: 1109 pack 이식으로 반복 가능성은 보였지만, 무엇이 제품 공통 구조이고 무엇이 기준서별 차이인지 정리되지 않았다.
-- Status: [x]
-
-- Completed at: 2026-07-05
-- Summary: 1116/1109 review pack 비교 완료 — 공통 필드 후보와 도메인별 확장 필드 정리, 공통 Python schema 추출은 세 번째 표면 이후로 보류
 ### Next Candidates
-- FR3 — next-domain readiness decision: 1115 신규 엔진 vs 1109 잔여 4개 hardening vs 주석 대사 확장
+- R15-2 — five-step decision engine: 계약 식별→수행의무→거래가격→배분→수익인식 시점 핵심 분기
+- R15-3 — measurement and journal entry draft: 배분, 금융요소, 재매입약정의 측정/분개 초안
+- R15-4 — review memo renderer: 1115 판단 결과를 회계자문팀 검토메모 초안으로 렌더링
+- R15-5 — review pack integration: 1115를 1109/1116과 비교 가능한 F-ACC pack으로 통합
+- R15-6 — fixture regression + completion report: 완료율과 NeedsHumanReview 경계 리포트
 
 ## Closed Horizons
+
+<!-- harness:goal id="f-acc-1109-review-pack" status="closed" -->
+`docs/horizons/f-acc-1109-review-pack.md` — close (2026-07-05). FR1~FR2 완료: 1109 review pack contract,
+10-fixture regression, 1116/1109 cross-domain comparison. 공통 Python schema 추출은 세 번째 표면 이후로
+보류. Evidence: `kifrs/workflows/kifrs1109/review_pack.py`, `docs/reports/2026-07-05-fr2-cross-domain-review-pack-comparison.md`.
 
 <!-- harness:goal id="f-acc-review-pack" status="closed" -->
 `docs/horizons/f-acc-review-pack.md` — close (2026-07-05). RP1~RP4 완료: 1116 review pack contract, fixture regression, NeedsHumanReview checklist, PoC demo brief. Evidence: `kifrs/workflows/kifrs1116/review_pack.py`, `docs/reports/2026-07-05-rp4-poc-demo-brief.md`.
@@ -95,10 +94,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** FR1/FR2 완료 — 1116 review pack 패턴을 1109 금융상품 엔진에 이식했고, 두
-도메인의 공통 pack 구조와 차이를 비교했다. 다음은 FR3(next-domain readiness decision).
+**[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
+`f-acc-1115-revenue-engine`이다. R15-1에서 1115 seed 4개 유형을 fixture/결정 함수로 이식했다.
+다음은 R15-2 five-step decision engine.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → **F-ACC 1109 review pack(현재)**.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → **F-ACC 1115 revenue engine(현재)**.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

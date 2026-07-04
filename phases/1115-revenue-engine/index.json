@@ -1,0 +1,14 @@
+{
+  "project": "kifrs-rag",
+  "phase": "1115-revenue-engine",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "schema-fixture-inventory",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1115 seed 4개 판단유형을 공개 fixture와 evaluate_revenue() 결정 경로로 이식"
+    }
+  ]
+}
