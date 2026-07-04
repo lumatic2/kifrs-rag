@@ -26,6 +26,10 @@
     },
     {
       "dir": "audit-analytical-procedures",
+      "status": "completed"
+    },
+    {
+      "dir": "product-packaging-poc",
       "status": "active"
     }
   ]

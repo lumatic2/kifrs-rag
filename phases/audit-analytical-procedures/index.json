@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "analytical-procedure-report",
-      "status": "pending"
+      "status": "completed",
+      "summary": "AP5 completed the analytical procedure report: synthetic F/S metrics, threshold anomaly memo, and F-ACC StatementLineCandidate linkage are implemented while audit opinion, KAM, materiality, sampling, and internal-control conclusions remain out of scope. Completion gate passed with audit analytics and statement draft tests.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

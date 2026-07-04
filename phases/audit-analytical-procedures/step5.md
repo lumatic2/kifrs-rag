@@ -1,6 +1,6 @@
 # Step 5: analytical-procedure-report
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -26,3 +26,10 @@ git diff --check
 ## 결과물
 
 - `docs/reports/2026-07-05-ap5-analytical-procedure-report.md`
+
+## 완료 요약
+
+F-AUD analytical procedures completion report를 작성했다. synthetic F/S fixture, ratio/trend metrics,
+threshold anomaly memo, F-ACC statement candidate linkage가 자동화됐고, 감사의견/KAM/중요성/표본설계/
+내부통제 결론은 사람 책임으로 남는다고 정리했다. completion gate 14개 테스트와 `git diff --check`가
+통과했다.

@@ -75,6 +75,6 @@
 
 ## Active horizon
 
-`docs/horizons/f-audit-analytical-procedures.md` (F-AUD 분석적 절차)
+`docs/horizons/product-packaging-poc.md` (제품 패키징 PoC)
 
 큰 실행 순서: `docs/horizons/f-acc-technical-expansion.md`

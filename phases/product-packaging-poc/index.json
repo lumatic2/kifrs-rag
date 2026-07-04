@@ -1,0 +1,12 @@
+{
+  "project": "kifrs-rag",
+  "phase": "product-packaging-poc",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "demo-scenario-selection",
+      "status": "pending"
+    }
+  ]
+}
