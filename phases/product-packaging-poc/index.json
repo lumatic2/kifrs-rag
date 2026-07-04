@@ -6,6 +6,13 @@
     {
       "step": 1,
       "name": "demo-scenario-selection",
+      "status": "completed",
+      "summary": "PK1 selected the 10-minute demo flow: primary 1115 significant financing/repurchase path through decision, measurement, journal entries, review pack, F/S draft candidates, and audit anomaly linkage; secondary 1116 lease review-pack card. Excluded broad 1109, DART disclosure, and standalone audit analytics from the first demo.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "demo-command-surface",
       "status": "pending"
     }
   ]

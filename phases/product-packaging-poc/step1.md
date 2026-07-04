@@ -1,6 +1,6 @@
 # Step 1: demo-scenario-selection
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -24,3 +24,9 @@ git diff --check
 ## 결과물
 
 - `docs/reports/2026-07-05-pk1-demo-scenario-selection.md`
+
+## 완료 요약
+
+10분 demo 중심 흐름을 1115 수익인식 → F/S 표시 후보 → audit analytics linkage로 정했다. 보조 카드로
+1116 리스 review pack을 선택했다. 1109 전체, DART disclosure, standalone audit analytics는 첫 demo에서
+제외했다.
