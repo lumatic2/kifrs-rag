@@ -7,8 +7,15 @@
     {
       "id": "MSI1",
       "file": "step1.md",
-      "status": "next"
+      "status": "completed",
+      "started_at": "2026-07-05T00:00:00+09:00",
+      "completed_at": "2026-07-05T04:20:55+09:00",
+      "summary": "Defined the first ingestion connector contract in docs/reports/2026-07-05-msi1-connector-contract.md: support document_metadata and structured_fact records, keep law locator as document metadata subtype, reserve docs/ingestion/source_manifest.example.json for MSI2, and require recursive forbidden-field validation before any body/API ingestion."
+    },
+    {
+      "id": "MSI2",
+      "file": "step2.md",
+      "status": "pending"
     }
   ]
 }
-
