@@ -149,6 +149,35 @@ class ClientPrivateUploadStoragePolicy:
 
 
 @dataclass(frozen=True)
+class ClientPrivateParserDryRunFixture:
+    fixture_id: str
+    parser_mode: str
+    document_type: str
+    source_stub: str
+    expected_domain: str
+    structured_facts: dict[str, Any] = field(default_factory=dict)
+    allowed_output_level: str = "review_pack_summary"
+    redaction_status: str = "reviewed_public_safe"
+    reviewer_original_document_check: bool = True
+    deletion_attestation: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+    def to_local_private_case(self) -> LocalPrivateCaseIntake:
+        return LocalPrivateCaseIntake(
+            case_id=self.fixture_id,
+            source_locator=self.source_stub,
+            document_type=self.document_type,
+            redaction_status=self.redaction_status,
+            allowed_output_level=self.allowed_output_level,
+            structured_facts=dict(self.structured_facts),
+            reviewer_original_document_check=self.reviewer_original_document_check,
+            notes=[self.deletion_attestation] if self.deletion_attestation else [],
+        )
+
+
+@dataclass(frozen=True)
 class ReviewerCorrection:
     case_id: str
     issue: str
@@ -264,6 +293,50 @@ def validate_client_private_upload_storage_policy(
     if not any("delete" in item.lower() for item in policy.required_operator_checks):
         issues.append(ValidationIssue("required_operator_checks", "operator must verify deletion before close"))
     issues.extend(_public_safe_issues(policy.to_dict()))
+    return issues
+
+
+def validate_client_private_parser_dry_run_fixture(
+    fixture: ClientPrivateParserDryRunFixture,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    policy_issues = validate_client_private_upload_storage_policy(policy)
+    issues.extend(ValidationIssue(f"policy.{issue.path}", issue.message) for issue in policy_issues)
+    if not fixture.fixture_id:
+        issues.append(ValidationIssue("fixture_id", "fixture_id is required"))
+    if fixture.parser_mode != policy.parser_mode:
+        issues.append(ValidationIssue("parser_mode", "fixture parser_mode must match storage policy parser_mode"))
+    if fixture.parser_mode != "structured_facts_only":
+        issues.append(ValidationIssue("parser_mode", "dry-run fixture must use structured_facts_only parser mode"))
+    if fixture.document_type not in LOCAL_PRIVATE_DOCUMENT_TYPES:
+        issues.append(ValidationIssue("document_type", f"unsupported document_type: {fixture.document_type}"))
+    if fixture.expected_domain not in SUPPORTED_DOMAINS:
+        issues.append(ValidationIssue("expected_domain", f"unsupported expected_domain: {fixture.expected_domain}"))
+    if not fixture.source_stub.startswith("local-private://dry-run/"):
+        issues.append(ValidationIssue("source_stub", "source_stub must use local-private://dry-run/"))
+    if fixture.allowed_output_level != "review_pack_summary":
+        issues.append(ValidationIssue("allowed_output_level", "dry-run fixture must target review_pack_summary"))
+    if fixture.redaction_status != "reviewed_public_safe":
+        issues.append(ValidationIssue("redaction_status", "dry-run fixture must be reviewed_public_safe"))
+    if not fixture.reviewer_original_document_check:
+        issues.append(ValidationIssue("reviewer_original_document_check", "dry-run fixture requires reviewer check flag"))
+    if "deleted" not in fixture.deletion_attestation.lower():
+        issues.append(ValidationIssue("deletion_attestation", "deletion attestation must state deleted"))
+    if not fixture.structured_facts:
+        issues.append(ValidationIssue("structured_facts", "structured_facts are required"))
+
+    case = fixture.to_local_private_case()
+    case_issues = validate_local_private_case_intake(case)
+    issues.extend(ValidationIssue(f"case.{issue.path}", issue.message) for issue in case_issues)
+    if not case_issues:
+        route = route_redacted_client_private_summary(
+            redact_local_private_case_for_public(case),
+            domain_hint=fixture.expected_domain,
+        )
+        if route.status != "candidate":
+            issues.append(ValidationIssue("route", f"expected candidate route, got {route.status}: {route.missing_facts}"))
+    issues.extend(_public_safe_issues(fixture.to_dict()))
     return issues
 
 
@@ -593,6 +666,44 @@ def render_client_private_upload_storage_policy(policy: ClientPrivateUploadStora
         "- This policy does not implement upload, OCR, or private document parsing.",
         "- This policy only defines the storage and deletion contract that must exist before those features are built.",
         "- Public artifacts may contain schemas, redacted structured facts, and deletion attestations only.",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+def render_client_private_parser_dry_run_fixture(
+    fixture: ClientPrivateParserDryRunFixture,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> str:
+    issues = validate_client_private_parser_dry_run_fixture(fixture, policy)
+    lines = [
+        f"# Client-Private Parser Dry-Run Fixture - {fixture.fixture_id}",
+        "",
+        f"- Parser mode: {fixture.parser_mode}",
+        f"- Document type: {fixture.document_type}",
+        f"- Source stub: {fixture.source_stub}",
+        f"- Expected domain: {fixture.expected_domain}",
+        f"- Allowed output level: {fixture.allowed_output_level}",
+        f"- Redaction status: {fixture.redaction_status}",
+        f"- Reviewer original-document check: {fixture.reviewer_original_document_check}",
+        f"- Deletion attestation: {fixture.deletion_attestation}",
+        "",
+        "## Structured Facts",
+        "",
+        "| Field | Value |",
+        "|---|---|",
+    ]
+    for key, value in sorted(fixture.structured_facts.items()):
+        lines.append(f"| {key} | {value} |")
+    if issues:
+        lines.extend(["", "## Validation Issues", ""])
+        lines.extend(f"- {issue.path}: {issue.message}" for issue in issues)
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This fixture does not contain raw file content, OCR text, parsed source body, customer identifiers, or embeddings.",
+        "- It models the public-safe output contract a future local parser must satisfy.",
+        "- It must remain synthetic and repo-safe.",
     ])
     return "\n".join(lines) + "\n"
 

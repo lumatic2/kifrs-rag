@@ -31,6 +31,7 @@ REQUIRED_REPORTS = {
     "live_external_source_validation": ROOT / "docs" / "reports" / "2026-07-05-lev1-live-external-source-validation.md",
     "opt_in_retriever_demo_validation": ROOT / "docs" / "reports" / "2026-07-05-odv1-opt-in-retriever-demo-validation.md",
     "client_private_upload_storage_policy": ROOT / "docs" / "reports" / "2026-07-05-cpu1-client-private-upload-storage-policy.md",
+    "private_parser_dry_run_fixture": ROOT / "docs" / "reports" / "2026-07-05-pdf1-private-parser-dry-run-fixture.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -85,7 +86,7 @@ def build_gap_audit() -> GapAudit:
 
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
-        "client-private storage policy is defined, but upload/parser UX and dry-run parser fixture are not implemented",
+        "client-private parser dry-run fixture is defined, but upload/OCR/local deletion automation are not implemented",
         "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]
@@ -103,7 +104,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or private parser dry-run fixture design",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or local deletion attestation gate",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )
