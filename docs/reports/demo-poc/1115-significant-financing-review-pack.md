@@ -1,0 +1,73 @@
+# F-ACC Review Pack — scenario_03_significant_financing
+
+- 기준서: KIFRS1115
+- 상태: automated
+- 판단 경로: significant_financing_component
+- 판단 요약: scenario_03_significant_financing: significant_financing_component 경로로 자동 판단. 수익 초안 1,000,000, 분개 초안 1개 산출.
+
+## 1. 검토메모
+# 검토 메모 — scenario_03_significant_financing
+
+## 1. 거래 개요
+- 시나리오 유형: significant_financing
+- 판단 경로: significant_financing_component
+- 계약금액: 1,100,000
+
+## 2. 5단계 수익인식 판단
+- Step 1 contract_identification: contract is identified with payment terms and probable collectability [1115-9]
+- Step 2 performance_obligations: promised goods or services [1115-22]
+- Step 3 transaction_price: use cash selling price 1,000,000; separate financing effect from promised consideration 1,100,000 [1115-60, 1115-61, 1115-64, 1115-65]
+- Step 4 allocate_transaction_price: transaction price adjusted to cash selling price [1115-73]
+- Step 5 recognize_revenue: recognize revenue for the promised goods or services and present financing over 24 months [1115-31]
+
+## 3. 측정
+- 당기 수익 초안: 1,000,000
+- 금융요소/스프레드 초안: 100,000
+- 측정 메모: Revenue is measured at the cash selling price; the difference is presented as financing.
+
+## 4. 분개 초안
+### scenario_03_significant_financing 수익인식 초안(유의적 금융요소)
+- (차) 매출채권  1,100,000
+- (대) 수익  1,000,000
+- (대) 이연금융수익  100,000
+
+## 5. 결론
+- scenario_03_significant_financing: significant_financing_component 경로.
+- 주요 근거: 1115-60, 1115-61, 1115-64, 1115-65, 1115-118
+- 잔존 의문점: 입력 사실과 추정치 검토 필요(R15 자동 산출 초안).
+
+## 2. 분개 초안
+- scenario_03_significant_financing 수익인식 초안(유의적 금융요소)
+  - (차) 매출채권: 1,100,000
+  - (대) 수익: 1,000,000
+  - (대) 이연금융수익: 100,000
+
+## 3. 리뷰 체크리스트
+- [ready] 5단계 판단: 5개 step 결론 산출
+- [ready] 측정표: 수익 1,000,000, 이연 0
+- [ready] 분개 초안: 분개 1개, 차대 일치 확인
+- [ready] 검토메모: 거래개요, 판단, 측정, 분개, 결론 섹션 포함
+
+## 4. 사람 검토 필요 항목
+### 입력 사실과 추정치 검토
+- 왜 필요한가: 자동 산출물은 구조화 fixture 입력에 근거한 초안이며 실제 계약 원문, 확률, SSP, 지급조건은 사람이 확인해야 한다.
+- 필요한 추가자료:
+  - 계약 원문
+  - 독립판매가격 근거
+  - 권리 행사 확률
+  - 지급조건
+  - 경영진 판단 메모
+- 리뷰 질문:
+  - significant_financing_component 경로가 실제 계약 조건과 일치하는지?
+  - 금액 산정에 사용한 SSP/확률/현금판매가격이 외부 증거와 일치하는지?
+
+## 5. 인용
+- 1115-118
+- 1115-22
+- 1115-31
+- 1115-60
+- 1115-61
+- 1115-64
+- 1115-65
+- 1115-73
+- 1115-9

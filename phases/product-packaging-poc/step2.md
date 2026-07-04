@@ -1,6 +1,6 @@
 # Step 2: demo-command-surface
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -28,3 +28,10 @@ git diff --check
 
 - 기준서 원문, DB, embedding, dogfood 자료를 output에 포함하지 않는다.
 - 외부 API, DART, network를 호출하지 않는다.
+
+## 완료 요약
+
+`scripts/demo_poc.py`를 추가했다. `revenue-financing` scenario는 1115 significant financing, 1115 repurchase,
+statement candidates, audit analytics note, audit-FACC links, 1116 lease review pack을 markdown으로 생성한다.
+`tests/test_demo_poc.py`와 실제 `python scripts/demo_poc.py --scenario revenue-financing --out docs\reports\demo-poc`
+실행이 통과했다.

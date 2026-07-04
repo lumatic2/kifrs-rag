@@ -13,6 +13,13 @@
     {
       "step": 2,
       "name": "demo-command-surface",
+      "status": "completed",
+      "summary": "PK2 added scripts/demo_poc.py and tests/test_demo_poc.py. The revenue-financing scenario writes seven markdown demo files under docs/reports/demo-poc: index, two 1115 review packs, statement candidates, audit analytics note, audit-FACC links, and a 1116 lease review pack. Verified by pytest and a real script run.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "sample-input-output-bundle",
       "status": "pending"
     }
   ]
