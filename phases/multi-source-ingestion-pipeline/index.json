@@ -31,6 +31,14 @@
     {
       "id": "MSI4",
       "file": "step4.md",
+      "status": "completed",
+      "started_at": "2026-07-05T04:27:00+09:00",
+      "completed_at": "2026-07-05T04:28:37+09:00",
+      "summary": "Implemented provenance/citation evidence manifest: docs/ingestion/evidence_manifest.example.json links 3 evidence items to source manifest records; kifrs/ingestion/evidence.py and scripts/validate_ingestion_evidence.py validate source-record references, role/storage consistency, external role boundary, and recursive forbidden fields; tests cover accept, unknown record reject, role mismatch reject, and copied quote reject."
+    },
+    {
+      "id": "MSI5",
+      "file": "step5.md",
       "status": "pending"
     }
   ]
