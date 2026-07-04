@@ -30,6 +30,7 @@ def build_run_sheet(
         "opening_script": _checklist_items_after(checklist, "## Opening Script"),
         "required_questions": _numbered_items_after(runbook, "## Required Questions"),
         "after_session": [
+            "Optionally create the notes scaffold with python scripts\\real_accountant_notes_scaffold.py --out docs\\reports\\real-accountant-session\\actual-feedback-notes.md.",
             "Write docs/reports/real-accountant-session/actual-feedback-notes.md from public-safe notes only.",
             "Run python scripts\\real_accountant_notes_check.py --notes docs\\reports\\real-accountant-session\\actual-feedback-notes.md.",
             "Update outreach ledger to scheduled/completed through real_accountant_outreach_update.py.",

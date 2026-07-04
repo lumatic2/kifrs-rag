@@ -75,6 +75,13 @@ python scripts\real_accountant_notes_check.py --notes docs\reports\real-accounta
 이 checker는 세션 템플릿의 빈칸, 미확인 boundary checkbox, 고객/회사 식별자 패턴, protected marker가
 남아 있으면 실패한다.
 
+세션 직후 notes 작성을 시작할 때는 아래 scaffold를 먼저 만들 수 있다. 이 scaffold는 실제 피드백 내용과
+boundary 확인을 채우기 전에는 checker에 실패해야 정상이다.
+
+```powershell
+python scripts\real_accountant_notes_scaffold.py --out docs\reports\real-accountant-session\actual-feedback-notes.md --date 2026-07-05 --reviewer-role "CPA reviewer" --reviewer-service-line "F-ACC" --reviewer-experience-context "reviewed accounting advisory workpapers" --session-mode "async review"
+```
+
 actual notes, actual capture manifest, queue JSONL이 모두 생긴 뒤에는 수동으로
 `actual_feedback_evidence`를 켜지 말고 아래 builder로 actual session manifest를 만든다.
 
