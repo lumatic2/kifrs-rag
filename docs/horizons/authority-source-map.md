@@ -26,6 +26,8 @@ Deliverable:
 
 - `docs/reports/2026-07-05-as1-source-taxonomy.md`
 
+Status: complete. Seven source classes are fixed and checked by `scripts/authority_source_taxonomy_check.py`.
+
 ### AS2. Authority and Citation Policy
 
 source class별 authority priority와 답변 citation 방식을 정한다.
@@ -63,4 +65,3 @@ Deliverable:
 - source class별 authority, use, storage, ingestion feasibility가 표로 정리되어 있다.
 - 다음 horizon(`multi-source-ingestion-pipeline`)에서 바로 connector interface를 설계할 수 있다.
 - public/private boundary가 분리되어 있다.
-
