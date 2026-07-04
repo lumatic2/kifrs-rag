@@ -23,6 +23,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1115 review pack에서 자동 산출 후보와 사람 보완 항목을 가진 disclosure skeleton을 생성"
+    },
+    {
+      "step": 4,
+      "name": "1109-disclosure-pilot",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1109 review pack에서 금융상품 분류와 사람 보완 항목을 가진 disclosure skeleton을 생성"
     }
   ]
 }
