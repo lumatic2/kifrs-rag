@@ -65,9 +65,9 @@ Operational rule:
 |---|---|---|
 | Public-safe structured case schema | ready | `CaseIntake` already validates structured facts and forbidden protected fields |
 | Public-safe reviewer correction | ready | `ReviewerCorrection` can become eval/backlog candidate |
-| Redaction status field | missing | actual private workflow needs explicit `redaction_status` before processing |
-| Allowed output level | missing | actual private workflow needs `allowed_output_level` to control what can be reported |
-| Local private namespace | missing | actual private workflow needs non-public namespace separation |
+| Redaction status field | ready | `LocalPrivateCaseIntake.redaction_status` is validated |
+| Allowed output level | ready | `LocalPrivateCaseIntake.allowed_output_level` controls reportable output |
+| Local private namespace | ready | `source_locator` uses a local-private locator string, not a committed document body |
 | Upload/parser UX | not ready | must wait until local-only storage and deletion policy exist |
 | Human source verification | required | reviewer must inspect original documents outside this repo |
 
@@ -86,6 +86,9 @@ Define a local-only case intake record with:
 - `allowed_output_level`
 - `structured_facts`
 - `reviewer_original_document_check`
+
+Status: complete. Implemented as `LocalPrivateCaseIntake` in `kifrs/feedback/case_intake.py` and checked by
+`scripts/client_private_contract_check.py`.
 
 ### CP2. Public-Safe Redaction Gate
 

@@ -35,4 +35,8 @@ CP1 CP2 CP3 CP4
     result = check_client_private_intake_readiness(report)
 
     assert not result["ok"]
-    assert result["missing_report_terms"] == ["do not parse private source body"]
+    assert result["missing_report_terms"] == [
+        "LocalPrivateCaseIntake",
+        "Status: complete",
+        "do not parse private source body",
+    ]

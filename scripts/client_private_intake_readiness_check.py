@@ -10,6 +10,7 @@ REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-client-private-intake-read
 
 REQUIRED_EXISTING_ARTIFACTS = {
     "case_intake_contract": ROOT / "kifrs" / "feedback" / "case_intake.py",
+    "client_private_contract_check": ROOT / "scripts" / "client_private_contract_check.py",
     "transaction_poc_bridge": ROOT / "kifrs" / "feedback" / "transaction_poc.py",
     "real_transaction_package": ROOT / "docs" / "reports" / "real-transaction-poc" / "INDEX.md",
     "gap_audit": ROOT / "docs" / "reports" / "2026-07-05-accounting-intelligence-gap-audit.md",
@@ -26,6 +27,8 @@ REQUIRED_REPORT_TERMS = {
     "reviewer checks original documents outside this repo",
     "do not implement upload",
     "do not parse private source body",
+    "LocalPrivateCaseIntake",
+    "Status: complete",
 }
 
 REQUIRED_NEXT_STEPS = {

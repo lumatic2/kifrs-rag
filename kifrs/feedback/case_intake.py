@@ -21,6 +21,24 @@ ALLOWED_OUTPUTS = {
     "evidence_boundary",
     "human_review_questions",
 }
+LOCAL_PRIVATE_DOCUMENT_TYPES = {
+    "contract",
+    "trial_balance",
+    "accounting_policy",
+    "workpaper",
+    "management_memo",
+    "filing_support",
+}
+LOCAL_PRIVATE_REDACTION_STATUSES = {
+    "not_started",
+    "redacted",
+    "reviewed_public_safe",
+}
+LOCAL_PRIVATE_ALLOWED_OUTPUT_LEVELS = {
+    "schema_only",
+    "structured_facts_only",
+    "review_pack_summary",
+}
 CORRECTION_DISPOSITIONS = {"eval_seed_candidate", "backlog_candidate", "no_action"}
 CORRECTION_SEVERITIES = {"low", "medium", "high", "blocker"}
 
@@ -70,6 +88,21 @@ class CaseIntake:
 
 
 @dataclass(frozen=True)
+class LocalPrivateCaseIntake:
+    case_id: str
+    source_locator: str
+    document_type: str
+    redaction_status: str
+    allowed_output_level: str
+    structured_facts: dict[str, Any] = field(default_factory=dict)
+    reviewer_original_document_check: bool = False
+    notes: list[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class ReviewerCorrection:
     case_id: str
     issue: str
@@ -113,6 +146,38 @@ def validate_case_intake(case: CaseIntake) -> list[ValidationIssue]:
         if output not in ALLOWED_OUTPUTS:
             issues.append(ValidationIssue("requested_outputs", f"unsupported requested output: {output}"))
 
+    issues.extend(_public_safe_issues(case.to_dict()))
+    return issues
+
+
+def validate_local_private_case_intake(case: LocalPrivateCaseIntake) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    if not case.case_id:
+        issues.append(ValidationIssue("case_id", "case_id is required"))
+    if not case.source_locator:
+        issues.append(ValidationIssue("source_locator", "source_locator is required"))
+    if case.document_type not in LOCAL_PRIVATE_DOCUMENT_TYPES:
+        issues.append(ValidationIssue("document_type", f"unsupported document_type: {case.document_type}"))
+    if case.redaction_status not in LOCAL_PRIVATE_REDACTION_STATUSES:
+        issues.append(ValidationIssue("redaction_status", f"unsupported redaction_status: {case.redaction_status}"))
+    if case.allowed_output_level not in LOCAL_PRIVATE_ALLOWED_OUTPUT_LEVELS:
+        issues.append(
+            ValidationIssue("allowed_output_level", f"unsupported allowed_output_level: {case.allowed_output_level}")
+        )
+    if not case.reviewer_original_document_check:
+        issues.append(
+            ValidationIssue(
+                "reviewer_original_document_check",
+                "reviewer must check original documents outside this repo",
+            )
+        )
+    if case.redaction_status != "reviewed_public_safe" and case.allowed_output_level == "review_pack_summary":
+        issues.append(
+            ValidationIssue(
+                "allowed_output_level",
+                "review_pack_summary requires redaction_status reviewed_public_safe",
+            )
+        )
     issues.extend(_public_safe_issues(case.to_dict()))
     return issues
 
@@ -255,6 +320,46 @@ def render_feedback_summary_markdown(
         "",
         "- This summary stores structured facts and reviewer corrections only.",
         "- It does not store raw contracts, customer identifiers, copied source bodies, private filings, parsed standards, embeddings, or workpaper payloads.",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+def render_local_private_intake_card(case: LocalPrivateCaseIntake) -> str:
+    issues = validate_local_private_case_intake(case)
+    lines = [
+        f"# Local-Only Client-Private Intake Card - {case.case_id}",
+        "",
+        f"- Source locator: {case.source_locator}",
+        f"- Document type: {case.document_type}",
+        f"- Redaction status: {case.redaction_status}",
+        f"- Allowed output level: {case.allowed_output_level}",
+        f"- Reviewer original-document check: {case.reviewer_original_document_check}",
+        "",
+        "## Structured Facts",
+        "",
+    ]
+    if case.structured_facts:
+        lines.extend(["| Field | Value |", "|---|---|"])
+        for key, value in sorted(case.structured_facts.items()):
+            lines.append(f"| {key} | {value} |")
+    else:
+        lines.append("- none")
+
+    if case.notes:
+        lines.extend(["", "## Notes", ""])
+        lines.extend(f"- {note}" for note in case.notes)
+
+    if issues:
+        lines.extend(["", "## Validation Issues", ""])
+        lines.extend(f"- {issue.path}: {issue.message}" for issue in issues)
+
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This card is a local-only control record.",
+        "- It does not store raw contracts, customer identifiers, copied source bodies, private filings, parsed standards, embeddings, or workpaper payloads.",
+        "- The reviewer checks original documents outside this repo.",
     ])
     return "\n".join(lines) + "\n"
 

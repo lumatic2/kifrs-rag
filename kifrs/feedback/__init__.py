@@ -2,13 +2,16 @@
 
 from .case_intake import (
     CaseIntake,
+    LocalPrivateCaseIntake,
     ReviewerCorrection,
     RoutingCandidate,
     ValidationIssue,
     case_to_eval_seed_candidate,
     render_feedback_summary_markdown,
+    render_local_private_intake_card,
     route_case,
     validate_case_intake,
+    validate_local_private_case_intake,
     validate_reviewer_correction,
 )
 from .capture import (
@@ -46,6 +49,7 @@ from .transaction_poc import (
 
 __all__ = [
     "CaseIntake",
+    "LocalPrivateCaseIntake",
     "ReviewerCorrection",
     "RoutingCandidate",
     "ValidationIssue",
@@ -58,12 +62,14 @@ __all__ = [
     "capture_notes_to_queue_records",
     "plan_incorporation",
     "render_feedback_summary_markdown",
+    "render_local_private_intake_card",
     "render_capture_report",
     "render_feedback_notes_markdown",
     "render_incorporation_report",
     "render_review_question_supplement",
     "route_case",
     "validate_case_intake",
+    "validate_local_private_case_intake",
     "validate_reviewer_correction",
     "validate_feedback_notes",
     "FeedbackQueueRecord",
