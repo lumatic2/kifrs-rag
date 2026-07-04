@@ -17,6 +17,7 @@ CLI까지 준비했다.
 - [x] RS1 — session packet prep. (verify: `Test-Path docs\reports\real-accountant-session\SESSION_PACKET.md`)
 - [ ] RS2 — run actual accountant session. (verify: actual public-safe notes exist; prep CLI:
   `python scripts\real_accountant_invite_packet.py`;
+  `python scripts\real_accountant_run_sheet.py`;
   `python scripts\real_accountant_outreach_update.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08`;
   notes gate: `python scripts\real_accountant_notes_check.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md`)
 - [ ] RS3 — capture and queue conversion. (verify: actual notes gate + actual capture manifest with `actual_feedback_evidence: true` + `real_accountant_manifest_build.py`)

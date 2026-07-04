@@ -51,6 +51,12 @@
 python scripts\real_accountant_status.py
 ```
 
+세션 당일 운영표는 아래 명령으로 확인한다.
+
+```powershell
+python scripts\real_accountant_run_sheet.py
+```
+
 세션 전에는 아래 명령이 `mode: ready_to_schedule`로 통과해야 한다.
 
 ```powershell
