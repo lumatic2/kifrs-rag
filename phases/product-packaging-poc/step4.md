@@ -1,6 +1,6 @@
 # Step 4: readme-setup-guide
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -25,3 +25,9 @@ git diff --check
 
 - 실제 배포/릴리즈를 하지 않는다.
 - 기준서 원문, DB, embedding, dogfood 자료 위치나 내용을 노출하지 않는다.
+
+## 완료 요약
+
+README에 `Product PoC Demo` 섹션을 추가했다. demo command, bundle entrypoint, protected asset 제외,
+no-network, accountant-review-required boundary를 명시했다. `tests/test_demo_poc.py`와 `git diff --check`가
+통과했다.

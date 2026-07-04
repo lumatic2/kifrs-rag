@@ -27,6 +27,13 @@
     {
       "step": 4,
       "name": "readme-setup-guide",
+      "status": "completed",
+      "summary": "PK4 added a Product PoC Demo section to README with the demo command, generated bundle entrypoints, and explicit protected-asset/no-network/accountant-review boundaries. Verified with tests/test_demo_poc.py and git diff check.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 5,
+      "name": "demo-brief-feedback-questionnaire",
       "status": "pending"
     }
   ]

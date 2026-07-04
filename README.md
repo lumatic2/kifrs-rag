@@ -60,6 +60,28 @@ uv run python scripts/quality_preflight.py --format text
 
 This preflight runs focused tests, the no-network `local-rag` threshold gate, authority metadata validators, and the `user_note_v2` audit. `docs/ci/quality.yml` provides a GitHub Actions template that runs the same command. The preflight does not require protected PDFs, parsed source text, embeddings, DB dumps, dogfood questions, API keys, or network access.
 
+## Product PoC Demo
+
+The public-safe product demo uses invented fixtures only. It shows a 1115 revenue-recognition flow through review pack,
+statement draft candidates, audit analytics linkage, and a secondary 1116 lease review-pack card.
+
+Generate the demo bundle:
+
+```powershell
+python scripts/demo_poc.py --scenario revenue-financing --out docs/reports/demo-poc
+```
+
+Read the generated bundle from:
+
+- `docs/reports/demo-poc/MANIFEST.md`
+- `docs/reports/demo-poc/index.md`
+- `docs/reports/demo-poc/statement-candidates.md`
+- `docs/reports/demo-poc/audit-analytics-note.md`
+- `docs/reports/demo-poc/audit-facc-links.md`
+
+The demo does not include K-IFRS source text, parsed DB rows, embeddings, dogfood questions, customer data, DART data,
+API keys, or network calls. Outputs are decision-prep drafts; accountant review remains required.
+
 ## License
 
 Code in this repository is MIT licensed. The license does not cover third-party accounting standards, PDFs, parsed text, exam materials, or other excluded source data.
