@@ -20,6 +20,13 @@
     {
       "step": 3,
       "name": "sample-input-output-bundle",
+      "status": "completed",
+      "summary": "PK3 added docs/reports/demo-poc/MANIFEST.md to make the generated markdown outputs a public-safe sample bundle. It documents file order, demo role, regeneration commands, and protected-asset boundaries. Verified by regenerating the bundle and running tests/test_demo_poc.py.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 4,
+      "name": "readme-setup-guide",
       "status": "pending"
     }
   ]

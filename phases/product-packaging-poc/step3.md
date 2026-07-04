@@ -1,6 +1,6 @@
 # Step 3: sample-input-output-bundle
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -25,3 +25,8 @@ git diff --check
 ## 금지사항
 
 - 기준서 원문, DB, embedding, dogfood 자료를 bundle에 포함하지 않는다.
+
+## 완료 요약
+
+`docs/reports/demo-poc/MANIFEST.md`를 추가해 demo output bundle의 파일 순서, demo 역할, 재생성 명령,
+protected asset boundary를 정리했다. demo command 재실행과 `tests/test_demo_poc.py`가 통과했다.
