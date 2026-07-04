@@ -12,19 +12,19 @@ lane**, **DART/OpenDART/XBRL은 structured data lane**, **client-private은 loca
 
 ## Feasibility Matrix
 
-| Source class | Fetch | Parse | Chunk | Embed | Index | Feasibility | Lane |
-|---|---|---|---|---|---|---|---|
-| Primary accounting standards | already local/private | already parsed | paragraph-level | existing embeddings | existing DB/FTS/vector | high, existing | document RAG |
-| Interpretive accounting material | web/manual metadata first | PDF/HTML likely mixed | doc section / Q&A item | yes, private body only | source namespace | medium | document RAG |
-| Audit standards | manual/web metadata first | PDF/HTML likely | standard/paragraph/section | yes, private body only | F-AUD namespace | medium | document RAG |
-| Law/regulation | official law locator/API/web | article text if allowed locally | article/subarticle | optional | legal namespace | medium-high | document RAG or law API |
-| Filing/data | OpenDART/API/manual filing id | XML/XBRL/table parser | line-item facts, not prose chunks | usually no | structured tables | high for structured samples | structured data |
-| Client-private | local upload/path only | PDF/docx/xlsx/csv parser | fact blocks / workpaper sections | yes, local-private | private case namespace | medium, security-dependent | local-private |
-| Supporting material | URL/manual metadata | avoid body by default | metadata note only | no by default | metadata registry | low as RAG source | metadata/support |
+| Source class | Storage policy | Fetch | Parse | Chunk | Embed | Index | Feasibility | Lane |
+|---|---|---|---|---|---|---|---|---|
+| `primary_accounting_standard` | `local_private_body` | already local/private | already parsed | paragraph-level | existing embeddings | existing DB/FTS/vector | high, existing | `document_rag` |
+| `interpretive_accounting_material` | `public_metadata_only` now, `local_private_body` later | web/manual metadata first | PDF/HTML likely mixed | doc section / Q&A item | yes, private body only | source namespace | medium | `document_rag` |
+| `primary_audit_standard` | `public_metadata_only` now, `local_private_body` later | manual/web metadata first | PDF/HTML likely | standard/paragraph/section | yes, private body only | F-AUD namespace | medium | `document_rag` |
+| `law_regulation` | `no_store_link_only` public, `local_private_body` if approved | official law locator/API/web | article text if allowed locally | article/subarticle | optional | legal namespace | medium-high | `document_rag` or law API |
+| `filing_data` | `public_synthetic_fixture` public, `local_private_structured_data` for real cache | OpenDART/API/manual filing id | XML/XBRL/table parser | line-item facts, not prose chunks | usually no | structured tables | high for structured samples | `structured_data` |
+| `client_private` | `no_store_handoff` public, local private only for real cases | local upload/path only | PDF/docx/xlsx/csv parser | fact blocks / workpaper sections | yes, local-private | private case namespace | medium, security-dependent | `local_private_case_facts` |
+| `supporting_material` | `no_store_link_only` | URL/manual metadata | avoid body by default | metadata note only | no by default | metadata registry | low as RAG source | `metadata_support_only` |
 
 ## Lane Definitions
 
-### Lane A. Document RAG
+### Lane A. `document_rag`
 
 For:
 
@@ -55,7 +55,7 @@ Chunk strategy:
 - audit standards: standard paragraph / requirement / application material
 - law: article / paragraph / subparagraph
 
-### Lane B. Structured Data
+### Lane B. `structured_data`
 
 For:
 
@@ -86,7 +86,7 @@ Index strategy:
 - vector embedding only for note/disclosure prose if allowed
 - citation should point to filing locator + line item, not an invented paragraph
 
-### Lane C. Local-Private Case Facts
+### Lane C. `local_private_case_facts`
 
 For:
 
@@ -114,7 +114,7 @@ Index strategy:
 - redact before public report
 - answer composer must label as `Client-provided facts`
 
-### Lane D. Metadata/Support Only
+### Lane D. `metadata_support_only`
 
 For:
 
@@ -179,4 +179,3 @@ AS4 is complete enough to move to AS5.
 
 AS5 should select the first 1~3 connector candidates and define the entry point for the next horizon,
 `multi-source-ingestion-pipeline`.
-

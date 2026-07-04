@@ -55,6 +55,9 @@ Deliverable:
 
 - `docs/reports/2026-07-05-as4-ingestion-feasibility.md`
 
+Status: complete. Source-class lane readiness is checked by
+`scripts/authority_ingestion_feasibility_check.py`.
+
 ### AS5. First Connector Recommendation
 
 multi-source ingestion pipeline에서 먼저 구현할 source connector 1~3개를 정한다.
