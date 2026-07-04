@@ -30,6 +30,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1115 판단, 5단계 결론, 측정표, 분개 초안을 검토메모 markdown으로 렌더링"
+    },
+    {
+      "step": 5,
+      "name": "review-pack-integration",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1115 검토메모, 분개 초안, checklist, human review action을 F-ACC review pack으로 통합"
     }
   ]
 }
