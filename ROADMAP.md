@@ -60,9 +60,18 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 - Completed at: 2026-07-05
 - Summary: needs_human_review를 구조화된 회계사 action checklist로 강화 — scenario_09에 추가자료·리뷰질문·1116-46 방향 노출, 신규/기존 1116 테스트 20개 통과
+<!-- harness:milestone id="RP4" status="completed" priority="P0" evidence="docs/reports/2026-07-05-rp4-poc-demo-brief.md;docs/plans/2026-07-05-rp4-poc-demo-brief.md;phases/1116-review-pack/step4.md" -->
+#### RP4 — PoC demo brief
+- DoD: 회계법인 Accounting Advisory 팀에 설명 가능한 1~2페이지 PoC 브리프를 만들고, demo flow·현재 capability·사람 검토 경계·다음 결정 질문을 명시한다.
+- Evidence: docs/reports/2026-07-05-rp4-poc-demo-brief.md;docs/plans/2026-07-05-rp4-poc-demo-brief.md;phases/1116-review-pack/step4.md
+- Gap: RP1~RP3는 기능과 checklist를 만들었지만, 외부 PoC 대화에서 무엇을 보여주고 무엇을 물어볼지 정리된 브리프가 없었다.
+- Status: [x]
+
+- Completed at: 2026-07-05
+- Summary: F-ACC 1116 review pack PoC 브리프 작성 — workflow fit, demo flow, 9/10 자동화 경계, 사람 검토 경계, 다음 결정 질문 정리
 ### Next Candidates
-- RP4 — PoC demo brief
 - PM2 — 현업 검증(회계사 인터뷰/피드백), 접촉 가능 시 재개
+- Packaging — CLI/demo script/sample input/README 정리, 외부 소개 일정이 잡히면 새 horizon으로 승격
 
 ## Closed Horizons
 
@@ -101,9 +110,9 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active 없음]** RP1/RP2/RP3 완료 — 기존 1116 엔진과 주석 초안을 회계자문팀 workpaper pack으로
-묶었고, 1116 fixture 10개 전체에서 review pack 생성 상태를 검증했으며, NeedsHumanReview를 회계사
-action checklist로 강화했다. 다음은 RP4 또는 PM2.
+**[현재 active 없음]** RP1/RP2/RP3/RP4 완료 — 기존 1116 엔진과 주석 초안을 회계자문팀 workpaper
+pack으로 묶었고, 1116 fixture 10개 전체에서 review pack 생성 상태를 검증했으며, NeedsHumanReview를
+회계사 action checklist로 강화하고 PoC demo brief까지 만들었다. 다음은 PM2 또는 packaging horizon.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → **F-ACC review pack(현재)** → 프로덕트 패키징.
 

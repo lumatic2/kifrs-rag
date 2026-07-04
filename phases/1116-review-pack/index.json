@@ -23,6 +23,13 @@
       "status": "completed",
       "summary": "Structured review_pack.needs_human_review as accountant action checklist items with issue, blocker reason, required inputs, review questions, and candidate K-IFRS 1116 guidance. scenario_09 now renders 추가자료/리뷰질문/1116-46 direction while automated packs expose company-policy and conditional disclosure follow-ups. Verification passed: 20 tests.",
       "completed_at": "2026-07-05T00:04:08+09:00"
+    },
+    {
+      "step": 4,
+      "name": "poc-demo-brief",
+      "status": "completed",
+      "summary": "Added a F-ACC PoC demo brief that explains the 1116 review pack user, workflow fit, demo flow, current 9/10 automation boundary, human-review boundary, public/private data boundary, and next decision options. Verification passed: review pack tests and diff check.",
+      "completed_at": "2026-07-05T00:17:26+09:00"
     }
   ]
 }
