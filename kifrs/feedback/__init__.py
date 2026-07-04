@@ -2,12 +2,14 @@
 
 from .case_intake import (
     CaseIntake,
+    ClientPrivateUploadStoragePolicy,
     LocalPrivateCaseIntake,
     RedactedClientPrivateSummary,
     ReviewerCorrection,
     RoutingCandidate,
     ValidationIssue,
     case_to_eval_seed_candidate,
+    render_client_private_upload_storage_policy,
     render_feedback_summary_markdown,
     render_local_private_intake_card,
     render_redacted_client_private_summary,
@@ -15,6 +17,7 @@ from .case_intake import (
     route_redacted_client_private_summary,
     redact_local_private_case_for_public,
     validate_case_intake,
+    validate_client_private_upload_storage_policy,
     validate_local_private_case_intake,
     validate_reviewer_correction,
 )
@@ -53,6 +56,7 @@ from .transaction_poc import (
 
 __all__ = [
     "CaseIntake",
+    "ClientPrivateUploadStoragePolicy",
     "LocalPrivateCaseIntake",
     "RedactedClientPrivateSummary",
     "ReviewerCorrection",
@@ -66,6 +70,7 @@ __all__ = [
     "build_feedback_capture_package",
     "capture_notes_to_queue_records",
     "plan_incorporation",
+    "render_client_private_upload_storage_policy",
     "render_feedback_summary_markdown",
     "render_local_private_intake_card",
     "render_redacted_client_private_summary",
@@ -77,6 +82,7 @@ __all__ = [
     "route_redacted_client_private_summary",
     "redact_local_private_case_for_public",
     "validate_case_intake",
+    "validate_client_private_upload_storage_policy",
     "validate_local_private_case_intake",
     "validate_reviewer_correction",
     "validate_feedback_notes",

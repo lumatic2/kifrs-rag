@@ -39,6 +39,19 @@ LOCAL_PRIVATE_ALLOWED_OUTPUT_LEVELS = {
     "structured_facts_only",
     "review_pack_summary",
 }
+LOCAL_PRIVATE_UPLOAD_STORAGE_MODES = {
+    "disabled",
+    "local_ephemeral_quarantine",
+}
+LOCAL_PRIVATE_PARSER_MODES = {
+    "disabled",
+    "metadata_only",
+    "structured_facts_only",
+}
+LOCAL_PRIVATE_DELETION_MODES = {
+    "manual_before_commit",
+    "automatic_after_review",
+}
 CORRECTION_DISPOSITIONS = {"eval_seed_candidate", "backlog_candidate", "no_action"}
 CORRECTION_SEVERITIES = {"low", "medium", "high", "blocker"}
 
@@ -111,6 +124,25 @@ class RedactedClientPrivateSummary:
     reviewer_original_document_check: bool
     structured_fact_keys: list[str] = field(default_factory=list)
     structured_facts: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class ClientPrivateUploadStoragePolicy:
+    policy_id: str
+    upload_storage_mode: str
+    parser_mode: str
+    deletion_mode: str
+    allowed_public_artifacts: list[str] = field(default_factory=list)
+    forbidden_public_artifacts: list[str] = field(default_factory=list)
+    local_only_paths: list[str] = field(default_factory=list)
+    required_operator_checks: list[str] = field(default_factory=list)
+    raw_file_persistence_allowed: bool = False
+    parsed_body_persistence_allowed: bool = False
+    embedding_allowed: bool = False
+    commit_allowed: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -193,6 +225,45 @@ def validate_local_private_case_intake(case: LocalPrivateCaseIntake) -> list[Val
             )
         )
     issues.extend(_public_safe_issues(case.to_dict()))
+    return issues
+
+
+def validate_client_private_upload_storage_policy(
+    policy: ClientPrivateUploadStoragePolicy,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    if not policy.policy_id:
+        issues.append(ValidationIssue("policy_id", "policy_id is required"))
+    if policy.upload_storage_mode not in LOCAL_PRIVATE_UPLOAD_STORAGE_MODES:
+        issues.append(
+            ValidationIssue("upload_storage_mode", f"unsupported upload_storage_mode: {policy.upload_storage_mode}")
+        )
+    if policy.parser_mode not in LOCAL_PRIVATE_PARSER_MODES:
+        issues.append(ValidationIssue("parser_mode", f"unsupported parser_mode: {policy.parser_mode}"))
+    if policy.deletion_mode not in LOCAL_PRIVATE_DELETION_MODES:
+        issues.append(ValidationIssue("deletion_mode", f"unsupported deletion_mode: {policy.deletion_mode}"))
+    if policy.raw_file_persistence_allowed:
+        issues.append(ValidationIssue("raw_file_persistence_allowed", "raw private files must not persist in repo artifacts"))
+    if policy.parsed_body_persistence_allowed:
+        issues.append(ValidationIssue("parsed_body_persistence_allowed", "parsed private bodies must not persist"))
+    if policy.embedding_allowed:
+        issues.append(ValidationIssue("embedding_allowed", "private document embeddings are not allowed"))
+    if policy.commit_allowed:
+        issues.append(ValidationIssue("commit_allowed", "private upload/parser artifacts must not be committed"))
+    if "redacted structured facts" not in policy.allowed_public_artifacts:
+        issues.append(ValidationIssue("allowed_public_artifacts", "must allow redacted structured facts"))
+    if "deletion attestation" not in policy.allowed_public_artifacts:
+        issues.append(ValidationIssue("allowed_public_artifacts", "must allow deletion attestation"))
+    for required in ("raw private file", "parsed private body", "private embedding"):
+        if required not in policy.forbidden_public_artifacts:
+            issues.append(ValidationIssue("forbidden_public_artifacts", f"must forbid {required}"))
+    if not policy.local_only_paths:
+        issues.append(ValidationIssue("local_only_paths", "at least one local-only path pattern is required"))
+    if not any("gitignored" in item for item in policy.required_operator_checks):
+        issues.append(ValidationIssue("required_operator_checks", "operator must verify local-only paths are gitignored"))
+    if not any("delete" in item.lower() for item in policy.required_operator_checks):
+        issues.append(ValidationIssue("required_operator_checks", "operator must verify deletion before close"))
+    issues.extend(_public_safe_issues(policy.to_dict()))
     return issues
 
 
@@ -485,6 +556,43 @@ def render_redacted_client_private_summary(summary: RedactedClientPrivateSummary
         "",
         "- This summary is derived from a local-only control record.",
         "- It does not include source document payloads, private filings, parsed standards, embeddings, or workpaper payloads.",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+def render_client_private_upload_storage_policy(policy: ClientPrivateUploadStoragePolicy) -> str:
+    issues = validate_client_private_upload_storage_policy(policy)
+    lines = [
+        f"# Client-Private Upload/Parser Storage Policy - {policy.policy_id}",
+        "",
+        f"- Upload storage mode: {policy.upload_storage_mode}",
+        f"- Parser mode: {policy.parser_mode}",
+        f"- Deletion mode: {policy.deletion_mode}",
+        f"- Raw file persistence allowed: {policy.raw_file_persistence_allowed}",
+        f"- Parsed body persistence allowed: {policy.parsed_body_persistence_allowed}",
+        f"- Embedding allowed: {policy.embedding_allowed}",
+        f"- Commit allowed: {policy.commit_allowed}",
+        "",
+        "## Allowed Public Artifacts",
+        "",
+    ]
+    lines.extend(f"- {item}" for item in policy.allowed_public_artifacts)
+    lines.extend(["", "## Forbidden Public Artifacts", ""])
+    lines.extend(f"- {item}" for item in policy.forbidden_public_artifacts)
+    lines.extend(["", "## Local-Only Paths", ""])
+    lines.extend(f"- `{item}`" for item in policy.local_only_paths)
+    lines.extend(["", "## Required Operator Checks", ""])
+    lines.extend(f"- {item}" for item in policy.required_operator_checks)
+    if issues:
+        lines.extend(["", "## Validation Issues", ""])
+        lines.extend(f"- {issue.path}: {issue.message}" for issue in issues)
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This policy does not implement upload, OCR, or private document parsing.",
+        "- This policy only defines the storage and deletion contract that must exist before those features are built.",
+        "- Public artifacts may contain schemas, redacted structured facts, and deletion attestations only.",
     ])
     return "\n".join(lines) + "\n"
 

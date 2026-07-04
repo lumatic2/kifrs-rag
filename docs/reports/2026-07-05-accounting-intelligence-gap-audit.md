@@ -21,6 +21,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | client_private_close_gate | `docs/reports/2026-07-05-cp4-client-private-close-report.md` | present |
 | live_external_source_validation | `docs/reports/2026-07-05-lev1-live-external-source-validation.md` | present |
 | opt_in_retriever_demo_validation | `docs/reports/2026-07-05-odv1-opt-in-retriever-demo-validation.md` | present |
+| client_private_upload_storage_policy | `docs/reports/2026-07-05-cpu1-client-private-upload-storage-policy.md` | present |
 
 ## Demo Outputs
 
@@ -47,13 +48,13 @@ technical demo package is ready for review, but final PoC proof requires an actu
 ## Remaining Gaps
 
 - actual accountant session evidence is still external/user-owned
-- client-private local-only path is closed, but upload/parser UX is not implemented
+- client-private storage policy is defined, but upload/parser UX and dry-run parser fixture are not implemented
 - external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design
+real-accountant-session RS2/RS3 evidence capture, or private parser dry-run fixture design
 
 ## Machine Result
 
@@ -69,10 +70,10 @@ real-accountant-session RS2/RS3 evidence capture, or client-private upload/parse
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or private parser dry-run fixture design",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "client-private local-only path is closed, but upload/parser UX is not implemented",
+    "client-private storage policy is defined, but upload/parser UX and dry-run parser fixture are not implemented",
     "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],
