@@ -7,11 +7,12 @@ K-IFRS 시나리오 문서)를 Step 1 스키마로 수동 전사(WA1 Step 2).
 둔다. 원본 시나리오 문서 자체(거래 배경 서술, 시험 문제 인용 등)는 여전히 `data/scenarios/`에만
 있고 git에 올라가지 않는다 — 여기엔 분류·분개 결정에 필요한 사실만 옮긴다.
 
-`special_case`가 있는 4개(05/06/08/10)는 WA1 core pipeline이 자동화하지 않는다
-(docs/plans/2026-07-03-wa1-1109-pilot-engine.md 결정 로그 + 실행 중 발견). 나머지 6개
-(01/02/03/04/07/09)는 SPPI+사업모형 조합만으로 결정론적으로 분류된다 — 07(보유자 전환사채)과
+`special_case`가 있는 3개(05/08/10)는 WA1 core pipeline이 자동화하지 않는다
+(docs/plans/2026-07-03-wa1-1109-pilot-engine.md 결정 로그 + 실행 중 발견). 나머지 7개
+(01/02/03/04/06/07/09)는 SPPI+사업모형 조합만으로 결정론적으로 분류된다 — 06(변동금리 재설정 불일치)은
+FH2에서 benchmark cash flow 비교 입력으로 승격했고, 07(보유자 전환사채)과
 09(회계불일치 지정)는 계획 당시 "복잡 케이스"로 짐작했으나 구현 중 기존 SPPI-fail/지정 오버라이드
-로직으로 그대로 커버됨이 확인되어 core 6개로 승격했다.
+로직으로 그대로 커버됨이 확인되어 core automated 케이스로 승격했다.
 """
 from __future__ import annotations
 
@@ -93,9 +94,18 @@ FIXTURES: list[ScenarioFixture] = [
     ScenarioFixture(
         txn=Transaction1109(
             label="scenario_06_floating_rate_bond_sppi_nuance", instrument_type="debt",
-            special_case="sppi_reset_mismatch",
+            coupon_type="floating", maturity_years=4,
+            floating_rate_reset_frequency_months=3,
+            floating_rate_benchmark_tenor_months=12,
+            floating_rate_mismatch_significant=False,
+            business_model=BusinessModelEvidence(sale_frequency="rare", performance_basis="interest_ecl"),
+            purchase_price=1_000_000, transaction_cost=5_000, assumed_eir=0.055,
+            periods=[
+                PeriodObservation(label="20x1.12.31", coupon_cash=52_000),
+                PeriodObservation(label="20x2.12.31", coupon_cash=51_000),
+            ],
         ),
-        expected_classification=None,
+        expected_classification="AC", expected_initial_total=1_005_000,
     ),
     ScenarioFixture(
         txn=Transaction1109(

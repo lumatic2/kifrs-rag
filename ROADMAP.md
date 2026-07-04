@@ -35,7 +35,6 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 `docs/horizons/f-acc-1109-hardening.md`.
 
 ### Next Candidates
-- FH2 — SPPI reset nuance hardening
 - FH3 — reclassification memo skeleton
 - FH4 — FX dual-track boundary
 - FH5 — completion-rate delta report
@@ -45,6 +44,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 #### FH1 — 1109 blocker taxonomy
 - DoD: 1109 NeedsHumanReview 4개 케이스를 자동화 후보, skeleton 강화, 경계 유지로 분류한다.
 - Evidence: docs/reports/2026-07-05-fh1-1109-blocker-taxonomy.md;phases/1109-hardening/step1.md
+- Status: [x]
+
+<!-- harness:milestone id="FH2" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1109/sppi.py;kifrs/workflows/kifrs1109/fixtures.py;docs/reports/2026-07-05-fh2-sppi-reset-hardening.md" -->
+#### FH2 — SPPI reset nuance hardening
+- DoD: 변동금리 reset mismatch fixture가 automated review pack으로 승격되고 1109 완료율이 6/10→7/10이 된다.
+- Evidence: kifrs/workflows/kifrs1109/sppi.py;kifrs/workflows/kifrs1109/fixtures.py;docs/reports/2026-07-05-fh2-sppi-reset-hardening.md
 - Status: [x]
 
 ## Closed Horizons
@@ -106,7 +111,7 @@ schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pac
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
 `f-acc-1109-hardening`이다. disclosure-generalization은 DG1~DG5까지 완료했다. 다음은 FH1 1109
-blocker taxonomy를 완료했고, 다음은 FH2 SPPI reset nuance hardening.
+blocker taxonomy와 FH2 SPPI reset hardening을 완료했다. 다음은 FH3 reclassification memo skeleton.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → ~~F-ACC disclosure generalization~~ ✅ → **F-ACC 1109 hardening(현재)**.
 

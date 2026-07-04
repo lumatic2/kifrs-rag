@@ -34,11 +34,10 @@ def test_completion_rate():
     needs_review = [o for o in outcomes if o.status == "needs_human_review"]
 
     assert len(automated) + len(needs_review) == len(FIXTURES) == 10
-    assert len(automated) == 6
-    assert len(needs_review) == 4
+    assert len(automated) == 7
+    assert len(needs_review) == 3
     assert {o.label for o in needs_review} == {
         "scenario_05_ifric19_debt_equity_swap",
-        "scenario_06_floating_rate_bond_sppi_nuance",
         "scenario_08_business_model_change_reclassification",
         "scenario_10_foreign_currency_bond_1109_1021",
     }

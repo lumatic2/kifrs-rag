@@ -31,10 +31,10 @@ def test_1109_disclosure_skeleton_accepts_review_pack():
 
 def test_1109_disclosure_skeleton_for_needs_human_review_pack():
     skeleton = generate_disclosure_skeleton(
-        _fixture("scenario_06_floating_rate_bond_sppi_nuance")
+        _fixture("scenario_08_business_model_change_reclassification")
     )
 
     assert "자동 산출 후보 없음" in skeleton
-    assert "변동금리 재설정 불일치 SPPI 판단" in skeleton
-    assert "재설정 주기" in skeleton
-    assert "benchmark cash flow" in skeleton
+    assert "사업모형 변경에 따른 재분류" in skeleton
+    assert "사업모형 변경 승인 자료" in skeleton
+    assert "전진 적용" in skeleton

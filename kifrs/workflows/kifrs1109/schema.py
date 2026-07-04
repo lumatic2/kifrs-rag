@@ -60,6 +60,9 @@ class Transaction1109:
     embedded_conversion_option_holder_side: bool = False  # 보유자 전환권 — 미분리
     has_leverage: bool = False  # 레버리지·승수 조항
     acceleration_ordinary: bool = True  # 통상적 디폴트 가속조항이면 True(SPPI 무해)
+    floating_rate_reset_frequency_months: int | None = None
+    floating_rate_benchmark_tenor_months: int | None = None
+    floating_rate_mismatch_significant: bool | None = None
 
     # 사업모형 (부채성 자산만)
     business_model: BusinessModelEvidence | None = None
@@ -72,8 +75,7 @@ class Transaction1109:
     fvpl_designation_override: bool = False  # 회계불일치 제거 목적 FVPL 지정 [1109-4.1.5]
 
     # 이번 범위 밖 특수 케이스 마커 — 지정되면 classify()가 NeedsHumanReview
-    special_case: str | None = None  # 예: "ifric19_debt_equity_swap", "sppi_reset_mismatch",
-    # "reclassification", "fx_dual_track"
+    special_case: str | None = None  # 예: "ifric19_debt_equity_swap", "reclassification", "fx_dual_track"
 
     # 금액
     purchase_price: float = 0.0  # 취득 시점 공정가치

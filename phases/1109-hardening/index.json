@@ -9,6 +9,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1109 NeedsHumanReview 4개를 자동화 후보, skeleton 강화, 경계 유지로 분류"
+    },
+    {
+      "step": 2,
+      "name": "sppi-reset-nuance-hardening",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "변동금리 reset mismatch를 구조화 입력으로 처리해 scenario_06을 automated AC pack으로 승격"
     }
   ]
 }
