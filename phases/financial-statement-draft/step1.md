@@ -1,6 +1,6 @@
 # Step 1: statement-draft-surface-inventory
 
-Status: pending
+Status: completed
 
 ## 읽어야 할 파일
 
@@ -22,3 +22,9 @@ git diff --check
 ## 결과물
 
 - `docs/reports/2026-07-05-fs1-statement-draft-surface-inventory.md`
+
+## 완료 요약
+
+1109/1115/1116 review pack의 `journal_entry`, `journal_entries`, `classification`, `path`,
+`measurement`, `disclosure_draft`, `needs_human_review` surface를 재무상태표/손익/OCI/주석 후보로
+매핑했다. FS2는 이 inventory를 바탕으로 `StatementLineCandidate` schema와 기준서별 adapter를 만든다.

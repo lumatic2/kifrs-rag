@@ -6,7 +6,9 @@
     {
       "step": 1,
       "name": "statement-draft-surface-inventory",
-      "status": "pending"
+      "status": "completed",
+      "summary": "FS1 inventoried 1109/1115/1116 review-pack fields that can feed balance sheet, income statement, OCI, and note candidates. Next FS2 should add a common StatementLineCandidate schema and adapters that start from journal_entry lines, then enrich with classification/path/measurement and human-review questions.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }
