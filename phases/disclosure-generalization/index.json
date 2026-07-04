@@ -1,0 +1,12 @@
+{
+  "project": "kifrs-rag",
+  "phase": "disclosure-generalization",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "disclosure-surface-inventory",
+      "status": "pending"
+    }
+  ]
+}

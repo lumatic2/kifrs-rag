@@ -37,6 +37,13 @@
       "status": "completed",
       "completed_at": "2026-07-05",
       "summary": "1115 검토메모, 분개 초안, checklist, human review action을 F-ACC review pack으로 통합"
+    },
+    {
+      "step": 6,
+      "name": "fixture-regression-and-completion-report",
+      "status": "completed",
+      "completed_at": "2026-07-05",
+      "summary": "1115 4개 seed fixture review pack 자동화율 100%와 NeedsHumanReview 경계를 completion report로 정리"
     }
   ]
 }

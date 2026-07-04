@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (F-ACC technical expansion sequence + 1115 revenue engine 시작)
+> 마지막 업데이트: 2026-07-05 (1115 revenue engine 완료 + disclosure generalization 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,54 +26,27 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — f-acc-1115-revenue-engine
+## Current Horizon — f-acc-disclosure-generalization
 
-<!-- harness:goal id="f-acc-1115-revenue-engine" status="active" -->
-목표: F-ACC 회계처리 판단 업무의 다음 핵심 표면으로 1115 수익인식 엔진을 만든다. 구조화 계약 입력에서
-판단 경로, 수행의무/배분, 유의적 금융요소·재매입약정 처리, 분개/측정 초안, 검토메모, review pack까지
-단계적으로 연결한다. 큰 실행 순서 → `docs/horizons/f-acc-technical-expansion.md`; 상세 plan →
-`docs/horizons/f-acc-1115-revenue-engine.md`.
-
-### Completed Milestones (f-acc-1115-revenue-engine)
-<!-- harness:milestone id="R15-1" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/;tests/test_workflow_1115.py;phases/1115-revenue-engine/step1.md" -->
-#### R15-1 — schema + seed fixture inventory
-- DoD: 1115 seed의 4개 판단유형을 공개 가능한 구조화 fixture로 옮기고, 첫 결정 함수가 판단 경로와 근거 인용을 반환한다.
-- Evidence: kifrs/workflows/kifrs1115/;tests/test_workflow_1115.py;phases/1115-revenue-engine/step1.md
-- Gap: 1115는 WORKFLOW seed만 있고 실행 가능한 판단 엔진이 없었다.
-- Status: [x]
-
-<!-- harness:milestone id="R15-2" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/classify.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step2.md" -->
-#### R15-2 — five-step decision engine
-- DoD: 1115 seed 4개 판단유형이 계약 식별, 수행의무, 거래가격, 배분, 수익인식 5단계 결론을 반환한다.
-- Evidence: kifrs/workflows/kifrs1115/classify.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step2.md
-- Gap: R15-1은 path만 반환했기 때문에 회계자문팀 검토메모/분개로 이어질 단계별 판단 구조가 부족했다.
-- Status: [x]
-
-<!-- harness:milestone id="R15-3" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/measurement.py;kifrs/workflows/kifrs1115/journal_entry.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step3.md" -->
-#### R15-3 — measurement and journal entry draft
-- DoD: 1115 material right 배분, 유의적 금융요소 조정, 재매입약정 처리 결과가 측정표와 분개 초안으로 렌더된다.
-- Evidence: kifrs/workflows/kifrs1115/measurement.py;kifrs/workflows/kifrs1115/journal_entry.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step3.md
-- Gap: R15-2는 판단 구조만 있었고, 회계사가 바로 검토할 숫자/분개 초안은 없었다.
-- Status: [x]
-
-<!-- harness:milestone id="R15-4" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/review_memo.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step4.md" -->
-#### R15-4 — review memo renderer
-- DoD: 1115 판단 결과가 거래개요, 5단계 판단, 측정, 분개 초안, 결론 섹션을 가진 검토메모 markdown으로 렌더된다.
-- Evidence: kifrs/workflows/kifrs1115/review_memo.py;tests/test_workflow_1115.py;phases/1115-revenue-engine/step4.md
-- Gap: R15-3 산출물은 구조화 데이터였고, 회계사가 바로 읽는 workpaper 초안은 없었다.
-- Status: [x]
-
-<!-- harness:milestone id="R15-5" status="completed" priority="P0" evidence="kifrs/workflows/kifrs1115/review_pack.py;tests/test_1115_review_pack.py;phases/1115-revenue-engine/step5.md" -->
-#### R15-5 — review pack integration
-- DoD: 1115 검토메모, 분개 초안, checklist, human review action이 F-ACC review pack markdown으로 묶인다.
-- Evidence: kifrs/workflows/kifrs1115/review_pack.py;tests/test_1115_review_pack.py;phases/1115-revenue-engine/step5.md
-- Gap: R15-4는 검토메모 단품이었고, 1109/1116과 비교 가능한 제품 pack 표면은 없었다.
-- Status: [x]
+<!-- harness:goal id="f-acc-disclosure-generalization" status="active" -->
+목표: 1116에서 실증한 주석 checklist/초안/DART 대사 표면을 1115·1109 output까지 일반화한다.
+큰 실행 순서 → `docs/horizons/f-acc-technical-expansion.md`; 상세 plan →
+`docs/horizons/f-acc-disclosure-generalization.md`.
 
 ### Next Candidates
-- R15-6 — fixture regression + completion report: 완료율과 NeedsHumanReview 경계 리포트
+- DG1 — disclosure surface inventory: 1116/1115/1109 산출물 중 주석 checklist/draft로 재사용 가능한 field 정리
+- DG2 — common disclosure checklist schema
+- DG3 — 1115 disclosure pilot
+- DG4 — 1109 disclosure pilot
+- DG5 — cross-domain disclosure report
 
 ## Closed Horizons
+
+<!-- harness:goal id="f-acc-1115-revenue-engine" status="closed" -->
+`docs/horizons/f-acc-1115-revenue-engine.md` — close (2026-07-05). R15-1~R15-6 완료: 1115 seed 4개 유형을
+schema, 5단계 판단, 측정표, 분개 초안, 검토메모, F-ACC review pack, completion report까지 연결.
+자동화율 4/4. Evidence: `kifrs/workflows/kifrs1115/`, `tests/test_workflow_1115.py`,
+`tests/test_1115_review_pack.py`, `docs/reports/2026-07-05-r15-1115-revenue-engine-completion.md`.
 
 <!-- harness:goal id="f-acc-1109-review-pack" status="closed" -->
 `docs/horizons/f-acc-1109-review-pack.md` — close (2026-07-05). FR1~FR2 완료: 1109 review pack contract,
@@ -119,11 +92,10 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
 **[현재 active]** F-ACC technical expansion sequence를 고정했고, 현재 실행 포인터는
-`f-acc-1115-revenue-engine`이다. R15-1에서 1115 seed 4개 유형을 fixture/결정 함수로 이식했고,
-R15-2에서 5단계 판단, R15-3에서 측정표/분개 초안, R15-4에서 검토메모, R15-5에서 review pack을
-추가했다. 다음은 R15-6 fixture regression + completion report.
+`f-acc-disclosure-generalization`이다. 1115 revenue engine은 R15-1~R15-6까지 완료했고,
+다음은 DG1 disclosure surface inventory.
 
-**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → **F-ACC 1115 revenue engine(현재)**.
+**[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`. horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC 1116 review pack~~ ✅ → ~~F-ACC 1109 review pack~~ ✅ → ~~F-ACC 1115 revenue engine~~ ✅ → **F-ACC disclosure generalization(현재)**.
 
 **[paused horizon 후보 — 재개 시 §B0.5 Beat 3]**
 - RO2 — 멀티 쿼리 분해(카테고리 C, Q039/Q048)

@@ -10,6 +10,10 @@
     },
     {
       "dir": "1115-revenue-engine",
+      "status": "completed"
+    },
+    {
+      "dir": "disclosure-generalization",
       "status": "active"
     }
   ]
