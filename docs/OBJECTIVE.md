@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon은 `workflow-coverage-depth-expansion`이다. `rag-quality-fresh-validation`은 `defer`로 완료됐고 default retriever 변경은 금지 상태로 유지한다. `private-parser-realism-hardening`은 `realism_contract_ready`, `external-source-body-connector-expansion`은 `connector_body_lane_ready`로 닫혔다. 이제 firm-service map 대비 자동화 workflow 표본을 더 깊게 확장한다.
+현재 active horizon은 `demo-rehearsal-quality-loop`이다. `rag-quality-fresh-validation`은 `defer`로 완료됐고 default retriever 변경은 금지 상태로 유지한다. `private-parser-realism-hardening`은 `realism_contract_ready`, `external-source-body-connector-expansion`은 `connector_body_lane_ready`, `workflow-coverage-depth-expansion`은 `coverage_depth_expanded`로 닫혔다. 이제 기존 demo packet을 반복 가능한 리허설·품질 증거로 전환한다.
 
 남은 horizon 순서:
 
@@ -96,8 +96,8 @@
 완료된 통합 데모 horizon: `docs/horizons/end-to-end-demo-scenario.md`
 현재 objective gap queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
 최근 완료 RAG 품질 horizon: `docs/horizons/rag-quality-fresh-validation.md`
-현재 active horizon: `docs/horizons/workflow-coverage-depth-expansion.md`
-현재 active milestone plan: `docs/plans/2026-07-05-workflow-coverage-depth-expansion.md`
+현재 active horizon: `docs/horizons/demo-rehearsal-quality-loop.md`
+현재 active milestone plan: `docs/plans/2026-07-05-demo-rehearsal-quality-loop.md`
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
 최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`

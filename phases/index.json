@@ -130,6 +130,10 @@
     },
     {
       "dir": "workflow-coverage-depth-expansion",
+      "status": "completed"
+    },
+    {
+      "dir": "demo-rehearsal-quality-loop",
       "status": "active"
     },
     {

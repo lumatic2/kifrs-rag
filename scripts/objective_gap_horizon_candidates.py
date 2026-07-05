@@ -56,7 +56,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="workflow-coverage-depth-expansion",
             objective_gap="Automation coverage is strong in selected workflows but still shallow against the full firm-service map.",
             why_now="The north-star question asks how far accountant work can be automated, which requires broader workflow sampling.",
-            status="active",
+            status="closed",
             first_milestone="WCD1 service-line coverage rerank",
             evidence_target="docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md",
         ),
@@ -65,7 +65,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="demo-rehearsal-quality-loop",
             objective_gap="The demo packet is ready, but it has not been rehearsed into repeatable operator evidence and quality notes.",
             why_now="Before any external step, the local demo needs timed, repeatable, failure-aware rehearsal evidence.",
-            status="pending",
+            status="active",
             first_milestone="DRQ1 demo rehearsal script and timing gate",
             evidence_target="docs/reports/2026-07-05-drq1-demo-rehearsal-script.md",
         ),
@@ -76,7 +76,7 @@ def build_candidates() -> dict[str, Any]:
         "excluded_from_plan": [
             "external accountant feedback remains parked until explicitly reintroduced",
         ],
-        "active_horizon": "workflow-coverage-depth-expansion",
+        "active_horizon": "demo-rehearsal-quality-loop",
         "candidates": [asdict(candidate) for candidate in candidates],
         "report_path": _display_path(REPORT_PATH),
     }

@@ -1,6 +1,6 @@
 # Horizon: Workflow Coverage Depth Expansion
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/external-source-body-connector-expansion.md`
 
@@ -42,10 +42,16 @@ Status: completed
 
 ### WCD5. Horizon Close And Demo Rehearsal Handoff
 
-Status: active
+Status: completed
 
 - Deliverable: close report.
 - Acceptance: workflow coverage depth status is closed and demo rehearsal quality loop is named.
+
+## Close Result
+
+- Close result: `coverage_depth_expanded`
+- Evidence: `docs/reports/2026-07-05-workflow-coverage-depth-expansion-close-report.md`
+- Next horizon: `demo-rehearsal-quality-loop`
 
 ## Decision Log
 

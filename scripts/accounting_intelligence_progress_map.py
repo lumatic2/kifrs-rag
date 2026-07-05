@@ -80,15 +80,15 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "workflow-coverage-depth-expansion",
+        "id": "demo-rehearsal-quality-loop",
         "status": "active",
-        "goal": "Deepen automation coverage against the firm-service map with broader workflow sampling and public-safe decision-prep evidence.",
+        "goal": "Turn the existing demo packet into repeatable, timed, public-safe operator rehearsal evidence.",
         "milestones": [
-            {"id": "WCD1", "name": "service-line coverage rerank", "status": "completed"},
-            {"id": "WCD2", "name": "workflow sample contract pack", "status": "completed"},
-            {"id": "WCD3", "name": "minimal adapter expansion", "status": "completed"},
-            {"id": "WCD4", "name": "coverage depth metric update", "status": "completed"},
-            {"id": "WCD5", "name": "close and demo rehearsal handoff", "status": "active"},
+            {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "active"},
+            {"id": "DRQ2", "name": "demo run quality checklist", "status": "pending"},
+            {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "pending"},
+            {"id": "DRQ4", "name": "demo improvement backlog", "status": "pending"},
+            {"id": "DRQ5", "name": "close and objective gap audit", "status": "pending"},
         ],
     }
     decisions = [
@@ -122,10 +122,17 @@ def build_progress_map() -> dict[str, Any]:
         },
         {
             "id": "run_workflow_coverage_depth_expansion",
-            "status": "active_horizon",
-            "decide": "WCD1 to WCD4 are complete; close workflow coverage depth and hand off to demo rehearsal quality loop.",
+            "status": "closed_coverage_depth_expanded",
+            "decide": "Workflow coverage depth closed with audit_disclosure_tie_out rerank, contract, adapter, metric, and demo rehearsal handoff.",
             "blocker": "none",
-            "command": "python scripts\\workflow_coverage_depth_close_gate.py --format text --write",
+            "command": "python scripts\\workflow_coverage_depth_close_gate.py --format text",
+        },
+        {
+            "id": "run_demo_rehearsal_quality_loop",
+            "status": "active_horizon",
+            "decide": "Define the demo rehearsal stages, timing gate, and expected public-safe evidence outputs.",
+            "blocker": "none",
+            "command": "python scripts\\demo_rehearsal_script.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -150,8 +157,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "WCD5_horizon_close_and_demo_rehearsal_handoff",
-        "next_command": "python scripts\\workflow_coverage_depth_close_gate.py --format text --write",
+        "next_leaf": "DRQ1_demo_rehearsal_script_and_timing_gate",
+        "next_command": "python scripts\\demo_rehearsal_script.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -166,7 +173,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; WCD1 to WCD4 are complete and WCD5 close/handoff is now active.",
+        "Objective gaps are grouped into horizons; workflow coverage depth is closed and demo rehearsal quality loop is now active.",
         "",
         "## Objective",
         "",

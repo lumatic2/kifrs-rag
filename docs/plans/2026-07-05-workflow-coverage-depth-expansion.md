@@ -35,9 +35,9 @@ This horizon addresses the Objective gap that automation evidence is still too c
 
 ### WCD5 — Horizon Close And Demo Rehearsal Handoff
 
-- [ ] WCD5.1 — Combine WCD1~WCD4 evidence.
-- [ ] WCD5.2 — Close horizon and name demo rehearsal quality loop.
-- [ ] WCD5.3 — Sync ROADMAP/OBJECTIVE/progress map.
+- [x] WCD5.1 — Combine WCD1~WCD4 evidence.
+- [x] WCD5.2 — Close horizon and name demo rehearsal quality loop.
+- [x] WCD5.3 — Sync ROADMAP/OBJECTIVE/progress map.
 
 ## Decision Log
 

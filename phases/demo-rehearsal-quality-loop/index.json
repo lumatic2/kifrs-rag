@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "demo-rehearsal-quality-loop",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "demo-rehearsal-script-and-timing-gate",
+      "status": "active"
+    },
+    {
+      "step": 2,
+      "name": "demo-run-quality-checklist",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "rehearsal-evidence-capture",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "demo-improvement-backlog",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "horizon-close-and-objective-gap-audit",
+      "status": "pending"
+    }
+  ]
+}

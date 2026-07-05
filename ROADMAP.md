@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (WCD4 완료, WCD5 active)
+> 마지막 업데이트: 2026-07-05 (workflow-coverage-depth-expansion 완료, DRQ1 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -43,49 +43,57 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
 
-## Current Horizon — workflow-coverage-depth-expansion
+## Current Horizon — demo-rehearsal-quality-loop
 
-<!-- harness:goal id="workflow-coverage-depth-expansion" status="active" -->
-`docs/horizons/workflow-coverage-depth-expansion.md` — firm-service map 대비 자동화 workflow 표본을 더 깊고 넓게 확장한다.
+<!-- harness:goal id="demo-rehearsal-quality-loop" status="active" -->
+`docs/horizons/demo-rehearsal-quality-loop.md` — 기존 demo packet을 반복 가능한 리허설·품질 증거로 전환한다.
 
-순서: WCD1 service-line coverage rerank ✅ → WCD2 workflow sample contract pack ✅ → WCD3 minimal adapter expansion ✅ → WCD4 coverage depth metric update ✅ → WCD5 close/handoff.
+순서: DRQ1 demo rehearsal script/timing gate → DRQ2 quality checklist → DRQ3 rehearsal evidence capture → DRQ4 improvement backlog → DRQ5 close/objective-gap audit.
 
 ## Active Milestones
 
-<!-- harness:milestone id="WCD1" status="completed" priority="P0" -->
-### WCD1 — Service-Line Coverage Rerank
-DoD: firm-service map gaps are ranked by automation value, evidence availability, implementation cost, and public-safety boundary.
-Evidence: `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md`
-Gap: Closed by WCD1 service-line rerank script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="WCD2" status="completed" priority="P0" -->
-### WCD2 — Workflow Sample Contract Pack
-DoD: selected workflow samples have input facts, authority needs, output surface, review boundary, and failure states.
-Evidence: `docs/reports/2026-07-05-wcd2-workflow-sample-contract-pack.md`
-Gap: Closed by WCD2 workflow sample contract pack script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="WCD3" status="completed" priority="P0" -->
-### WCD3 — Minimal Adapter Expansion
-DoD: at least one additional workflow produces decision-prep metadata without protected payload exposure.
-Evidence: `docs/reports/2026-07-05-wcd3-minimal-adapter-expansion.md`
-Gap: Closed by WCD3 minimal adapter script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="WCD4" status="completed" priority="P0" -->
-### WCD4 — Coverage Depth Metric Update
-DoD: automation coverage depth is updated with service-line and workflow-surface counts.
-Evidence: `docs/reports/2026-07-05-wcd4-coverage-depth-metric.md`
-Gap: Closed by WCD4 coverage depth metric script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="WCD5" status="active" priority="P0" -->
-### WCD5 — Horizon Close And Demo Rehearsal Handoff
-DoD: workflow coverage depth status is closed and demo rehearsal quality loop is named.
-Evidence: `docs/reports/2026-07-05-workflow-coverage-depth-expansion-close-report.md`
-Gap: Need close gate script/tests/report.
+<!-- harness:milestone id="DRQ1" status="active" priority="P0" -->
+### DRQ1 — Demo Rehearsal Script And Timing Gate
+DoD: demo stages, timing budget, operator command, and expected evidence outputs are explicit.
+Evidence: `docs/reports/2026-07-05-drq1-demo-rehearsal-script.md`
+Gap: Need demo rehearsal script/timing gate script/tests/report.
 Status: [ ]
+
+<!-- harness:milestone id="DRQ2" status="pending" priority="P0" -->
+### DRQ2 — Demo Run Quality Checklist
+DoD: each demo stage has pass/fail checks, failure notes, and recovery route.
+Evidence: `docs/reports/2026-07-05-drq2-demo-run-quality-checklist.md`
+Gap: Pending DRQ1.
+Status: [ ]
+
+<!-- harness:milestone id="DRQ3" status="pending" priority="P0" -->
+### DRQ3 — Rehearsal Evidence Capture
+DoD: one local rehearsal run is represented as public-safe stage results and timing metadata.
+Evidence: `docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md`
+Gap: Pending DRQ2.
+Status: [ ]
+
+<!-- harness:milestone id="DRQ4" status="pending" priority="P0" -->
+### DRQ4 — Demo Improvement Backlog
+DoD: rehearsal findings are translated into prioritized product fixes without adding external feedback work.
+Evidence: `docs/reports/2026-07-05-drq4-demo-improvement-backlog.md`
+Gap: Pending DRQ3.
+Status: [ ]
+
+<!-- harness:milestone id="DRQ5" status="pending" priority="P0" -->
+### DRQ5 — Horizon Close And Objective Gap Audit
+DoD: demo rehearsal quality loop is closed and objective-gap queue status is audited.
+Evidence: `docs/reports/2026-07-05-demo-rehearsal-quality-loop-close-report.md`
+Gap: Pending DRQ4.
+Status: [ ]
+
+## Recently Closed Workflow Coverage Depth Horizon
+
+- WCD1 service-line coverage rerank — 완료 (`docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md`)
+- WCD2 workflow sample contract pack — 완료 (`docs/reports/2026-07-05-wcd2-workflow-sample-contract-pack.md`)
+- WCD3 minimal adapter expansion — 완료 (`docs/reports/2026-07-05-wcd3-minimal-adapter-expansion.md`)
+- WCD4 coverage depth metric update — 완료 (`docs/reports/2026-07-05-wcd4-coverage-depth-metric.md`)
+- WCD5 workflow coverage depth close gate — 완료 (`docs/reports/2026-07-05-workflow-coverage-depth-expansion-close-report.md`)
 
 ## Recently Closed External Source Body Horizon
 
@@ -257,7 +265,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `workflow-coverage-depth-expansion` / WCD5 — horizon close and demo rehearsal handoff.
+**[현재 active]** `demo-rehearsal-quality-loop` / DRQ1 — demo rehearsal script and timing gate.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

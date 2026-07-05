@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "horizon-close-and-demo-rehearsal-handoff",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCD5 added scripts/workflow_coverage_depth_close_gate.py, tests/test_workflow_coverage_depth_close_gate.py, and docs/reports/2026-07-05-workflow-coverage-depth-expansion-close-report.md. The horizon closes as coverage_depth_expanded with audit_disclosure_tie_out added as public-safe decision-prep coverage and hands off to demo-rehearsal-quality-loop.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }
