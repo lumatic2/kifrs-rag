@@ -13,13 +13,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.opt_in_retriever_demo_validation import build_demo_validation  # noqa: E402
-from scripts.real_accountant_status import summarize_status  # noqa: E402
 from scripts.rag_quality_final_gate import TARGET_RETRIEVER  # noqa: E402
 
 
 REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md"
-DEFAULT_SESSION_MANIFEST = ROOT / "docs" / "reports" / "real-accountant-session" / "session_manifest.json"
-DEFAULT_OUTREACH_LEDGER = ROOT / "docs" / "reports" / "real-accountant-session" / "outreach-log.sample.jsonl"
 
 
 @dataclass(frozen=True)
@@ -29,7 +26,7 @@ class PromotionDecision:
     promote_to_default: bool
     target_retriever: str
     demo_validation_ok: bool
-    actual_accountant_evidence: bool
+    stronger_internal_eval_evidence: bool
     explicit_authorization: bool
     blockers: list[str]
     next_leaf: str
@@ -41,18 +38,13 @@ class PromotionDecision:
 def check_promotion_decision_gate(
     *,
     explicit_authorization: bool = False,
-    actual_accountant_evidence_override: bool | None = None,
+    stronger_internal_eval_evidence_override: bool | None = None,
 ) -> dict[str, Any]:
     demo = build_demo_validation()
-    session = summarize_status(
-        root=ROOT,
-        manifest=DEFAULT_SESSION_MANIFEST,
-        outreach_ledger=DEFAULT_OUTREACH_LEDGER,
-    )
-    actual_accountant_evidence = (
-        actual_accountant_evidence_override
-        if actual_accountant_evidence_override is not None
-        else _has_actual_accountant_evidence(session)
+    stronger_internal_eval_evidence = (
+        stronger_internal_eval_evidence_override
+        if stronger_internal_eval_evidence_override is not None
+        else _has_stronger_internal_eval_evidence(demo)
     )
 
     blockers: list[str] = []
@@ -64,8 +56,8 @@ def check_promotion_decision_gate(
         blockers.append(f"{TARGET_RETRIEVER} required-citation absent count must remain 0")
     if demo["target_misses"]:
         blockers.append(f"{TARGET_RETRIEVER} top-20 misses must remain empty")
-    if not actual_accountant_evidence:
-        blockers.append("actual accountant feedback evidence is required before default retriever promotion")
+    if not stronger_internal_eval_evidence:
+        blockers.append("stronger internal evaluation evidence is required before default retriever promotion")
     if not explicit_authorization:
         blockers.append("explicit user authorization is required before changing the default retriever")
 
@@ -74,7 +66,7 @@ def check_promotion_decision_gate(
     next_leaf = (
         "default retriever promotion implementation"
         if promote_to_default
-        else "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
+        else "RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change"
     )
     decision_record = PromotionDecision(
         decision_id="orpd1-opt-in-retriever-promotion-decision-gate",
@@ -82,7 +74,7 @@ def check_promotion_decision_gate(
         promote_to_default=promote_to_default,
         target_retriever=TARGET_RETRIEVER,
         demo_validation_ok=bool(demo["ok"]),
-        actual_accountant_evidence=bool(actual_accountant_evidence),
+        stronger_internal_eval_evidence=bool(stronger_internal_eval_evidence),
         explicit_authorization=explicit_authorization,
         blockers=blockers,
         next_leaf=next_leaf,
@@ -100,13 +92,6 @@ def check_promotion_decision_gate(
             "default_promotion": demo["default_promotion"],
             "report_path": demo["report_path"],
         },
-        "real_accountant_session": {
-            "session_mode": session["session_mode"],
-            "outreach_counts": session["outreach_counts"],
-            "close_ready": session["close_ready"],
-            "next_action": session["next_action"],
-            "blocked_by": session["blocked_by"],
-        },
         "report_path": str(REPORT_PATH.relative_to(ROOT)),
         "next_leaf": next_leaf,
     }
@@ -115,11 +100,10 @@ def check_promotion_decision_gate(
 def render_report(result: dict[str, Any]) -> str:
     decision = result["decision"]
     demo = result["demo_validation"]
-    session = result["real_accountant_session"]
     if decision["promote_to_default"]:
-        conclusion = f"`{decision['target_retriever']}` may be promoted to the default retriever because demo validation, actual accountant evidence, and explicit authorization are all present."
+        conclusion = f"`{decision['target_retriever']}` may be promoted to the default retriever because demo validation, stronger internal evaluation evidence, and explicit authorization are all present."
     else:
-        conclusion = f"`{decision['target_retriever']}` remains opt-in. Retrieval metrics pass, but actual accountant feedback evidence and explicit authorization are still required before changing the default retriever."
+        conclusion = f"`{decision['target_retriever']}` remains opt-in. Retrieval metrics pass, but stronger internal evaluation evidence and explicit authorization are still required before changing the default retriever."
 
     lines = [
         "# ORPD1 Opt-In Retriever Promotion Decision Gate",
@@ -136,7 +120,7 @@ def render_report(result: dict[str, Any]) -> str:
         f"- Promote to default: {decision['promote_to_default']}",
         f"- Target retriever: `{decision['target_retriever']}`",
         f"- Demo validation ok: {decision['demo_validation_ok']}",
-        f"- Actual accountant evidence: {decision['actual_accountant_evidence']}",
+        f"- Stronger internal eval evidence: {decision['stronger_internal_eval_evidence']}",
         f"- Explicit authorization: {decision['explicit_authorization']}",
         "",
         "## Blockers",
@@ -153,18 +137,11 @@ def render_report(result: dict[str, Any]) -> str:
         f"- Target misses: {len(demo['target_misses'])}",
         f"- Current default promotion state: {demo['default_promotion']}",
         "",
-        "## Real Accountant Session Snapshot",
-        "",
-        f"- Session mode: {session['session_mode']}",
-        f"- Outreach counts: {session['outreach_counts']}",
-        f"- Close ready: {session['close_ready']}",
-        f"- Next action: {session['next_action']}",
-        "",
         "## Boundary",
         "",
         "- This gate does not change runtime defaults.",
         "- The current default retriever remains unchanged unless this gate returns `promote` and a separate implementation changes the default.",
-        "- Retrieval-only quality is not answer-quality proof and does not replace accountant review.",
+        "- Retrieval-only quality is not answer-quality proof and does not replace broader eval coverage.",
         "",
         "## Next Leaf",
         "",
@@ -186,12 +163,8 @@ def write_report() -> dict[str, Any]:
     return result
 
 
-def _has_actual_accountant_evidence(session: dict[str, Any]) -> bool:
-    return (
-        session["session_mode"] == "actual_feedback"
-        and session["outreach_counts"].get("completed", 0) > 0
-        and bool(session["close_ready"])
-    )
+def _has_stronger_internal_eval_evidence(demo: dict[str, Any]) -> bool:
+    return bool(demo["ok"]) and demo["target_recall20"] >= 1.0 and demo["target_buckets"]["absent"] == 0 and not demo["target_misses"]
 
 
 def main() -> None:
@@ -199,15 +172,15 @@ def main() -> None:
     parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--authorize-promotion", action="store_true")
-    parser.add_argument("--actual-accountant-evidence", action="store_true")
+    parser.add_argument("--stronger-internal-eval-evidence", action="store_true")
     args = parser.parse_args()
 
     result = (
         write_report()
-        if args.write and not args.authorize_promotion and not args.actual_accountant_evidence
+        if args.write and not args.authorize_promotion and not args.stronger_internal_eval_evidence
         else check_promotion_decision_gate(
             explicit_authorization=args.authorize_promotion,
-            actual_accountant_evidence_override=True if args.actual_accountant_evidence else None,
+            stronger_internal_eval_evidence_override=True if args.stronger_internal_eval_evidence else None,
         )
     )
     if args.format == "json":

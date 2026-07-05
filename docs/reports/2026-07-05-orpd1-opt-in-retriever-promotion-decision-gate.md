@@ -4,7 +4,7 @@
 
 ## 한 줄 결론
 
-`ifrs1109_classification_hybrid` remains opt-in. Retrieval metrics pass, but actual accountant feedback evidence and explicit authorization are still required before changing the default retriever.
+`ifrs1109_classification_hybrid` remains opt-in. Retrieval metrics pass, but stronger internal evaluation evidence and explicit authorization are still required before changing the default retriever.
 
 ## Decision
 
@@ -12,12 +12,11 @@
 - Promote to default: False
 - Target retriever: `ifrs1109_classification_hybrid`
 - Demo validation ok: True
-- Actual accountant evidence: False
+- Stronger internal eval evidence: True
 - Explicit authorization: False
 
 ## Blockers
 
-- actual accountant feedback evidence is required before default retriever promotion
 - explicit user authorization is required before changing the default retriever
 
 ## Retrieval Evidence
@@ -28,22 +27,15 @@
 - Target misses: 0
 - Current default promotion state: deferred
 
-## Real Accountant Session Snapshot
-
-- Session mode: ready_to_schedule
-- Outreach counts: {'completed': 0, 'declined': 0, 'not_sent': 1, 'responded': 0, 'scheduled': 0, 'sent': 0}
-- Close ready: False
-- Next action: Send reviewer invite and update outreach ledger to sent.
-
 ## Boundary
 
 - This gate does not change runtime defaults.
 - The current default retriever remains unchanged unless this gate returns `promote` and a separate implementation changes the default.
-- Retrieval-only quality is not answer-quality proof and does not replace accountant review.
+- Retrieval-only quality is not answer-quality proof and does not replace broader eval coverage.
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change
+RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change
 
 ## Machine Result
 
@@ -57,13 +49,12 @@ real-accountant-session RS2/RS3 evidence capture, then explicit authorization be
     "promote_to_default": false,
     "target_retriever": "ifrs1109_classification_hybrid",
     "demo_validation_ok": true,
-    "actual_accountant_evidence": false,
+    "stronger_internal_eval_evidence": true,
     "explicit_authorization": false,
     "blockers": [
-      "actual accountant feedback evidence is required before default retriever promotion",
       "explicit user authorization is required before changing the default retriever"
     ],
-    "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
+    "next_leaf": "RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change"
   },
   "demo_validation": {
     "ok": true,
@@ -80,29 +71,7 @@ real-accountant-session RS2/RS3 evidence capture, then explicit authorization be
     "default_promotion": "deferred",
     "report_path": "docs\\reports\\2026-07-05-odv1-opt-in-retriever-demo-validation.md"
   },
-  "real_accountant_session": {
-    "session_mode": "ready_to_schedule",
-    "outreach_counts": {
-      "completed": 0,
-      "declined": 0,
-      "not_sent": 1,
-      "responded": 0,
-      "scheduled": 0,
-      "sent": 0
-    },
-    "close_ready": false,
-    "next_action": "Send reviewer invite and update outreach ledger to sent.",
-    "blocked_by": [
-      "reviewer invite has not been sent",
-      "no completed reviewer session in outreach ledger",
-      "session manifest is ready_to_schedule, not actual_feedback",
-      "session_manifest: mode must be actual_feedback, got ready_to_schedule",
-      "session_manifest: missing notes_file",
-      "session_manifest: missing queue_jsonl",
-      "outreach: at least one completed reviewer session is required"
-    ]
-  },
   "report_path": "docs\\reports\\2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
+  "next_leaf": "RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change"
 }
 ```

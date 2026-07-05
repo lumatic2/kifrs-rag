@@ -58,8 +58,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
         "milestones": [
-            {"id": "RR1", "name": "baseline inventory", "status": "active_next"},
-            {"id": "RR2", "name": "eval matrix and seed coverage", "status": "pending"},
+            {"id": "RR1", "name": "baseline inventory", "status": "completed"},
+            {"id": "RR2", "name": "eval matrix and seed coverage", "status": "active_next"},
             {"id": "RR3", "name": "retrieval and citation diagnostics", "status": "pending"},
             {"id": "RR4", "name": "repair policy candidate", "status": "pending"},
             {"id": "RR5", "name": "promotion gate and handoff", "status": "pending"},
@@ -94,7 +94,7 @@ def build_progress_map() -> dict[str, Any]:
             "automation_rate": gap.automation_rate,
         },
         "remaining_gaps": gap.remaining_gaps,
-        "next_leaf": next_action["recommended_next_decision"] or "RR1_baseline_inventory",
+        "next_leaf": next_action["recommended_next_decision"] or "RR2_eval_matrix_and_seed_coverage",
         "next_command": next_action["next_command"]
         if next_action["next_command"] != "none"
         else "python scripts\\quality_preflight.py --format text",

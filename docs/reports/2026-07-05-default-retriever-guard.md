@@ -21,7 +21,7 @@ The runtime default remains `hybrid`; the repair retriever is still opt-in only.
 
 - This guard does not change runtime defaults.
 - The target repair stack remains an opt-in evaluation/demo path.
-- A future default change requires actual accountant evidence, explicit authorization, and a separate implementation.
+- A future default change requires stronger internal evaluation evidence, explicit authorization, and a separate implementation.
 
 ## Machine Result
 
@@ -46,6 +46,6 @@ The runtime default remains `hybrid`; the repair retriever is still opt-in only.
   "promotion_decision": "defer",
   "promote_to_default": false,
   "report_path": "docs/reports/2026-07-05-default-retriever-guard.md",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
+  "next_leaf": "RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change"
 }
 ```

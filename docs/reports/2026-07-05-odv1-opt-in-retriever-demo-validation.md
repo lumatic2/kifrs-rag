@@ -16,17 +16,17 @@
 ## Demo Boundary
 
 - Use the target retriever only as an opt-in demo/evaluation path.
-- Keep the default retriever unchanged until actual accountant session evidence supports promotion.
+- Keep the default retriever unchanged until stronger internal evaluation evidence and explicit authorization support promotion.
 - Treat this as retrieval evidence, not answer-quality proof or final accounting judgment.
 
-## Operator Surface Check
+## Gap-Audit Check
 
-- run sheet next leaf: real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change
-- operator proof snapshot still exposes remaining gaps.
+- gap-audit next leaf: select the next internal capability horizon: RAG quality, external source data, client-private parser, or product UX
+- gap audit still exposes the default-promotion boundary.
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change
+RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change
 
 ## Machine Result
 
@@ -57,14 +57,16 @@ real-accountant-session RS2/RS3 evidence capture, then explicit authorization be
   "target_misses": [],
   "default_promotion": "deferred",
   "demo_ready_for_opt_in": true,
-  "operator_snapshot_gaps": [
-    "actual accountant session evidence is still external/user-owned",
+  "gap_audit_remaining_gaps": [
+    "external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced",
+    "RAG quality needs a fresh internal validation horizon before any default retriever promotion",
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
-    "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
-    "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization"
+    "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
+    "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
+    "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "run_sheet_next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change",
+  "gap_audit_next_leaf": "select the next internal capability horizon: RAG quality, external source data, client-private parser, or product UX",
   "report_path": "docs\\reports\\2026-07-05-odv1-opt-in-retriever-demo-validation.md",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
+  "next_leaf": "RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change"
 }
 ```

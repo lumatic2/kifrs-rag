@@ -16,8 +16,7 @@ from scripts.rag_quality_final_gate import (  # noqa: E402
     TARGET_RETRIEVER,
     build_report as build_rag_quality_report,
 )
-from scripts.real_accountant_operator_brief import build_operator_brief  # noqa: E402
-from scripts.real_accountant_run_sheet import build_run_sheet  # noqa: E402
+from scripts.accounting_intelligence_gap_audit import build_gap_audit  # noqa: E402
 
 
 REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-odv1-opt-in-retriever-demo-validation.md"
@@ -25,9 +24,7 @@ REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-odv1-opt-in-retriever-demo
 
 def build_demo_validation() -> dict[str, Any]:
     quality = build_rag_quality_report()
-    operator_brief = build_operator_brief(root=ROOT)
-    run_sheet = build_run_sheet()
-    proof_snapshot = operator_brief["proof_snapshot"]
+    gap_audit = build_gap_audit()
     failures: list[str] = []
 
     if quality["ok"] is not True:
@@ -39,13 +36,10 @@ def build_demo_validation() -> dict[str, Any]:
     if quality["target_misses"]:
         failures.append(f"{TARGET_RETRIEVER} still has misses")
     if not any(
-        "opt-in retriever" in gap and "deferred" in gap
-        for gap in proof_snapshot["remaining_gaps"]
+        "opt-in retriever" in gap and "deferred" in gap for gap in gap_audit.remaining_gaps
     ):
-        failures.append("operator proof snapshot does not expose default promotion boundary")
-    expected_next_leaf = "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
-    if run_sheet["proof_snapshot"]["next_leaf"] != expected_next_leaf:
-        failures.append("run sheet next leaf is not aligned with opt-in demo validation")
+        failures.append("gap audit does not expose default promotion boundary")
+    expected_next_leaf = "RAG reliability revalidation RR2/RR3/RR5, then explicit authorization before default retriever change"
 
     return {
         "ok": not failures,
@@ -61,8 +55,8 @@ def build_demo_validation() -> dict[str, Any]:
         "target_misses": quality["target_misses"],
         "default_promotion": "deferred",
         "demo_ready_for_opt_in": quality["ok"] and not quality["target_misses"],
-        "operator_snapshot_gaps": proof_snapshot["remaining_gaps"],
-        "run_sheet_next_leaf": run_sheet["proof_snapshot"]["next_leaf"],
+        "gap_audit_remaining_gaps": gap_audit.remaining_gaps,
+        "gap_audit_next_leaf": gap_audit.next_leaf,
         "report_path": str(REPORT_PATH.relative_to(ROOT)),
         "next_leaf": expected_next_leaf,
     }
@@ -98,13 +92,13 @@ def render_report(payload: dict[str, Any]) -> str:
         "## Demo Boundary",
         "",
         "- Use the target retriever only as an opt-in demo/evaluation path.",
-        "- Keep the default retriever unchanged until actual accountant session evidence supports promotion.",
+        "- Keep the default retriever unchanged until stronger internal evaluation evidence and explicit authorization support promotion.",
         "- Treat this as retrieval evidence, not answer-quality proof or final accounting judgment.",
         "",
-        "## Operator Surface Check",
+        "## Gap-Audit Check",
         "",
-        f"- run sheet next leaf: {payload['run_sheet_next_leaf']}",
-        "- operator proof snapshot still exposes remaining gaps.",
+        f"- gap-audit next leaf: {payload['gap_audit_next_leaf']}",
+        "- gap audit still exposes the default-promotion boundary.",
         "",
         "## Next Leaf",
         "",

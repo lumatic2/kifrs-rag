@@ -124,7 +124,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         "",
         "- This guard does not change runtime defaults.",
         "- The target repair stack remains an opt-in evaluation/demo path.",
-        "- A future default change requires actual accountant evidence, explicit authorization, and a separate implementation.",
+        "- A future default change requires stronger internal evaluation evidence, explicit authorization, and a separate implementation.",
     ]
     if result["errors"]:
         lines.extend(["", "## Errors", ""])

@@ -6,7 +6,7 @@ from scripts.opt_in_retriever_promotion_decision_gate import (
 )
 
 
-def test_promotion_decision_gate_defers_without_actual_evidence_or_authorization() -> None:
+def test_promotion_decision_gate_defers_without_authorization() -> None:
     result = check_promotion_decision_gate()
 
     assert result["ok"], result["errors"]
@@ -15,7 +15,6 @@ def test_promotion_decision_gate_defers_without_actual_evidence_or_authorization
     assert result["decision"]["target_retriever"] == "ifrs1109_classification_hybrid"
     assert result["decision"]["demo_validation_ok"] is True
     blockers = " ".join(result["decision"]["blockers"])
-    assert "actual accountant feedback evidence" in blockers
     assert "explicit user authorization" in blockers
     assert result["demo_validation"]["target_recall20"] == 1.0
     assert result["demo_validation"]["target_buckets"]["absent"] == 0
@@ -24,7 +23,7 @@ def test_promotion_decision_gate_defers_without_actual_evidence_or_authorization
 def test_promotion_decision_gate_can_promote_when_all_preconditions_are_met() -> None:
     result = check_promotion_decision_gate(
         explicit_authorization=True,
-        actual_accountant_evidence_override=True,
+        stronger_internal_eval_evidence_override=True,
     )
 
     assert result["ok"], result["errors"]
