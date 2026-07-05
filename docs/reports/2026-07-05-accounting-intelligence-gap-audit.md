@@ -34,6 +34,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | local_parser_real_adapter_decision_gate | `docs/reports/2026-07-05-lprd1-local-parser-real-adapter-decision-gate.md` | present |
 | external_body_ingestion_decision_gate | `docs/reports/2026-07-05-esbd1-external-source-body-ingestion-decision-gate.md` | present |
 | external_body_policy_plan | `docs/reports/2026-07-05-espp1-external-source-body-policy-plan.md` | present |
+| external_body_authorization_gate | `docs/reports/2026-07-05-esag1-external-source-body-authorization-gate.md` | present |
 
 ## Demo Outputs
 
@@ -61,12 +62,12 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 - actual accountant session evidence is still external/user-owned
 - local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented
-- external source body-ingestion policy plan is present, but explicit authorization gate is still required before body ingestion/chunking/embedding
+- external source body-ingestion authorization gate is present and deferred, so body ingestion/chunking/embedding is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate
+real-accountant-session RS2/RS3 evidence capture, or external source synthetic parser/chunker dry-run
 
 ## Machine Result
 
@@ -82,11 +83,11 @@ real-accountant-session RS2/RS3 evidence capture, or external source body-ingest
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source synthetic parser/chunker dry-run",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
     "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-    "external source body-ingestion policy plan is present, but explicit authorization gate is still required before body ingestion/chunking/embedding",
+    "external source body-ingestion authorization gate is present and deferred, so body ingestion/chunking/embedding is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],
   "errors": []
