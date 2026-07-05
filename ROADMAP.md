@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (RLP2 완료, RLP3 시작)
+> 마지막 업데이트: 2026-07-05 (RLP3 완료, RLP4 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -52,11 +52,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Active Milestones
 
-<!-- harness:milestone id="RLP3" status="active" priority="P0" -->
-### RLP3 — Deletion Automation Simulation
-- DoD: parser output이 deletion/retention attestation 없이 close되지 않도록 simulation gate를 만든다.
-- Evidence: `docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md`; plan `docs/plans/2026-07-05-real-local-parser-prototype.md`
-- Gap: RLP2 adapter는 구조화 사실과 review questions를 만들지만, deletion/retention state gate는 아직 없다.
+<!-- harness:milestone id="RLP4" status="active" priority="P0" -->
+### RLP4 — Private Payload Leak Tests
+- DoD: parser output과 report가 body-like, identifier-like, OCR-like, embedding-like payload를 포함하면 실패한다.
+- Evidence: `docs/reports/2026-07-05-rlp4-private-payload-leak-tests.md`; plan `docs/plans/2026-07-05-real-local-parser-prototype.md`
+- Gap: RLP3는 deletion state를 막지만, RLP 전체 public artifact leak test는 아직 없다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -76,8 +76,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - PTQ5 trust and quality close gate — 완료 (`docs/reports/2026-07-05-product-trust-quality-close-report.md`)
 - RLP1 parser prototype asset inventory — 완료 (`docs/reports/2026-07-05-rlp1-parser-prototype-asset-inventory.md`)
 - RLP2 local fixture parser adapter — 완료 (`docs/reports/2026-07-05-rlp2-local-fixture-parser-adapter.md`)
-- RLP3 deletion automation simulation — active
-- RLP4 private payload leak tests
+- RLP3 deletion automation simulation — 완료 (`docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md`)
+- RLP4 private payload leak tests — active
 - RLP5 local parser prototype close gate
 - RPG1 promotion evidence inventory
 - RPG2 regression and latency gate

@@ -20,7 +20,9 @@
     {
       "step": 3,
       "name": "deletion-automation-simulation",
-      "status": "pending"
+      "status": "completed",
+      "summary": "RLP3 added scripts/deletion_automation_simulation.py, tests/test_deletion_automation_simulation.py, and docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md. It gates parser close on a simulated deleted_and_attested lifecycle, deletion before report write, no retained artifacts, and no claim of real filesystem deletion automation.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,

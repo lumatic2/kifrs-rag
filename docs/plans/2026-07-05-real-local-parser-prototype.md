@@ -23,9 +23,9 @@ This horizon makes the private parser path more realistic while staying local-on
 
 ### RLP3 — Deletion Automation Simulation
 
-- [ ] RLP3.1 — Define deletion simulation states.
-- [ ] RLP3.2 — Gate close on deletion/retention attestation.
-- [ ] RLP3.3 — Add tests and report.
+- [x] RLP3.1 — Define deletion simulation states.
+- [x] RLP3.2 — Gate close on deletion/retention attestation.
+- [x] RLP3.3 — Add tests and report.
 
 ### RLP4 — Private Payload Leak Tests
 

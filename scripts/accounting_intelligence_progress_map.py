@@ -61,18 +61,18 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "RLP1", "name": "parser prototype asset inventory", "status": "completed"},
             {"id": "RLP2", "name": "local fixture parser adapter", "status": "completed"},
-            {"id": "RLP3", "name": "deletion automation simulation", "status": "active_next"},
-            {"id": "RLP4", "name": "private payload leak tests", "status": "pending"},
+            {"id": "RLP3", "name": "deletion automation simulation", "status": "completed"},
+            {"id": "RLP4", "name": "private payload leak tests", "status": "active_next"},
             {"id": "RLP5", "name": "local parser prototype close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_RLP3_deletion_automation_simulation",
+            "id": "run_RLP4_private_payload_leak_tests",
             "status": "active",
-            "decide": "Implement a deletion/retention simulation gate so parser output cannot close without attestation.",
+            "decide": "Add leak tests that fail if parser outputs or reports contain body-like, identifier-like, OCR-like, or embedding-like payloads.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_deletion_automation_simulation.py -q",
+            "command": "python -m pytest tests\\test_private_payload_leak_tests.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RLP3_deletion_automation_simulation",
-        "next_command": "python -m pytest tests\\test_deletion_automation_simulation.py -q",
+        "next_leaf": "RLP4_private_payload_leak_tests",
+        "next_command": "python -m pytest tests\\test_private_payload_leak_tests.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

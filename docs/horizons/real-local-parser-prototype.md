@@ -26,12 +26,14 @@ Status: completed
 
 ### RLP3. Deletion Automation Simulation
 
-Status: active
+Status: completed
 
 - Deliverable: deletion simulation gate, tests, `docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md`
 - Acceptance: parser output cannot close until retention/deletion state is attested.
 
 ### RLP4. Private Payload Leak Tests
+
+Status: active
 
 - Deliverable: leak-test script, tests, `docs/reports/2026-07-05-rlp4-private-payload-leak-tests.md`
 - Acceptance: body-like, identifier-like, OCR-like, and embedding-like fields are rejected from public artifacts.
