@@ -8,7 +8,7 @@ The end-to-end-demo-scenario horizon is closed as demo_ready; the next move is a
 
 ## Objective
 
-Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.
+Prove how far accountant work can be automated, then turn that proof into firm-facing local toolkit evidence.
 
 ## Current Horizon
 
@@ -61,7 +61,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 - local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented
 - opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization
-- firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product
+- firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product
 
 ## Next Leaf
 
@@ -73,7 +73,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 ```json
 {
   "title": "Accounting Intelligence Progress Map",
-  "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
+  "objective": "Prove how far accountant work can be automated, then turn that proof into firm-facing local toolkit evidence.",
   "current_horizon": {
     "id": "end-to-end-demo-scenario",
     "status": "closed",
@@ -172,7 +172,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
     {
       "id": "select_next_post_demo_horizon",
       "status": "pending_next_plan",
-      "decide": "Choose whether to rehearse the demo path or move toward packaging readiness.",
+      "decide": "Choose whether to audit remaining objective gaps or rehearse the demo path.",
       "blocker": "none",
       "command": "python scripts\\e2e_demo_close_gate.py --format text"
     },
@@ -195,7 +195,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
-    "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
+    "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
   "next_leaf": "none_end_to_end_demo_scenario_closed",
   "next_command": "python scripts\\e2e_demo_close_gate.py --format text",

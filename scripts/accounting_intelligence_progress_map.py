@@ -95,7 +95,7 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "select_next_post_demo_horizon",
             "status": "pending_next_plan",
-            "decide": "Choose whether to rehearse the demo path or move toward packaging readiness.",
+            "decide": "Choose whether to audit remaining objective gaps or rehearse the demo path.",
             "blocker": "none",
             "command": "python scripts\\e2e_demo_close_gate.py --format text",
         },
@@ -109,7 +109,7 @@ def build_progress_map() -> dict[str, Any]:
     ]
     return {
         "title": "Accounting Intelligence Progress Map",
-        "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
+        "objective": "Prove how far accountant work can be automated, then turn that proof into firm-facing local toolkit evidence.",
         "current_horizon": current_horizon,
         "completed_horizons": completed_horizons,
         "open_decisions": decisions,

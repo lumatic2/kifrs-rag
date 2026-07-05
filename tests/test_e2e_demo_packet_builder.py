@@ -25,6 +25,7 @@ def test_e2e_demo_packet_index_is_public_safe_and_actionable() -> None:
     assert "Demo Run Order" in index
     assert "python scripts\\e2e_demo_asset_inventory.py --format text --write" in index
     assert "not final accounting judgment" in index
+    assert "release readiness" in index
     assert "E2E3 Demo Packet Builder" in report
     assert "api_key" not in index
     assert "token" not in index

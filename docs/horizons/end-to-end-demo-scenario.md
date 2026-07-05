@@ -58,4 +58,4 @@ Status: completed
 - Result: `demo_ready`
 - Evidence: `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`
 - Demo packet: `docs/reports/end-to-end-demo/INDEX.md`
-- Next candidate: `demo-rehearsal-or-packaging-readiness`
+- Next candidate: `objective-gap-audit-or-demo-rehearsal`

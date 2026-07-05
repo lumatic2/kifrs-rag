@@ -29,7 +29,7 @@
 중간 관문(성공 모습으로 가는 관측 가능한 계단):
 1. 회계사 업무 지도 위에 "자동화 가능/조건부/불가" 경계선이 증거와 함께 그려져 있다.
 2. 현업 회계사 1명 이상이 실제 업무 사례를 이 도구로 처리해보고 피드백을 남겼다.
-3. 설치 가능한 도구킷 + 데모 자료(영상·사례집)가 준비되어 있다.
+3. 데모 자료(영상·사례집)와 반복 실행 가능한 품질 증거가 준비되어 있다.
 4. → 법인 소개/PoC.
 
 ## 움직이는 축 (현재 → 목표, 측정법)
@@ -64,7 +64,7 @@
 | **회계법인 서비스라인 지도** | 회계법인 팀/company map + 팀별 workflow + AI insertion point 재판정 | ✅ |
 | **F-ACC 기술 확장 sequence** | 1116/1109/1115 review pack, 주석, 재무제표 후보, 감사분석, demo PoC | ✅ |
 | **Accounting Intelligence Expansion (현재)** | K-IFRS RAG 품질 refresh -> 비IFRS 정보원 지도 -> multi-source ingestion/RAG -> 실제 feedback loop | 진행 중 |
-| (이후) 프로덕트 패키징 | 설치 가능한 도구킷 + 데모 자료 + 회계사 피드백 | 후보 |
+| (다음 후보) Objective gap hardening | 성공 모습 대비 부족한 증거를 다시 계량하고 다음 실험을 고른다 | 후보 |
 | (최종) 법인 소개/PoC | 성공 모습 | — |
 
 ## 결정 이력
@@ -115,6 +115,7 @@
 현재 active milestone plan: `docs/plans/2026-07-05-end-to-end-demo-scenario.md`
 최근 완료 demo packet: `docs/reports/end-to-end-demo/INDEX.md`
 최근 완료 close report: `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`
+주의: 패키징은 현재 계획에서 제외한다. 필요하면 사용자가 별도로 지시할 때 새 horizon으로 계획한다.
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`

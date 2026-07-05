@@ -293,7 +293,7 @@ def build_gap_audit() -> GapAudit:
         "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
         "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
         "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
-        "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product",
+        "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product",
     ]
 
     return GapAudit(

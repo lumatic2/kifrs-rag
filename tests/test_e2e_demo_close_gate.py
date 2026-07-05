@@ -11,7 +11,7 @@ def test_e2e_demo_close_gate_marks_demo_ready() -> None:
     assert result["completed_milestone"] == "E2E5"
     assert result["close_result"] == "demo_ready"
     assert result["demo_packet"] == "docs/reports/end-to-end-demo/INDEX.md"
-    assert result["next_horizon_candidate"] == "demo-rehearsal-or-packaging-readiness"
+    assert result["next_horizon_candidate"] == "objective-gap-audit-or-demo-rehearsal"
     assert all(item["exists"] for item in result["evidence"])
     assert all(item["gate_ok"] for item in result["evidence"])
 
@@ -21,7 +21,7 @@ def test_e2e_demo_close_gate_markdown_is_public_safe_and_boundary_explicit() -> 
 
     assert "End-to-End Demo Scenario Close Report" in rendered
     assert "demo_ready" in rendered
-    assert "not production packaging" in rendered
+    assert "not release readiness" in rendered
     assert "not final accounting judgment" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered

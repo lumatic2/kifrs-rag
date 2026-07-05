@@ -41,7 +41,7 @@ This horizon turns the completed product-weakness work into one end-to-end demon
 
 ## Decision Log
 
-- Demo scenario first, packaging later.
+- Demo scenario only. Packaging is outside the current plan unless the user explicitly reopens it.
 - Use synthetic/public-safe evidence only.
 - No external accountant outreach in this plan.
 - Continue through the horizon unless a protected-data, secret, or missing-critical-artifact blocker appears.

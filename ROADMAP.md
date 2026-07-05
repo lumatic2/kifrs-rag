@@ -163,7 +163,7 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음 — `end-to-end-demo-scenario` 완료. 다음 후보는 `demo-rehearsal-or-packaging-readiness`.
+**[현재 active]** 없음 — `end-to-end-demo-scenario` 완료. 다음 후보는 `objective-gap-audit-or-demo-rehearsal`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

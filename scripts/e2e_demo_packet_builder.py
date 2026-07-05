@@ -142,7 +142,7 @@ def render_packet_index(packet: dict[str, Any]) -> str:
             "",
             "- This packet uses public-safe reports only.",
             "- It demonstrates decision-prep and review support, not final accounting judgment.",
-            "- It does not claim production packaging readiness.",
+            "- It does not claim release readiness.",
         ]
     )
     return "\n".join(lines) + "\n"

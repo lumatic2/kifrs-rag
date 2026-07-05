@@ -7,7 +7,7 @@
 Close result: `demo_ready`.
 
 - Demo packet: `docs/reports/end-to-end-demo/INDEX.md`
-- Next horizon candidate: `demo-rehearsal-or-packaging-readiness`
+- Next horizon candidate: `objective-gap-audit-or-demo-rehearsal`
 
 ## Evidence
 
@@ -32,7 +32,7 @@ Close result: `demo_ready`.
 
 ## Residual Risks
 
-- This is a public-safe local demo packet, not production packaging.
+- This is a public-safe local demo packet, not release readiness.
 - Default retriever promotion remains deferred until stronger evaluation evidence and explicit authorization.
 - The demo supports decision preparation and review, not final accounting judgment.
 
@@ -97,11 +97,11 @@ Close result: `demo_ready`.
   "errors": [],
   "demo_packet": "docs/reports/end-to-end-demo/INDEX.md",
   "residual_risks": [
-    "This is a public-safe local demo packet, not production packaging.",
+    "This is a public-safe local demo packet, not release readiness.",
     "Default retriever promotion remains deferred until stronger evaluation evidence and explicit authorization.",
     "The demo supports decision preparation and review, not final accounting judgment."
   ],
-  "next_horizon_candidate": "demo-rehearsal-or-packaging-readiness",
+  "next_horizon_candidate": "objective-gap-audit-or-demo-rehearsal",
   "report_path": "docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md"
 }
 ```

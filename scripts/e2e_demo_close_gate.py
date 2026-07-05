@@ -49,11 +49,11 @@ def build_demo_close_gate() -> dict[str, Any]:
         "errors": errors,
         "demo_packet": "docs/reports/end-to-end-demo/INDEX.md",
         "residual_risks": [
-            "This is a public-safe local demo packet, not production packaging.",
+            "This is a public-safe local demo packet, not release readiness.",
             "Default retriever promotion remains deferred until stronger evaluation evidence and explicit authorization.",
             "The demo supports decision preparation and review, not final accounting judgment.",
         ],
-        "next_horizon_candidate": "demo-rehearsal-or-packaging-readiness",
+        "next_horizon_candidate": "objective-gap-audit-or-demo-rehearsal",
         "report_path": _display_path(REPORT_PATH),
     }
 
