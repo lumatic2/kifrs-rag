@@ -27,3 +27,4 @@
 | 23 | `20260705-invite-send-receipt` | 2026-07-05 | public-safe manual invite send receipt contract | 4/4 | completed |
 | 24 | `20260705-next-action-receipt-command` | 2026-07-05 | show invite receipt command in next-action sequence | 4/4 | completed |
 | 25 | `20260705-post-send-rehearsal-gate` | 2026-07-05 | rehearse receipt-to-sent ledger transition | 4/4 | completed |
+| 26 | `20260705-invite-receipt-apply` | 2026-07-05 | apply sent ledger update only after receipt validation | 4/4 | completed |
