@@ -19,8 +19,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | Milestone | Name | Status |
 |---|---|---|
 | RR1 | baseline inventory | completed |
-| RR2 | eval matrix and seed coverage | active_next |
-| RR3 | retrieval and citation diagnostics | pending |
+| RR2 | eval matrix and seed coverage | completed |
+| RR3 | retrieval and citation diagnostics | active_next |
 | RR4 | repair policy candidate | pending |
 | RR5 | promotion gate and handoff | pending |
 
@@ -60,7 +60,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RR2_eval_matrix_and_seed_coverage`
+- decision: `RR3_retrieval_and_citation_diagnostics`
 - command: `python scripts\quality_preflight.py --format text`
 
 ## Machine Result
@@ -82,12 +82,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RR2",
         "name": "eval matrix and seed coverage",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "RR3",
         "name": "retrieval and citation diagnostics",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "RR4",
@@ -163,7 +163,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RR2_eval_matrix_and_seed_coverage",
+  "next_leaf": "RR3_retrieval_and_citation_diagnostics",
   "next_command": "python scripts\\quality_preflight.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }

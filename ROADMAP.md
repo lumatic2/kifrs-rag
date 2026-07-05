@@ -42,8 +42,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 Active milestones:
 - RR1 baseline inventory — 완료 (`docs/reports/2026-07-05-rr1-rag-baseline-inventory.md`)
-- RR2 eval matrix and seed coverage — next
-- RR3 retrieval and citation diagnostics
+- RR2 eval matrix and seed coverage — 완료 (`docs/reports/2026-07-05-rr2-eval-matrix.md`)
+- RR3 retrieval and citation diagnostics — next
 - RR4 repair policy candidate
 - RR5 promotion gate and next-horizon handoff
 
