@@ -27,7 +27,9 @@
     {
       "step": 4,
       "name": "retrieval-gate-for-controlled-lane",
-      "status": "pending"
+      "status": "completed",
+      "summary": "SBI4 added scripts/controlled_lane_retrieval_gate.py, tests/test_controlled_lane_retrieval_gate.py, and docs/reports/2026-07-05-sbi4-controlled-lane-retrieval-gate.md. It retrieves synthetic controlled chunks as controlled_supporting_interpretation with supporting_interpretation citation role, interpretive authority, and primary_evidence_replacement_allowed false.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,

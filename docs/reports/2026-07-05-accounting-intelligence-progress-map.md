@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | SBI1 | source class selection and authorization boundary | completed |
 | SBI2 | source body policy record | completed |
 | SBI3 | synthetic body parser and chunker | completed |
-| SBI4 | retrieval gate for controlled lane | active_next |
-| SBI5 | controlled lane close gate | pending |
+| SBI4 | retrieval gate for controlled lane | completed |
+| SBI5 | controlled lane close gate | active_next |
 
 ## Completed Capability Chain
 
@@ -48,7 +48,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_SBI4_controlled_lane_retrieval_gate | active | none | `python -m pytest tests\test_controlled_lane_retrieval_gate.py -q` |
+| run_SBI5_controlled_lane_close_gate | active | none | `python -m pytest tests\test_controlled_lane_close_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -61,8 +61,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `SBI4_controlled_lane_retrieval_gate`
-- command: `python -m pytest tests\test_controlled_lane_retrieval_gate.py -q`
+- decision: `SBI5_controlled_lane_close_gate`
+- command: `python -m pytest tests\test_controlled_lane_close_gate.py -q`
 
 ## Machine Result
 
@@ -93,12 +93,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "SBI4",
         "name": "retrieval gate for controlled lane",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "SBI5",
         "name": "controlled lane close gate",
-        "status": "pending"
+        "status": "active_next"
       }
     ]
   },
@@ -146,11 +146,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_SBI4_controlled_lane_retrieval_gate",
+      "id": "run_SBI5_controlled_lane_close_gate",
       "status": "active",
-      "decide": "Add retrieval gate for controlled chunks as supporting interpretation without replacing K-IFRS primary evidence.",
+      "decide": "Close the controlled source lane by tying authorization, policy, parser/chunker, retrieval, and carried RAG gates.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_controlled_lane_retrieval_gate.py -q"
+      "command": "python -m pytest tests\\test_controlled_lane_close_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -173,8 +173,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "SBI4_controlled_lane_retrieval_gate",
-  "next_command": "python -m pytest tests\\test_controlled_lane_retrieval_gate.py -q",
+  "next_leaf": "SBI5_controlled_lane_close_gate",
+  "next_command": "python -m pytest tests\\test_controlled_lane_close_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

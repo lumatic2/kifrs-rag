@@ -15,8 +15,8 @@ authorization, policy, parser/chunker, retrieval, public-safe, and carried RAG r
 ## Acceptance Criteria
 
 ```powershell
-python -m pytest tests\test_source_body_ingestion_controlled_lane_close_gate.py -q
-python scripts\source_body_ingestion_controlled_lane_close_gate.py --format text --write
+python -m pytest tests\test_controlled_lane_close_gate.py -q
+python scripts\controlled_lane_close_gate.py --format text --write
 ```
 
 ## 검증 절차

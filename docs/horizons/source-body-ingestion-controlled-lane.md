@@ -33,12 +33,14 @@ Status: completed
 
 ### SBI4. Retrieval Gate For Controlled Lane
 
-Status: active
+Status: completed
 
 - Deliverable: retrieval gate, tests, `docs/reports/2026-07-05-sbi4-controlled-lane-retrieval-gate.md`
 - Acceptance: controlled chunks can be discovered as supporting interpretation or legal boundary evidence without changing K-IFRS primary evidence.
 
 ### SBI5. Controlled Lane Close Gate
+
+Status: active
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md`
 - Acceptance: authorization, parser/chunker, retrieval, public-safe, and RAG regression gates pass.

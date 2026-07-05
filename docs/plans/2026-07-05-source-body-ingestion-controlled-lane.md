@@ -29,9 +29,9 @@ This horizon adds one controlled non-IFRS source-body ingestion lane with author
 
 ### SBI4 — Retrieval Gate For Controlled Lane
 
-- [ ] SBI4.1 — Define controlled-lane retrieval expectation.
-- [ ] SBI4.2 — Add retrieval gate without changing primary K-IFRS authority.
-- [ ] SBI4.3 — Write report.
+- [x] SBI4.1 — Define controlled-lane retrieval expectation.
+- [x] SBI4.2 — Add retrieval gate without changing primary K-IFRS authority.
+- [x] SBI4.3 — Write report.
 
 ### SBI5 — Controlled Lane Close Gate
 
