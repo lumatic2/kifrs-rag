@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `client-private-parser-runtime`
+- Horizon: `firm-facing-product-surface`
 - Status: active
-- Goal: Connect local private files to runtime through structured-facts-only parser, client-private evidence adapter, and deletion gate.
+- Goal: Turn the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.
 
 | Milestone | Name | Status |
 |---|---|---|
-| CP1 | private parser boundary audit | active_next |
-| CP2 | local parser runtime contract | pending |
-| CP3 | client-private evidence adapter | pending |
-| CP4 | deletion and retention gate | pending |
-| CP5 | private runtime close demo | pending |
+| FPS1 | product surface inventory and demo flow | completed |
+| FPS2 | operator demo command | active_next |
+| FPS3 | readiness checklist and local install path | pending |
+| FPS4 | product narrative README surface | pending |
+| FPS5 | firm-facing surface close gate | pending |
 
 ## Completed Capability Chain
 
@@ -34,6 +34,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | authority-source-map | Separated K-IFRS, regulator, disclosure, law, and private-client source lanes with storage boundaries. | `docs/reports/2026-07-05-authority-source-map-close-report.md` |
 | client-private intake/local parser | Defined local-only private intake, redaction, parser dry-run, deletion attestation, and adapter plan boundaries. | `docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md` |
 | multi-authority-runtime-hardening | Connected K-IFRS primary, supporting, legal, fact, and client-private placeholder evidence across runtime, review packs, statement draft, analytics, and close gate. | `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md` |
+| client-private-parser-runtime | Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload. | `docs/reports/2026-07-05-client-private-parser-runtime-close-report.md` |
 
 ## Automation Snapshot
 
@@ -46,7 +47,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_CP1_private_parser_boundary_audit | active | none | `python -m pytest tests\test_client_private_parser_dry_run_fixture.py tests\test_client_private_local_parser_adapter_contract.py -q` |
+| run_FPS2_operator_demo_command | active | none | `python -m pytest tests\test_firm_facing_operator_demo_command.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -59,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `CP1_private_parser_boundary_audit`
-- command: `python -m pytest tests\test_client_private_parser_dry_run_fixture.py tests\test_client_private_local_parser_adapter_contract.py -q`
+- decision: `FPS2_operator_demo_command`
+- command: `python -m pytest tests\test_firm_facing_operator_demo_command.py -q`
 
 ## Machine Result
 
@@ -69,33 +70,33 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "client-private-parser-runtime",
+    "id": "firm-facing-product-surface",
     "status": "active",
-    "goal": "Connect local private files to runtime through structured-facts-only parser, client-private evidence adapter, and deletion gate.",
+    "goal": "Turn the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
     "milestones": [
       {
-        "id": "CP1",
-        "name": "private parser boundary audit",
+        "id": "FPS1",
+        "name": "product surface inventory and demo flow",
+        "status": "completed"
+      },
+      {
+        "id": "FPS2",
+        "name": "operator demo command",
         "status": "active_next"
       },
       {
-        "id": "CP2",
-        "name": "local parser runtime contract",
+        "id": "FPS3",
+        "name": "readiness checklist and local install path",
         "status": "pending"
       },
       {
-        "id": "CP3",
-        "name": "client-private evidence adapter",
+        "id": "FPS4",
+        "name": "product narrative README surface",
         "status": "pending"
       },
       {
-        "id": "CP4",
-        "name": "deletion and retention gate",
-        "status": "pending"
-      },
-      {
-        "id": "CP5",
-        "name": "private runtime close demo",
+        "id": "FPS5",
+        "name": "firm-facing surface close gate",
         "status": "pending"
       }
     ]
@@ -130,15 +131,20 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "multi-authority-runtime-hardening",
       "result": "Connected K-IFRS primary, supporting, legal, fact, and client-private placeholder evidence across runtime, review packs, statement draft, analytics, and close gate.",
       "evidence": "docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md"
+    },
+    {
+      "id": "client-private-parser-runtime",
+      "result": "Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload.",
+      "evidence": "docs/reports/2026-07-05-client-private-parser-runtime-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": "run_CP1_private_parser_boundary_audit",
+      "id": "run_FPS2_operator_demo_command",
       "status": "active",
-      "decide": "Audit existing local parser, redaction, storage, adapter, and deletion scaffolds before implementing the private runtime path.",
+      "decide": "Build one operator command that generates the recommended 1116 firm-facing walkthrough packet.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_client_private_parser_dry_run_fixture.py tests\\test_client_private_local_parser_adapter_contract.py -q"
+      "command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -161,8 +167,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "CP1_private_parser_boundary_audit",
-  "next_command": "python -m pytest tests\\test_client_private_parser_dry_run_fixture.py tests\\test_client_private_local_parser_adapter_contract.py -q",
+  "next_leaf": "FPS2_operator_demo_command",
+  "next_command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

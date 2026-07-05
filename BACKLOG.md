@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-05 — Client-Private Parser Runtime
+- Completed: 2026-07-05
+- Result: local private parser path를 public-safe runtime contract로 연결. structured-facts-only parser contract, `client_private_fact` authority adapter, deletion-gated close, horizon close demo를 구현했다. 실제 private source body, OCR text, private embedding, client identifier는 공개 산출물에 포함하지 않는다.
+- Evidence: `docs/reports/2026-07-05-cp1-private-parser-boundary-audit.md`; `docs/reports/2026-07-05-cp2-local-parser-runtime-contract.md`; `docs/reports/2026-07-05-cp3-client-private-evidence-adapter.md`; `docs/reports/2026-07-05-cp4-private-runtime-deletion-gate.md`; `docs/reports/2026-07-05-cp5-private-runtime-close-demo.md`; `docs/reports/2026-07-05-client-private-parser-runtime-close-report.md`.
+- Verification: `python scripts\client_private_parser_runtime_gate.py --format text`; `python scripts\multi_authority_runtime_gate.py --format text`; `python scripts\quality_preflight.py --format text`; `python scripts\rag_quality_final_gate.py --format text`.
+
 ### 2026-07-05 — Multi-Authority Runtime Hardening
 - Completed: 2026-07-05
 - Result: K-IFRS primary, supporting interpretation, legal boundary, structured fact evidence, and client-private placeholder를 runtime authority boundary로 분리. 1116/1109/1115 review pack, statement draft, audit analytics, runtime demo gate에 연결하고 carried NIS/RAG regressions까지 통과.

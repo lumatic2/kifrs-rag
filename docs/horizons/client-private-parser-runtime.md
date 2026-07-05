@@ -1,6 +1,6 @@
 # Horizon: Client-Private Parser Runtime
 
-> Status: active
+> Status: complete
 > Created: 2026-07-05
 > Previous: `docs/horizons/multi-authority-runtime-hardening.md`
 
@@ -24,7 +24,7 @@ This horizon does not commit real client material. It defines and verifies the r
 
 ### CP1. Private Parser Boundary Audit
 
-Status: active
+Status: complete (`docs/reports/2026-07-05-cp1-private-parser-boundary-audit.md`)
 
 Deliverable:
 
@@ -37,6 +37,8 @@ Acceptance:
 - No real private material is required.
 
 ### CP2. Local Parser Runtime Contract
+
+Status: complete (`docs/reports/2026-07-05-cp2-local-parser-runtime-contract.md`)
 
 Deliverable:
 
@@ -52,6 +54,8 @@ Acceptance:
 
 ### CP3. Client-Private Evidence Adapter
 
+Status: complete (`docs/reports/2026-07-05-cp3-client-private-evidence-adapter.md`)
+
 Deliverable:
 
 - adapter from parser output to `client_private_fact` runtime authority references
@@ -65,6 +69,8 @@ Acceptance:
 
 ### CP4. Deletion And Retention Gate
 
+Status: complete (`docs/reports/2026-07-05-cp4-private-runtime-deletion-gate.md`)
+
 Deliverable:
 
 - deletion attestation gate
@@ -77,6 +83,8 @@ Acceptance:
 - Gate output does not expose private content.
 
 ### CP5. Private Runtime Close Demo
+
+Status: complete (`docs/reports/2026-07-05-cp5-private-runtime-close-demo.md`; `docs/reports/2026-07-05-client-private-parser-runtime-close-report.md`)
 
 Deliverable:
 

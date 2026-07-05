@@ -48,26 +48,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Connected K-IFRS primary, supporting, legal, fact, and client-private placeholder evidence across runtime, review packs, statement draft, analytics, and close gate.",
             "evidence": "docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md",
         },
+        {
+            "id": "client-private-parser-runtime",
+            "result": "Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload.",
+            "evidence": "docs/reports/2026-07-05-client-private-parser-runtime-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "client-private-parser-runtime",
+        "id": "firm-facing-product-surface",
         "status": "active",
-        "goal": "Connect local private files to runtime through structured-facts-only parser, client-private evidence adapter, and deletion gate.",
+        "goal": "Turn the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
         "milestones": [
-            {"id": "CP1", "name": "private parser boundary audit", "status": "active_next"},
-            {"id": "CP2", "name": "local parser runtime contract", "status": "pending"},
-            {"id": "CP3", "name": "client-private evidence adapter", "status": "pending"},
-            {"id": "CP4", "name": "deletion and retention gate", "status": "pending"},
-            {"id": "CP5", "name": "private runtime close demo", "status": "pending"},
+            {"id": "FPS1", "name": "product surface inventory and demo flow", "status": "completed"},
+            {"id": "FPS2", "name": "operator demo command", "status": "active_next"},
+            {"id": "FPS3", "name": "readiness checklist and local install path", "status": "pending"},
+            {"id": "FPS4", "name": "product narrative README surface", "status": "pending"},
+            {"id": "FPS5", "name": "firm-facing surface close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_CP1_private_parser_boundary_audit",
+            "id": "run_FPS2_operator_demo_command",
             "status": "active",
-            "decide": "Audit existing local parser, redaction, storage, adapter, and deletion scaffolds before implementing the private runtime path.",
+            "decide": "Build one operator command that generates the recommended 1116 firm-facing walkthrough packet.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_client_private_parser_dry_run_fixture.py tests\\test_client_private_local_parser_adapter_contract.py -q",
+            "command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -92,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "CP1_private_parser_boundary_audit",
-        "next_command": "python -m pytest tests\\test_client_private_parser_dry_run_fixture.py tests\\test_client_private_local_parser_adapter_contract.py -q",
+        "next_leaf": "FPS2_operator_demo_command",
+        "next_command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
