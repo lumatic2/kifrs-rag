@@ -64,6 +64,11 @@ REQUIRED_REPORTS = {
     / "reports"
     / "real-accountant-session"
     / "2026-07-05-pre-send-final-gate.md",
+    "real_accountant_close_state_matrix": ROOT
+    / "docs"
+    / "reports"
+    / "real-accountant-session"
+    / "2026-07-05-close-state-matrix.md",
     "client_private_upload_storage_policy": ROOT / "docs" / "reports" / "2026-07-05-cpu1-client-private-upload-storage-policy.md",
     "private_parser_dry_run_fixture": ROOT / "docs" / "reports" / "2026-07-05-pdf1-private-parser-dry-run-fixture.md",
     "local_deletion_attestation_gate": ROOT / "docs" / "reports" / "2026-07-05-lda1-local-deletion-attestation-gate.md",
@@ -207,7 +212,7 @@ def build_gap_audit() -> GapAudit:
     automation_rate = rebuild.automated_packs / rebuild.total_packs if rebuild.total_packs else 0.0
 
     remaining_gaps = [
-        "actual accountant session evidence is still external/user-owned; invite, response handling, scheduled-session, RS3 capture-readiness, operator execution brief, and pre-send final gate are ready but the reviewer invite has not been sent",
+        "actual accountant session evidence is still external/user-owned; invite, response handling, scheduled-session, RS3 capture-readiness, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
         "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
         "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
         "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization",

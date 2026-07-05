@@ -19,6 +19,7 @@ def test_build_run_sheet_extracts_packet_and_runbook_items() -> None:
     assert any("real_accountant_capture_readiness_gate.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_operator_execution_brief.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_pre_send_final_gate.py" in command for command in sheet["preflight_commands"])
+    assert any("real_accountant_close_state_matrix.py" in command for command in sheet["preflight_commands"])
 
 
 def test_render_text_includes_session_sequence() -> None:
