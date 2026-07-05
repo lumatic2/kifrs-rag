@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Objective gaps are grouped into horizons; ESB1 selected the first external source-body connector lane and ESB2 is now active.
+Objective gaps are grouped into horizons; ESB1 selected the connector lane, ESB2 defined the fixture contract, and ESB3 is now active.
 
 ## Objective
 
@@ -19,8 +19,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | Milestone | Name | Status |
 |---|---|---|
 | ESB1 | source-body connector selection and policy gate | completed |
-| ESB2 | synthetic source-body fixture contract | active |
-| ESB3 | chunking and retrieval dry run | pending |
+| ESB2 | synthetic source-body fixture contract | completed |
+| ESB3 | chunking and retrieval dry run | active |
 | ESB4 | connector leak and policy gate | pending |
 | ESB5 | close and workflow coverage handoff | pending |
 
@@ -55,7 +55,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | select_next_post_demo_horizon | closed_by_objective_gap_queue | none | `python scripts\objective_gap_horizon_candidates.py --format text` |
 | run_rag_quality_fresh_validation | closed_defer | none | `python scripts\rag_quality_fresh_validation_close_gate.py --format text` |
 | run_private_parser_realism_hardening | closed_realism_contract_ready | none | `python scripts\private_parser_realism_close_gate.py --format text` |
-| run_external_connector_body_expansion | active_horizon | none | `python scripts\external_source_connector_body_fixture_contract.py --format text --write` |
+| run_external_connector_body_expansion | active_horizon | none | `python scripts\external_source_connector_body_retrieval_dry_run.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -68,8 +68,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Next Leaf
 
-- decision: `ESB2_synthetic_connector_body_fixture_contract`
-- command: `python scripts\external_source_connector_body_fixture_contract.py --format text --write`
+- decision: `ESB3_chunking_and_retrieval_dry_run`
+- command: `python scripts\external_source_connector_body_retrieval_dry_run.py --format text --write`
 
 ## Machine Result
 
@@ -90,12 +90,12 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
       {
         "id": "ESB2",
         "name": "synthetic source-body fixture contract",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "ESB3",
         "name": "chunking and retrieval dry run",
-        "status": "pending"
+        "status": "active"
       },
       {
         "id": "ESB4",
@@ -196,9 +196,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     {
       "id": "run_external_connector_body_expansion",
       "status": "active_horizon",
-      "decide": "ESB1 selected the first connector lane; continue with a synthetic fixture contract before chunking/retrieval work.",
+      "decide": "ESB1 selected the first connector lane and ESB2 defined the synthetic fixture contract; continue with chunking/retrieval dry-run evidence.",
       "blocker": "none",
-      "command": "python scripts\\external_source_connector_body_fixture_contract.py --format text --write"
+      "command": "python scripts\\external_source_connector_body_retrieval_dry_run.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -221,8 +221,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
-  "next_leaf": "ESB2_synthetic_connector_body_fixture_contract",
-  "next_command": "python scripts\\external_source_connector_body_fixture_contract.py --format text --write",
+  "next_leaf": "ESB3_chunking_and_retrieval_dry_run",
+  "next_command": "python scripts\\external_source_connector_body_retrieval_dry_run.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

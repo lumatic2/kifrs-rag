@@ -17,9 +17,9 @@ This horizon addresses the Objective gap that external source connector evidence
 
 ### ESB2 — Synthetic Source-Body Fixture Contract
 
-- [ ] ESB2.1 — Define body fixture schema.
-- [ ] ESB2.2 — Define parser/chunker output schema.
-- [ ] ESB2.3 — Write fixture contract report.
+- [x] ESB2.1 — Define body fixture schema.
+- [x] ESB2.2 — Define parser/chunker output schema.
+- [x] ESB2.3 — Write fixture contract report.
 
 ### ESB3 — Chunking And Retrieval Dry Run
 

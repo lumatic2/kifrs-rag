@@ -21,14 +21,14 @@ Status: completed
 
 ### ESB2. Synthetic Source-Body Fixture Contract
 
-Status: active
+Status: completed
 
 - Deliverable: fixture contract script/report.
 - Acceptance: parser input/output schema and forbidden raw-body publication rules are explicit.
 
 ### ESB3. Chunking And Retrieval Dry Run
 
-Status: pending
+Status: active
 
 - Deliverable: chunk/retrieval dry-run script/report.
 - Acceptance: chunks are synthetic/authorized and retrieval evidence stays public-safe.

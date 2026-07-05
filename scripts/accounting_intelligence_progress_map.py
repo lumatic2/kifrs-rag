@@ -85,8 +85,8 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Expand non-IFRS source body connector evidence under policy-gated, public-safe source-body handling.",
         "milestones": [
             {"id": "ESB1", "name": "source-body connector selection and policy gate", "status": "completed"},
-            {"id": "ESB2", "name": "synthetic source-body fixture contract", "status": "active"},
-            {"id": "ESB3", "name": "chunking and retrieval dry run", "status": "pending"},
+            {"id": "ESB2", "name": "synthetic source-body fixture contract", "status": "completed"},
+            {"id": "ESB3", "name": "chunking and retrieval dry run", "status": "active"},
             {"id": "ESB4", "name": "connector leak and policy gate", "status": "pending"},
             {"id": "ESB5", "name": "close and workflow coverage handoff", "status": "pending"},
         ],
@@ -116,9 +116,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_external_connector_body_expansion",
             "status": "active_horizon",
-            "decide": "ESB1 selected the first connector lane; continue with a synthetic fixture contract before chunking/retrieval work.",
+            "decide": "ESB1 selected the first connector lane and ESB2 defined the synthetic fixture contract; continue with chunking/retrieval dry-run evidence.",
             "blocker": "none",
-            "command": "python scripts\\external_source_connector_body_fixture_contract.py --format text --write",
+            "command": "python scripts\\external_source_connector_body_retrieval_dry_run.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -143,8 +143,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "ESB2_synthetic_connector_body_fixture_contract",
-        "next_command": "python scripts\\external_source_connector_body_fixture_contract.py --format text --write",
+        "next_leaf": "ESB3_chunking_and_retrieval_dry_run",
+        "next_command": "python scripts\\external_source_connector_body_retrieval_dry_run.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -159,7 +159,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; ESB1 selected the first external source-body connector lane and ESB2 is now active.",
+        "Objective gaps are grouped into horizons; ESB1 selected the connector lane, ESB2 defined the fixture contract, and ESB3 is now active.",
         "",
         "## Objective",
         "",

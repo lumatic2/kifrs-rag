@@ -11,8 +11,8 @@ synthetic/authorized source-body fixture input과 parser/chunker output schema�
 ## Acceptance Criteria
 
 ```powershell
-python -m pytest tests\test_external_source_body_fixture_contract.py -q
-python scripts\external_source_body_fixture_contract.py --format text --write
+python -m pytest tests\test_external_source_connector_body_fixture_contract.py -q
+python scripts\external_source_connector_body_fixture_contract.py --format text --write
 ```
 
 ## 검증 절차
