@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The research and workflow toolkit is broad enough for an internal demo; the active plan now continues through internal RAG, source, parser, and product hardening.
+The next active horizon is RAG reliability revalidation: prove the K-IFRS retrieval and citation baseline before source expansion or product hardening.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `internal-capability-hardening`
+- Horizon: `rag-reliability-revalidation`
 - Status: active
-- Goal: Harden the local accounting-intelligence toolkit without requiring external accountant outreach.
+- Goal: Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.
 
 | Milestone | Name | Status |
 |---|---|---|
-| IH1 | plain progress map and decision queue | completed |
-| IH2 | RAG quality re-validation and promotion criteria | candidate_next |
-| IH3 | non-IFRS source data lanes and metadata connectors | candidate_next |
-| IH4 | client-private parser/runtime hardening | candidate_next |
-| IH5 | product demo surface and operator UX | candidate_next |
+| RR1 | baseline inventory | active_next |
+| RR2 | eval matrix and seed coverage | pending |
+| RR3 | retrieval and citation diagnostics | pending |
+| RR4 | repair policy candidate | pending |
+| RR5 | promotion gate and handoff | pending |
 
 ## Completed Capability Chain
 
@@ -60,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `select_internal_capability_horizon`
-- command: `python scripts\accounting_intelligence_gap_audit.py --format text`
+- decision: `RR1_baseline_inventory`
+- command: `python scripts\quality_preflight.py --format text`
 
 ## Machine Result
 
@@ -70,34 +70,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "internal-capability-hardening",
+    "id": "rag-reliability-revalidation",
     "status": "active",
-    "goal": "Harden the local accounting-intelligence toolkit without requiring external accountant outreach.",
+    "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
     "milestones": [
       {
-        "id": "IH1",
-        "name": "plain progress map and decision queue",
-        "status": "completed"
+        "id": "RR1",
+        "name": "baseline inventory",
+        "status": "active_next"
       },
       {
-        "id": "IH2",
-        "name": "RAG quality re-validation and promotion criteria",
-        "status": "candidate_next"
+        "id": "RR2",
+        "name": "eval matrix and seed coverage",
+        "status": "pending"
       },
       {
-        "id": "IH3",
-        "name": "non-IFRS source data lanes and metadata connectors",
-        "status": "candidate_next"
+        "id": "RR3",
+        "name": "retrieval and citation diagnostics",
+        "status": "pending"
       },
       {
-        "id": "IH4",
-        "name": "client-private parser/runtime hardening",
-        "status": "candidate_next"
+        "id": "RR4",
+        "name": "repair policy candidate",
+        "status": "pending"
       },
       {
-        "id": "IH5",
-        "name": "product demo surface and operator UX",
-        "status": "candidate_next"
+        "id": "RR5",
+        "name": "promotion gate and handoff",
+        "status": "pending"
       }
     ]
   },
@@ -163,8 +163,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "select_internal_capability_horizon",
-  "next_command": "python scripts\\accounting_intelligence_gap_audit.py --format text",
+  "next_leaf": "RR1_baseline_inventory",
+  "next_command": "python scripts\\quality_preflight.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

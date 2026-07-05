@@ -25,6 +25,17 @@ K-IFRS 문단 검색만으로 끝나지 않는다.
 
 ## 실행 순서
 
+2026-07-05 현재 active 순서는 외부 outreach 없이 내부 완성도를 높이는 방향으로 재정렬한다.
+
+1. `rag-reliability-revalidation`
+2. `non-ifrs-source-dataization`
+3. `multi-authority-runtime-hardening`
+4. `client-private-parser-runtime`
+5. `firm-facing-product-surface`
+
+`real-accountant-session` 계열은 도구와 산출물을 보관하되, 실제 회계사 outreach/mail/invite는 사용자가
+명시적으로 다시 요청하기 전까지 active plan에서 제외한다.
+
 ### Horizon 1. RAG Quality Refresh
 
 목표: 기존 K-IFRS RAG 자체 품질을 다시 측정하고, multi-source 확장 전에 검색/답변/eval gate를 단단하게 만든다.
@@ -137,13 +148,13 @@ K-IFRS 문단 검색만으로 끝나지 않는다.
 
 현재 결론:
 
-- 기술 demo package는 회계사 검토에 들어갈 수 있다.
 - source-aware F-ACC review pack 24개 중 20개가 automated, 4개가 human review다.
-- client-private intake readiness는 생겼지만 실제 local-only intake contract는 아직 없다.
-- 남은 objective gap은 실제 회계사 세션 증거, local-only client-private intake, live external source ingestion,
-  opt-in retriever의 실사용 검증이다.
+- 기술 proof는 상당하지만, 제품 완성도는 아직 내부 도구킷 단계다.
+- 남은 objective gap은 K-IFRS RAG 재검증, K-IFRS 외 source dataization, multi-authority runtime,
+  client-private parser/runtime, firm-facing product surface다.
+- 외부 회계사 피드백은 parked 상태이며, active proof의 blocker로 취급하지 않는다.
 
-### Horizon 6. Real Case Feedback Loop
+### Parked/Future Horizon. Real Case Feedback Loop
 
 목표: 익명화된 실제 업무 사례를 입력받아 회계사가 피드백할 수 있는 루프를 만든다.
 

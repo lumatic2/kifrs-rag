@@ -54,15 +54,15 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "internal-capability-hardening",
+        "id": "rag-reliability-revalidation",
         "status": "active",
-        "goal": "Harden the local accounting-intelligence toolkit without requiring external accountant outreach.",
+        "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
         "milestones": [
-            {"id": "IH1", "name": "plain progress map and decision queue", "status": "completed"},
-            {"id": "IH2", "name": "RAG quality re-validation and promotion criteria", "status": "candidate_next"},
-            {"id": "IH3", "name": "non-IFRS source data lanes and metadata connectors", "status": "candidate_next"},
-            {"id": "IH4", "name": "client-private parser/runtime hardening", "status": "candidate_next"},
-            {"id": "IH5", "name": "product demo surface and operator UX", "status": "candidate_next"},
+            {"id": "RR1", "name": "baseline inventory", "status": "active_next"},
+            {"id": "RR2", "name": "eval matrix and seed coverage", "status": "pending"},
+            {"id": "RR3", "name": "retrieval and citation diagnostics", "status": "pending"},
+            {"id": "RR4", "name": "repair policy candidate", "status": "pending"},
+            {"id": "RR5", "name": "promotion gate and handoff", "status": "pending"},
         ],
     }
     decisions = [
@@ -94,10 +94,10 @@ def build_progress_map() -> dict[str, Any]:
             "automation_rate": gap.automation_rate,
         },
         "remaining_gaps": gap.remaining_gaps,
-        "next_leaf": next_action["recommended_next_decision"] or "select_internal_capability_horizon",
+        "next_leaf": next_action["recommended_next_decision"] or "RR1_baseline_inventory",
         "next_command": next_action["next_command"]
         if next_action["next_command"] != "none"
-        else "python scripts\\accounting_intelligence_gap_audit.py --format text",
+        else "python scripts\\quality_preflight.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -112,7 +112,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The research and workflow toolkit is broad enough for an internal demo; the active plan now continues through internal RAG, source, parser, and product hardening.",
+        "The next active horizon is RAG reliability revalidation: prove the K-IFRS retrieval and citation baseline before source expansion or product hardening.",
         "",
         "## Objective",
         "",

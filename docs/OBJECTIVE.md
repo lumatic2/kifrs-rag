@@ -76,43 +76,20 @@
 
 ## Active horizon
 
-현재 active horizon은 `real-accountant-session`이다.
+현재 active horizon은 `rag-reliability-revalidation`이다. 외부 회계사 outreach/mail/invite는 active
+plan에서 제외한다. 남은 Objective gap은 내부 제품 완성도 기준으로 나누어 처리한다.
 
-field feedback package는 회계사 피드백을 받을 준비를 마쳤고, workflow rebuild는 기존 1109/1115/1116
-review pack이 K-IFRS citation, 외부 근거 metadata, synthetic fact evidence, NeedsHumanReview 항목을
-얼마나 갖추는지 계량했다.
+남은 horizon 순서:
 
-real-case-feedback-loop는 익명화된 실제 업무 사례 intake, review pack routing 후보, reviewer correction
-capture, eval seed candidate 변환까지의 public-safe 구조를 만들었다.
-
-feedback-eval-backlog-integration은 correction candidate를 JSONL queue와 markdown report로 누적해,
-현업 피드백이 eval seed 후보와 product backlog 후보로 이어지게 만들었다.
-
-toolkit-packaging-readiness는 회계법인 소개/PoC 전에 로컬 도구킷 설치·실행·demo 재현 절차를 readiness
-manifest/checker/report로 정리했다.
-
-`firm-facing-poc-brief`는 회계법인에 보여줄 PoC narrative, demo path, risk boundary, ask/request를
-한 패키지로 정리했다. 1순위 대상은 F-ACC(Accounting Advisory / F-S support), 보조 적용처는
-F-AUD 회계이슈 검토와 주석 요구사항 대사다.
-
-`real-anonymized-transaction-poc`은 익명화 거래 카드 1건을 F-ACC review pack으로 처리하고,
-회계사 reviewer correction을 eval/backlog queue에 반영하는 public-safe sample loop를 만들었다.
-
-`accountant-feedback-incorporation`은 feedback queue correction을 demo brief, review questions,
-eval/backlog rules에 반영 가능한 action plan으로 변환했다.
-
-`field-feedback-runbook`은 one-page brief, demo bundle, real-transaction sample, incorporation report를
-묶어 회계사 30분 피드백 세션을 운영할 runbook을 만들었다.
-
-`field-feedback-capture`는 회계사 피드백 세션 notes를 public-safe 구조로 기록하고, safe correction을
-queue record로 변환하는 capture pipeline을 만들었다.
-
-`real-accountant-session`의 목표는 실제 회계사 세션을 runbook으로 운영하고, safe notes를 capture
-pipeline에 넣어 queue record로 변환하는 것이다. 현재는 세션 패킷 준비 단계이며, 실제 reviewer와
-일정이 필요하다.
+1. `rag-reliability-revalidation` — K-IFRS RAG 품질 재검증과 default promotion 기준.
+2. `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
+3. `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
+4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
+5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-현재 horizon 상세: `docs/horizons/real-accountant-session.md`
+현재 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
+현재 milestone plan: `docs/plans/2026-07-05-rag-reliability-revalidation.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`

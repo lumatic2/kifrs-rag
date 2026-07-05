@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Internal Capability Hardening 진행 중)
+> 마지막 업데이트: 2026-07-05 (RAG Reliability Revalidation 진행 중)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,21 +26,29 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — internal-capability-hardening
+## Remaining Horizon Order
+
+1. `rag-reliability-revalidation` — K-IFRS RAG 품질 재검증과 default promotion 기준.
+2. `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
+3. `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
+4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
+5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
+
+## Current Horizon — rag-reliability-revalidation
 
 외부 회계사 outreach는 사용자 요청에 따라 active plan에서 제외한다. 현재 proof는 이미 만든
-회계법인 업무 지도, F-ACC review-pack 자동화, RAG 품질 개선, 데이터 소스 경계, client-private
-parser 계획을 바탕으로 내부 제품 완성도를 높이는 방향으로 진행한다.
+회계법인 업무 지도, F-ACC review-pack 자동화, 데이터 소스 경계, client-private parser 계획을
+바탕으로, 먼저 K-IFRS RAG 품질을 다시 검증하고 default retriever promotion 기준을 정한다.
 
 Active milestones:
-- IH1 plain progress map + decision queue — 완료
-- IH2 K-IFRS RAG quality re-validation + retriever promotion criteria
-- IH3 K-IFRS 외 회계 업무 데이터 소스 lane 확장
-- IH4 client-private parser/runtime hardening
-- IH5 firm-facing demo surface/operator UX 정리
+- RR1 baseline inventory
+- RR2 eval matrix and seed coverage
+- RR3 retrieval and citation diagnostics
+- RR4 repair policy candidate
+- RR5 promotion gate and next-horizon handoff
 
-Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 실제 회계사에게 메일/초대하는
-계획은 사용자가 다시 요청하기 전까지 현재 계획과 다음 액션에서 제외한다.
+Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 외부 검증 실행은 사용자가 다시
+요청하기 전까지 현재 계획과 다음 액션에서 제외한다.
 
 ## Closed Horizons
 
@@ -100,9 +108,9 @@ firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `internal-capability-hardening` — 외부 outreach 없이 내부 제품 완성도와 근거 품질을 올린다.
-현재 작업: `docs/reports/2026-07-05-accounting-intelligence-progress-map.md`와
-`docs/reports/2026-07-05-accounting-intelligence-gap-audit.md` 기준으로 다음 내부 horizon을 이어간다.
+**[현재 active]** `rag-reliability-revalidation` — 외부 outreach 없이 K-IFRS RAG 품질과 retriever promotion 기준을 다시 잡는다.
+계획: `docs/horizons/rag-reliability-revalidation.md` →
+`docs/plans/2026-07-05-rag-reliability-revalidation.md`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
