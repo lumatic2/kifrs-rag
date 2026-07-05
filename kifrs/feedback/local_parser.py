@@ -104,6 +104,45 @@ class LocalPrivateParserPrototypeResult:
         }
 
 
+@dataclass(frozen=True)
+class LocalPrivateParserAdapterDryRunCase:
+    dry_run_id: str
+    source_stub: str
+    document_type: str
+    expected_domain: str
+    extracted_fields: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class LocalPrivateParserAdapterDryRunGate:
+    gate_id: str
+    contract_id: str
+    case_count: int
+    passed_case_ids: list[str] = field(default_factory=list)
+    failed_case_ids: list[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+    prototype_results: list[LocalPrivateParserPrototypeResult] = field(default_factory=list)
+
+    @property
+    def ok(self) -> bool:
+        return self.case_count > 0 and not self.errors and len(self.passed_case_ids) == self.case_count
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "gate_id": self.gate_id,
+            "contract_id": self.contract_id,
+            "case_count": self.case_count,
+            "passed_case_ids": list(self.passed_case_ids),
+            "failed_case_ids": list(self.failed_case_ids),
+            "errors": list(self.errors),
+            "prototype_results": [result.to_dict() for result in self.prototype_results],
+            "ok": self.ok,
+        }
+
+
 def validate_local_private_parser_prototype_input(
     parser_input: LocalPrivateParserPrototypeInput,
     policy: ClientPrivateUploadStoragePolicy,
@@ -192,6 +231,91 @@ def validate_local_private_parser_adapter_contract(
         issues.append(ValidationIssue("deletion_automation", "adapter contract must not claim deletion automation yet"))
     issues.extend(_public_safe_issues(contract.to_dict()))
     return issues
+
+
+def validate_local_private_parser_adapter_dry_run_case(
+    dry_run_case: LocalPrivateParserAdapterDryRunCase,
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    contract_issues = validate_local_private_parser_adapter_contract(contract, policy)
+    issues.extend(ValidationIssue(f"contract.{issue.path}", issue.message) for issue in contract_issues)
+
+    if not dry_run_case.dry_run_id:
+        issues.append(ValidationIssue("dry_run_id", "dry_run_id is required"))
+    if not dry_run_case.source_stub.startswith("local-private://dry-run/"):
+        issues.append(ValidationIssue("source_stub", "source_stub must use local-private://dry-run/"))
+    if dry_run_case.document_type not in contract.allowed_document_types:
+        issues.append(ValidationIssue("document_type", f"document_type is outside adapter contract: {dry_run_case.document_type}"))
+    if dry_run_case.expected_domain not in contract.allowed_domains:
+        issues.append(ValidationIssue("expected_domain", f"expected_domain is outside adapter contract: {dry_run_case.expected_domain}"))
+    if not dry_run_case.extracted_fields:
+        issues.append(ValidationIssue("extracted_fields", "extracted_fields are required"))
+    missing_fields = sorted(set(contract.required_extracted_fields).difference(dry_run_case.extracted_fields))
+    if missing_fields:
+        issues.append(ValidationIssue("extracted_fields", f"missing adapter-required fields: {missing_fields}"))
+    issues.extend(_public_safe_issues(dry_run_case.to_dict()))
+    return issues
+
+
+def run_local_private_parser_adapter_dry_run_gate(
+    gate_id: str,
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+    dry_run_cases: list[LocalPrivateParserAdapterDryRunCase],
+) -> LocalPrivateParserAdapterDryRunGate:
+    errors: list[str] = []
+    passed_case_ids: list[str] = []
+    failed_case_ids: list[str] = []
+    prototype_results: list[LocalPrivateParserPrototypeResult] = []
+
+    if not gate_id:
+        errors.append("gate_id: gate_id is required")
+    if not dry_run_cases:
+        errors.append("dry_run_cases: at least one dry-run case is required")
+
+    for dry_run_case in dry_run_cases:
+        case_issues = validate_local_private_parser_adapter_dry_run_case(dry_run_case, contract, policy)
+        if case_issues:
+            failed_case_ids.append(dry_run_case.dry_run_id)
+            errors.extend(f"{dry_run_case.dry_run_id}.{issue.path}: {issue.message}" for issue in case_issues)
+            continue
+        try:
+            prototype_input = contract_to_local_private_parser_prototype_input(
+                contract,
+                policy,
+                parser_run_id=dry_run_case.dry_run_id,
+                source_stub=dry_run_case.source_stub,
+                document_type=dry_run_case.document_type,
+                expected_domain=dry_run_case.expected_domain,
+                extracted_fields=dry_run_case.extracted_fields,
+            )
+            prototype_result = run_local_private_parser_prototype(prototype_input, policy)
+        except ValueError as exc:
+            failed_case_ids.append(dry_run_case.dry_run_id)
+            errors.append(f"{dry_run_case.dry_run_id}: {exc}")
+            continue
+
+        if prototype_result.route.status != "candidate":
+            failed_case_ids.append(dry_run_case.dry_run_id)
+            errors.append(
+                f"{dry_run_case.dry_run_id}.route: expected candidate, got {prototype_result.route.status}"
+            )
+            continue
+
+        passed_case_ids.append(dry_run_case.dry_run_id)
+        prototype_results.append(prototype_result)
+
+    return LocalPrivateParserAdapterDryRunGate(
+        gate_id=gate_id,
+        contract_id=contract.adapter_id,
+        case_count=len(dry_run_cases),
+        passed_case_ids=passed_case_ids,
+        failed_case_ids=failed_case_ids,
+        errors=errors,
+        prototype_results=prototype_results,
+    )
 
 
 def contract_to_local_private_parser_prototype_input(
@@ -312,6 +436,53 @@ def render_local_private_parser_prototype_result(result: LocalPrivateParserProto
         "- It only converts synthetic parser-shaped input into redacted structured facts and a review-pack route candidate.",
         "- Real private file handling remains outside this repo until a separate local-only implementation gate exists.",
     ])
+    return "\n".join(lines) + "\n"
+
+
+def render_local_private_parser_adapter_dry_run_gate(gate: LocalPrivateParserAdapterDryRunGate) -> str:
+    lines = [
+        f"# Local Parser Adapter Dry-Run Gate - {gate.gate_id}",
+        "",
+        f"- Contract: {gate.contract_id}",
+        f"- OK: {gate.ok}",
+        f"- Case count: {gate.case_count}",
+        f"- Passed: {len(gate.passed_case_ids)}",
+        f"- Failed: {len(gate.failed_case_ids)}",
+        "",
+        "## Passed Cases",
+        "",
+    ]
+    lines.extend(f"- {case_id}" for case_id in gate.passed_case_ids)
+    lines.extend([
+        "",
+        "## Failed Cases",
+        "",
+    ])
+    lines.extend(f"- {case_id}" for case_id in gate.failed_case_ids)
+    lines.extend([
+        "",
+        "## Routes",
+        "",
+    ])
+    lines.extend(
+        f"- {result.parser_run_id}: {result.route.route} ({result.route.status})"
+        for result in gate.prototype_results
+    )
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This gate runs synthetic dry-run cases only.",
+        "- It does not read files, run OCR, store source bodies, create embeddings, or automate deletion.",
+        "- A real local-only parser adapter still needs a separate implementation scaffold and operator gate.",
+    ])
+    if gate.errors:
+        lines.extend([
+            "",
+            "## Errors",
+            "",
+        ])
+        lines.extend(f"- {error}" for error in gate.errors)
     return "\n".join(lines) + "\n"
 
 
