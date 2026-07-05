@@ -17,9 +17,9 @@ This horizon adds one controlled non-IFRS source-body ingestion lane with author
 
 ### SBI2 — Source Body Policy Record
 
-- [ ] SBI2.1 — Define machine-readable policy record.
-- [ ] SBI2.2 — Add validator and tests.
-- [ ] SBI2.3 — Write SBI2 report.
+- [x] SBI2.1 — Define machine-readable policy record.
+- [x] SBI2.2 — Add validator and tests.
+- [x] SBI2.3 — Write SBI2 report.
 
 ### SBI3 — Synthetic Body Parser And Chunker
 

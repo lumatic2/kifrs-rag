@@ -9,8 +9,9 @@ def test_progress_map_explains_current_position_and_results() -> None:
     assert progress["current_horizon"]["id"] == "source-body-ingestion-controlled-lane"
     assert progress["current_horizon"]["status"] == "active"
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][1]["status"] == "active_next"
-    assert progress["next_leaf"] == "SBI2_source_policy_record"
+    assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
+    assert progress["current_horizon"]["milestones"][2]["status"] == "active_next"
+    assert progress["next_leaf"] == "SBI3_synthetic_parser_chunker"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -29,7 +30,7 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "source-body-ingestion-controlled-lane" in rendered
-    assert "SBI2_source_policy_record" in rendered
+    assert "SBI3_synthetic_parser_chunker" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

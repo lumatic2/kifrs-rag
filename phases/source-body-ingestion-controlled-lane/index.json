@@ -13,7 +13,9 @@
     {
       "step": 2,
       "name": "source-body-policy-record",
-      "status": "pending"
+      "status": "completed",
+      "summary": "SBI2 added scripts/source_policy_record.py, tests/test_source_policy_record.py, and docs/reports/2026-07-05-sbi2-source-body-policy-record.md. It fixes the interpretive lane policy as synthetic_body_only, supporting_interpretation, interpretive authority, synthetic_short_sections chunking, and no live fetch, embeddings, public body commits, or K-IFRS primary override.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,

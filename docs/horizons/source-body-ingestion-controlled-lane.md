@@ -19,12 +19,14 @@ Status: completed
 
 ### SBI2. Source Body Policy Record
 
-Status: active
+Status: completed
 
 - Deliverable: policy record, validator, tests, `docs/reports/2026-07-05-sbi2-source-body-policy-record.md`
 - Acceptance: storage, citation role, chunking, and retention policy are machine-validated.
 
 ### SBI3. Synthetic Body Parser And Chunker
+
+Status: active
 
 - Deliverable: parser/chunker dry-run, tests, `docs/reports/2026-07-05-sbi3-synthetic-body-parser-chunker.md`
 - Acceptance: synthetic body becomes public-safe chunks with no protected source text committed.

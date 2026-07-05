@@ -65,19 +65,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.",
         "milestones": [
             {"id": "SBI1", "name": "source class selection and authorization boundary", "status": "completed"},
-            {"id": "SBI2", "name": "source body policy record", "status": "active_next"},
-            {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "pending"},
+            {"id": "SBI2", "name": "source body policy record", "status": "completed"},
+            {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "active_next"},
             {"id": "SBI4", "name": "retrieval gate for controlled lane", "status": "pending"},
             {"id": "SBI5", "name": "controlled lane close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_SBI2_source_policy_record",
+            "id": "run_SBI3_synthetic_parser_chunker",
             "status": "active",
-            "decide": "Create a machine-readable policy record for the selected interpretive source lane.",
+            "decide": "Build a synthetic parser/chunker dry-run for the selected controlled interpretive lane.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_source_policy_record.py -q",
+            "command": "python -m pytest tests\\test_synthetic_body_parser_chunker.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -102,8 +102,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "SBI2_source_policy_record",
-        "next_command": "python -m pytest tests\\test_source_policy_record.py -q",
+        "next_leaf": "SBI3_synthetic_parser_chunker",
+        "next_command": "python -m pytest tests\\test_synthetic_body_parser_chunker.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
