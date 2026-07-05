@@ -33,12 +33,14 @@ DEFAULT_EXTERNAL_AUTH_TEMPLATE = ROOT / "docs" / "reports" / "external-source-bo
 def build_decision_queue(
     *,
     external_authorization_record: Path = DEFAULT_EXTERNAL_AUTH_TEMPLATE,
+    manifest: Path = DEFAULT_SESSION_MANIFEST,
+    outreach_ledger: Path = DEFAULT_OUTREACH_LEDGER,
     refresh_gates: bool = False,
 ) -> dict[str, Any]:
     session = summarize_status(
         root=ROOT,
-        manifest=DEFAULT_SESSION_MANIFEST,
-        outreach_ledger=DEFAULT_OUTREACH_LEDGER,
+        manifest=manifest,
+        outreach_ledger=outreach_ledger,
     )
     external_authorization = _check_external_authorization(external_authorization_record)
     local_parser = check_real_adapter_decision_gate()
@@ -129,8 +131,19 @@ def render_markdown(queue: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_report() -> dict[str, Any]:
-    queue = build_decision_queue()
+def write_report(
+    *,
+    external_authorization_record: Path = DEFAULT_EXTERNAL_AUTH_TEMPLATE,
+    manifest: Path = DEFAULT_SESSION_MANIFEST,
+    outreach_ledger: Path = DEFAULT_OUTREACH_LEDGER,
+    refresh_gates: bool = False,
+) -> dict[str, Any]:
+    queue = build_decision_queue(
+        external_authorization_record=external_authorization_record,
+        manifest=manifest,
+        outreach_ledger=outreach_ledger,
+        refresh_gates=refresh_gates,
+    )
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     REPORT_PATH.write_text(render_markdown(queue), encoding="utf-8")
     return queue
@@ -356,14 +369,23 @@ def main() -> None:
     parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--external-authorization-record", type=Path, default=DEFAULT_EXTERNAL_AUTH_TEMPLATE)
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_SESSION_MANIFEST)
+    parser.add_argument("--outreach-ledger", type=Path, default=DEFAULT_OUTREACH_LEDGER)
     parser.add_argument("--refresh-gates", action="store_true")
     args = parser.parse_args()
 
     queue = (
-        write_report()
-        if args.write and args.external_authorization_record == DEFAULT_EXTERNAL_AUTH_TEMPLATE and not args.refresh_gates
+        write_report(
+            external_authorization_record=args.external_authorization_record,
+            manifest=args.manifest,
+            outreach_ledger=args.outreach_ledger,
+            refresh_gates=args.refresh_gates,
+        )
+        if args.write
         else build_decision_queue(
             external_authorization_record=args.external_authorization_record,
+            manifest=args.manifest,
+            outreach_ledger=args.outreach_ledger,
             refresh_gates=args.refresh_gates,
         )
     )

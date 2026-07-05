@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import shutil
+
 from scripts.accounting_intelligence_decision_queue import (
+    DEFAULT_OUTREACH_LEDGER,
+    DEFAULT_SESSION_MANIFEST,
     _reviewer_invite_decision,
     build_decision_queue,
     render_markdown,
 )
+from scripts.real_accountant_outreach_update import upsert_outreach
 
 
 def test_decision_queue_prioritizes_reviewer_invite() -> None:
@@ -56,6 +61,30 @@ def test_reviewer_decision_transitions_after_invite_is_sent() -> None:
     assert decision["operator_action_required"] is True
     assert "follow up, schedule" in decision["user_decision"]
     assert "real_accountant_response_packet.py" in decision["next_command"]
+
+
+def test_decision_queue_accepts_explicit_outreach_ledger(tmp_path) -> None:
+    copied_ledger = tmp_path / "outreach.jsonl"
+    shutil.copyfile(DEFAULT_OUTREACH_LEDGER, copied_ledger)
+    upsert_outreach(
+        copied_ledger,
+        reviewer_alias="reviewer-001",
+        status="sent",
+        channel="manual",
+        contacted_at="2026-07-05",
+        follow_up_by="2026-07-08",
+        notes="invite sent",
+    )
+
+    queue = build_decision_queue(
+        manifest=DEFAULT_SESSION_MANIFEST,
+        outreach_ledger=copied_ledger,
+    )
+
+    decisions = {decision["id"]: decision for decision in queue["decisions"]}
+    assert queue["recommended_next_decision"] == "send_reviewer_invite"
+    assert decisions["send_reviewer_invite"]["status"] == "waiting_on_reviewer_reply"
+    assert "real_accountant_response_packet.py" in decisions["send_reviewer_invite"]["next_command"]
 
 
 def test_reviewer_decision_transitions_after_session_is_scheduled() -> None:

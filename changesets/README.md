@@ -18,3 +18,4 @@
 | 14 | `20260703-term-bridge-user-note-migration` | 2026-07-03 | TERM_BRIDGE dict -> user_note_v2 seed rows | 4/4 | completed |
 | 15 | `20260705-accounting-intelligence-next-action` | 2026-07-05 | single next-action CLI/report from decision queue | 4/4 | completed |
 | 16 | `20260705-next-action-state-coverage` | 2026-07-05 | next-action tests for post-invite reviewer states | 4/4 | completed |
+| 17 | `20260705-decision-queue-ledger-args` | 2026-07-05 | decision queue and next-action ledger path args | 4/4 | completed |

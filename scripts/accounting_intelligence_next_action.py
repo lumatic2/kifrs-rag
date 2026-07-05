@@ -13,6 +13,8 @@ if str(ROOT) not in sys.path:
 
 from scripts.accounting_intelligence_decision_queue import (  # noqa: E402
     DEFAULT_EXTERNAL_AUTH_TEMPLATE,
+    DEFAULT_OUTREACH_LEDGER,
+    DEFAULT_SESSION_MANIFEST,
     build_decision_queue,
 )
 
@@ -23,10 +25,14 @@ REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-accounting-intelligence-ne
 def build_next_action(
     *,
     external_authorization_record: Path = DEFAULT_EXTERNAL_AUTH_TEMPLATE,
+    manifest: Path = DEFAULT_SESSION_MANIFEST,
+    outreach_ledger: Path = DEFAULT_OUTREACH_LEDGER,
     refresh_gates: bool = False,
 ) -> dict[str, Any]:
     queue = build_decision_queue(
         external_authorization_record=external_authorization_record,
+        manifest=manifest,
+        outreach_ledger=outreach_ledger,
         refresh_gates=refresh_gates,
     )
     return build_next_action_from_queue(queue)
@@ -92,11 +98,15 @@ def render_markdown(action: dict[str, Any]) -> str:
 def write_report(
     *,
     external_authorization_record: Path = DEFAULT_EXTERNAL_AUTH_TEMPLATE,
+    manifest: Path = DEFAULT_SESSION_MANIFEST,
+    outreach_ledger: Path = DEFAULT_OUTREACH_LEDGER,
     refresh_gates: bool = False,
     path: Path = REPORT_PATH,
 ) -> dict[str, Any]:
     action = build_next_action(
         external_authorization_record=external_authorization_record,
+        manifest=manifest,
+        outreach_ledger=outreach_ledger,
         refresh_gates=refresh_gates,
     )
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -136,18 +146,24 @@ def main() -> None:
     parser.add_argument("--write", action="store_true", help=f"Write {REPORT_PATH.relative_to(ROOT)}")
     parser.add_argument("--out", type=Path, default=REPORT_PATH)
     parser.add_argument("--external-authorization-record", type=Path, default=DEFAULT_EXTERNAL_AUTH_TEMPLATE)
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_SESSION_MANIFEST)
+    parser.add_argument("--outreach-ledger", type=Path, default=DEFAULT_OUTREACH_LEDGER)
     parser.add_argument("--refresh-gates", action="store_true")
     args = parser.parse_args()
 
     action = (
         write_report(
             external_authorization_record=args.external_authorization_record,
+            manifest=args.manifest,
+            outreach_ledger=args.outreach_ledger,
             refresh_gates=args.refresh_gates,
             path=args.out,
         )
         if args.write
         else build_next_action(
             external_authorization_record=args.external_authorization_record,
+            manifest=args.manifest,
+            outreach_ledger=args.outreach_ledger,
             refresh_gates=args.refresh_gates,
         )
     )

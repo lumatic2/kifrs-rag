@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import shutil
+
+from scripts.accounting_intelligence_decision_queue import DEFAULT_OUTREACH_LEDGER, DEFAULT_SESSION_MANIFEST
 from scripts.accounting_intelligence_decision_queue import _reviewer_invite_decision
 from scripts.accounting_intelligence_next_action import build_next_action, build_next_action_from_queue, render_markdown
+from scripts.real_accountant_outreach_update import upsert_outreach
 
 
 def test_next_action_uses_cached_decision_queue_and_recommends_invite() -> None:
@@ -47,6 +51,29 @@ def test_next_action_tracks_after_send_state() -> None:
     assert action["recommended_next_decision"] == "send_reviewer_invite"
     assert action["status"] == "waiting_on_reviewer_reply"
     assert "follow up, schedule" in action["user_decision"]
+    assert "real_accountant_response_packet.py" in action["next_command"]
+
+
+def test_next_action_accepts_explicit_outreach_ledger(tmp_path) -> None:
+    copied_ledger = tmp_path / "outreach.jsonl"
+    shutil.copyfile(DEFAULT_OUTREACH_LEDGER, copied_ledger)
+    upsert_outreach(
+        copied_ledger,
+        reviewer_alias="reviewer-001",
+        status="sent",
+        channel="manual",
+        contacted_at="2026-07-05",
+        follow_up_by="2026-07-08",
+        notes="invite sent",
+    )
+
+    action = build_next_action(
+        manifest=DEFAULT_SESSION_MANIFEST,
+        outreach_ledger=copied_ledger,
+    )
+
+    assert action["recommended_next_decision"] == "send_reviewer_invite"
+    assert action["status"] == "waiting_on_reviewer_reply"
     assert "real_accountant_response_packet.py" in action["next_command"]
 
 
