@@ -13,6 +13,7 @@
 | File | Role |
 |---|---|
 | `2026-07-05-session-invite.md` | reviewer에게 보낼 초대/설명 문구 |
+| `2026-07-05-reviewer-invite-action-packet.md` | 복사할 invite 문구와 실제 발송 후 ledger update 명령 |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
 | `../2026-07-05-accounting-intelligence-decision-queue.md` | 지금 사용자가 결정해야 할 항목과 추천 다음 결정 |
 | `2026-07-05-readiness-index.md` | 전체 RS1~RS4 readiness와 실제 외부 open item 요약 |
@@ -67,6 +68,7 @@
 ```powershell
 python scripts\real_accountant_status.py
 python scripts\accounting_intelligence_decision_queue.py --format text --write
+python scripts\real_accountant_invite_packet.py --format text --write
 python scripts\real_accountant_readiness_index.py --format text --write
 python scripts\real_accountant_external_action_boundary_gate.py --format text --write
 ```

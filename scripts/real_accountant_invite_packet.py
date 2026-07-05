@@ -8,6 +8,7 @@ from typing import Any
 
 DEFAULT_INVITE = Path("docs/reports/real-accountant-session/2026-07-05-session-invite.md")
 DEFAULT_LEDGER = Path("docs/reports/real-accountant-session/outreach-log.sample.jsonl")
+DEFAULT_OUT = Path("docs/reports/real-accountant-session/2026-07-05-reviewer-invite-action-packet.md")
 DEFAULT_ALIAS = "reviewer-001"
 DEFAULT_CONTACTED_AT = "2026-07-05"
 DEFAULT_FOLLOW_UP_BY = "2026-07-08"
@@ -52,6 +53,7 @@ def build_invite_packet(
             "Update outreach ledger after sending.",
         ],
         "post_send_update_command": update_command,
+        "report_path": DEFAULT_OUT.as_posix(),
     }
 
 
@@ -81,6 +83,59 @@ def render_text(packet: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def render_markdown(packet: dict[str, Any]) -> str:
+    lines = [
+        "# Reviewer Invite Action Packet",
+        "",
+        "> Scope: copy-ready invite message and post-send ledger command for RS2.",
+        "",
+        "## 한 줄 결론",
+        "",
+        "The invite message is ready to send manually. This file does not send the message and does not update the outreach ledger.",
+        "",
+        "## Send Target",
+        "",
+        f"- reviewer alias: `{packet['reviewer_alias']}`",
+        f"- subject: {packet['subject']}",
+        "",
+        "## Copy Message",
+        "",
+        "```text",
+        str(packet["body"]),
+        "```",
+        "",
+        "## Boundary",
+        "",
+    ]
+    lines.extend(f"- {item}" for item in packet["send_boundary"])
+    lines.extend(
+        [
+            "",
+            "## After Manual Send",
+            "",
+            "Run the ledger update only after the invite was actually sent by the operator.",
+            "",
+            "```powershell",
+            str(packet["post_send_update_command"]),
+            "```",
+            "",
+            "## Machine Result",
+            "",
+            "```json",
+            json.dumps(packet, ensure_ascii=False, indent=2, default=str),
+            "```",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def write_report(packet: dict[str, Any], out_path: Path = DEFAULT_OUT) -> dict[str, Any]:
+    packet = {**packet, "report_path": out_path.as_posix()}
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(render_markdown(packet), encoding="utf-8")
+    return packet
+
+
 def _subject_from_lines(lines: list[str]) -> str:
     for line in lines:
         if line.startswith("# "):
@@ -96,7 +151,9 @@ def main() -> int:
     parser.add_argument("--contacted-at", default=DEFAULT_CONTACTED_AT)
     parser.add_argument("--follow-up-by", default=DEFAULT_FOLLOW_UP_BY)
     parser.add_argument("--channel", default=DEFAULT_CHANNEL)
-    parser.add_argument("--format", choices=["text", "json"], default="text")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--write", action="store_true")
+    parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     args = parser.parse_args()
 
     packet = build_invite_packet(
@@ -107,8 +164,12 @@ def main() -> int:
         follow_up_by=args.follow_up_by,
         channel=args.channel,
     )
+    if args.write:
+        packet = write_report(packet, args.out)
     if args.format == "json":
         print(json.dumps(packet, ensure_ascii=False, indent=2, sort_keys=True))
+    elif args.format == "markdown":
+        print(render_markdown(packet), end="")
     else:
         print(render_text(packet), end="")
     return 0

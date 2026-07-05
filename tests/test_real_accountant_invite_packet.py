@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from scripts.real_accountant_invite_packet import build_invite_packet, render_text
+from scripts.real_accountant_invite_packet import build_invite_packet, render_markdown, render_text, write_report
 
 
 def test_build_invite_packet_uses_public_safe_alias_and_update_command() -> None:
@@ -27,3 +27,25 @@ def test_render_text_includes_message_and_after_send_command() -> None:
     assert "Message:" in rendered
     assert "After sending, run:" in rendered
     assert "real_accountant_outreach_update.py" in rendered
+
+
+def test_write_report_creates_copy_ready_action_packet(tmp_path) -> None:
+    out = tmp_path / "invite-action.md"
+    packet = write_report(build_invite_packet(), out)
+
+    report = out.read_text(encoding="utf-8")
+    assert packet["report_path"] == out.as_posix()
+    assert "Reviewer Invite Action Packet" in report
+    assert "Copy Message" in report
+    assert "After Manual Send" in report
+    assert "does not send the message" in report
+    assert "real_accountant_outreach_update.py" in report
+    assert "api_key" not in report
+    assert "token" not in report
+
+
+def test_render_markdown_states_manual_send_boundary() -> None:
+    rendered = render_markdown(build_invite_packet())
+
+    assert "Run the ledger update only after the invite was actually sent" in rendered
+    assert "```text" in rendered
