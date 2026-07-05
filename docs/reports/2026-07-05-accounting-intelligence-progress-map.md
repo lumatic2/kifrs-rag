@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | MAH1 | runtime evidence boundary audit | completed |
 | MAH2 | runtime evidence contract hardening | completed |
 | MAH3 | review pack authority panel | completed |
-| MAH4 | statement draft and analytics fact hook | active_next |
-| MAH5 | authority composer gate and runtime demo | pending |
+| MAH4 | statement draft and analytics fact hook | completed |
+| MAH5 | authority composer gate and runtime demo | active_next |
 
 ## Completed Capability Chain
 
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_MAH4_statement_draft_and_analytics_fact_hook | active | none | `python -m pytest tests\test_statement_draft.py -q` |
+| run_MAH5_authority_composer_gate_and_runtime_demo | active | none | `python scripts\multi_authority_runtime_gate.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,8 +58,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `MAH4_statement_draft_and_analytics_fact_hook`
-- command: `python -m pytest tests\test_statement_draft.py -q`
+- decision: `MAH5_authority_composer_gate_and_runtime_demo`
+- command: `python scripts\multi_authority_runtime_gate.py --format text`
 
 ## Machine Result
 
@@ -90,12 +90,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "MAH4",
         "name": "statement draft and analytics fact hook",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "MAH5",
         "name": "authority composer gate and runtime demo",
-        "status": "pending"
+        "status": "active_next"
       }
     ]
   },
@@ -128,11 +128,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_MAH4_statement_draft_and_analytics_fact_hook",
+      "id": "run_MAH5_authority_composer_gate_and_runtime_demo",
       "status": "active",
-      "decide": "Connect structured fact references to statement draft and analytics outputs without promoting them to primary accounting authority.",
+      "decide": "Close the multi-authority runtime horizon with one gate and demo covering all five evidence groups.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_statement_draft.py -q"
+      "command": "python scripts\\multi_authority_runtime_gate.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -155,8 +155,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "MAH4_statement_draft_and_analytics_fact_hook",
-  "next_command": "python -m pytest tests\\test_statement_draft.py -q",
+  "next_leaf": "MAH5_authority_composer_gate_and_runtime_demo",
+  "next_command": "python scripts\\multi_authority_runtime_gate.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -1,6 +1,7 @@
 """FS2 tests for common financial-statement draft adapters."""
 
 from kifrs.workflows.kifrs1109.fixtures import FIXTURES as FIXTURES_1109
+from kifrs.runtime.authority_boundary import build_runtime_authority_boundary
 from kifrs.runtime.evidence import load_runtime_evidence
 from kifrs.workflows.kifrs1109.review_pack import generate_review_pack as pack_1109
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES as FIXTURES_1115
@@ -112,6 +113,28 @@ def test_statement_draft_links_fact_evidence_to_amount_lines_only():
     assert all("record" not in ref for item in amount_items for ref in item.evidence_refs)
     assert any(
         ref["record_id"] == "synthetic-dart-2025-annual-001-revenue"
+        for item in amount_items
+        for ref in item.evidence_refs
+    )
+
+
+def test_statement_draft_links_authority_fact_evidence_without_primary_promotion():
+    boundary = build_runtime_authority_boundary(primary_citations=["[1115-B39~B43]"])
+    pack = pack_1115(FIXTURES_1115[0], authority_boundary=boundary)
+    items = from_1115_review_pack(pack)
+
+    amount_items = [item for item in items if item.amount is not None and item.statement != "note"]
+    note_items = [item for item in items if item.statement == "note"]
+
+    assert amount_items
+    assert all(not item.evidence_refs for item in note_items)
+    assert any(
+        ref["authority_role"] == "fact_evidence"
+        for item in amount_items
+        for ref in item.evidence_refs
+    )
+    assert all(
+        ref.get("authority_role") != "primary_kifrs_evidence"
         for item in amount_items
         for ref in item.evidence_refs
     )

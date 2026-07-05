@@ -10,6 +10,7 @@ from kifrs.workflows.audit_analytics import (
     render_anomaly_note,
 )
 from kifrs.workflows.audit_analytics.schema import AnalyticalProcedureInput
+from kifrs.runtime.authority_boundary import build_runtime_authority_boundary
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES as FIXTURES_1115
 from kifrs.workflows.kifrs1115.review_pack import generate_review_pack as pack_1115
 from kifrs.workflows.statement_draft import from_1115_review_pack
@@ -83,3 +84,22 @@ def test_link_statement_candidates_keeps_findings_as_review_links():
     assert any(item.finding_id == "ratio:debt_to_equity_rise" for item in linked)
     assert any(item.line_item == "금융부채" and item.source_standard == "KIFRS1115" for item in linked)
     assert all(item.presentation_status == "draft" for item in linked)
+
+
+def test_link_statement_candidates_preserves_fact_evidence_refs_only():
+    boundary = build_runtime_authority_boundary(primary_citations=["[1115-B39~B43]"])
+    findings = detect_anomalies(calculate_metrics(SYNTHETIC_FS))
+    candidates = from_1115_review_pack(pack_1115(FIXTURES_1115[3], authority_boundary=boundary))
+    linked = link_statement_candidates(findings, candidates)
+
+    assert any(item.evidence_refs for item in linked)
+    assert all(
+        ref.get("authority_role") == "fact_evidence"
+        for item in linked
+        for ref in item.evidence_refs
+    )
+    assert all(
+        ref.get("authority_role") != "primary_kifrs_evidence"
+        for item in linked
+        for ref in item.evidence_refs
+    )

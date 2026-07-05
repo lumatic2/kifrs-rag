@@ -165,6 +165,7 @@ def link_statement_candidates(
                     line_item=candidate.line_item,
                     amount=candidate.amount,
                     presentation_status=candidate.presentation_status,
+                    evidence_refs=list(candidate.evidence_refs),
                 )
             )
     return linked

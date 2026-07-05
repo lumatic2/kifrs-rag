@@ -212,11 +212,17 @@ def _review_questions(pack: Any) -> list[str]:
 
 
 def _fact_evidence_refs(pack: Any) -> list[dict[str, object]]:
-    return [
+    old_refs = [
         dict(item)
         for item in getattr(pack, "external_evidence", [])
         if item.get("citation_role") == "fact_evidence"
     ]
+    authority_refs = [
+        dict(item)
+        for item in getattr(pack, "authority_boundary", {}).get("fact_evidence", [])
+        if item.get("authority_role") == "fact_evidence"
+    ]
+    return old_refs + authority_refs
 
 
 def _human_review_note_candidates(

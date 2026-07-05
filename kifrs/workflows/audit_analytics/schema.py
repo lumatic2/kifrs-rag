@@ -1,6 +1,6 @@
 """Schema for audit analytical procedure fixtures and metric outputs."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
 
 StatementKind = Literal["balance_sheet", "income_statement"]
@@ -52,3 +52,4 @@ class LinkedStatementCandidate:
     line_item: str
     amount: float | None
     presentation_status: str
+    evidence_refs: list[dict[str, object]] = field(default_factory=list)
