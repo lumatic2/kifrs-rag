@@ -76,18 +76,18 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "RPG1", "name": "promotion evidence inventory", "status": "completed"},
             {"id": "RPG2", "name": "regression and latency gate", "status": "completed"},
-            {"id": "RPG3", "name": "failure and rollback policy", "status": "active_next"},
-            {"id": "RPG4", "name": "operator promotion command", "status": "pending"},
+            {"id": "RPG3", "name": "failure and rollback policy", "status": "completed"},
+            {"id": "RPG4", "name": "operator promotion command", "status": "active_next"},
             {"id": "RPG5", "name": "promotion gate close report", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_RPG3_failure_rollback_policy",
+            "id": "run_RPG4_operator_promotion_command",
             "status": "active",
-            "decide": "Define rollback states and operator remediation for any failed or deferred retriever promotion.",
+            "decide": "Provide a dry-run operator command output that shows defer status, required evidence, and rollback path without changing runtime defaults.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_retriever_failure_rollback_policy.py -q",
+            "command": "python -m pytest tests\\test_retriever_promotion_command.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -112,8 +112,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RPG3_failure_rollback_policy",
-        "next_command": "python -m pytest tests\\test_retriever_failure_rollback_policy.py -q",
+        "next_leaf": "RPG4_operator_promotion_command",
+        "next_command": "python -m pytest tests\\test_retriever_promotion_command.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -128,7 +128,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is runtime-retriever-promotion-gate: define rollback policy before any operator promotion surface.",
+        "The active horizon is runtime-retriever-promotion-gate: expose the promotion decision as a safe operator dry-run command.",
         "",
         "## Objective",
         "",

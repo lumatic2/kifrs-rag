@@ -24,9 +24,9 @@ failure-boundary, operator-command, and rollback evidence.
 
 ### RPG3 — Failure And Rollback Policy
 
-- [ ] RPG3.1 — Define rollback states and failure cases.
-- [ ] RPG3.2 — Validate fallback to current default retriever.
-- [ ] RPG3.3 — Add tests and report.
+- [x] RPG3.1 — Define rollback states and failure cases.
+- [x] RPG3.2 — Validate fallback to current default retriever.
+- [x] RPG3.3 — Add tests and report.
 
 ### RPG4 — Operator Promotion Command
 

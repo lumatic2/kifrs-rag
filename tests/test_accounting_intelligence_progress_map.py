@@ -10,10 +10,10 @@ def test_progress_map_explains_current_position_and_results() -> None:
     assert progress["current_horizon"]["status"] == "active"
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][2]["status"] == "active_next"
-    assert progress["current_horizon"]["milestones"][3]["status"] == "pending"
+    assert progress["current_horizon"]["milestones"][2]["status"] == "completed"
+    assert progress["current_horizon"]["milestones"][3]["status"] == "active_next"
     assert progress["current_horizon"]["milestones"][4]["status"] == "pending"
-    assert progress["next_leaf"] == "RPG3_failure_rollback_policy"
+    assert progress["next_leaf"] == "RPG4_operator_promotion_command"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -34,7 +34,7 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "runtime-retriever-promotion-gate" in rendered
-    assert "RPG3_failure_rollback_policy" in rendered
+    assert "RPG4_operator_promotion_command" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

@@ -36,14 +36,14 @@ Status: completed
 
 ### RPG3. Failure And Rollback Policy
 
-Status: active
+Status: completed
 
 - Deliverable: rollback policy validator, tests, `docs/reports/2026-07-05-rpg3-failure-rollback-policy.md`
 - Acceptance: failed promotion has a clear fallback to the current default retriever and operator remediation.
 
 ### RPG4. Operator Promotion Command
 
-Status: pending
+Status: active
 
 - Deliverable: promotion command dry-run, tests, `docs/reports/2026-07-05-rpg4-operator-promotion-command.md`
 - Acceptance: operator can see promote/defer status and required evidence without editing runtime code by hand.

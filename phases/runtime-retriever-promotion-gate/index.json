@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "failure-and-rollback-policy",
-      "status": "active"
+      "status": "completed",
+      "summary": "RPG3 added scripts/retriever_failure_rollback_policy.py, tests/test_retriever_failure_rollback_policy.py, and docs/reports/2026-07-05-rpg3-failure-rollback-policy.md. It defines defer/block/rollback states, keeps hybrid as the safe fallback, lists operator remediation, and forbids manual default edits or MCP exposure before close-gate promotion.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "operator-promotion-command",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,
