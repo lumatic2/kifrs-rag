@@ -14,14 +14,14 @@ This horizon does not scrape or redistribute protected third-party content by de
 
 ### ESB1. Source-Body Connector Selection And Policy Gate
 
-Status: active
+Status: completed
 
 - Deliverable: selection/policy script, tests, `docs/reports/2026-07-05-esb1-source-body-connector-selection.md`
 - Acceptance: source class, authorization boundary, allowed metadata/body fields, and public-safe report rules are explicit.
 
 ### ESB2. Synthetic Source-Body Fixture Contract
 
-Status: pending
+Status: active
 
 - Deliverable: fixture contract script/report.
 - Acceptance: parser input/output schema and forbidden raw-body publication rules are explicit.

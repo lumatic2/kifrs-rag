@@ -11,9 +11,9 @@ This horizon addresses the Objective gap that external source connector evidence
 
 ### ESB1 — Source-Body Connector Selection And Policy Gate
 
-- [ ] ESB1.1 — Select first source-body class.
-- [ ] ESB1.2 — Define authorization and public-report policy.
-- [ ] ESB1.3 — Write ESB1 selection/policy report.
+- [x] ESB1.1 — Select first source-body class.
+- [x] ESB1.2 — Define authorization and public-report policy.
+- [x] ESB1.3 — Write ESB1 selection/policy report.
 
 ### ESB2 — Synthetic Source-Body Fixture Contract
 

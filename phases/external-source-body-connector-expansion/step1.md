@@ -10,13 +10,13 @@
 
 ## 작업
 
-`scripts/external_source_body_connector_selection.py`를 만들어 첫 source-body connector class, authorization boundary, allowed fields, public-safe report rules를 고정한다.
+`scripts/external_source_connector_body_selection.py`를 만들어 첫 source-body connector class, authorization boundary, allowed fields, public-safe report rules를 고정한다.
 
 ## Acceptance Criteria
 
 ```powershell
-python -m pytest tests\test_external_source_body_connector_selection.py -q
-python scripts\external_source_body_connector_selection.py --format text --write
+python -m pytest tests\test_external_source_connector_body_selection.py -q
+python scripts\external_source_connector_body_selection.py --format text --write
 ```
 
 ## 검증 절차
