@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is end-to-end-demo-scenario; E2E1 and E2E2 are complete and the next move is E2E3 demo packet builder.
+The active horizon is end-to-end-demo-scenario; E2E1 to E2E3 are complete and the next move is E2E4 demo smoke and navigation gate.
 
 ## Objective
 
@@ -20,8 +20,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 |---|---|---|
 | E2E1 | demo asset inventory and storyboard | completed |
 | E2E2 | scenario contract | completed |
-| E2E3 | demo packet builder | active |
-| E2E4 | demo smoke and navigation gate | pending |
+| E2E3 | demo packet builder | completed |
+| E2E4 | demo smoke and navigation gate | active |
 | E2E5 | horizon close gate | pending |
 
 ## Completed Capability Chain
@@ -65,8 +65,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `E2E3_demo_packet_builder`
-- command: `python scripts\e2e_demo_packet_builder.py --format text --write`
+- decision: `E2E4_demo_smoke_and_navigation_gate`
+- command: `python scripts\e2e_demo_smoke_gate.py --format text --write`
 
 ## Machine Result
 
@@ -92,12 +92,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "E2E3",
         "name": "demo packet builder",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "E2E4",
         "name": "demo smoke and navigation gate",
-        "status": "pending"
+        "status": "active"
       },
       {
         "id": "E2E5",
@@ -197,8 +197,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "E2E3_demo_packet_builder",
-  "next_command": "python scripts\\e2e_demo_packet_builder.py --format text --write",
+  "next_leaf": "E2E4_demo_smoke_and_navigation_gate",
+  "next_command": "python scripts\\e2e_demo_smoke_gate.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

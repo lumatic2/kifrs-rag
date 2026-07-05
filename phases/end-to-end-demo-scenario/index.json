@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "demo-packet-builder",
-      "status": "active"
+      "status": "completed",
+      "summary": "E2E3 added scripts/e2e_demo_packet_builder.py, tests/test_e2e_demo_packet_builder.py, docs/reports/2026-07-05-e2e3-demo-packet-builder.md, and docs/reports/end-to-end-demo/INDEX.md. The packet gives one ordered public-safe navigation surface with reports, commands, purposes, and recovery hints.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "demo-smoke-and-navigation-gate",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,

@@ -23,13 +23,13 @@ This horizon turns the completed product-weakness work into one end-to-end demon
 
 ### E2E3 — Demo Packet Builder
 
-- [ ] E2E3.1 — Build one ordered packet/index from reports. `(next)`
-- [ ] E2E3.2 — Add operator command and rerun hints.
-- [ ] E2E3.3 — Write packet report.
+- [x] E2E3.1 — Build one ordered packet/index from reports.
+- [x] E2E3.2 — Add operator command and rerun hints.
+- [x] E2E3.3 — Write packet report.
 
 ### E2E4 — Demo Smoke And Navigation Gate
 
-- [ ] E2E4.1 — Verify all packet links exist.
+- [ ] E2E4.1 — Verify all packet links exist. `(next)`
 - [ ] E2E4.2 — Verify public-safety and missing-report failure path.
 - [ ] E2E4.3 — Write smoke report.
 

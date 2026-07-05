@@ -28,14 +28,14 @@ Status: completed
 
 ### E2E3. Demo Packet Builder
 
-Status: active
+Status: completed
 
 - Deliverable: ordered demo packet/index under `docs/reports/end-to-end-demo/`.
 - Acceptance: operator can open one packet and follow the demo without reading ROADMAP internals.
 
 ### E2E4. Demo Smoke And Navigation Gate
 
-Status: pending
+Status: active
 
 - Deliverable: smoke gate script/tests/report.
 - Acceptance: every referenced report exists, public-safety checks pass, and the packet is navigable.

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (E2E2 완료, E2E3 active)
+> 마지막 업데이트: 2026-07-05 (E2E3 완료, E2E4 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -65,18 +65,18 @@ Evidence: `docs/reports/2026-07-05-e2e2-scenario-contract.md`
 Gap: Closed by E2E2 scenario contract script/tests/report.
 Status: [x]
 
-<!-- harness:milestone id="E2E3" status="active" priority="P0" -->
+<!-- harness:milestone id="E2E3" status="completed" priority="P0" -->
 ### E2E3 — Demo Packet Builder
 DoD: one ordered packet/index lets an operator follow the demo without reading ROADMAP internals.
 Evidence: `docs/reports/end-to-end-demo/INDEX.md`
-Gap: Need packet builder script/tests/index.
-Status: [ ]
+Gap: Closed by E2E3 packet builder script/tests/index.
+Status: [x]
 
-<!-- harness:milestone id="E2E4" status="pending" priority="P0" -->
+<!-- harness:milestone id="E2E4" status="active" priority="P0" -->
 ### E2E4 — Demo Smoke And Navigation Gate
 DoD: packet links, public-safety checks, and missing-report failure path pass.
 Evidence: `docs/reports/2026-07-05-e2e4-demo-smoke-gate.md`
-Gap: Pending E2E3 packet.
+Gap: Need smoke gate script/tests/report.
 Status: [ ]
 
 <!-- harness:milestone id="E2E5" status="pending" priority="P0" -->
