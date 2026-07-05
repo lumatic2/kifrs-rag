@@ -6,7 +6,7 @@ from scripts.objective_gap_horizon_candidates import build_candidates, render_ma
 def test_objective_gap_horizons_are_ordered_and_exclude_parked_work() -> None:
     result = build_candidates()
 
-    assert result["active_horizon"] == "demo-rehearsal-quality-loop"
+    assert result["active_horizon"] == "none"
     assert [candidate["order"] for candidate in result["candidates"]] == [1, 2, 3, 4, 5]
     assert [candidate["horizon_id"] for candidate in result["candidates"]] == [
         "rag-quality-fresh-validation",
@@ -19,7 +19,7 @@ def test_objective_gap_horizons_are_ordered_and_exclude_parked_work() -> None:
     assert result["candidates"][1]["status"] == "closed"
     assert result["candidates"][2]["status"] == "closed"
     assert result["candidates"][3]["status"] == "closed"
-    assert result["candidates"][4]["status"] == "active"
+    assert result["candidates"][4]["status"] == "closed"
     assert all(candidate["evidence_target"].startswith("docs/reports/") for candidate in result["candidates"])
 
 
@@ -31,6 +31,7 @@ def test_objective_gap_horizon_markdown_is_public_safe() -> None:
     assert "rag-quality-fresh-validation" in rendered
     assert "private-parser-realism-hardening" in rendered
     assert "demo-rehearsal-quality-loop" in rendered
+    assert "five-horizon objective gap queue is closed" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

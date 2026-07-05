@@ -80,15 +80,15 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "demo-rehearsal-quality-loop",
-        "status": "active",
-        "goal": "Turn the existing demo packet into repeatable, timed, public-safe operator rehearsal evidence.",
+        "id": "objective-gap-queue",
+        "status": "closed",
+        "goal": "The grouped objective-gap horizons have been implemented and audited through the demo rehearsal quality close gate.",
         "milestones": [
             {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "completed"},
             {"id": "DRQ2", "name": "demo run quality checklist", "status": "completed"},
             {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "completed"},
             {"id": "DRQ4", "name": "demo improvement backlog", "status": "completed"},
-            {"id": "DRQ5", "name": "close and objective gap audit", "status": "active"},
+            {"id": "DRQ5", "name": "close and objective gap audit", "status": "completed"},
         ],
     }
     decisions = [
@@ -129,8 +129,8 @@ def build_progress_map() -> dict[str, Any]:
         },
         {
             "id": "run_demo_rehearsal_quality_loop",
-            "status": "active_horizon",
-            "decide": "DRQ1 to DRQ4 are complete; close the demo rehearsal quality loop and audit remaining objective gaps.",
+            "status": "closed_demo_rehearsal_quality_loop",
+            "decide": "DRQ1 to DRQ5 are complete; the demo rehearsal quality loop and objective-gap queue are closed.",
             "blocker": "none",
             "command": "python scripts\\demo_rehearsal_quality_close_gate.py --format text --write",
         },
@@ -155,10 +155,11 @@ def build_progress_map() -> dict[str, Any]:
             "automation_rate": gap.automation_rate,
         },
         "remaining_gaps": [
-            item for item in gap.remaining_gaps if "external accountant" not in item.lower()
+            "No active objective-gap horizon remains in the current queue.",
+            "Residual risks are tracked in close reports and should become a new horizon only after an explicit next objective decision.",
         ],
-        "next_leaf": "DRQ5_horizon_close_and_objective_gap_audit",
-        "next_command": "python scripts\\demo_rehearsal_quality_close_gate.py --format text --write",
+        "next_leaf": "objective_gap_queue_complete",
+        "next_command": "python scripts\\objective_gap_horizon_candidates.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -173,7 +174,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; DRQ1 to DRQ4 are complete and DRQ5 close/audit is now active.",
+        "Objective gaps are grouped into horizons; DRQ1 to DRQ5 are complete and the objective-gap queue is closed.",
         "",
         "## Objective",
         "",

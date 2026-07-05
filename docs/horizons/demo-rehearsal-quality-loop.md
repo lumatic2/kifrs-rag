@@ -1,6 +1,6 @@
 # Horizon: Demo Rehearsal Quality Loop
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/workflow-coverage-depth-expansion.md`
 
@@ -42,10 +42,14 @@ Status: completed
 
 ### DRQ5. Horizon Close And Objective Gap Audit
 
-Status: active
+Status: completed
 
-- Deliverable: close report.
+- Deliverable: close report, `docs/reports/2026-07-05-demo-rehearsal-quality-loop-close-report.md`
 - Acceptance: demo rehearsal quality loop is closed and objective-gap queue status is audited.
+
+## Close Result
+
+`demo_rehearsal_quality_loop_closed` — DRQ1~DRQ4 evidence is present, DRQ5 close gate passes, and the five-horizon objective-gap queue is closed.
 
 ## Decision Log
 

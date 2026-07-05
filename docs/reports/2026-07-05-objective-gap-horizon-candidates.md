@@ -14,12 +14,12 @@ Group the remaining objective gaps into implementation horizons and run them wit
 | 2 | `private-parser-realism-hardening` | Local parser evidence is still fixture-heavy; actual local-file adapter evidence remains gated by explicit authorization. | The objective needs realistic client-input handling, but protected payloads must stay local and authorization-gated. | closed | PPR1 authorization-safe adapter proof plan | `docs/reports/2026-07-05-ppr1-authorization-safe-adapter-proof.md` |
 | 3 | `external-source-body-connector-expansion` | External sources have metadata/demo evidence, but broader source-body connector implementation is still missing. | Accounting work needs regulator, interpretive, legal, filing, and policy evidence beyond K-IFRS paragraphs. | closed | ESB1 source-body connector selection and policy gate | `docs/reports/2026-07-05-esb1-source-body-connector-selection.md` |
 | 4 | `workflow-coverage-depth-expansion` | Automation coverage is strong in selected workflows but still shallow against the full firm-service map. | The north-star question asks how far accountant work can be automated, which requires broader workflow sampling. | closed | WCD1 service-line coverage rerank | `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md` |
-| 5 | `demo-rehearsal-quality-loop` | The demo packet is ready, but it has not been rehearsed into repeatable operator evidence and quality notes. | Before any external step, the local demo needs timed, repeatable, failure-aware rehearsal evidence. | active | DRQ1 demo rehearsal script and timing gate | `docs/reports/2026-07-05-drq1-demo-rehearsal-script.md` |
+| 5 | `demo-rehearsal-quality-loop` | The demo packet is ready, but it has not been rehearsed into repeatable operator evidence and quality notes. | Before any external step, the local demo needs timed, repeatable, failure-aware rehearsal evidence. | closed | DRQ1 demo rehearsal script and timing gate | `docs/reports/2026-07-05-drq1-demo-rehearsal-script.md` |
 
 ## Decision
 
-- Active horizon: `demo-rehearsal-quality-loop`
-- Run horizons in order unless a later gap becomes objectively blocking.
+- Active horizon: `none`
+- The five-horizon objective gap queue is closed.
 - Keep the queue focused on internal product evidence, quality, and workflow coverage.
 
 ## Machine Result
@@ -28,7 +28,7 @@ Group the remaining objective gaps into implementation horizons and run them wit
 {
   "title": "Objective Gap Horizon Candidates",
   "objective": "Group the remaining objective gaps into implementation horizons and run them with the product harness.",
-  "active_horizon": "demo-rehearsal-quality-loop",
+  "active_horizon": "none",
   "candidates": [
     {
       "order": 1,
@@ -71,7 +71,7 @@ Group the remaining objective gaps into implementation horizons and run them wit
       "horizon_id": "demo-rehearsal-quality-loop",
       "objective_gap": "The demo packet is ready, but it has not been rehearsed into repeatable operator evidence and quality notes.",
       "why_now": "Before any external step, the local demo needs timed, repeatable, failure-aware rehearsal evidence.",
-      "status": "active",
+      "status": "closed",
       "first_milestone": "DRQ1 demo rehearsal script and timing gate",
       "evidence_target": "docs/reports/2026-07-05-drq1-demo-rehearsal-script.md"
     }

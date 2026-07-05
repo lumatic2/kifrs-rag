@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "horizon-close-and-objective-gap-audit",
-      "status": "active"
+      "status": "completed",
+      "summary": "DRQ5 added scripts/demo_rehearsal_quality_close_gate.py, tests/test_demo_rehearsal_quality_close_gate.py, and docs/reports/2026-07-05-demo-rehearsal-quality-loop-close-report.md. It verifies DRQ1~DRQ4 evidence, records close_result demo_rehearsal_quality_loop_closed, and audits all five objective-gap horizons as closed.",
+      "completed_at": "2026-07-06T00:00:00+09:00"
     }
   ]
 }

@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Objective gaps are grouped into horizons; DRQ1 to DRQ4 are complete and DRQ5 close/audit is now active.
+Objective gaps are grouped into horizons; DRQ1 to DRQ5 are complete and the objective-gap queue is closed.
 
 ## Objective
 
@@ -12,9 +12,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Current Horizon
 
-- Horizon: `demo-rehearsal-quality-loop`
-- Status: active
-- Goal: Turn the existing demo packet into repeatable, timed, public-safe operator rehearsal evidence.
+- Horizon: `objective-gap-queue`
+- Status: closed
+- Goal: The grouped objective-gap horizons have been implemented and audited through the demo rehearsal quality close gate.
 
 | Milestone | Name | Status |
 |---|---|---|
@@ -22,7 +22,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | DRQ2 | demo run quality checklist | completed |
 | DRQ3 | rehearsal evidence capture | completed |
 | DRQ4 | demo improvement backlog | completed |
-| DRQ5 | close and objective gap audit | active |
+| DRQ5 | close and objective gap audit | completed |
 
 ## Completed Capability Chain
 
@@ -57,21 +57,18 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | run_private_parser_realism_hardening | closed_realism_contract_ready | none | `python scripts\private_parser_realism_close_gate.py --format text` |
 | run_external_connector_body_expansion | closed_connector_body_lane_ready | none | `python scripts\external_source_connector_body_close_gate.py --format text` |
 | run_workflow_coverage_depth_expansion | closed_coverage_depth_expanded | none | `python scripts\workflow_coverage_depth_close_gate.py --format text` |
-| run_demo_rehearsal_quality_loop | active_horizon | none | `python scripts\demo_rehearsal_quality_close_gate.py --format text --write` |
+| run_demo_rehearsal_quality_loop | closed_demo_rehearsal_quality_loop | none | `python scripts\demo_rehearsal_quality_close_gate.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
 
-- RAG quality needs a fresh internal validation horizon before any default retriever promotion
-- local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
-- external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented
-- opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization
-- firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product
+- No active objective-gap horizon remains in the current queue.
+- Residual risks are tracked in close reports and should become a new horizon only after an explicit next objective decision.
 
 ## Next Leaf
 
-- decision: `DRQ5_horizon_close_and_objective_gap_audit`
-- command: `python scripts\demo_rehearsal_quality_close_gate.py --format text --write`
+- decision: `objective_gap_queue_complete`
+- command: `python scripts\objective_gap_horizon_candidates.py --format text`
 
 ## Machine Result
 
@@ -80,9 +77,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then turn that proof into firm-facing local toolkit evidence.",
   "current_horizon": {
-    "id": "demo-rehearsal-quality-loop",
-    "status": "active",
-    "goal": "Turn the existing demo packet into repeatable, timed, public-safe operator rehearsal evidence.",
+    "id": "objective-gap-queue",
+    "status": "closed",
+    "goal": "The grouped objective-gap horizons have been implemented and audited through the demo rehearsal quality close gate.",
     "milestones": [
       {
         "id": "DRQ1",
@@ -107,7 +104,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
       {
         "id": "DRQ5",
         "name": "close and objective gap audit",
-        "status": "active"
+        "status": "completed"
       }
     ]
   },
@@ -211,8 +208,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     },
     {
       "id": "run_demo_rehearsal_quality_loop",
-      "status": "active_horizon",
-      "decide": "DRQ1 to DRQ4 are complete; close the demo rehearsal quality loop and audit remaining objective gaps.",
+      "status": "closed_demo_rehearsal_quality_loop",
+      "decide": "DRQ1 to DRQ5 are complete; the demo rehearsal quality loop and objective-gap queue are closed.",
       "blocker": "none",
       "command": "python scripts\\demo_rehearsal_quality_close_gate.py --format text --write"
     },
@@ -231,14 +228,11 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "automation_rate": 0.8333
   },
   "remaining_gaps": [
-    "RAG quality needs a fresh internal validation horizon before any default retriever promotion",
-    "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
-    "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
-    "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
-    "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
+    "No active objective-gap horizon remains in the current queue.",
+    "Residual risks are tracked in close reports and should become a new horizon only after an explicit next objective decision."
   ],
-  "next_leaf": "DRQ5_horizon_close_and_objective_gap_audit",
-  "next_command": "python scripts\\demo_rehearsal_quality_close_gate.py --format text --write",
+  "next_leaf": "objective_gap_queue_complete",
+  "next_command": "python scripts\\objective_gap_horizon_candidates.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

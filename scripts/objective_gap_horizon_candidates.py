@@ -65,7 +65,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="demo-rehearsal-quality-loop",
             objective_gap="The demo packet is ready, but it has not been rehearsed into repeatable operator evidence and quality notes.",
             why_now="Before any external step, the local demo needs timed, repeatable, failure-aware rehearsal evidence.",
-            status="active",
+            status="closed",
             first_milestone="DRQ1 demo rehearsal script and timing gate",
             evidence_target="docs/reports/2026-07-05-drq1-demo-rehearsal-script.md",
         ),
@@ -73,7 +73,7 @@ def build_candidates() -> dict[str, Any]:
     return {
         "title": "Objective Gap Horizon Candidates",
         "objective": "Group the remaining objective gaps into implementation horizons and run them with the product harness.",
-        "active_horizon": "demo-rehearsal-quality-loop",
+        "active_horizon": "none",
         "candidates": [asdict(candidate) for candidate in candidates],
         "report_path": _display_path(REPORT_PATH),
     }
@@ -110,7 +110,7 @@ def render_markdown(result: dict[str, Any]) -> str:
             "## Decision",
             "",
             f"- Active horizon: `{result['active_horizon']}`",
-            "- Run horizons in order unless a later gap becomes objectively blocking.",
+            "- The five-horizon objective gap queue is closed.",
             "- Keep the queue focused on internal product evidence, quality, and workflow coverage.",
             "",
             "## Machine Result",

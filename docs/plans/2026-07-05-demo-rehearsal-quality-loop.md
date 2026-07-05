@@ -35,9 +35,9 @@ This horizon addresses the Objective gap that the demo packet exists but has not
 
 ### DRQ5 — Horizon Close And Objective Gap Audit
 
-- [ ] DRQ5.1 — Combine DRQ1~DRQ4 evidence.
-- [ ] DRQ5.2 — Close horizon and audit remaining objective gaps.
-- [ ] DRQ5.3 — Sync ROADMAP/OBJECTIVE/progress map.
+- [x] DRQ5.1 — Combine DRQ1~DRQ4 evidence.
+- [x] DRQ5.2 — Close horizon and audit remaining objective gaps.
+- [x] DRQ5.3 — Sync ROADMAP/OBJECTIVE/progress map.
 
 ## Decision Log
 
