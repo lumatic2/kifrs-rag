@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is non-IFRS source dataization: turn non-IFRS source lanes into public-safe RAG dataization units.
+Non-IFRS source dataization is closed: source lanes now have public-safe records, fixtures, policy, and runtime handoff.
 
 ## Objective
 
@@ -13,7 +13,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 ## Current Horizon
 
 - Horizon: `non-ifrs-source-dataization`
-- Status: active
+- Status: closed
 - Goal: Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.
 
 | Milestone | Name | Status |
@@ -22,7 +22,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | NIS2 | source record contract | completed |
 | NIS3 | dataization fixtures and validators | completed |
 | NIS4 | chunking and embedding policy | completed |
-| NIS5 | dataization gate and runtime handoff | active_next |
+| NIS5 | dataization gate and runtime handoff | completed |
 
 ## Completed Capability Chain
 
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_NIS5_dataization_gate | active | none | `python scripts\non_ifrs_dataization_gate.py --format text` |
+| start_multi_authority_runtime_hardening | next_horizon_candidate | non-IFRS dataization is closed; next runtime horizon has not been opened yet. | `python scripts\non_ifrs_dataization_gate.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,7 +58,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `NIS5_dataization_gate_and_runtime_handoff`
+- decision: `start_multi_authority_runtime_hardening_planning`
 - command: `python scripts\non_ifrs_dataization_gate.py --format text`
 
 ## Machine Result
@@ -69,7 +69,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
     "id": "non-ifrs-source-dataization",
-    "status": "active",
+    "status": "closed",
     "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
     "milestones": [
       {
@@ -95,7 +95,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "NIS5",
         "name": "dataization gate and runtime handoff",
-        "status": "active_next"
+        "status": "completed"
       }
     ]
   },
@@ -128,10 +128,10 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_NIS5_dataization_gate",
-      "status": "active",
-      "decide": "Run the final non-IFRS dataization gate and runtime handoff.",
-      "blocker": "none",
+      "id": "start_multi_authority_runtime_hardening",
+      "status": "next_horizon_candidate",
+      "decide": "Plan runtime use of K-IFRS, law, interpretive metadata, structured facts, and private facts as separated evidence.",
+      "blocker": "non-IFRS dataization is closed; next runtime horizon has not been opened yet.",
       "command": "python scripts\\non_ifrs_dataization_gate.py --format text"
     },
     {
@@ -155,7 +155,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "NIS5_dataization_gate_and_runtime_handoff",
+  "next_leaf": "start_multi_authority_runtime_hardening_planning",
   "next_command": "python scripts\\non_ifrs_dataization_gate.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }

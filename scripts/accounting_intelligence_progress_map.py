@@ -46,22 +46,22 @@ def build_progress_map() -> dict[str, Any]:
     ]
     current_horizon = {
         "id": "non-ifrs-source-dataization",
-        "status": "active",
+        "status": "closed",
         "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
         "milestones": [
             {"id": "NIS1", "name": "existing source asset inventory", "status": "completed"},
             {"id": "NIS2", "name": "source record contract", "status": "completed"},
             {"id": "NIS3", "name": "dataization fixtures and validators", "status": "completed"},
             {"id": "NIS4", "name": "chunking and embedding policy", "status": "completed"},
-            {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "active_next"},
+            {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "completed"},
         ],
     }
     decisions = [
         {
-            "id": "run_NIS5_dataization_gate",
-            "status": "active",
-            "decide": "Run the final non-IFRS dataization gate and runtime handoff.",
-            "blocker": "none",
+            "id": "start_multi_authority_runtime_hardening",
+            "status": "next_horizon_candidate",
+            "decide": "Plan runtime use of K-IFRS, law, interpretive metadata, structured facts, and private facts as separated evidence.",
+            "blocker": "non-IFRS dataization is closed; next runtime horizon has not been opened yet.",
             "command": "python scripts\\non_ifrs_dataization_gate.py --format text",
         },
         {
@@ -87,7 +87,7 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "NIS5_dataization_gate_and_runtime_handoff",
+        "next_leaf": "start_multi_authority_runtime_hardening_planning",
         "next_command": "python scripts\\non_ifrs_dataization_gate.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
@@ -103,7 +103,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is non-IFRS source dataization: turn non-IFRS source lanes into public-safe RAG dataization units.",
+        "Non-IFRS source dataization is closed: source lanes now have public-safe records, fixtures, policy, and runtime handoff.",
         "",
         "## Objective",
         "",

@@ -24,7 +24,7 @@ public-safe fixture, chunk/index policy, close gate 순서로 진행한다.
 - [x] NIS2 — Source record contract. (verify: `python -m pytest tests\test_source_record_contract.py -q`)
 - [x] NIS3 — Dataization fixtures and validators. (verify: `python scripts\validate_non_ifrs_source_records.py --format text`)
 - [x] NIS4 — Chunking and embedding policy. (verify: `python scripts\validate_non_ifrs_chunking_policy.py --format text`)
-- [ ] NIS5 — Dataization gate and runtime handoff. (verify: `python scripts\non_ifrs_dataization_gate.py --format text` + `python scripts\quality_preflight.py --format text`)
+- [x] NIS5 — Dataization gate and runtime handoff. (verify: `python scripts\non_ifrs_dataization_gate.py --format text` + `python scripts\quality_preflight.py --format text`)
 
 ## 결정 로그
 

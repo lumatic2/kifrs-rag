@@ -1,6 +1,6 @@
 # Horizon: Non-IFRS Source Dataization
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 > Previous: `docs/horizons/rag-reliability-revalidation.md`
@@ -113,6 +113,16 @@ Acceptance:
 - public repo에는 metadata/schema/synthetic fixture만 남고 protected body는 남지 않는다.
 - 다음 horizon이 source authority별 답변 조립을 구현할 수 있는 runtime handoff가 있다.
 - `python scripts\quality_preflight.py --format text`와 RAG reliability regression command set이 통과한다.
+
+## Close Result
+
+- Closed: 2026-07-05
+- Source record contract: `kifrs/ingestion/source_record.py`
+- Public fixture: `docs/ingestion/non_ifrs_source_records.example.json`
+- Chunk/index policy: `docs/ingestion/non_ifrs_chunking_policy.json`
+- Dataization gate: `docs/reports/2026-07-05-nis5-dataization-gate.md`
+- Close report: `docs/reports/2026-07-05-non-ifrs-source-dataization-close-report.md`
+- Next candidate horizon: `multi-authority-runtime-hardening`
 
 ## Decision Log
 
