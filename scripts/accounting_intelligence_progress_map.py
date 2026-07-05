@@ -12,15 +12,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.accounting_intelligence_gap_audit import build_gap_audit  # noqa: E402
-from scripts.accounting_intelligence_next_action import build_next_action  # noqa: E402
-
-
 REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-accounting-intelligence-progress-map.md"
 
 
 def build_progress_map() -> dict[str, Any]:
     gap = build_gap_audit()
-    next_action = build_next_action()
     completed_horizons = [
         {
             "id": "firm-service-map",
@@ -47,31 +43,26 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Defined local-only private intake, redaction, parser dry-run, deletion attestation, and adapter plan boundaries.",
             "evidence": "docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md",
         },
-        {
-            "id": "field-feedback runbook/capture",
-            "result": "Prepared a 30-minute feedback session flow and safe feedback capture/queue conversion pipeline.",
-            "evidence": "docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md",
-        },
     ]
     current_horizon = {
         "id": "rag-reliability-revalidation",
-        "status": "active",
+        "status": "closed",
         "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
         "milestones": [
             {"id": "RR1", "name": "baseline inventory", "status": "completed"},
             {"id": "RR2", "name": "eval matrix and seed coverage", "status": "completed"},
             {"id": "RR3", "name": "retrieval and citation diagnostics", "status": "completed"},
             {"id": "RR4", "name": "repair policy candidate", "status": "completed"},
-            {"id": "RR5", "name": "promotion gate and handoff", "status": "active_next"},
+            {"id": "RR5", "name": "promotion gate and handoff", "status": "completed"},
         ],
     }
     decisions = [
         {
-            "id": next_action["recommended_next_decision"],
-            "status": next_action["status"],
-            "decide": next_action["user_decision"],
-            "blocker": next_action["current_blocker"],
-            "command": next_action["next_command"],
+            "id": "start_non_ifrs_source_dataization",
+            "status": "next_horizon_candidate",
+            "decide": "Plan the next horizon that dataizes KASB, FSS, law, DART, and client-private source lanes for RAG.",
+            "blocker": "RAG reliability horizon is closed; next horizon planning has not been opened yet.",
+            "command": "python scripts\\quality_preflight.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -93,11 +84,11 @@ def build_progress_map() -> dict[str, Any]:
             "human_review_packs": gap.human_review_packs,
             "automation_rate": gap.automation_rate,
         },
-        "remaining_gaps": gap.remaining_gaps,
-        "next_leaf": next_action["recommended_next_decision"] or "RR5_promotion_gate_and_handoff",
-        "next_command": next_action["next_command"]
-        if next_action["next_command"] != "none"
-        else "python scripts\\quality_preflight.py --format text",
+        "remaining_gaps": [
+            item for item in gap.remaining_gaps if "external accountant" not in item.lower()
+        ],
+        "next_leaf": "start_non_ifrs_source_dataization_horizon_planning",
+        "next_command": "python scripts\\quality_preflight.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -112,7 +103,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The next active horizon is RAG reliability revalidation: prove the K-IFRS retrieval and citation baseline before source expansion or product hardening.",
+        "RAG reliability revalidation is closed: the repair retriever stays opt-in, and the next candidate is non-IFRS source dataization.",
         "",
         "## Objective",
         "",

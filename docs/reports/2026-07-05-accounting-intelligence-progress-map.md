@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The next active horizon is RAG reliability revalidation: prove the K-IFRS retrieval and citation baseline before source expansion or product hardening.
+RAG reliability revalidation is closed: the repair retriever stays opt-in, and the next candidate is non-IFRS source dataization.
 
 ## Objective
 
@@ -13,7 +13,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 ## Current Horizon
 
 - Horizon: `rag-reliability-revalidation`
-- Status: active
+- Status: closed
 - Goal: Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.
 
 | Milestone | Name | Status |
@@ -22,7 +22,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | RR2 | eval matrix and seed coverage | completed |
 | RR3 | retrieval and citation diagnostics | completed |
 | RR4 | repair policy candidate | completed |
-| RR5 | promotion gate and handoff | active_next |
+| RR5 | promotion gate and handoff | completed |
 
 ## Completed Capability Chain
 
@@ -33,7 +33,6 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | rag-quality-refresh | Built an opt-in repair retriever stack that reaches 50-item recall@20 1.000 without default promotion. | `docs/reports/2026-07-05-rag-quality-refresh-close-report.md` |
 | authority-source-map | Separated K-IFRS, regulator, disclosure, law, and private-client source lanes with storage boundaries. | `docs/reports/2026-07-05-authority-source-map-close-report.md` |
 | client-private intake/local parser | Defined local-only private intake, redaction, parser dry-run, deletion attestation, and adapter plan boundaries. | `docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md` |
-| field-feedback runbook/capture | Prepared a 30-minute feedback session flow and safe feedback capture/queue conversion pipeline. | `docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md` |
 
 ## Automation Snapshot
 
@@ -46,12 +45,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| None | none | none | `none` |
+| start_non_ifrs_source_dataization | next_horizon_candidate | RAG reliability horizon is closed; next horizon planning has not been opened yet. | `python scripts\quality_preflight.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
 
-- external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced
 - RAG quality needs a fresh internal validation horizon before any default retriever promotion
 - local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented
@@ -60,7 +58,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RR5_promotion_gate_and_handoff`
+- decision: `start_non_ifrs_source_dataization_horizon_planning`
 - command: `python scripts\quality_preflight.py --format text`
 
 ## Machine Result
@@ -71,7 +69,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
     "id": "rag-reliability-revalidation",
-    "status": "active",
+    "status": "closed",
     "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
     "milestones": [
       {
@@ -97,7 +95,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RR5",
         "name": "promotion gate and handoff",
-        "status": "active_next"
+        "status": "completed"
       }
     ]
   },
@@ -126,20 +124,15 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "client-private intake/local parser",
       "result": "Defined local-only private intake, redaction, parser dry-run, deletion attestation, and adapter plan boundaries.",
       "evidence": "docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md"
-    },
-    {
-      "id": "field-feedback runbook/capture",
-      "result": "Prepared a 30-minute feedback session flow and safe feedback capture/queue conversion pipeline.",
-      "evidence": "docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": null,
-      "status": "none",
-      "decide": "No user-owned decision is currently required.",
-      "blocker": "none",
-      "command": "none"
+      "id": "start_non_ifrs_source_dataization",
+      "status": "next_horizon_candidate",
+      "decide": "Plan the next horizon that dataizes KASB, FSS, law, DART, and client-private source lanes for RAG.",
+      "blocker": "RAG reliability horizon is closed; next horizon planning has not been opened yet.",
+      "command": "python scripts\\quality_preflight.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -156,14 +149,13 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "automation_rate": 0.8333
   },
   "remaining_gaps": [
-    "external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced",
     "RAG quality needs a fresh internal validation horizon before any default retriever promotion",
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RR5_promotion_gate_and_handoff",
+  "next_leaf": "start_non_ifrs_source_dataization_horizon_planning",
   "next_command": "python scripts\\quality_preflight.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }

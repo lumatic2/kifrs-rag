@@ -7,18 +7,18 @@ def test_progress_map_explains_current_position_and_results() -> None:
     progress = build_progress_map()
 
     assert progress["current_horizon"]["id"] == "rag-reliability-revalidation"
+    assert progress["current_horizon"]["status"] == "closed"
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][2]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][3]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][4]["status"] == "active_next"
-    assert progress["next_leaf"] == "RR5_promotion_gate_and_handoff"
+    assert progress["current_horizon"]["milestones"][4]["status"] == "completed"
+    assert progress["next_leaf"] == "start_non_ifrs_source_dataization_horizon_planning"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
     assert "firm-service-map" in horizon_ids
     assert "rag-quality-refresh" in horizon_ids
-    assert "field-feedback runbook/capture" in horizon_ids
 
 
 def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
@@ -29,7 +29,8 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "rag-reliability-revalidation" in rendered
-    assert "RR5_promotion_gate_and_handoff" in rendered
+    assert "start_non_ifrs_source_dataization_horizon_planning" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
+    assert "external accountant feedback" not in rendered

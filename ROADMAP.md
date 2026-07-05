@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (RAG Reliability Revalidation 진행 중)
+> 마지막 업데이트: 2026-07-05 (RAG Reliability Revalidation 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -28,29 +28,24 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Remaining Horizon Order
 
-1. `rag-reliability-revalidation` — K-IFRS RAG 품질 재검증과 default promotion 기준.
-2. `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
+1. `rag-reliability-revalidation` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준.
+2. `non-ifrs-source-dataization` — 다음 후보. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
 3. `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
-## Current Horizon — rag-reliability-revalidation
+## Current Horizon — none
 
-<!-- harness:goal id="rag-reliability-revalidation" status="active" -->
-`docs/horizons/rag-reliability-revalidation.md` — K-IFRS RAG 품질 재검증과 default promotion 기준을 정한다.
+<!-- harness:goal id="rag-reliability-revalidation" status="closed" -->
+`docs/horizons/rag-reliability-revalidation.md` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준을 정했다.
 
-외부 회계사 outreach는 사용자 요청에 따라 active plan에서 제외한다. 현재 proof는 이미 만든
-회계법인 업무 지도, F-ACC review-pack 자동화, 데이터 소스 경계, client-private parser 계획을
-바탕으로, 먼저 K-IFRS RAG 품질을 다시 검증하고 default retriever promotion 기준을 정한다.
+현재 proof는 이미 만든 회계법인 업무 지도, F-ACC review-pack 자동화, 데이터 소스 경계,
+client-private parser 계획을 바탕으로, K-IFRS RAG 품질을 다시 검증하고 default retriever
+promotion 기준을 정했다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="RR5" status="active" priority="P0" -->
-### RR5 — promotion gate and next-horizon handoff
-- DoD: RR1~RR4 증거를 묶어 default promotion 여부를 판정하고, 다음 horizon 진입 조건과 검증 명령을 한 장으로 닫는다.
-- Evidence: `docs/reports/2026-07-05-rr5-rag-promotion-gate.md`; plan `docs/plans/2026-07-05-rag-reliability-revalidation.md`
-- Gap: RR4는 opt-in repair 정책 후보를 만들었지만, horizon close 기준인 promotion gate와 다음 horizon handoff가 아직 없다.
-- Status: [ ]
+없음. 다음 후보 horizon은 `non-ifrs-source-dataization`.
 
 ## Horizon Milestones
 
@@ -58,10 +53,7 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - RR2 eval matrix and seed coverage — 완료 (`docs/reports/2026-07-05-rr2-eval-matrix.md`)
 - RR3 retrieval and citation diagnostics — 완료 (`docs/reports/2026-07-05-rr3-retrieval-citation-diagnostics.md`)
 - RR4 repair policy candidate — 완료 (`docs/reports/2026-07-05-rr4-repair-policy-candidate.md`)
-- RR5 promotion gate and next-horizon handoff — active
-
-Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 외부 검증 실행은 사용자가 다시
-요청하기 전까지 현재 계획과 다음 액션에서 제외한다.
+- RR5 promotion gate and next-horizon handoff — 완료 (`docs/reports/2026-07-05-rr5-rag-promotion-gate.md`)
 
 ## Closed Horizons
 
@@ -74,7 +66,6 @@ automation-expansion, practice-map, workflow-automation.
 
 ## Paused Horizons
 
-<!-- harness:goal id="real-accountant-session" status="paused" --> `docs/horizons/real-accountant-session.md` — 외부 회계사 outreach는 사용자 요청 시에만 재개.
 <!-- harness:goal id="rag-optimization-resume" status="paused" --> `docs/horizons/rag-optimization-resume.md` — RO2 DoD 미확정.
 <!-- harness:goal id="rag-agent-integration" status="paused" --> `docs/horizons/rag-agent-integration.md` — RGA2/RGA3 DoD 미확정.
 
@@ -93,9 +84,8 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `rag-reliability-revalidation` — 외부 outreach 없이 K-IFRS RAG 품질과 retriever promotion 기준을 다시 잡는다.
-계획: `docs/horizons/rag-reliability-revalidation.md` →
-`docs/plans/2026-07-05-rag-reliability-revalidation.md`.
+**[현재 active]** 없음. `rag-reliability-revalidation`은 완료.
+다음 후보: `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane 데이터화.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

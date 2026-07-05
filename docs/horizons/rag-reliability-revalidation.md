@@ -1,6 +1,6 @@
 # Horizon: RAG Reliability Revalidation
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 
@@ -85,8 +85,21 @@ Acceptance:
 - 다음 horizon인 non-IFRS source dataization에서 사용할 regression command가 정해져 있다.
 - `python scripts\quality_preflight.py --format text`가 통과한다.
 
+Evidence:
+
+- `docs/reports/2026-07-05-rr5-rag-promotion-gate.md`
+
 ## Close Criteria
 
 - K-IFRS RAG baseline, eval coverage, failure taxonomy, promotion criteria가 public-safe report로 남아 있다.
 - default retriever 변경 여부가 명확하다.
 - 다음 horizon에서 source를 늘려도 회귀를 판단할 수 있는 command set이 있다.
+
+## Close Result
+
+- Closed: 2026-07-05
+- Default promotion: false
+- Runtime default: `hybrid`
+- Opt-in repair retriever: `ifrs1109_classification_hybrid`
+- Next candidate horizon: `non-ifrs-source-dataization`
+- Close report: `docs/reports/2026-07-05-rag-reliability-revalidation-close-report.md`
