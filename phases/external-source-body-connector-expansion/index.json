@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "chunking-and-retrieval-dry-run",
-      "status": "active"
+      "status": "completed",
+      "summary": "ESB3 added scripts/external_source_connector_body_retrieval_dry_run.py, tests/test_external_source_connector_body_retrieval_dry_run.py, and docs/reports/2026-07-05-esb3-chunking-retrieval-dry-run.md. It creates three synthetic chunks from the ESB2 fixture contract and ranks two dry-run retrieval queries using labels/metadata only, with copied payload rendering blocked.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "connector-leak-and-policy-gate",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,

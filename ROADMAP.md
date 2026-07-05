@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (ESB2 완료, ESB3 active)
+> 마지막 업데이트: 2026-07-05 (ESB3 완료, ESB4 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -48,7 +48,7 @@ Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-cand
 <!-- harness:goal id="external-source-body-connector-expansion" status="active" -->
 `docs/horizons/external-source-body-connector-expansion.md` — K-IFRS만으로 부족한 회계 실무 근거를 source-body connector 단위로 확장한다.
 
-순서: ESB1 source-body connector selection/policy gate ✅ → ESB2 synthetic fixture contract ✅ → ESB3 chunking/retrieval dry run → ESB4 leak/policy gate → ESB5 close/handoff.
+순서: ESB1 source-body connector selection/policy gate ✅ → ESB2 synthetic fixture contract ✅ → ESB3 chunking/retrieval dry run ✅ → ESB4 leak/policy gate → ESB5 close/handoff.
 
 ## Active Milestones
 
@@ -66,18 +66,18 @@ Evidence: `docs/reports/2026-07-05-esb2-source-body-fixture-contract.md`
 Gap: Closed by ESB2 fixture contract script/tests/report.
 Status: [x]
 
-<!-- harness:milestone id="ESB3" status="active" priority="P0" -->
+<!-- harness:milestone id="ESB3" status="completed" priority="P0" -->
 ### ESB3 — Chunking And Retrieval Dry Run
 DoD: selected lane can be chunked and retrieved without storing or exposing protected body text.
 Evidence: `docs/reports/2026-07-05-esb3-chunking-retrieval-dry-run.md`
-Gap: Need synthetic chunking/retrieval dry-run script/tests/report.
-Status: [ ]
+Gap: Closed by ESB3 synthetic retrieval dry-run script/tests/report.
+Status: [x]
 
-<!-- harness:milestone id="ESB4" status="pending" priority="P0" -->
+<!-- harness:milestone id="ESB4" status="active" priority="P0" -->
 ### ESB4 — Connector Leak And Policy Gate
 DoD: generated reports prove source-body handling is public-safe and policy-compliant.
 Evidence: `docs/reports/2026-07-05-esb4-connector-leak-policy-gate.md`
-Gap: Pending ESB3.
+Gap: Need connector report leak/policy gate script/tests/report.
 Status: [ ]
 
 <!-- harness:milestone id="ESB5" status="pending" priority="P0" -->
@@ -249,7 +249,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `external-source-body-connector-expansion` / ESB3 — chunking and retrieval dry run.
+**[현재 active]** `external-source-body-connector-expansion` / ESB4 — connector leak and policy gate.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

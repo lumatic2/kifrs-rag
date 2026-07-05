@@ -28,14 +28,14 @@ Status: completed
 
 ### ESB3. Chunking And Retrieval Dry Run
 
-Status: active
+Status: completed
 
 - Deliverable: chunk/retrieval dry-run script/report.
 - Acceptance: chunks are synthetic/authorized and retrieval evidence stays public-safe.
 
 ### ESB4. Connector Leak And Policy Gate
 
-Status: pending
+Status: active
 
 - Deliverable: leak/policy gate script/tests/report.
 - Acceptance: connector reports do not expose protected body text or secrets.

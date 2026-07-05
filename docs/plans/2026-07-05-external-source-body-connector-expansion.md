@@ -23,9 +23,9 @@ This horizon addresses the Objective gap that external source connector evidence
 
 ### ESB3 — Chunking And Retrieval Dry Run
 
-- [ ] ESB3.1 — Define synthetic chunks.
-- [ ] ESB3.2 — Simulate retrieval result metadata.
-- [ ] ESB3.3 — Write dry-run report.
+- [x] ESB3.1 — Define synthetic chunks.
+- [x] ESB3.2 — Simulate retrieval result metadata.
+- [x] ESB3.3 — Write dry-run report.
 
 ### ESB4 — Connector Leak And Policy Gate
 

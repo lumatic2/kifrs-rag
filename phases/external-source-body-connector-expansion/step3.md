@@ -11,8 +11,8 @@ synthetic chunks와 retrieval result metadata를 dry-run한다.
 ## Acceptance Criteria
 
 ```powershell
-python -m pytest tests\test_external_source_body_chunk_retrieval_dry_run.py -q
-python scripts\external_source_body_chunk_retrieval_dry_run.py --format text --write
+python -m pytest tests\test_external_source_connector_body_retrieval_dry_run.py -q
+python scripts\external_source_connector_body_retrieval_dry_run.py --format text --write
 ```
 
 ## 검증 절차
