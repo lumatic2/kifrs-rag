@@ -12,12 +12,14 @@ Move from parser contracts and synthetic dry-runs toward a realistic local parse
 
 ### RLP1. Parser Prototype Asset Inventory
 
-Status: active
+Status: completed
 
 - Deliverable: `docs/reports/2026-07-05-rlp1-parser-prototype-asset-inventory.md`
 - Acceptance: existing parser contracts, adapter scaffolds, deletion gates, and dry-run fixtures are mapped.
 
 ### RLP2. Local Fixture Parser Adapter
+
+Status: active
 
 - Deliverable: parser adapter code, tests, `docs/reports/2026-07-05-rlp2-local-fixture-parser-adapter.md`
 - Acceptance: a local fixture-like input becomes structured facts and review questions without copying raw private text.

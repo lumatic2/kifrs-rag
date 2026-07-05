@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Milestone | Name | Status |
 |---|---|---|
-| RLP1 | parser prototype asset inventory | active_next |
-| RLP2 | local fixture parser adapter | pending |
+| RLP1 | parser prototype asset inventory | completed |
+| RLP2 | local fixture parser adapter | active_next |
 | RLP3 | deletion automation simulation | pending |
 | RLP4 | private payload leak tests | pending |
 | RLP5 | local parser prototype close gate | pending |
@@ -47,7 +47,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RLP1_parser_prototype_asset_inventory | active | none | `python -m pytest tests\test_parser_prototype_asset_inventory.py -q` |
+| run_RLP2_local_fixture_parser_adapter | active | none | `python -m pytest tests\test_local_fixture_parser_adapter.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -60,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RLP1_parser_prototype_asset_inventory`
-- command: `python -m pytest tests\test_parser_prototype_asset_inventory.py -q`
+- decision: `RLP2_local_fixture_parser_adapter`
+- command: `python -m pytest tests\test_local_fixture_parser_adapter.py -q`
 
 ## Machine Result
 
@@ -77,12 +77,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RLP1",
         "name": "parser prototype asset inventory",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "RLP2",
         "name": "local fixture parser adapter",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "RLP3",
@@ -140,11 +140,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_RLP1_parser_prototype_asset_inventory",
+      "id": "run_RLP2_local_fixture_parser_adapter",
       "status": "active",
-      "decide": "Inventory parser contracts, adapter scaffolds, deletion gates, and dry-run fixtures before implementing the realistic local parser prototype.",
+      "decide": "Implement a local-safe fixture adapter that converts fixture-like input into structured facts and review questions.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q"
+      "command": "python -m pytest tests\\test_local_fixture_parser_adapter.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -167,8 +167,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RLP1_parser_prototype_asset_inventory",
-  "next_command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q",
+  "next_leaf": "RLP2_local_fixture_parser_adapter",
+  "next_command": "python -m pytest tests\\test_local_fixture_parser_adapter.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -6,7 +6,9 @@
     {
       "step": 1,
       "name": "parser-prototype-asset-inventory",
-      "status": "pending"
+      "status": "completed",
+      "summary": "RLP1 added scripts/parser_prototype_asset_inventory.py, tests/test_parser_prototype_asset_inventory.py, and docs/reports/2026-07-05-rlp1-parser-prototype-asset-inventory.md. It inventories 14 existing parser/runtime assets, confirms no missing required assets, and fixes RLP2~RLP5 gaps around local fixture adapter, deletion simulation, leak tests, and close gate.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 2,

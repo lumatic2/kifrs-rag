@@ -11,9 +11,9 @@ This horizon makes the private parser path more realistic while staying local-on
 
 ### RLP1 — Parser Prototype Asset Inventory
 
-- [ ] RLP1.1 — Inventory parser contracts, adapters, deletion gates, dry-runs.
-- [ ] RLP1.2 — Classify reusable vs missing pieces.
-- [ ] RLP1.3 — Write RLP1 report.
+- [x] RLP1.1 — Inventory parser contracts, adapters, deletion gates, dry-runs.
+- [x] RLP1.2 — Classify reusable vs missing pieces.
+- [x] RLP1.3 — Write RLP1 report.
 
 ### RLP2 — Local Fixture Parser Adapter
 

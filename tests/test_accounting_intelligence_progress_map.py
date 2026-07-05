@@ -8,8 +8,9 @@ def test_progress_map_explains_current_position_and_results() -> None:
 
     assert progress["current_horizon"]["id"] == "real-local-parser-prototype"
     assert progress["current_horizon"]["status"] == "active"
-    assert progress["current_horizon"]["milestones"][0]["status"] == "active_next"
-    assert progress["next_leaf"] == "RLP1_parser_prototype_asset_inventory"
+    assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
+    assert progress["current_horizon"]["milestones"][1]["status"] == "active_next"
+    assert progress["next_leaf"] == "RLP2_local_fixture_parser_adapter"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -27,7 +28,7 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "real-local-parser-prototype" in rendered
-    assert "RLP1_parser_prototype_asset_inventory" in rendered
+    assert "RLP2_local_fixture_parser_adapter" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

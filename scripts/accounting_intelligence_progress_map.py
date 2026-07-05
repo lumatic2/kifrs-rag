@@ -59,8 +59,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
         "milestones": [
-            {"id": "RLP1", "name": "parser prototype asset inventory", "status": "active_next"},
-            {"id": "RLP2", "name": "local fixture parser adapter", "status": "pending"},
+            {"id": "RLP1", "name": "parser prototype asset inventory", "status": "completed"},
+            {"id": "RLP2", "name": "local fixture parser adapter", "status": "active_next"},
             {"id": "RLP3", "name": "deletion automation simulation", "status": "pending"},
             {"id": "RLP4", "name": "private payload leak tests", "status": "pending"},
             {"id": "RLP5", "name": "local parser prototype close gate", "status": "pending"},
@@ -68,11 +68,11 @@ def build_progress_map() -> dict[str, Any]:
     }
     decisions = [
         {
-            "id": "run_RLP1_parser_prototype_asset_inventory",
+            "id": "run_RLP2_local_fixture_parser_adapter",
             "status": "active",
-            "decide": "Inventory parser contracts, adapter scaffolds, deletion gates, and dry-run fixtures before implementing the realistic local parser prototype.",
+            "decide": "Implement a local-safe fixture adapter that converts fixture-like input into structured facts and review questions.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q",
+            "command": "python -m pytest tests\\test_local_fixture_parser_adapter.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RLP1_parser_prototype_asset_inventory",
-        "next_command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q",
+        "next_leaf": "RLP2_local_fixture_parser_adapter",
+        "next_command": "python -m pytest tests\\test_local_fixture_parser_adapter.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
