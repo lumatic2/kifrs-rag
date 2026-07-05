@@ -11,9 +11,9 @@ This horizon expands accountant-work coverage using the service map, but only th
 
 ### WCE1 — Coverage Gap Ranking
 
-- [ ] WCE1.1 — Rank candidate domains by product value and feasibility.
-- [ ] WCE1.2 — Tie ranking to firm-service map and objective axes.
-- [ ] WCE1.3 — Write WCE1 report.
+- [x] WCE1.1 — Rank candidate domains by product value and feasibility.
+- [x] WCE1.2 — Tie ranking to firm-service map and objective axes.
+- [x] WCE1.3 — Write WCE1 report.
 
 ### WCE2 — First New Workflow Candidate Contract
 

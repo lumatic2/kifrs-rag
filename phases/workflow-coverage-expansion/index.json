@@ -6,12 +6,14 @@
     {
       "step": 1,
       "name": "coverage-gap-ranking",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCE1 added scripts/workflow_coverage_gap_ranking.py, tests/test_workflow_coverage_gap_ranking.py, and docs/reports/2026-07-05-wce1-coverage-gap-ranking.md. It ranked 1037 provisions, disclosure/closing support, 1036 impairment, 1113 fair value, and 1110 consolidation by firm-service value, data availability, determinism, and low verification cost; recommended 1037_provisions as the WCE2 workflow contract candidate.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 2,
       "name": "first-new-workflow-candidate-contract",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 3,

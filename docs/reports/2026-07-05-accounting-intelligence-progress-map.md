@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is workflow-coverage-expansion: choose the next accountant workflow to automate and make the choice evidence-based.
+The active horizon is workflow-coverage-expansion: define the selected 1037 provisions workflow as a testable decision-prep contract.
 
 ## Objective
 
@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Milestone | Name | Status |
 |---|---|---|
-| WCE1 | coverage gap ranking | active_next |
-| WCE2 | first new workflow candidate contract | pending |
+| WCE1 | coverage gap ranking | completed |
+| WCE2 | first new workflow candidate contract | active_next |
 | WCE3 | minimal review-pack adapter | pending |
 | WCE4 | coverage metric update | pending |
 | WCE5 | workflow coverage close gate | pending |
@@ -49,7 +49,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_WCE1_coverage_gap_ranking | active | none | `python -m pytest tests\test_workflow_coverage_gap_ranking.py -q` |
+| run_WCE2_first_workflow_contract | active | none | `python -m pytest tests\test_first_workflow_contract.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -62,8 +62,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `WCE1_coverage_gap_ranking`
-- command: `python -m pytest tests\test_workflow_coverage_gap_ranking.py -q`
+- decision: `WCE2_first_workflow_contract`
+- command: `python -m pytest tests\test_first_workflow_contract.py -q`
 
 ## Machine Result
 
@@ -79,12 +79,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "WCE1",
         "name": "coverage gap ranking",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "WCE2",
         "name": "first new workflow candidate contract",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "WCE3",
@@ -152,11 +152,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_WCE1_coverage_gap_ranking",
+      "id": "run_WCE2_first_workflow_contract",
       "status": "active",
-      "decide": "Rank the next accountant workflow candidates by firm-service value, data availability, determinism, and verification cost.",
+      "decide": "Define the selected 1037 provisions workflow as a decision-prep contract with inputs, outputs, evidence roles, and human-review boundary.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_workflow_coverage_gap_ranking.py -q"
+      "command": "python -m pytest tests\\test_first_workflow_contract.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -179,8 +179,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "WCE1_coverage_gap_ranking",
-  "next_command": "python -m pytest tests\\test_workflow_coverage_gap_ranking.py -q",
+  "next_leaf": "WCE2_first_workflow_contract",
+  "next_command": "python -m pytest tests\\test_first_workflow_contract.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

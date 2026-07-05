@@ -12,14 +12,14 @@ Expand accountant-work automation coverage beyond the existing 1109/1115/1116 re
 
 ### WCE1. Coverage Gap Ranking
 
-Status: active
+Status: completed
 
 - Deliverable: `docs/reports/2026-07-05-wce1-coverage-gap-ranking.md`
 - Acceptance: candidate domains are ranked by firm-service value, data availability, determinism, and verification cost.
 
 ### WCE2. First New Workflow Candidate Contract
 
-Status: pending
+Status: active
 
 - Deliverable: workflow contract, tests, `docs/reports/2026-07-05-wce2-first-workflow-contract.md`
 - Acceptance: one domain is selected and scoped to decision-prep draft output.
