@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from scripts.accounting_intelligence_next_action import build_next_action, render_markdown
+from scripts.accounting_intelligence_decision_queue import _reviewer_invite_decision
+from scripts.accounting_intelligence_next_action import build_next_action, build_next_action_from_queue, render_markdown
 
 
 def test_next_action_uses_cached_decision_queue_and_recommends_invite() -> None:
@@ -27,3 +28,81 @@ def test_next_action_markdown_is_public_safe_and_actionable() -> None:
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
+
+
+def test_next_action_tracks_after_send_state() -> None:
+    action = build_next_action_from_queue(
+        _queue_with_reviewer_counts(
+            {
+                "not_sent": 0,
+                "sent": 1,
+                "responded": 0,
+                "scheduled": 0,
+                "declined": 0,
+                "completed": 0,
+            }
+        )
+    )
+
+    assert action["recommended_next_decision"] == "send_reviewer_invite"
+    assert action["status"] == "waiting_on_reviewer_reply"
+    assert "follow up, schedule" in action["user_decision"]
+    assert "real_accountant_response_packet.py" in action["next_command"]
+
+
+def test_next_action_tracks_scheduled_state() -> None:
+    action = build_next_action_from_queue(
+        _queue_with_reviewer_counts(
+            {
+                "not_sent": 0,
+                "sent": 0,
+                "responded": 0,
+                "scheduled": 1,
+                "declined": 0,
+                "completed": 0,
+            }
+        )
+    )
+
+    assert action["status"] == "session_scheduled"
+    assert "run the scheduled session" in action["user_decision"]
+    assert "real_accountant_run_sheet.py" in action["next_command"]
+
+
+def test_next_action_tracks_completed_session_state() -> None:
+    action = build_next_action_from_queue(
+        _queue_with_reviewer_counts(
+            {
+                "not_sent": 0,
+                "sent": 0,
+                "responded": 0,
+                "scheduled": 0,
+                "declined": 0,
+                "completed": 1,
+            }
+        )
+    )
+
+    assert action["status"] == "needs_notes_capture"
+    assert "convert actual public-safe notes" in action["user_decision"]
+    assert "real_accountant_post_session_final_gate.py" in action["next_command"]
+
+
+def _queue_with_reviewer_counts(counts: dict[str, int]) -> dict[str, object]:
+    decision = _reviewer_invite_decision(
+        {
+            "outreach_counts": counts,
+            "close_ready": False,
+            "blocked_by": ["test blocker"],
+        }
+    )
+    return {
+        "ok": True,
+        "errors": [],
+        "mode": "cached_reports",
+        "recommended_next_decision": "send_reviewer_invite",
+        "open_decision_count": 1,
+        "operator_action_required_count": 1,
+        "report_path": "docs/reports/2026-07-05-accounting-intelligence-decision-queue.md",
+        "decisions": [decision],
+    }

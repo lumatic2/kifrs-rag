@@ -29,6 +29,10 @@ def build_next_action(
         external_authorization_record=external_authorization_record,
         refresh_gates=refresh_gates,
     )
+    return build_next_action_from_queue(queue)
+
+
+def build_next_action_from_queue(queue: dict[str, Any]) -> dict[str, Any]:
     decision = _recommended_decision(queue)
     return {
         "ok": queue["ok"],
