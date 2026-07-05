@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (external-source-body-connector-expansion 완료, WCD1 active)
+> 마지막 업데이트: 2026-07-05 (WCD1 완료, WCD2 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -48,22 +48,22 @@ Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-cand
 <!-- harness:goal id="workflow-coverage-depth-expansion" status="active" -->
 `docs/horizons/workflow-coverage-depth-expansion.md` — firm-service map 대비 자동화 workflow 표본을 더 깊고 넓게 확장한다.
 
-순서: WCD1 service-line coverage rerank → WCD2 workflow sample contract pack → WCD3 minimal adapter expansion → WCD4 coverage depth metric update → WCD5 close/handoff.
+순서: WCD1 service-line coverage rerank ✅ → WCD2 workflow sample contract pack → WCD3 minimal adapter expansion → WCD4 coverage depth metric update → WCD5 close/handoff.
 
 ## Active Milestones
 
-<!-- harness:milestone id="WCD1" status="active" priority="P0" -->
+<!-- harness:milestone id="WCD1" status="completed" priority="P0" -->
 ### WCD1 — Service-Line Coverage Rerank
 DoD: firm-service map gaps are ranked by automation value, evidence availability, implementation cost, and public-safety boundary.
 Evidence: `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md`
-Gap: Need service-line coverage rerank script/tests/report.
-Status: [ ]
+Gap: Closed by WCD1 service-line rerank script/tests/report.
+Status: [x]
 
-<!-- harness:milestone id="WCD2" status="pending" priority="P0" -->
+<!-- harness:milestone id="WCD2" status="active" priority="P0" -->
 ### WCD2 — Workflow Sample Contract Pack
 DoD: selected workflow samples have input facts, authority needs, output surface, review boundary, and failure states.
 Evidence: `docs/reports/2026-07-05-wcd2-workflow-sample-contract-pack.md`
-Gap: Pending WCD1.
+Gap: Need workflow sample contract pack script/tests/report.
 Status: [ ]
 
 <!-- harness:milestone id="WCD3" status="pending" priority="P0" -->
@@ -257,7 +257,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `workflow-coverage-depth-expansion` / WCD1 — service-line coverage rerank.
+**[현재 active]** `workflow-coverage-depth-expansion` / WCD2 — workflow sample contract pack.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

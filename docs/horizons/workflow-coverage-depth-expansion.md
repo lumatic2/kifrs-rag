@@ -14,14 +14,14 @@ This horizon does not introduce external accountant outreach or packaging. It de
 
 ### WCD1. Service-Line Coverage Rerank
 
-Status: active
+Status: completed
 
 - Deliverable: rerank script, tests, `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md`
 - Acceptance: firm-service map gaps are ranked by automation value, evidence availability, implementation cost, and public-safety boundary.
 
 ### WCD2. Workflow Sample Contract Pack
 
-Status: pending
+Status: active
 
 - Deliverable: workflow sample contract script/report.
 - Acceptance: selected workflow samples have input facts, authority needs, output surface, review boundary, and failure states.

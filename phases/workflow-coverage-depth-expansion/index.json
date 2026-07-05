@@ -6,12 +6,14 @@
     {
       "step": 1,
       "name": "service-line-coverage-rerank",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCD1 added scripts/workflow_coverage_depth_rerank.py, tests/test_workflow_coverage_depth_rerank.py, and docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md. It ranks firm-service workflow gaps by automation value, evidence availability, implementation cost, and public-safety boundary, selecting audit_disclosure_tie_out across F-AUD/F-ACC for WCD2.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 2,
       "name": "workflow-sample-contract-pack",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 3,

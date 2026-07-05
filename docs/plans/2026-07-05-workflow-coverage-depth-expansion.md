@@ -11,9 +11,9 @@ This horizon addresses the Objective gap that automation evidence is still too c
 
 ### WCD1 — Service-Line Coverage Rerank
 
-- [ ] WCD1.1 — Read firm-service map and current coverage evidence.
-- [ ] WCD1.2 — Rank service-line/workflow gaps.
-- [ ] WCD1.3 — Write WCD1 rerank report.
+- [x] WCD1.1 — Read firm-service map and current coverage evidence.
+- [x] WCD1.2 — Rank service-line/workflow gaps.
+- [x] WCD1.3 — Write WCD1 rerank report.
 
 ### WCD2 — Workflow Sample Contract Pack
 
