@@ -21,14 +21,14 @@ Status: completed
 
 ### E2E2. Scenario Contract
 
-Status: active
+Status: completed
 
 - Deliverable: scenario contract script/report.
 - Acceptance: demo stages have input, evidence, decision-prep output, review checkpoint, operator command, and failure boundary.
 
 ### E2E3. Demo Packet Builder
 
-Status: pending
+Status: active
 
 - Deliverable: ordered demo packet/index under `docs/reports/end-to-end-demo/`.
 - Acceptance: operator can open one packet and follow the demo without reading ROADMAP internals.

@@ -85,8 +85,8 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Turn the completed product weakness chain into one public-safe firm-facing demo scenario.",
         "milestones": [
             {"id": "E2E1", "name": "demo asset inventory and storyboard", "status": "completed"},
-            {"id": "E2E2", "name": "scenario contract", "status": "active"},
-            {"id": "E2E3", "name": "demo packet builder", "status": "pending"},
+            {"id": "E2E2", "name": "scenario contract", "status": "completed"},
+            {"id": "E2E3", "name": "demo packet builder", "status": "active"},
             {"id": "E2E4", "name": "demo smoke and navigation gate", "status": "pending"},
             {"id": "E2E5", "name": "horizon close gate", "status": "pending"},
         ],
@@ -122,8 +122,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "E2E2_scenario_contract",
-        "next_command": "python scripts\\e2e_scenario_contract.py --format text --write",
+        "next_leaf": "E2E3_demo_packet_builder",
+        "next_command": "python scripts\\e2e_demo_packet_builder.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -138,7 +138,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is end-to-end-demo-scenario; E2E1 is complete and the next move is E2E2 scenario contract.",
+        "The active horizon is end-to-end-demo-scenario; E2E1 and E2E2 are complete and the next move is E2E3 demo packet builder.",
         "",
         "## Objective",
         "",

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (E2E1 완료, E2E2 active)
+> 마지막 업데이트: 2026-07-05 (E2E2 완료, E2E3 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -58,18 +58,18 @@ Evidence: `docs/reports/2026-07-05-e2e1-demo-asset-inventory.md`
 Gap: Closed by E2E1 inventory script/tests/report.
 Status: [x]
 
-<!-- harness:milestone id="E2E2" status="active" priority="P0" -->
+<!-- harness:milestone id="E2E2" status="completed" priority="P0" -->
 ### E2E2 — Scenario Contract
 DoD: demo stages have input, evidence, output, review checkpoint, operator command, and failure boundary.
 Evidence: `docs/reports/2026-07-05-e2e2-scenario-contract.md`
-Gap: Need script/tests/report for stage-level contract.
-Status: [ ]
+Gap: Closed by E2E2 scenario contract script/tests/report.
+Status: [x]
 
-<!-- harness:milestone id="E2E3" status="pending" priority="P0" -->
+<!-- harness:milestone id="E2E3" status="active" priority="P0" -->
 ### E2E3 — Demo Packet Builder
 DoD: one ordered packet/index lets an operator follow the demo without reading ROADMAP internals.
 Evidence: `docs/reports/end-to-end-demo/INDEX.md`
-Gap: Pending E2E2 contract.
+Gap: Need packet builder script/tests/index.
 Status: [ ]
 
 <!-- harness:milestone id="E2E4" status="pending" priority="P0" -->

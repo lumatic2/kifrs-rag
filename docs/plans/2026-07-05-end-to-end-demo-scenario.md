@@ -17,13 +17,13 @@ This horizon turns the completed product-weakness work into one end-to-end demon
 
 ### E2E2 — Scenario Contract
 
-- [ ] E2E2.1 — Define stage-level contract from input to review checkpoint. `(next)`
-- [ ] E2E2.2 — Encode required artifacts and public-safety rules.
-- [ ] E2E2.3 — Write scenario contract report.
+- [x] E2E2.1 — Define stage-level contract from input to review checkpoint.
+- [x] E2E2.2 — Encode required artifacts and public-safety rules.
+- [x] E2E2.3 — Write scenario contract report.
 
 ### E2E3 — Demo Packet Builder
 
-- [ ] E2E3.1 — Build one ordered packet/index from reports.
+- [ ] E2E3.1 — Build one ordered packet/index from reports. `(next)`
 - [ ] E2E3.2 — Add operator command and rerun hints.
 - [ ] E2E3.3 — Write packet report.
 

@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is end-to-end-demo-scenario; E2E1 is complete and the next move is E2E2 scenario contract.
+The active horizon is end-to-end-demo-scenario; E2E1 and E2E2 are complete and the next move is E2E3 demo packet builder.
 
 ## Objective
 
@@ -19,8 +19,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | Milestone | Name | Status |
 |---|---|---|
 | E2E1 | demo asset inventory and storyboard | completed |
-| E2E2 | scenario contract | active |
-| E2E3 | demo packet builder | pending |
+| E2E2 | scenario contract | completed |
+| E2E3 | demo packet builder | active |
 | E2E4 | demo smoke and navigation gate | pending |
 | E2E5 | horizon close gate | pending |
 
@@ -65,8 +65,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `E2E2_scenario_contract`
-- command: `python scripts\e2e_scenario_contract.py --format text --write`
+- decision: `E2E3_demo_packet_builder`
+- command: `python scripts\e2e_demo_packet_builder.py --format text --write`
 
 ## Machine Result
 
@@ -87,12 +87,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "E2E2",
         "name": "scenario contract",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "E2E3",
         "name": "demo packet builder",
-        "status": "pending"
+        "status": "active"
       },
       {
         "id": "E2E4",
@@ -197,8 +197,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "E2E2_scenario_contract",
-  "next_command": "python scripts\\e2e_scenario_contract.py --format text --write",
+  "next_leaf": "E2E3_demo_packet_builder",
+  "next_command": "python scripts\\e2e_demo_packet_builder.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
