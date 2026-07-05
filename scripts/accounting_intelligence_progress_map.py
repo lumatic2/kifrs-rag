@@ -51,18 +51,18 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "NIS1", "name": "existing source asset inventory", "status": "completed"},
             {"id": "NIS2", "name": "source record contract", "status": "completed"},
-            {"id": "NIS3", "name": "dataization fixtures and validators", "status": "active_next"},
-            {"id": "NIS4", "name": "chunking and embedding policy", "status": "pending"},
+            {"id": "NIS3", "name": "dataization fixtures and validators", "status": "completed"},
+            {"id": "NIS4", "name": "chunking and embedding policy", "status": "active_next"},
             {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_NIS3_dataization_fixtures",
+            "id": "run_NIS4_chunking_embedding_policy",
             "status": "active",
-            "decide": "Create and validate public-safe non-IFRS source record fixtures.",
+            "decide": "Define lane-specific chunking, embedding, and indexing policy.",
             "blocker": "none",
-            "command": "python scripts\\validate_non_ifrs_source_records.py --format text",
+            "command": "python scripts\\validate_non_ifrs_chunking_policy.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "NIS3_dataization_fixtures_and_validators",
-        "next_command": "python scripts\\validate_non_ifrs_source_records.py --format text",
+        "next_leaf": "NIS4_chunking_and_embedding_policy",
+        "next_command": "python scripts\\validate_non_ifrs_chunking_policy.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 

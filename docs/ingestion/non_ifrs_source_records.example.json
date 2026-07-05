@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "policy": {
+    "public_safe": true,
+    "protected_material_committed": false,
+    "contract": "kifrs.ingestion.source_record"
+  },
+  "records": [
+    {
+      "record_id": "kasb-interpretive-metadata-001",
+      "record_type": "document_metadata",
+      "source_id": "kasb-interpretation-material",
+      "source_class": "interpretive_accounting_material",
+      "authority_level": "supporting",
+      "body_storage_policy": "public_metadata_only",
+      "citation_role": "supporting_interpretation",
+      "retrieval_lane": "document_metadata",
+      "locator": {
+        "type": "url",
+        "url": "https://www.kasb.or.kr/"
+      },
+      "provenance": {
+        "produced_by": "nis3-public-fixture",
+        "note": "Metadata-only seed; source material is not committed."
+      },
+      "public_safe": true,
+      "title": "KASB interpretation material metadata seed",
+      "publisher": "KASB",
+      "document_type": "interpretive_material",
+      "topics": [
+        "interpretation",
+        "implementation",
+        "education"
+      ],
+      "chunk_strategy": "metadata_only"
+    },
+    {
+      "record_id": "commercial-act-locator-001",
+      "record_type": "law_locator",
+      "source_id": "commercial-act-capital",
+      "source_class": "law_regulation",
+      "authority_level": "legal_boundary",
+      "body_storage_policy": "no_store_link_only",
+      "citation_role": "legal_boundary",
+      "retrieval_lane": "law_locator",
+      "locator": {
+        "type": "official_registry",
+        "url": "https://www.law.go.kr/",
+        "label": "capital-transactions"
+      },
+      "provenance": {
+        "produced_by": "nis3-public-fixture",
+        "note": "Locator-only seed; legal material is not committed."
+      },
+      "public_safe": true,
+      "law_name": "Commercial Act",
+      "article_locator": "capital-transactions",
+      "official_registry": "law.go.kr",
+      "topics": [
+        "capital_transactions",
+        "legal_boundary"
+      ],
+      "chunk_strategy": "law_article_locator"
+    },
+    {
+      "record_id": "opendart-structured-fact-001",
+      "record_type": "structured_fact",
+      "source_id": "opendart-structured-financials",
+      "source_class": "filing_data",
+      "authority_level": "fact",
+      "body_storage_policy": "public_synthetic_fixture",
+      "citation_role": "fact_evidence",
+      "retrieval_lane": "structured_fact",
+      "locator": {
+        "type": "synthetic_filing",
+        "filing_id": "synthetic-dart-2025-annual-001"
+      },
+      "provenance": {
+        "produced_by": "nis3-public-fixture",
+        "note": "Synthetic value; no real filing payload is committed."
+      },
+      "public_safe": true,
+      "company_id": "SYNTH-DART-001",
+      "filing_id": "synthetic-dart-2025-annual-001",
+      "period": "2025",
+      "statement_type": "financial_position",
+      "line_item": "current_assets",
+      "value": 1250000000,
+      "unit": "KRW",
+      "dimensions": {
+        "consolidated": true,
+        "duration": "instant"
+      },
+      "quality_flags": [
+        "synthetic",
+        "schema_probe"
+      ]
+    },
+    {
+      "record_id": "client-private-placeholder-001",
+      "record_type": "client_private_fact",
+      "source_id": "client-private-local",
+      "source_class": "client_private",
+      "authority_level": "client_private",
+      "body_storage_policy": "no_store_handoff",
+      "citation_role": "collection_seed",
+      "retrieval_lane": "local_private_fact",
+      "locator": {
+        "type": "local_private_placeholder",
+        "label": "client-case-placeholder"
+      },
+      "provenance": {
+        "produced_by": "nis3-public-fixture",
+        "note": "Placeholder only; private material stays local."
+      },
+      "public_safe": true,
+      "case_scope": "lease_contract",
+      "fact_label": "payment_schedule_placeholder",
+      "fact_kind": "contract_term",
+      "private_storage_boundary": "local_only",
+      "deletion_policy": "operator_attested_delete"
+    }
+  ]
+}

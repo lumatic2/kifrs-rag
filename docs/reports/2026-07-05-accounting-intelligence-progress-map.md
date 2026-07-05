@@ -20,8 +20,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 |---|---|---|
 | NIS1 | existing source asset inventory | completed |
 | NIS2 | source record contract | completed |
-| NIS3 | dataization fixtures and validators | active_next |
-| NIS4 | chunking and embedding policy | pending |
+| NIS3 | dataization fixtures and validators | completed |
+| NIS4 | chunking and embedding policy | active_next |
 | NIS5 | dataization gate and runtime handoff | pending |
 
 ## Completed Capability Chain
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_NIS3_dataization_fixtures | active | none | `python scripts\validate_non_ifrs_source_records.py --format text` |
+| run_NIS4_chunking_embedding_policy | active | none | `python scripts\validate_non_ifrs_chunking_policy.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,8 +58,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `NIS3_dataization_fixtures_and_validators`
-- command: `python scripts\validate_non_ifrs_source_records.py --format text`
+- decision: `NIS4_chunking_and_embedding_policy`
+- command: `python scripts\validate_non_ifrs_chunking_policy.py --format text`
 
 ## Machine Result
 
@@ -85,12 +85,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "NIS3",
         "name": "dataization fixtures and validators",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "NIS4",
         "name": "chunking and embedding policy",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "NIS5",
@@ -128,11 +128,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_NIS3_dataization_fixtures",
+      "id": "run_NIS4_chunking_embedding_policy",
       "status": "active",
-      "decide": "Create and validate public-safe non-IFRS source record fixtures.",
+      "decide": "Define lane-specific chunking, embedding, and indexing policy.",
       "blocker": "none",
-      "command": "python scripts\\validate_non_ifrs_source_records.py --format text"
+      "command": "python scripts\\validate_non_ifrs_chunking_policy.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -155,8 +155,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "NIS3_dataization_fixtures_and_validators",
-  "next_command": "python scripts\\validate_non_ifrs_source_records.py --format text",
+  "next_leaf": "NIS4_chunking_and_embedding_policy",
+  "next_command": "python scripts\\validate_non_ifrs_chunking_policy.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
