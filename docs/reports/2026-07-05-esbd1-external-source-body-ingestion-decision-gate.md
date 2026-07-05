@@ -4,7 +4,7 @@
 
 ## 한 줄 결론
 
-External source body ingestion remains deferred. Landing-surface validation and public-safe manifests exist, but copyright/robots/storage policy, an implementation plan, and explicit user authorization are required before any body fetch/store/chunk/embed work starts.
+External source body ingestion can proceed only after explicit user authorization is recorded; all prerequisite policy and plan artifacts are present.
 
 ## Decision
 
@@ -14,8 +14,8 @@ External source body ingestion remains deferred. Landing-surface validation and 
 - Evidence manifest ok: True
 - Live landing validation ok: True
 - Live landing report present: True
-- Body policy present: False
-- Implementation plan present: False
+- Body policy present: True
+- Implementation plan present: True
 - Explicit authorization: False
 
 ## Preconditions Snapshot
@@ -28,8 +28,6 @@ External source body ingestion remains deferred. Landing-surface validation and 
 
 ## Blockers
 
-- copyright/robots/storage policy for external source bodies is required
-- body-ingestion implementation plan is required before coding
 - explicit user authorization is required before live body ingestion/chunking/embedding
 
 ## What This Enables
@@ -49,7 +47,7 @@ External source body ingestion remains deferred. Landing-surface validation and 
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion policy plan
+real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate
 
 ## Machine Result
 
@@ -65,15 +63,13 @@ real-accountant-session RS2/RS3 evidence capture, or external source body-ingest
     "evidence_manifest_ok": true,
     "live_landing_validation_ok": true,
     "live_landing_report_present": true,
-    "body_policy_present": false,
-    "implementation_plan_present": false,
+    "body_policy_present": true,
+    "implementation_plan_present": true,
     "explicit_authorization": false,
     "blockers": [
-      "copyright/robots/storage policy for external source bodies is required",
-      "body-ingestion implementation plan is required before coding",
       "explicit user authorization is required before live body ingestion/chunking/embedding"
     ],
-    "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion policy plan"
+    "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate"
   },
   "source_manifest": {
     "ok": true,
@@ -93,6 +89,6 @@ real-accountant-session RS2/RS3 evidence capture, or external source body-ingest
   "body_policy": "docs/reports/2026-07-05-external-source-body-storage-policy.md",
   "implementation_plan": "docs/reports/2026-07-05-external-source-body-ingestion-plan.md",
   "report_path": "docs\\reports\\2026-07-05-esbd1-external-source-body-ingestion-decision-gate.md",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion policy plan"
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate"
 }
 ```

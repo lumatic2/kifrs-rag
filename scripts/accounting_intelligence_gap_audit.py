@@ -48,6 +48,10 @@ REQUIRED_REPORTS = {
     / "docs"
     / "reports"
     / "2026-07-05-esbd1-external-source-body-ingestion-decision-gate.md",
+    "external_body_policy_plan": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-espp1-external-source-body-policy-plan.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -103,7 +107,7 @@ def build_gap_audit() -> GapAudit:
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
         "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-        "external source body-ingestion decision gate is present and deferred, so body ingestion/chunking/embedding is not implemented",
+        "external source body-ingestion policy plan is present, but explicit authorization gate is still required before body ingestion/chunking/embedding",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]
 
@@ -120,7 +124,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion policy plan",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )

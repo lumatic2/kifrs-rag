@@ -72,11 +72,12 @@ def check_body_ingestion_decision_gate(
 
     allowed_to_implement = not blockers
     decision = "proceed" if allowed_to_implement else "defer"
-    next_leaf = (
-        "external source body ingestion implementation"
-        if allowed_to_implement
-        else "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion policy plan"
-    )
+    if allowed_to_implement:
+        next_leaf = "external source body ingestion implementation"
+    elif body_policy_present and implementation_plan_present:
+        next_leaf = "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion authorization gate"
+    else:
+        next_leaf = "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion policy plan"
     decision_record = BodyIngestionDecision(
         decision_id="esbd1-external-source-body-ingestion-decision-gate",
         decision=decision,
@@ -124,6 +125,11 @@ def check_body_ingestion_decision_gate(
 def render_report(result: dict[str, Any]) -> str:
     decision = result["decision"]
     live = result["live_external_source_validation"]
+    conclusion = (
+        "External source body ingestion can proceed only after explicit user authorization is recorded; all prerequisite policy and plan artifacts are present."
+        if decision["body_policy_present"] and decision["implementation_plan_present"]
+        else "External source body ingestion remains deferred. Landing-surface validation and public-safe manifests exist, but copyright/robots/storage policy, an implementation plan, and explicit user authorization are required before any body fetch/store/chunk/embed work starts."
+    )
     lines = [
         "# ESBD1 External Source Body-Ingestion Decision Gate",
         "",
@@ -131,7 +137,7 @@ def render_report(result: dict[str, Any]) -> str:
         "",
         "## 한 줄 결론",
         "",
-        "External source body ingestion remains deferred. Landing-surface validation and public-safe manifests exist, but copyright/robots/storage policy, an implementation plan, and explicit user authorization are required before any body fetch/store/chunk/embed work starts.",
+        conclusion,
         "",
         "## Decision",
         "",
