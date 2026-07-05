@@ -21,12 +21,12 @@
 
 ## Operator Surface Check
 
-- run sheet next leaf: real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design
+- run sheet next leaf: real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change
 - operator proof snapshot still exposes remaining gaps.
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design
+real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change
 
 ## Machine Result
 
@@ -59,12 +59,12 @@ real-accountant-session RS2/RS3 evidence capture, or client-private upload/parse
   "demo_ready_for_opt_in": true,
   "operator_snapshot_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "client-private local-only path is closed, but upload/parser UX is not implemented",
-    "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
-    "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
+    "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
+    "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
+    "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization"
   ],
-  "run_sheet_next_leaf": "real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design",
+  "run_sheet_next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change",
   "report_path": "docs\\reports\\2026-07-05-odv1-opt-in-retriever-demo-validation.md",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design"
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
 }
 ```

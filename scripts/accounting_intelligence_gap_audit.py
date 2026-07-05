@@ -30,6 +30,10 @@ REQUIRED_REPORTS = {
     "client_private_close_gate": ROOT / "docs" / "reports" / "2026-07-05-cp4-client-private-close-report.md",
     "live_external_source_validation": ROOT / "docs" / "reports" / "2026-07-05-lev1-live-external-source-validation.md",
     "opt_in_retriever_demo_validation": ROOT / "docs" / "reports" / "2026-07-05-odv1-opt-in-retriever-demo-validation.md",
+    "opt_in_retriever_promotion_decision_gate": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md",
     "client_private_upload_storage_policy": ROOT / "docs" / "reports" / "2026-07-05-cpu1-client-private-upload-storage-policy.md",
     "private_parser_dry_run_fixture": ROOT / "docs" / "reports" / "2026-07-05-pdf1-private-parser-dry-run-fixture.md",
     "local_deletion_attestation_gate": ROOT / "docs" / "reports" / "2026-07-05-lda1-local-deletion-attestation-gate.md",
@@ -176,7 +180,7 @@ def build_gap_audit() -> GapAudit:
         "actual accountant session evidence is still external/user-owned",
         "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
         "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
-        "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
+        "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization",
     ]
 
     return GapAudit(
@@ -192,7 +196,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or opt-in retriever promotion decision after actual accountant evidence",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )

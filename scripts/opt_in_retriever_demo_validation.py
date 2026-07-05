@@ -38,9 +38,13 @@ def build_demo_validation() -> dict[str, Any]:
         failures.append(f"{TARGET_RETRIEVER} still has absent citations")
     if quality["target_misses"]:
         failures.append(f"{TARGET_RETRIEVER} still has misses")
-    if "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence" not in proof_snapshot["remaining_gaps"]:
+    if not any(
+        "opt-in retriever" in gap and "deferred" in gap
+        for gap in proof_snapshot["remaining_gaps"]
+    ):
         failures.append("operator proof snapshot does not expose default promotion boundary")
-    if run_sheet["proof_snapshot"]["next_leaf"] != "real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design":
+    expected_next_leaf = "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change"
+    if run_sheet["proof_snapshot"]["next_leaf"] != expected_next_leaf:
         failures.append("run sheet next leaf is not aligned with opt-in demo validation")
 
     return {
@@ -60,7 +64,7 @@ def build_demo_validation() -> dict[str, Any]:
         "operator_snapshot_gaps": proof_snapshot["remaining_gaps"],
         "run_sheet_next_leaf": run_sheet["proof_snapshot"]["next_leaf"],
         "report_path": str(REPORT_PATH.relative_to(ROOT)),
-        "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or client-private upload/parser storage-policy design",
+        "next_leaf": expected_next_leaf,
     }
 
 
