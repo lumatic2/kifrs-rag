@@ -35,6 +35,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 - unblocks: RS2 actual accountant session, RS3 actual notes capture, RS4 close gate
 - current blocker: reviewer invite has not been sent
 - next command: python scripts\real_accountant_invite_packet.py --format text --write
+- receipt command: python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write
 - after command: python scripts\real_accountant_outreach_update.py --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes "invite sent"
 - verify command: python scripts\real_accountant_outreach_transition_verify.py --expected-status sent --format text
 - evidence: `docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md`
@@ -48,6 +49,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 - unblocks: external source body connector implementation
 - current blocker: authorized_by is required
 - next command: Fill `docs/reports/external-source-body-authorization-record.template.json`, then run the external body authorization gate with that record.
+- receipt command: none
 - after command: none
 - verify command: Run the external body authorization gate with the approved record path.
 - evidence: `docs/reports/external-source-body-authorization-record.template.json`
@@ -61,6 +63,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 - unblocks: real local file upload/OCR/parser/deletion automation
 - current blocker: actual accountant feedback evidence is required before real private-file parser work
 - next command: python scripts\client_private_local_parser_real_adapter_decision_gate.py --format text
+- receipt command: none
 - after command: none
 - verify command: python scripts\client_private_local_parser_real_adapter_decision_gate.py --format text
 - evidence: `docs\reports\2026-07-05-lprd1-local-parser-real-adapter-decision-gate.md`
@@ -74,6 +77,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 - unblocks: default retriever change from hybrid to ifrs1109_classification_hybrid stack
 - current blocker: actual accountant feedback evidence is required before default retriever promotion
 - next command: python scripts\opt_in_retriever_promotion_decision_gate.py --format text
+- receipt command: none
 - after command: none
 - verify command: python scripts\opt_in_retriever_promotion_decision_gate.py --format text
 - evidence: `docs\reports\2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md`
@@ -103,6 +107,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
       "unblocks": "RS2 actual accountant session, RS3 actual notes capture, RS4 close gate",
       "current_blocker": "reviewer invite has not been sent",
       "next_command": "python scripts\\real_accountant_invite_packet.py --format text --write",
+      "receipt_command": "python scripts\\real_accountant_invite_send_receipt.py --write-template --format text --write",
       "after_command": "python scripts\\real_accountant_outreach_update.py --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes \"invite sent\"",
       "verify_command": "python scripts\\real_accountant_outreach_transition_verify.py --expected-status sent --format text",
       "evidence": "docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md"
@@ -119,6 +124,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
       "unblocks": "external source body connector implementation",
       "current_blocker": "authorized_by is required",
       "next_command": "Fill `docs/reports/external-source-body-authorization-record.template.json`, then run the external body authorization gate with that record.",
+      "receipt_command": "none",
       "after_command": "none",
       "verify_command": "Run the external body authorization gate with the approved record path.",
       "evidence": "docs/reports/external-source-body-authorization-record.template.json"
@@ -135,6 +141,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
       "unblocks": "real local file upload/OCR/parser/deletion automation",
       "current_blocker": "actual accountant feedback evidence is required before real private-file parser work",
       "next_command": "python scripts\\client_private_local_parser_real_adapter_decision_gate.py --format text",
+      "receipt_command": "none",
       "after_command": "none",
       "verify_command": "python scripts\\client_private_local_parser_real_adapter_decision_gate.py --format text",
       "evidence": "docs\\reports\\2026-07-05-lprd1-local-parser-real-adapter-decision-gate.md"
@@ -151,6 +158,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
       "unblocks": "default retriever change from hybrid to ifrs1109_classification_hybrid stack",
       "current_blocker": "actual accountant feedback evidence is required before default retriever promotion",
       "next_command": "python scripts\\opt_in_retriever_promotion_decision_gate.py --format text",
+      "receipt_command": "none",
       "after_command": "none",
       "verify_command": "python scripts\\opt_in_retriever_promotion_decision_gate.py --format text",
       "evidence": "docs\\reports\\2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md"

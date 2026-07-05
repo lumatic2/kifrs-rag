@@ -30,6 +30,10 @@ def check_next_action_sequence() -> dict[str, Any]:
         errors.append(f"expected send_reviewer_invite, got {action['recommended_next_decision']}")
     if "real_accountant_invite_packet.py" not in action["next_command"]:
         errors.append("next command should render the reviewer invite packet")
+    if "real_accountant_invite_send_receipt.py" not in action["receipt_command"]:
+        errors.append("receipt command should render the invite send receipt template")
+    if "--write-template" not in action["receipt_command"]:
+        errors.append("receipt command should write the invite send receipt template")
     if "real_accountant_outreach_update.py" not in action["after_command"]:
         errors.append("after command should update the outreach ledger")
     if "--status sent" not in action["after_command"]:
@@ -51,6 +55,7 @@ def check_next_action_sequence() -> dict[str, Any]:
             "decision": action["recommended_next_decision"],
             "status": action["status"],
             "command": action["next_command"],
+            "receipt": action["receipt_command"],
             "after": action["after_command"],
             "verify": action["verify_command"],
         },
@@ -75,6 +80,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         f"- decision: `{action['decision']}`",
         f"- status: {action['status']}",
         f"- command: `{action['command']}`",
+        f"- receipt: `{action['receipt']}`",
         f"- after: `{action['after']}`",
         f"- verify: `{action['verify']}`",
         "",
@@ -159,6 +165,7 @@ def main() -> None:
         print(f"ok: {result['ok']}")
         print(f"decision: {result['next_action']['decision']}")
         print(f"command: {result['next_action']['command']}")
+        print(f"receipt: {result['next_action']['receipt']}")
         print(f"after: {result['next_action']['after']}")
         print(f"verify: {result['next_action']['verify']}")
         print(f"post_send_simulation: {result['post_send_simulation']}")

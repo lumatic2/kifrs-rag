@@ -25,6 +25,8 @@ def test_decision_queue_prioritizes_reviewer_invite() -> None:
     assert decisions["send_reviewer_invite"]["priority"] == 1
     assert decisions["send_reviewer_invite"]["status"] == "needs_user_action"
     assert "reviewer invite" in decisions["send_reviewer_invite"]["current_blocker"]
+    assert "real_accountant_invite_send_receipt.py" in decisions["send_reviewer_invite"]["receipt_command"]
+    assert "--write-template" in decisions["send_reviewer_invite"]["receipt_command"]
     assert "real_accountant_outreach_update.py" in decisions["send_reviewer_invite"]["after_command"]
     assert "--status sent" in decisions["send_reviewer_invite"]["after_command"]
     assert "real_accountant_outreach_transition_verify.py" in decisions["send_reviewer_invite"]["verify_command"]
@@ -65,6 +67,8 @@ def test_reviewer_decision_transitions_after_invite_is_sent() -> None:
     assert decision["operator_action_required"] is True
     assert "follow up, schedule" in decision["user_decision"]
     assert "real_accountant_response_packet.py" in decision["next_command"]
+    assert "real_accountant_invite_send_receipt.py" in decision["receipt_command"]
+    assert "--require-sent" in decision["receipt_command"]
     assert "real_accountant_response_packet.py" in decision["after_command"]
     assert "--expected-status sent" in decision["verify_command"]
 
@@ -91,6 +95,7 @@ def test_decision_queue_accepts_explicit_outreach_ledger(tmp_path) -> None:
     assert queue["recommended_next_decision"] == "send_reviewer_invite"
     assert decisions["send_reviewer_invite"]["status"] == "waiting_on_reviewer_reply"
     assert "real_accountant_response_packet.py" in decisions["send_reviewer_invite"]["next_command"]
+    assert "--require-sent" in decisions["send_reviewer_invite"]["receipt_command"]
     assert "real_accountant_response_packet.py" in decisions["send_reviewer_invite"]["after_command"]
     assert "--expected-status sent" in decisions["send_reviewer_invite"]["verify_command"]
 

@@ -51,6 +51,7 @@ def build_next_action_from_queue(queue: dict[str, Any]) -> dict[str, Any]:
         "user_decision": decision["user_decision"] if decision else "No user-owned decision is currently required.",
         "current_blocker": decision["current_blocker"] if decision else "none",
         "next_command": decision["next_command"] if decision else "none",
+        "receipt_command": decision["receipt_command"] if decision else "none",
         "after_command": decision["after_command"] if decision else "none",
         "verify_command": decision["verify_command"] if decision else "none",
         "evidence": decision["evidence"] if decision else queue["report_path"],
@@ -79,6 +80,7 @@ def render_markdown(action: dict[str, Any]) -> str:
         f"- decide: {action['user_decision']}",
         f"- blocker: {action['current_blocker']}",
         f"- command: `{action['next_command']}`",
+        f"- receipt: `{action['receipt_command']}`",
         f"- after: `{action['after_command']}`",
         f"- verify: `{action['verify_command']}`",
         f"- evidence: `{action['evidence']}`",
@@ -183,6 +185,7 @@ def main() -> None:
         print(f"- decide: {action['user_decision']}")
         print(f"- blocker: {action['current_blocker']}")
         print(f"- command: {action['next_command']}")
+        print(f"- receipt: {action['receipt_command']}")
         print(f"- after: {action['after_command']}")
         print(f"- verify: {action['verify_command']}")
         print(f"- evidence: {action['evidence']}")

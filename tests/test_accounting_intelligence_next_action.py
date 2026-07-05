@@ -19,6 +19,8 @@ def test_next_action_uses_cached_decision_queue_and_recommends_invite() -> None:
     assert "Which reviewer" in action["user_decision"]
     assert "reviewer invite" in action["current_blocker"]
     assert "real_accountant_invite_packet.py" in action["next_command"]
+    assert "real_accountant_invite_send_receipt.py" in action["receipt_command"]
+    assert "--write-template" in action["receipt_command"]
     assert "real_accountant_outreach_update.py" in action["after_command"]
     assert "--status sent" in action["after_command"]
     assert "real_accountant_outreach_transition_verify.py" in action["verify_command"]
@@ -33,6 +35,7 @@ def test_next_action_markdown_is_public_safe_and_actionable() -> None:
     assert "Accounting Intelligence Next Action" in rendered
     assert "Which reviewer" in rendered
     assert "real_accountant_invite_packet.py" in rendered
+    assert "real_accountant_invite_send_receipt.py" in rendered
     assert "real_accountant_outreach_update.py" in rendered
     assert "real_accountant_outreach_transition_verify.py" in rendered
     assert "api_key" not in rendered
@@ -58,6 +61,7 @@ def test_next_action_tracks_after_send_state() -> None:
     assert action["status"] == "waiting_on_reviewer_reply"
     assert "follow up, schedule" in action["user_decision"]
     assert "real_accountant_response_packet.py" in action["next_command"]
+    assert "--require-sent" in action["receipt_command"]
     assert "real_accountant_response_packet.py" in action["after_command"]
     assert "--expected-status sent" in action["verify_command"]
 
@@ -83,6 +87,7 @@ def test_next_action_accepts_explicit_outreach_ledger(tmp_path) -> None:
     assert action["recommended_next_decision"] == "send_reviewer_invite"
     assert action["status"] == "waiting_on_reviewer_reply"
     assert "real_accountant_response_packet.py" in action["next_command"]
+    assert "--require-sent" in action["receipt_command"]
     assert "real_accountant_response_packet.py" in action["after_command"]
     assert "--expected-status sent" in action["verify_command"]
 

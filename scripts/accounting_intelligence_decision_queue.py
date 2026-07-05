@@ -115,6 +115,7 @@ def render_markdown(queue: dict[str, Any]) -> str:
                 f"- unblocks: {decision['unblocks']}",
                 f"- current blocker: {decision['current_blocker']}",
                 f"- next command: {decision['next_command']}",
+                f"- receipt command: {decision['receipt_command']}",
                 f"- after command: {decision['after_command']}",
                 f"- verify command: {decision['verify_command']}",
                 f"- evidence: `{decision['evidence']}`",
@@ -211,6 +212,7 @@ def _reviewer_invite_decision(session: dict[str, Any]) -> dict[str, Any]:
         "unblocks": "RS2 actual accountant session, RS3 actual notes capture, RS4 close gate",
         "current_blocker": session["blocked_by"][0] if session["blocked_by"] else "none",
         "next_command": _reviewer_next_command(stage),
+        "receipt_command": _reviewer_receipt_command(stage),
         "after_command": _reviewer_after_command(stage),
         "verify_command": _reviewer_verify_command(stage),
         "evidence": "docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md",
@@ -291,6 +293,17 @@ def _reviewer_after_command(stage: str) -> str:
     }.get(stage, "none")
 
 
+def _reviewer_receipt_command(stage: str) -> str:
+    return {
+        "not_sent": "python scripts\\real_accountant_invite_send_receipt.py --write-template --format text --write",
+        "sent": "python scripts\\real_accountant_invite_send_receipt.py --receipt docs\\reports\\real-accountant-session\\invite-send-receipt.template.json --require-sent --format text",
+        "scheduled": "none",
+        "completed": "none",
+        "declined": "none",
+        "closed": "none",
+    }.get(stage, "none")
+
+
 def _reviewer_verify_command(stage: str) -> str:
     return {
         "not_sent": "python scripts\\real_accountant_outreach_transition_verify.py --expected-status sent --format text",
@@ -317,6 +330,7 @@ def _external_body_authorization_decision(result: dict[str, Any], record_path: P
         "unblocks": "external source body connector implementation",
         "current_blocker": blockers[0] if blockers else "none",
         "next_command": f"Fill `{_display_path(record_path)}`, then run the external body authorization gate with that record.",
+        "receipt_command": "none",
         "after_command": "none",
         "verify_command": "Run the external body authorization gate with the approved record path.",
         "evidence": _display_path(record_path),
@@ -339,6 +353,7 @@ def _local_parser_real_adapter_decision(result: dict[str, Any]) -> dict[str, Any
         "unblocks": "real local file upload/OCR/parser/deletion automation",
         "current_blocker": blockers[0] if blockers else "none",
         "next_command": "python scripts\\client_private_local_parser_real_adapter_decision_gate.py --format text",
+        "receipt_command": "none",
         "after_command": "none",
         "verify_command": "python scripts\\client_private_local_parser_real_adapter_decision_gate.py --format text",
         "evidence": result["report_path"],
@@ -361,6 +376,7 @@ def _retriever_promotion_decision(result: dict[str, Any]) -> dict[str, Any]:
         "unblocks": "default retriever change from hybrid to ifrs1109_classification_hybrid stack",
         "current_blocker": blockers[0] if blockers else "none",
         "next_command": "python scripts\\opt_in_retriever_promotion_decision_gate.py --format text",
+        "receipt_command": "none",
         "after_command": "none",
         "verify_command": "python scripts\\opt_in_retriever_promotion_decision_gate.py --format text",
         "evidence": result["report_path"],

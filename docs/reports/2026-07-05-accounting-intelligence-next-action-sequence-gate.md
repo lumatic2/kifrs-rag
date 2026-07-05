@@ -11,6 +11,7 @@ The next-action command, post-send ledger update, and sent-state verifier are co
 - decision: `send_reviewer_invite`
 - status: needs_user_action
 - command: `python scripts\real_accountant_invite_packet.py --format text --write`
+- receipt: `python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write`
 - after: `python scripts\real_accountant_outreach_update.py --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes "invite sent"`
 - verify: `python scripts\real_accountant_outreach_transition_verify.py --expected-status sent --format text`
 
@@ -31,6 +32,7 @@ The next-action command, post-send ledger update, and sent-state verifier are co
     "decision": "send_reviewer_invite",
     "status": "needs_user_action",
     "command": "python scripts\\real_accountant_invite_packet.py --format text --write",
+    "receipt": "python scripts\\real_accountant_invite_send_receipt.py --write-template --format text --write",
     "after": "python scripts\\real_accountant_outreach_update.py --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes \"invite sent\"",
     "verify": "python scripts\\real_accountant_outreach_transition_verify.py --expected-status sent --format text"
   },
