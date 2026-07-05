@@ -13,12 +13,14 @@
     {
       "step": 2,
       "name": "first-new-workflow-candidate-contract",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCE2 added scripts/first_workflow_contract.py, tests/test_first_workflow_contract.py, and docs/reports/2026-07-05-wce2-first-workflow-contract.md. It turns WCE1's 1037_provisions recommendation into a machine-readable decision-prep contract with structured local fact inputs, primary K-IFRS/supporting/client-private evidence roles, outputs, human-review boundary, and not-implemented limits.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,
       "name": "minimal-review-pack-adapter",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 4,

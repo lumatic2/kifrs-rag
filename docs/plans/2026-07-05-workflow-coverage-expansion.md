@@ -17,9 +17,9 @@ This horizon expands accountant-work coverage using the service map, but only th
 
 ### WCE2 — First New Workflow Candidate Contract
 
-- [ ] WCE2.1 — Select one new workflow domain.
-- [ ] WCE2.2 — Define input/output and human-review boundary.
-- [ ] WCE2.3 — Add contract tests/report.
+- [x] WCE2.1 — Select one new workflow domain.
+- [x] WCE2.2 — Define input/output and human-review boundary.
+- [x] WCE2.3 — Add contract tests/report.
 
 ### WCE3 — Minimal Review-Pack Adapter
 

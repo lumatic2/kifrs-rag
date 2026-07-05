@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (WCE1 완료, WCE2 시작)
+> 마지막 업데이트: 2026-07-05 (WCE2 완료, WCE3 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -54,11 +54,11 @@ determinism, verification cost로 점수화한 뒤 하나의 decision-prep workf
 
 ## Active Milestones
 
-<!-- harness:milestone id="WCE2" status="active" priority="P0" -->
-### WCE2 — First New Workflow Candidate Contract
-- DoD: selected workflow domain has machine-readable input/output, evidence roles, and human-review boundary for decision-prep draft output.
-- Evidence: `docs/reports/2026-07-05-wce2-first-workflow-contract.md`; plan `docs/plans/2026-07-05-workflow-coverage-expansion.md`
-- Gap: WCE1 selected `1037_provisions`, but the workflow contract is not yet defined.
+<!-- harness:milestone id="WCE3" status="active" priority="P0" -->
+### WCE3 — Minimal Review-Pack Adapter
+- DoD: selected workflow can produce at least a structured summary and human-review checklist from the WCE2 contract.
+- Evidence: `docs/reports/2026-07-05-wce3-minimal-review-pack-adapter.md`; plan `docs/plans/2026-07-05-workflow-coverage-expansion.md`
+- Gap: WCE2 defined the `1037_provisions` contract, but no adapter output exists yet.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -87,8 +87,8 @@ determinism, verification cost로 점수화한 뒤 하나의 decision-prep workf
 - SBI4 retrieval gate for controlled lane — 완료 (`docs/reports/2026-07-05-sbi4-controlled-lane-retrieval-gate.md`)
 - SBI5 controlled lane close gate — 완료 (`docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md`)
 - WCE1 coverage gap ranking — 완료 (`docs/reports/2026-07-05-wce1-coverage-gap-ranking.md`)
-- WCE2 first new workflow candidate contract — active
-- WCE3 minimal review-pack adapter
+- WCE2 first new workflow candidate contract — 완료 (`docs/reports/2026-07-05-wce2-first-workflow-contract.md`)
+- WCE3 minimal review-pack adapter — active
 - WCE4 coverage metric update
 - WCE5 workflow coverage close gate
 - RPG1 promotion evidence inventory

@@ -19,14 +19,14 @@ Status: completed
 
 ### WCE2. First New Workflow Candidate Contract
 
-Status: active
+Status: completed
 
 - Deliverable: workflow contract, tests, `docs/reports/2026-07-05-wce2-first-workflow-contract.md`
 - Acceptance: one domain is selected and scoped to decision-prep draft output.
 
 ### WCE3. Minimal Review-Pack Adapter
 
-Status: pending
+Status: active
 
 - Deliverable: adapter code, tests, `docs/reports/2026-07-05-wce3-minimal-review-pack-adapter.md`
 - Acceptance: selected workflow can produce at least a structured summary and human-review checklist.

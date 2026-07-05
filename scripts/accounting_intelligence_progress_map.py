@@ -70,19 +70,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.",
         "milestones": [
             {"id": "WCE1", "name": "coverage gap ranking", "status": "completed"},
-            {"id": "WCE2", "name": "first new workflow candidate contract", "status": "active_next"},
-            {"id": "WCE3", "name": "minimal review-pack adapter", "status": "pending"},
+            {"id": "WCE2", "name": "first new workflow candidate contract", "status": "completed"},
+            {"id": "WCE3", "name": "minimal review-pack adapter", "status": "active_next"},
             {"id": "WCE4", "name": "coverage metric update", "status": "pending"},
             {"id": "WCE5", "name": "workflow coverage close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_WCE2_first_workflow_contract",
+            "id": "run_WCE3_minimal_review_pack_adapter",
             "status": "active",
-            "decide": "Define the selected 1037 provisions workflow as a decision-prep contract with inputs, outputs, evidence roles, and human-review boundary.",
+            "decide": "Build a minimal 1037 provisions review-pack adapter that emits a structured summary and human-review checklist.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_first_workflow_contract.py -q",
+            "command": "python -m pytest tests\\test_minimal_workflow_review_pack_adapter.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -107,8 +107,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "WCE2_first_workflow_contract",
-        "next_command": "python -m pytest tests\\test_first_workflow_contract.py -q",
+        "next_leaf": "WCE3_minimal_review_pack_adapter",
+        "next_command": "python -m pytest tests\\test_minimal_workflow_review_pack_adapter.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -123,7 +123,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is workflow-coverage-expansion: define the selected 1037 provisions workflow as a testable decision-prep contract.",
+        "The active horizon is workflow-coverage-expansion: turn the 1037 provisions contract into a minimal review-pack adapter.",
         "",
         "## Objective",
         "",
