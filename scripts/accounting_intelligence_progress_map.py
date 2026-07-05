@@ -85,8 +85,8 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Deepen automation coverage against the firm-service map with broader workflow sampling and public-safe decision-prep evidence.",
         "milestones": [
             {"id": "WCD1", "name": "service-line coverage rerank", "status": "completed"},
-            {"id": "WCD2", "name": "workflow sample contract pack", "status": "active"},
-            {"id": "WCD3", "name": "minimal adapter expansion", "status": "pending"},
+            {"id": "WCD2", "name": "workflow sample contract pack", "status": "completed"},
+            {"id": "WCD3", "name": "minimal adapter expansion", "status": "active"},
             {"id": "WCD4", "name": "coverage depth metric update", "status": "pending"},
             {"id": "WCD5", "name": "close and demo rehearsal handoff", "status": "pending"},
         ],
@@ -123,9 +123,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_workflow_coverage_depth_expansion",
             "status": "active_horizon",
-            "decide": "WCD1 selected audit_disclosure_tie_out; continue with workflow sample contract fields and failure states.",
+            "decide": "WCD1 selected audit_disclosure_tie_out and WCD2 defined its workflow contract; continue with the minimal adapter.",
             "blocker": "none",
-            "command": "python scripts\\workflow_sample_contract_pack.py --format text --write",
+            "command": "python scripts\\workflow_depth_minimal_adapter.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -150,8 +150,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "WCD2_workflow_sample_contract_pack",
-        "next_command": "python scripts\\workflow_sample_contract_pack.py --format text --write",
+        "next_leaf": "WCD3_minimal_adapter_expansion",
+        "next_command": "python scripts\\workflow_depth_minimal_adapter.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -166,7 +166,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; WCD1 selected audit_disclosure_tie_out and WCD2 workflow sample contract pack is now active.",
+        "Objective gaps are grouped into horizons; WCD1 and WCD2 are complete and WCD3 minimal adapter expansion is now active.",
         "",
         "## Objective",
         "",

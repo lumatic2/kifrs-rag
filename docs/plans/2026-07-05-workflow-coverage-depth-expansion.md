@@ -17,9 +17,9 @@ This horizon addresses the Objective gap that automation evidence is still too c
 
 ### WCD2 — Workflow Sample Contract Pack
 
-- [ ] WCD2.1 — Define workflow sample contract fields.
-- [ ] WCD2.2 — Select sample candidates.
-- [ ] WCD2.3 — Write contract pack report.
+- [x] WCD2.1 — Define workflow sample contract fields.
+- [x] WCD2.2 — Select sample candidates.
+- [x] WCD2.3 — Write contract pack report.
 
 ### WCD3 — Minimal Adapter Expansion
 

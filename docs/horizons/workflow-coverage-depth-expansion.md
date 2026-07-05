@@ -21,14 +21,14 @@ Status: completed
 
 ### WCD2. Workflow Sample Contract Pack
 
-Status: active
+Status: completed
 
 - Deliverable: workflow sample contract script/report.
 - Acceptance: selected workflow samples have input facts, authority needs, output surface, review boundary, and failure states.
 
 ### WCD3. Minimal Adapter Expansion
 
-Status: pending
+Status: active
 
 - Deliverable: minimal adapter script/report for the highest-ranked workflow.
 - Acceptance: at least one additional workflow produces decision-prep metadata without protected payload exposure.

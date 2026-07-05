@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Objective gaps are grouped into horizons; WCD1 selected audit_disclosure_tie_out and WCD2 workflow sample contract pack is now active.
+Objective gaps are grouped into horizons; WCD1 and WCD2 are complete and WCD3 minimal adapter expansion is now active.
 
 ## Objective
 
@@ -19,8 +19,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | Milestone | Name | Status |
 |---|---|---|
 | WCD1 | service-line coverage rerank | completed |
-| WCD2 | workflow sample contract pack | active |
-| WCD3 | minimal adapter expansion | pending |
+| WCD2 | workflow sample contract pack | completed |
+| WCD3 | minimal adapter expansion | active |
 | WCD4 | coverage depth metric update | pending |
 | WCD5 | close and demo rehearsal handoff | pending |
 
@@ -56,7 +56,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | run_rag_quality_fresh_validation | closed_defer | none | `python scripts\rag_quality_fresh_validation_close_gate.py --format text` |
 | run_private_parser_realism_hardening | closed_realism_contract_ready | none | `python scripts\private_parser_realism_close_gate.py --format text` |
 | run_external_connector_body_expansion | closed_connector_body_lane_ready | none | `python scripts\external_source_connector_body_close_gate.py --format text` |
-| run_workflow_coverage_depth_expansion | active_horizon | none | `python scripts\workflow_sample_contract_pack.py --format text --write` |
+| run_workflow_coverage_depth_expansion | active_horizon | none | `python scripts\workflow_depth_minimal_adapter.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -69,8 +69,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Next Leaf
 
-- decision: `WCD2_workflow_sample_contract_pack`
-- command: `python scripts\workflow_sample_contract_pack.py --format text --write`
+- decision: `WCD3_minimal_adapter_expansion`
+- command: `python scripts\workflow_depth_minimal_adapter.py --format text --write`
 
 ## Machine Result
 
@@ -91,12 +91,12 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
       {
         "id": "WCD2",
         "name": "workflow sample contract pack",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "WCD3",
         "name": "minimal adapter expansion",
-        "status": "pending"
+        "status": "active"
       },
       {
         "id": "WCD4",
@@ -204,9 +204,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     {
       "id": "run_workflow_coverage_depth_expansion",
       "status": "active_horizon",
-      "decide": "WCD1 selected audit_disclosure_tie_out; continue with workflow sample contract fields and failure states.",
+      "decide": "WCD1 selected audit_disclosure_tie_out and WCD2 defined its workflow contract; continue with the minimal adapter.",
       "blocker": "none",
-      "command": "python scripts\\workflow_sample_contract_pack.py --format text --write"
+      "command": "python scripts\\workflow_depth_minimal_adapter.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -229,8 +229,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
-  "next_leaf": "WCD2_workflow_sample_contract_pack",
-  "next_command": "python scripts\\workflow_sample_contract_pack.py --format text --write",
+  "next_leaf": "WCD3_minimal_adapter_expansion",
+  "next_command": "python scripts\\workflow_depth_minimal_adapter.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
