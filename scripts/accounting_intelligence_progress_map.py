@@ -45,24 +45,24 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "non-ifrs-source-dataization",
-        "status": "closed",
-        "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
+        "id": "multi-authority-runtime-hardening",
+        "status": "active",
+        "goal": "Use K-IFRS, supporting interpretation, legal boundary, fact evidence, and client-private facts as separated runtime evidence.",
         "milestones": [
-            {"id": "NIS1", "name": "existing source asset inventory", "status": "completed"},
-            {"id": "NIS2", "name": "source record contract", "status": "completed"},
-            {"id": "NIS3", "name": "dataization fixtures and validators", "status": "completed"},
-            {"id": "NIS4", "name": "chunking and embedding policy", "status": "completed"},
-            {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "completed"},
+            {"id": "MAH1", "name": "runtime evidence boundary audit", "status": "active_next"},
+            {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "pending"},
+            {"id": "MAH3", "name": "review pack authority panel", "status": "pending"},
+            {"id": "MAH4", "name": "statement draft and analytics fact hook", "status": "pending"},
+            {"id": "MAH5", "name": "authority composer gate and runtime demo", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "start_multi_authority_runtime_hardening",
-            "status": "next_horizon_candidate",
-            "decide": "Plan runtime use of K-IFRS, law, interpretive metadata, structured facts, and private facts as separated evidence.",
-            "blocker": "non-IFRS dataization is closed; next runtime horizon has not been opened yet.",
-            "command": "python scripts\\non_ifrs_dataization_gate.py --format text",
+            "id": "run_MAH1_runtime_evidence_boundary_audit",
+            "status": "active",
+            "decide": "Audit current runtime evidence boundaries and map MAH2-MAH5 implementation gaps.",
+            "blocker": "none",
+            "command": "python scripts\\quality_preflight.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "start_multi_authority_runtime_hardening_planning",
-        "next_command": "python scripts\\non_ifrs_dataization_gate.py --format text",
+        "next_leaf": "MAH1_runtime_evidence_boundary_audit",
+        "next_command": "python scripts\\quality_preflight.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -103,7 +103,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Non-IFRS source dataization is closed: source lanes now have public-safe records, fixtures, policy, and runtime handoff.",
+        "The active horizon is multi-authority runtime hardening: make workflow outputs keep primary, supporting, legal, fact, and private evidence separate.",
         "",
         "## Objective",
         "",

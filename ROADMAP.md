@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Non-IFRS Source Dataization 완료)
+> 마지막 업데이트: 2026-07-05 (Multi-Authority Runtime Hardening 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -30,30 +30,35 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 1. `rag-reliability-revalidation` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준.
 2. `non-ifrs-source-dataization` — 완료. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
-3. `multi-authority-runtime-hardening` — 다음 후보. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
+3. `multi-authority-runtime-hardening` — 현재. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
-## Current Horizon — none
+## Current Horizon — multi-authority-runtime-hardening
 
-<!-- harness:goal id="non-ifrs-source-dataization" status="closed" -->
-`docs/horizons/non-ifrs-source-dataization.md` — 완료. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장했다.
+<!-- harness:goal id="multi-authority-runtime-hardening" status="active" -->
+`docs/horizons/multi-authority-runtime-hardening.md` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 workflow runtime에 쓴다.
 
-직전 horizon에서 K-IFRS RAG baseline과 promotion gate를 닫았다. 이제 IFRS 본문만으로 부족한
-해석자료, 법령 locator, 공시 structured fact, client-private local fact를 public-safe record와
-chunk/index 정책으로 바꾼다.
+직전 horizon에서 non-IFRS source lane을 public-safe record, fixture, chunk/index policy로 닫았다.
+이제 review pack, statement draft, answer composer가 K-IFRS primary evidence와 supporting/legal/fact/private
+evidence를 섞지 않고 표시하도록 runtime을 harden한다.
 
 ## Active Milestones
 
-없음. 다음 후보 horizon은 `multi-authority-runtime-hardening`.
+<!-- harness:milestone id="MAH1" status="active" priority="P0" -->
+### MAH1 — runtime evidence boundary audit
+- DoD: 기존 runtime evidence loader, evidence panel, review pack, statement draft, answer boundary가 authority role을 어떻게 다루는지 감사하고 MAH2~MAH5 gap을 확정한다.
+- Evidence: `docs/reports/2026-07-05-mah1-runtime-evidence-boundary-audit.md`; plan `docs/plans/2026-07-05-multi-authority-runtime-hardening.md`
+- Gap: NIS는 source record를 만들었지만, runtime 산출물이 이 evidence를 권위별로 안전하게 표시하는지는 아직 감사되지 않았다.
+- Status: [ ]
 
 ## Horizon Milestones
 
-- NIS1 existing source asset inventory — 완료 (`docs/reports/2026-07-05-nis1-source-asset-inventory.md`)
-- NIS2 source record contract — 완료 (`docs/reports/2026-07-05-nis2-source-record-contract.md`)
-- NIS3 dataization fixtures and validators — 완료 (`docs/reports/2026-07-05-nis3-dataization-fixtures.md`)
-- NIS4 chunking and embedding policy — 완료 (`docs/reports/2026-07-05-nis4-chunking-embedding-policy.md`)
-- NIS5 dataization gate and runtime handoff — 완료 (`docs/reports/2026-07-05-nis5-dataization-gate.md`)
+- MAH1 runtime evidence boundary audit — active
+- MAH2 runtime evidence contract hardening
+- MAH3 review pack authority panel
+- MAH4 statement draft and analytics fact hook
+- MAH5 authority composer gate and runtime demo
 
 ## Closed Horizons
 
@@ -84,8 +89,9 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. `non-ifrs-source-dataization`은 완료.
-다음 후보: `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓰는 runtime.
+**[현재 active]** `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓰는 runtime.
+계획: `docs/horizons/multi-authority-runtime-hardening.md` →
+`docs/plans/2026-07-05-multi-authority-runtime-hardening.md`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Non-IFRS source dataization is closed: source lanes now have public-safe records, fixtures, policy, and runtime handoff.
+The active horizon is multi-authority runtime hardening: make workflow outputs keep primary, supporting, legal, fact, and private evidence separate.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `non-ifrs-source-dataization`
-- Status: closed
-- Goal: Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.
+- Horizon: `multi-authority-runtime-hardening`
+- Status: active
+- Goal: Use K-IFRS, supporting interpretation, legal boundary, fact evidence, and client-private facts as separated runtime evidence.
 
 | Milestone | Name | Status |
 |---|---|---|
-| NIS1 | existing source asset inventory | completed |
-| NIS2 | source record contract | completed |
-| NIS3 | dataization fixtures and validators | completed |
-| NIS4 | chunking and embedding policy | completed |
-| NIS5 | dataization gate and runtime handoff | completed |
+| MAH1 | runtime evidence boundary audit | active_next |
+| MAH2 | runtime evidence contract hardening | pending |
+| MAH3 | review pack authority panel | pending |
+| MAH4 | statement draft and analytics fact hook | pending |
+| MAH5 | authority composer gate and runtime demo | pending |
 
 ## Completed Capability Chain
 
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| start_multi_authority_runtime_hardening | next_horizon_candidate | non-IFRS dataization is closed; next runtime horizon has not been opened yet. | `python scripts\non_ifrs_dataization_gate.py --format text` |
+| run_MAH1_runtime_evidence_boundary_audit | active | none | `python scripts\quality_preflight.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,8 +58,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `start_multi_authority_runtime_hardening_planning`
-- command: `python scripts\non_ifrs_dataization_gate.py --format text`
+- decision: `MAH1_runtime_evidence_boundary_audit`
+- command: `python scripts\quality_preflight.py --format text`
 
 ## Machine Result
 
@@ -68,34 +68,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "non-ifrs-source-dataization",
-    "status": "closed",
-    "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
+    "id": "multi-authority-runtime-hardening",
+    "status": "active",
+    "goal": "Use K-IFRS, supporting interpretation, legal boundary, fact evidence, and client-private facts as separated runtime evidence.",
     "milestones": [
       {
-        "id": "NIS1",
-        "name": "existing source asset inventory",
-        "status": "completed"
+        "id": "MAH1",
+        "name": "runtime evidence boundary audit",
+        "status": "active_next"
       },
       {
-        "id": "NIS2",
-        "name": "source record contract",
-        "status": "completed"
+        "id": "MAH2",
+        "name": "runtime evidence contract hardening",
+        "status": "pending"
       },
       {
-        "id": "NIS3",
-        "name": "dataization fixtures and validators",
-        "status": "completed"
+        "id": "MAH3",
+        "name": "review pack authority panel",
+        "status": "pending"
       },
       {
-        "id": "NIS4",
-        "name": "chunking and embedding policy",
-        "status": "completed"
+        "id": "MAH4",
+        "name": "statement draft and analytics fact hook",
+        "status": "pending"
       },
       {
-        "id": "NIS5",
-        "name": "dataization gate and runtime handoff",
-        "status": "completed"
+        "id": "MAH5",
+        "name": "authority composer gate and runtime demo",
+        "status": "pending"
       }
     ]
   },
@@ -128,11 +128,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "start_multi_authority_runtime_hardening",
-      "status": "next_horizon_candidate",
-      "decide": "Plan runtime use of K-IFRS, law, interpretive metadata, structured facts, and private facts as separated evidence.",
-      "blocker": "non-IFRS dataization is closed; next runtime horizon has not been opened yet.",
-      "command": "python scripts\\non_ifrs_dataization_gate.py --format text"
+      "id": "run_MAH1_runtime_evidence_boundary_audit",
+      "status": "active",
+      "decide": "Audit current runtime evidence boundaries and map MAH2-MAH5 implementation gaps.",
+      "blocker": "none",
+      "command": "python scripts\\quality_preflight.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -155,8 +155,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "start_multi_authority_runtime_hardening_planning",
-  "next_command": "python scripts\\non_ifrs_dataization_gate.py --format text",
+  "next_leaf": "MAH1_runtime_evidence_boundary_audit",
+  "next_command": "python scripts\\quality_preflight.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
