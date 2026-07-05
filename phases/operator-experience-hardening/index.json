@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "operator-experience-close-gate",
-      "status": "active"
+      "status": "completed",
+      "summary": "OEH5 added scripts/operator_experience_close_gate.py, tests/test_operator_experience_close_gate.py, and docs/reports/2026-07-05-operator-experience-hardening-close-report.md. It closes operator-experience-hardening and the full product weakness queue by confirming command discovery, run doctor, report manifest, error recovery, protected boundaries, and required reports.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

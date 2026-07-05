@@ -1,6 +1,6 @@
 # Horizon: Operator Experience Hardening
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/runtime-retriever-promotion-gate.md`
 
@@ -40,7 +40,7 @@ Status: completed
 
 ### OEH5. Operator Experience Close Gate
 
-Status: active
+Status: completed
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-operator-experience-hardening-close-report.md`
 - Acceptance: local operator can discover, run, verify, and recover the demo path through one documented surface.

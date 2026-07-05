@@ -35,9 +35,9 @@ This horizon makes the local toolkit easier for an operator to run, diagnose, na
 
 ### OEH5 — Operator Experience Close Gate
 
-- [ ] OEH5.1 — Implement close gate.
-- [ ] OEH5.2 — Run carried regressions.
-- [ ] OEH5.3 — Close horizon.
+- [x] OEH5.1 — Implement close gate.
+- [x] OEH5.2 — Run carried regressions.
+- [x] OEH5.3 — Close horizon.
 
 ## Decision Log
 

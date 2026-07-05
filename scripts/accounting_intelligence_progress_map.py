@@ -73,26 +73,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Closed retriever default promotion as defer with evidence inventory, regression/latency gate, rollback policy, operator dry-run, and close report.",
             "evidence": "docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md",
         },
+        {
+            "id": "operator-experience-hardening",
+            "result": "Closed operator UX with command inventory, run doctor, report manifest, recovery playbook, and close gate.",
+            "evidence": "docs/reports/2026-07-05-operator-experience-hardening-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "operator-experience-hardening",
-        "status": "active",
-        "goal": "Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.",
+        "id": "product-weakness-queue-closed",
+        "status": "closed",
+        "goal": "The five-horizon product weakness queue is complete; select the next objective or integration horizon explicitly.",
         "milestones": [
-            {"id": "OEH1", "name": "operator command inventory", "status": "completed"},
-            {"id": "OEH2", "name": "run doctor and environment checks", "status": "completed"},
-            {"id": "OEH3", "name": "report manifest and navigation surface", "status": "completed"},
-            {"id": "OEH4", "name": "error recovery playbook", "status": "completed"},
-            {"id": "OEH5", "name": "operator experience close gate", "status": "active_next"},
+            {"id": "RLP", "name": "real local parser prototype", "status": "completed"},
+            {"id": "SBI", "name": "controlled source lane", "status": "completed"},
+            {"id": "WCE", "name": "workflow coverage expansion", "status": "completed"},
+            {"id": "RPG", "name": "runtime retriever promotion gate", "status": "completed"},
+            {"id": "OEH", "name": "operator experience hardening", "status": "completed"},
         ],
     }
     decisions = [
         {
-            "id": "run_OEH5_operator_experience_close_gate",
-            "status": "active",
-            "decide": "Close operator experience hardening by tying discovery, doctor, manifest, and recovery evidence together.",
+            "id": "select_next_integration_horizon",
+            "status": "pending_user_or_next_plan",
+            "decide": "Choose the next integration horizon, likely end-to-end demo scenario or packaging readiness, after reviewing the closed product weakness queue.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_operator_experience_close_gate.py -q",
+            "command": "python scripts\\product_weakness_horizon_candidates.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -117,8 +122,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "OEH5_operator_experience_close_gate",
-        "next_command": "python -m pytest tests\\test_operator_experience_close_gate.py -q",
+        "next_leaf": "none_product_weakness_queue_closed",
+        "next_command": "python scripts\\product_weakness_horizon_candidates.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -133,7 +138,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is operator-experience-hardening: close the operator surface with one integrated gate.",
+        "The active product weakness queue is closed; the next move should be a new integration horizon decision.",
         "",
         "## Objective",
         "",

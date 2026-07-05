@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (OEH4 완료, OEH5 시작)
+> 마지막 업데이트: 2026-07-05 (OEH5 완료, 제품 약점 5-horizon queue 종료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -38,27 +38,22 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 8. `source-body-ingestion-controlled-lane` — 완료. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현했다.
 9. `workflow-coverage-expansion` — 완료. firm-service map 기준으로 1037 provisions workflow를 conditional decision-prep adapter로 확장했다.
 10. `runtime-retriever-promotion-gate` — 완료. opt-in repair retriever default 승격은 `defer`로 닫고 rollback evidence를 붙였다.
-11. `operator-experience-hardening` — 현재. operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
+11. `operator-experience-hardening` — 완료. operator command discovery, run doctor, report manifest, recovery path를 다듬었다.
 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 
-## Current Horizon — operator-experience-hardening
+## Current Horizon — product weakness queue closed
 
-<!-- harness:goal id="operator-experience-hardening" status="active" -->
-`docs/horizons/operator-experience-hardening.md` — operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
+<!-- harness:goal id="product-weakness-queue" status="closed" -->
+`docs/plans/2026-07-05-product-weakness-horizon-candidates.md` — 제품 약점 5-horizon queue가 완료됐다.
 
-직전 horizon에서 opt-in repair retriever의 default 승격 여부를 evidence, regression/latency, rollback,
-operator command 기준으로 판단했고 close result는 `defer`다.
-이제 많아진 CLI/report를 operator가 discover, run, verify, recover할 수 있게 정리한다.
+닫힌 queue: real-local-parser-prototype → source-body-ingestion-controlled-lane →
+workflow-coverage-expansion → runtime-retriever-promotion-gate → operator-experience-hardening.
+다음 작업은 별도 integration/demo/packaging horizon으로 새로 정해야 한다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="OEH5" status="active" priority="P0" -->
-### OEH5 — Operator Experience Close Gate
-- DoD: local operator can discover, run, verify, and recover the demo path through one documented surface.
-- Evidence: `docs/reports/2026-07-05-operator-experience-hardening-close-report.md`; plan `docs/plans/2026-07-05-operator-experience-hardening.md`
-- Gap: OEH1~OEH4 are individual operator surfaces; horizon close still needs one integrated gate.
-- Status: [ ]
+No active milestone. The current five-horizon product weakness queue is closed.
 
 ## Horizon Milestones
 
@@ -99,7 +94,7 @@ operator command 기준으로 판단했고 close result는 `defer`다.
 - OEH2 run doctor and environment checks — 완료 (`docs/reports/2026-07-05-oeh2-run-doctor.md`)
 - OEH3 report manifest and navigation surface — 완료 (`docs/reports/2026-07-05-oeh3-report-manifest.md`)
 - OEH4 error recovery playbook — 완료 (`docs/reports/2026-07-05-oeh4-error-recovery-playbook.md`)
-- OEH5 operator experience close gate — active
+- OEH5 operator experience close gate — 완료 (`docs/reports/2026-07-05-operator-experience-hardening-close-report.md`)
 
 ## Closed Horizons
 
@@ -130,10 +125,8 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `operator-experience-hardening` — operator command discovery, run doctor, report manifest,
-recovery path를 정리하는 단계.
-계획: `docs/horizons/operator-experience-hardening.md` →
-`docs/plans/2026-07-05-operator-experience-hardening.md`.
+**[현재 active]** 없음 — 제품 약점 5-horizon queue 완료.
+다음 후보는 새 integration horizon으로 별도 계획한다.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

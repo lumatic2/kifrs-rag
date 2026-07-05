@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is operator-experience-hardening: close the operator surface with one integrated gate.
+The active product weakness queue is closed; the next move should be a new integration horizon decision.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `operator-experience-hardening`
-- Status: active
-- Goal: Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.
+- Horizon: `product-weakness-queue-closed`
+- Status: closed
+- Goal: The five-horizon product weakness queue is complete; select the next objective or integration horizon explicitly.
 
 | Milestone | Name | Status |
 |---|---|---|
-| OEH1 | operator command inventory | completed |
-| OEH2 | run doctor and environment checks | completed |
-| OEH3 | report manifest and navigation surface | completed |
-| OEH4 | error recovery playbook | completed |
-| OEH5 | operator experience close gate | active_next |
+| RLP | real local parser prototype | completed |
+| SBI | controlled source lane | completed |
+| WCE | workflow coverage expansion | completed |
+| RPG | runtime retriever promotion gate | completed |
+| OEH | operator experience hardening | completed |
 
 ## Completed Capability Chain
 
@@ -39,6 +39,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | source-body-ingestion-controlled-lane | Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate. | `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md` |
 | workflow-coverage-expansion | Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate. | `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md` |
 | runtime-retriever-promotion-gate | Closed retriever default promotion as defer with evidence inventory, regression/latency gate, rollback policy, operator dry-run, and close report. | `docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md` |
+| operator-experience-hardening | Closed operator UX with command inventory, run doctor, report manifest, recovery playbook, and close gate. | `docs/reports/2026-07-05-operator-experience-hardening-close-report.md` |
 
 ## Automation Snapshot
 
@@ -51,7 +52,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_OEH5_operator_experience_close_gate | active | none | `python -m pytest tests\test_operator_experience_close_gate.py -q` |
+| select_next_integration_horizon | pending_user_or_next_plan | none | `python scripts\product_weakness_horizon_candidates.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -64,8 +65,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `OEH5_operator_experience_close_gate`
-- command: `python -m pytest tests\test_operator_experience_close_gate.py -q`
+- decision: `none_product_weakness_queue_closed`
+- command: `python scripts\product_weakness_horizon_candidates.py --format text`
 
 ## Machine Result
 
@@ -74,34 +75,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "operator-experience-hardening",
-    "status": "active",
-    "goal": "Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.",
+    "id": "product-weakness-queue-closed",
+    "status": "closed",
+    "goal": "The five-horizon product weakness queue is complete; select the next objective or integration horizon explicitly.",
     "milestones": [
       {
-        "id": "OEH1",
-        "name": "operator command inventory",
+        "id": "RLP",
+        "name": "real local parser prototype",
         "status": "completed"
       },
       {
-        "id": "OEH2",
-        "name": "run doctor and environment checks",
+        "id": "SBI",
+        "name": "controlled source lane",
         "status": "completed"
       },
       {
-        "id": "OEH3",
-        "name": "report manifest and navigation surface",
+        "id": "WCE",
+        "name": "workflow coverage expansion",
         "status": "completed"
       },
       {
-        "id": "OEH4",
-        "name": "error recovery playbook",
+        "id": "RPG",
+        "name": "runtime retriever promotion gate",
         "status": "completed"
       },
       {
-        "id": "OEH5",
-        "name": "operator experience close gate",
-        "status": "active_next"
+        "id": "OEH",
+        "name": "operator experience hardening",
+        "status": "completed"
       }
     ]
   },
@@ -160,15 +161,20 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "runtime-retriever-promotion-gate",
       "result": "Closed retriever default promotion as defer with evidence inventory, regression/latency gate, rollback policy, operator dry-run, and close report.",
       "evidence": "docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md"
+    },
+    {
+      "id": "operator-experience-hardening",
+      "result": "Closed operator UX with command inventory, run doctor, report manifest, recovery playbook, and close gate.",
+      "evidence": "docs/reports/2026-07-05-operator-experience-hardening-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": "run_OEH5_operator_experience_close_gate",
-      "status": "active",
-      "decide": "Close operator experience hardening by tying discovery, doctor, manifest, and recovery evidence together.",
+      "id": "select_next_integration_horizon",
+      "status": "pending_user_or_next_plan",
+      "decide": "Choose the next integration horizon, likely end-to-end demo scenario or packaging readiness, after reviewing the closed product weakness queue.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_operator_experience_close_gate.py -q"
+      "command": "python scripts\\product_weakness_horizon_candidates.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -191,8 +197,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "OEH5_operator_experience_close_gate",
-  "next_command": "python -m pytest tests\\test_operator_experience_close_gate.py -q",
+  "next_leaf": "none_product_weakness_queue_closed",
+  "next_command": "python scripts\\product_weakness_horizon_candidates.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -65,7 +65,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="operator-experience-hardening",
             weakness="The toolkit has many scripts and reports, but the operator path is difficult to discover and recover.",
             product_value="Turns the local toolkit into a run, diagnose, navigate, and recover experience.",
-            status="active",
+            status="closed",
             plan="docs/plans/2026-07-05-operator-experience-hardening.md",
             first_milestone="OEH1 operator command inventory",
         ),
@@ -73,7 +73,7 @@ def build_candidates() -> dict[str, Any]:
     return {
         "title": "Product Weakness Horizon Candidates",
         "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
-        "active_horizon": "operator-experience-hardening",
+        "active_horizon": "none",
         "candidates": [asdict(candidate) for candidate in candidates],
         "parked": [
             {
@@ -128,8 +128,8 @@ def render_markdown(result: dict[str, Any]) -> str:
             "- `source-body-ingestion-controlled-lane` is closed.",
             "- `workflow-coverage-expansion` is closed.",
             "- `runtime-retriever-promotion-gate` is closed.",
-            "- Keep `operator-experience-hardening` as the active horizon.",
-            "- This is the last horizon in the current product weakness queue.",
+            "- `operator-experience-hardening` is closed.",
+            "- The current five-horizon product weakness queue is closed.",
             "- Do not reopen actual outreach or feedback capture unless the user explicitly asks.",
             "",
             "## Machine Result",
