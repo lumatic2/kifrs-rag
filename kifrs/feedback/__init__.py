@@ -43,6 +43,13 @@ from .incorporation import (
     render_incorporation_report,
     render_review_question_supplement,
 )
+from .local_parser import (
+    LocalPrivateParserPrototypeInput,
+    LocalPrivateParserPrototypeResult,
+    render_local_private_parser_prototype_result,
+    run_local_private_parser_prototype,
+    validate_local_private_parser_prototype_input,
+)
 from .queue import (
     FeedbackQueueRecord,
     FeedbackQueueSummary,
@@ -74,6 +81,8 @@ __all__ = [
     "FeedbackCapturePackage",
     "FeedbackSessionNotes",
     "IncorporationAction",
+    "LocalPrivateParserPrototypeInput",
+    "LocalPrivateParserPrototypeResult",
     "case_to_eval_seed_candidate",
     "build_feedback_capture_package",
     "capture_notes_to_queue_records",
@@ -87,7 +96,9 @@ __all__ = [
     "render_capture_report",
     "render_feedback_notes_markdown",
     "render_incorporation_report",
+    "render_local_private_parser_prototype_result",
     "render_review_question_supplement",
+    "run_local_private_parser_prototype",
     "route_case",
     "route_redacted_client_private_summary",
     "redact_local_private_case_for_public",
@@ -98,6 +109,7 @@ __all__ = [
     "validate_local_private_case_intake",
     "validate_reviewer_correction",
     "validate_feedback_notes",
+    "validate_local_private_parser_prototype_input",
     "FeedbackQueueRecord",
     "FeedbackQueueSummary",
     "load_queue",
