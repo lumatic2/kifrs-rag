@@ -1,6 +1,6 @@
 # Horizon: Real Local Parser Prototype
 
-> Status: planned
+> Status: active
 > Created: 2026-07-05
 > Previous: `docs/horizons/product-trust-and-quality-evidence.md`
 
@@ -11,6 +11,8 @@ Move from parser contracts and synthetic dry-runs toward a realistic local parse
 ## Milestones
 
 ### RLP1. Parser Prototype Asset Inventory
+
+Status: active
 
 - Deliverable: `docs/reports/2026-07-05-rlp1-parser-prototype-asset-inventory.md`
 - Acceptance: existing parser contracts, adapter scaffolds, deletion gates, and dry-run fixtures are mapped.

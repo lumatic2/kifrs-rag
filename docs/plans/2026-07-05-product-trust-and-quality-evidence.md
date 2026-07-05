@@ -18,27 +18,27 @@ The demo can now be run. This horizon makes it trustable by tying quality gates,
 
 ### PTQ2 — Review Pack Confidence Contract
 
-- [ ] PTQ2.1 — Define confidence label schema.
-- [ ] PTQ2.2 — Map review-pack signals to ready/caution/human-review-required.
-- [ ] PTQ2.3 — Add focused tests and report.
+- [x] PTQ2.1 — Define confidence label schema.
+- [x] PTQ2.2 — Map review-pack signals to ready/caution/human-review-required.
+- [x] PTQ2.3 — Add focused tests and report.
 
 ### PTQ3 — Failure Boundary Matrix
 
-- [ ] PTQ3.1 — Define failure categories and operator actions.
-- [ ] PTQ3.2 — Link each failure to verification/remediation commands.
-- [ ] PTQ3.3 — Add focused tests and report.
+- [x] PTQ3.1 — Define failure categories and operator actions.
+- [x] PTQ3.2 — Link each failure to verification/remediation commands.
+- [x] PTQ3.3 — Add focused tests and report.
 
 ### PTQ4 — Promotion Decision Evidence Pack
 
-- [ ] PTQ4.1 — Summarize RAG final gate and default guard evidence.
-- [ ] PTQ4.2 — Connect promotion decision to failure matrix.
-- [ ] PTQ4.3 — Add report and tests without changing runtime default.
+- [x] PTQ4.1 — Summarize RAG final gate and default guard evidence.
+- [x] PTQ4.2 — Connect promotion decision to failure matrix.
+- [x] PTQ4.3 — Add report and tests without changing runtime default.
 
 ### PTQ5 — Trust And Quality Close Gate
 
-- [ ] PTQ5.1 — Implement trust quality gate.
-- [ ] PTQ5.2 — Run carried regressions.
-- [ ] PTQ5.3 — Close horizon.
+- [x] PTQ5.1 — Implement trust quality gate.
+- [x] PTQ5.2 — Run carried regressions.
+- [x] PTQ5.3 — Close horizon.
 
 ## Decision Log
 

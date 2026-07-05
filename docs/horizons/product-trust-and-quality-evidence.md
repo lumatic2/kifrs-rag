@@ -1,6 +1,6 @@
 # Horizon: Product Trust And Quality Evidence
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Sequence: post `firm-facing-product-surface`
 
@@ -37,7 +37,7 @@ Acceptance:
 
 ### PTQ2. Review Pack Confidence Contract
 
-Status: active
+Status: complete (`docs/reports/2026-07-05-ptq2-review-pack-confidence-contract.md`)
 
 Deliverable:
 
@@ -53,6 +53,8 @@ Acceptance:
 
 ### PTQ3. Failure Boundary Matrix
 
+Status: complete (`docs/reports/2026-07-05-ptq3-failure-boundary-matrix.md`)
+
 Deliverable:
 
 - failure-boundary matrix report
@@ -65,6 +67,8 @@ Acceptance:
 - Each failure mode has an operator action and verification command.
 
 ### PTQ4. Promotion Decision Evidence Pack
+
+Status: complete (`docs/reports/2026-07-05-ptq4-promotion-decision-evidence.md`)
 
 Deliverable:
 
@@ -79,6 +83,8 @@ Acceptance:
 - Runtime default is not changed unless a separate explicit authorization exists.
 
 ### PTQ5. Trust And Quality Close Gate
+
+Status: complete (`docs/reports/2026-07-05-product-trust-quality-close-report.md`)
 
 Deliverable:
 
@@ -96,3 +102,12 @@ Acceptance:
 - This horizon improves trust evidence, not workflow breadth.
 - No default retriever promotion without explicit authorization and stronger evidence.
 - Human review and final sign-off remain outside automation.
+
+## Close Result
+
+- Closed: 2026-07-05
+- Default promotion: deferred
+- Runtime default: `hybrid`
+- Confidence labels: `ready`, `caution`, `human_review_required`
+- Close report: `docs/reports/2026-07-05-product-trust-quality-close-report.md`
+- Next horizon: `real-local-parser-prototype`

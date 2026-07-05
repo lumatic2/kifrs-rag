@@ -90,6 +90,10 @@
     },
     {
       "dir": "product-trust-and-quality-evidence",
+      "status": "completed"
+    },
+    {
+      "dir": "real-local-parser-prototype",
       "status": "active"
     },
     {

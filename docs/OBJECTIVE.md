@@ -76,8 +76,8 @@
 
 ## Active horizon
 
-현재 active horizon은 `product-trust-and-quality-evidence`다. `firm-facing-product-surface`까지 완료되어
-데모 표면은 생겼고, 이제 품질 증거·confidence·실패경계·retriever promotion 판단을 제품 신뢰 표면으로 붙인다.
+현재 active horizon은 `real-local-parser-prototype`이다. `product-trust-and-quality-evidence`까지 완료되어
+데모 신뢰 증거는 붙었고, 이제 private parser contract를 실제 로컬 prototype 경로로 확장한다.
 
 남은 horizon 순서:
 
@@ -86,8 +86,8 @@
 3. `multi-authority-runtime-hardening` — 완료. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
-6. `product-trust-and-quality-evidence` — 현재. 품질 증거, confidence label, failure boundary, retriever promotion decision.
-7. `real-local-parser-prototype` — 계획됨. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
+6. `product-trust-and-quality-evidence` — 완료. 품질 증거, confidence label, failure boundary, retriever promotion decision.
+7. `real-local-parser-prototype` — 현재. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
 8. `source-body-ingestion-controlled-lane` — 계획됨. controlled non-IFRS source-body ingestion lane.
 9. `workflow-coverage-expansion` — 계획됨. service map 기반 업무 coverage 확장.
 10. `operator-experience-hardening` — 계획됨. local operator UX, run doctor, manifest, recovery.
@@ -100,8 +100,9 @@
 최근 완료 horizon 상세: `docs/horizons/client-private-parser-runtime.md`
 최근 완료 horizon 상세: `docs/horizons/firm-facing-product-surface.md`
 최근 완료 milestone plan: `docs/plans/2026-07-05-firm-facing-product-surface.md`
-현재 horizon 상세: `docs/horizons/product-trust-and-quality-evidence.md`
-현재 milestone plan: `docs/plans/2026-07-05-product-trust-and-quality-evidence.md`
+최근 완료 horizon 상세: `docs/horizons/product-trust-and-quality-evidence.md`
+현재 horizon 상세: `docs/horizons/real-local-parser-prototype.md`
+현재 milestone plan: `docs/plans/2026-07-05-real-local-parser-prototype.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`

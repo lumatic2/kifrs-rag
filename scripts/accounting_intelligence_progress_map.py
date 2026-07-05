@@ -55,24 +55,24 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "product-trust-and-quality-evidence",
+        "id": "real-local-parser-prototype",
         "status": "active",
-        "goal": "Connect quality evidence, confidence labels, failure boundaries, and retriever promotion decisions to the firm-facing product surface.",
+        "goal": "Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
         "milestones": [
-            {"id": "PTQ1", "name": "trust evidence inventory", "status": "completed"},
-            {"id": "PTQ2", "name": "review pack confidence contract", "status": "active_next"},
-            {"id": "PTQ3", "name": "failure boundary matrix", "status": "pending"},
-            {"id": "PTQ4", "name": "promotion decision evidence pack", "status": "pending"},
-            {"id": "PTQ5", "name": "trust and quality close gate", "status": "pending"},
+            {"id": "RLP1", "name": "parser prototype asset inventory", "status": "active_next"},
+            {"id": "RLP2", "name": "local fixture parser adapter", "status": "pending"},
+            {"id": "RLP3", "name": "deletion automation simulation", "status": "pending"},
+            {"id": "RLP4", "name": "private payload leak tests", "status": "pending"},
+            {"id": "RLP5", "name": "local parser prototype close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_PTQ2_review_pack_confidence_contract",
+            "id": "run_RLP1_parser_prototype_asset_inventory",
             "status": "active",
-            "decide": "Add confidence labels for review-pack sections using existing status, citation, authority, and human-review signals.",
+            "decide": "Inventory parser contracts, adapter scaffolds, deletion gates, and dry-run fixtures before implementing the realistic local parser prototype.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q",
+            "command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "PTQ2_review_pack_confidence_contract",
-        "next_command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q",
+        "next_leaf": "RLP1_parser_prototype_asset_inventory",
+        "next_command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -113,7 +113,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is product-trust-and-quality-evidence: turn the runnable demo into a trustable PoC surface with quality evidence, confidence labels, failure boundaries, and retriever promotion decisions.",
+        "The active horizon is real-local-parser-prototype: move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
         "",
         "## Objective",
         "",

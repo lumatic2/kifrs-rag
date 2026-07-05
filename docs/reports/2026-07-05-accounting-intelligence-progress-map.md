@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is product-trust-and-quality-evidence: turn the runnable demo into a trustable PoC surface with quality evidence, confidence labels, failure boundaries, and retriever promotion decisions.
+The active horizon is real-local-parser-prototype: move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `product-trust-and-quality-evidence`
+- Horizon: `real-local-parser-prototype`
 - Status: active
-- Goal: Connect quality evidence, confidence labels, failure boundaries, and retriever promotion decisions to the firm-facing product surface.
+- Goal: Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.
 
 | Milestone | Name | Status |
 |---|---|---|
-| PTQ1 | trust evidence inventory | completed |
-| PTQ2 | review pack confidence contract | active_next |
-| PTQ3 | failure boundary matrix | pending |
-| PTQ4 | promotion decision evidence pack | pending |
-| PTQ5 | trust and quality close gate | pending |
+| RLP1 | parser prototype asset inventory | active_next |
+| RLP2 | local fixture parser adapter | pending |
+| RLP3 | deletion automation simulation | pending |
+| RLP4 | private payload leak tests | pending |
+| RLP5 | local parser prototype close gate | pending |
 
 ## Completed Capability Chain
 
@@ -47,7 +47,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_PTQ2_review_pack_confidence_contract | active | none | `python -m pytest tests\test_review_pack_confidence_contract.py -q` |
+| run_RLP1_parser_prototype_asset_inventory | active | none | `python -m pytest tests\test_parser_prototype_asset_inventory.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -60,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `PTQ2_review_pack_confidence_contract`
-- command: `python -m pytest tests\test_review_pack_confidence_contract.py -q`
+- decision: `RLP1_parser_prototype_asset_inventory`
+- command: `python -m pytest tests\test_parser_prototype_asset_inventory.py -q`
 
 ## Machine Result
 
@@ -70,33 +70,33 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "product-trust-and-quality-evidence",
+    "id": "real-local-parser-prototype",
     "status": "active",
-    "goal": "Connect quality evidence, confidence labels, failure boundaries, and retriever promotion decisions to the firm-facing product surface.",
+    "goal": "Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
     "milestones": [
       {
-        "id": "PTQ1",
-        "name": "trust evidence inventory",
-        "status": "completed"
-      },
-      {
-        "id": "PTQ2",
-        "name": "review pack confidence contract",
+        "id": "RLP1",
+        "name": "parser prototype asset inventory",
         "status": "active_next"
       },
       {
-        "id": "PTQ3",
-        "name": "failure boundary matrix",
+        "id": "RLP2",
+        "name": "local fixture parser adapter",
         "status": "pending"
       },
       {
-        "id": "PTQ4",
-        "name": "promotion decision evidence pack",
+        "id": "RLP3",
+        "name": "deletion automation simulation",
         "status": "pending"
       },
       {
-        "id": "PTQ5",
-        "name": "trust and quality close gate",
+        "id": "RLP4",
+        "name": "private payload leak tests",
+        "status": "pending"
+      },
+      {
+        "id": "RLP5",
+        "name": "local parser prototype close gate",
         "status": "pending"
       }
     ]
@@ -140,11 +140,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_PTQ2_review_pack_confidence_contract",
+      "id": "run_RLP1_parser_prototype_asset_inventory",
       "status": "active",
-      "decide": "Add confidence labels for review-pack sections using existing status, citation, authority, and human-review signals.",
+      "decide": "Inventory parser contracts, adapter scaffolds, deletion gates, and dry-run fixtures before implementing the realistic local parser prototype.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q"
+      "command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -167,8 +167,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "PTQ2_review_pack_confidence_contract",
-  "next_command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q",
+  "next_leaf": "RLP1_parser_prototype_asset_inventory",
+  "next_command": "python -m pytest tests\\test_parser_prototype_asset_inventory.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

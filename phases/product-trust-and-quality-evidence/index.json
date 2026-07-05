@@ -13,22 +13,30 @@
     {
       "step": 2,
       "name": "review-pack-confidence-contract",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PTQ2 added scripts/review_pack_confidence_contract.py, tests/test_review_pack_confidence_contract.py, and docs/reports/2026-07-05-ptq2-review-pack-confidence-contract.md. It labels review-pack sections as ready, caution, or human_review_required using existing review memo, journal, disclosure, authority-boundary, and human-review signals without changing accounting judgment logic.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,
       "name": "failure-boundary-matrix",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PTQ3 added scripts/failure_boundary_matrix.py, tests/test_failure_boundary_matrix.py, and docs/reports/2026-07-05-ptq3-failure-boundary-matrix.md. It maps retrieval, citation, client-private fact, unsupported workflow, authority boundary, and default promotion failures to operator actions, verification commands, and escalation boundaries.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "promotion-decision-evidence-pack",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PTQ4 added scripts/promotion_decision_evidence_pack.py, tests/test_promotion_decision_evidence_pack.py, and docs/reports/2026-07-05-ptq4-promotion-decision-evidence.md. It ties RAG final gate, default retriever guard, and PTQ3 failure boundaries into a product-facing decision: default promotion remains deferred because explicit authorization is absent.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "trust-quality-close-gate",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PTQ5 added scripts/product_trust_quality_gate.py, tests/test_product_trust_quality_gate.py, and docs/reports/2026-07-05-product-trust-quality-close-report.md. It closes the horizon by tying PTQ1 inventory, PTQ2 confidence labels, PTQ3 failure boundaries, PTQ4 promotion decision, default guard, and firm-facing surface gate together; default promotion remains deferred.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }
