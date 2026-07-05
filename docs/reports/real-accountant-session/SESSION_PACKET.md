@@ -20,6 +20,7 @@
 | `2026-07-05-rs3-capture-readiness-gate.md` | 실제 notes 수령 후 capture/queue/actual manifest/close 경로를 synthetic notes로 검증 |
 | `2026-07-05-operator-execution-brief.md` | 초대→스케줄→세션→capture→close까지 실제 운영 순서 압축 브리프 |
 | `2026-07-05-pre-send-final-gate.md` | 실제 초대 발송 직전 repo-side readiness와 pre-send boundary 최종 검증 |
+| `2026-07-05-after-send-action-matrix.md` | 초대 발송 후 follow-up/schedule/decline 선택지별 ledger 전이와 다음 액션 검증 |
 | `2026-07-05-close-state-matrix.md` | ready/actual manifest와 outreach 상태 조합별 close 가능 여부 matrix |
 | `session_manifest.json` | 세션 준비 상태와 실제 evidence 여부 |
 
@@ -165,6 +166,12 @@ python scripts\real_accountant_invite_dispatch_gate.py --format text --write
 
 ```powershell
 python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl
+```
+
+발송 후 follow-up/schedule/decline 선택지는 아래 matrix로 확인한다.
+
+```powershell
+python scripts\real_accountant_after_send_action_matrix.py --format text --write
 ```
 
 초대 후 응답 상황별 follow-up/schedule/decline 문구와 ledger 갱신 명령은 아래 명령으로 출력한다.

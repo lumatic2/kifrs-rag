@@ -60,7 +60,15 @@ def render_text(status: dict[str, Any]) -> str:
         "",
         f"- Horizon: {status['horizon']}",
         f"- Session mode: {status['session_mode']}",
-        f"- Outreach: not_sent={counts.get('not_sent', 0)}, sent={counts.get('sent', 0)}, scheduled={counts.get('scheduled', 0)}, completed={counts.get('completed', 0)}",
+        (
+            "- Outreach: "
+            f"not_sent={counts.get('not_sent', 0)}, "
+            f"sent={counts.get('sent', 0)}, "
+            f"responded={counts.get('responded', 0)}, "
+            f"scheduled={counts.get('scheduled', 0)}, "
+            f"declined={counts.get('declined', 0)}, "
+            f"completed={counts.get('completed', 0)}"
+        ),
         f"- Close ready: {status['close_ready']}",
         f"- Next action: {status['next_action']}",
     ]
@@ -81,13 +89,18 @@ def _next_action(session_mode: str, outreach_counts: dict[str, int], close_ok: b
         return "Run the scheduled accountant session and write actual-feedback-notes.md."
     if outreach_counts.get("sent", 0) or outreach_counts.get("responded", 0):
         return "Schedule the reviewer session or update outreach ledger."
+    if outreach_counts.get("declined", 0):
+        return "Record decline outcome, then invite another reviewer or pause RS2."
     return "Send reviewer invite and update outreach ledger to sent."
 
 
 def _blocked_by(session_mode: str, outreach_counts: dict[str, int], close_errors: list[str]) -> list[str]:
     blocked: list[str] = []
     if outreach_counts.get("sent", 0) == 0 and outreach_counts.get("scheduled", 0) == 0 and outreach_counts.get("completed", 0) == 0:
-        blocked.append("reviewer invite has not been sent")
+        if outreach_counts.get("declined", 0):
+            blocked.append("reviewer declined; no scheduled or completed reviewer session")
+        else:
+            blocked.append("reviewer invite has not been sent")
     if outreach_counts.get("completed", 0) == 0:
         blocked.append("no completed reviewer session in outreach ledger")
     if session_mode != "actual_feedback":
