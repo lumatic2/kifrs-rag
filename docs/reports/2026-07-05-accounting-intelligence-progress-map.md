@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is operator-experience-hardening: make command discovery and recovery visible to the local operator.
+The active horizon is operator-experience-hardening: add run diagnostics after command discovery.
 
 ## Objective
 
@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Milestone | Name | Status |
 |---|---|---|
-| OEH1 | operator command inventory | active_next |
-| OEH2 | run doctor and environment checks | pending |
+| OEH1 | operator command inventory | completed |
+| OEH2 | run doctor and environment checks | active_next |
 | OEH3 | report manifest and navigation surface | pending |
 | OEH4 | error recovery playbook | pending |
 | OEH5 | operator experience close gate | pending |
@@ -51,7 +51,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_OEH1_operator_command_inventory | active | none | `python -m pytest tests\test_operator_command_inventory.py -q` |
+| run_OEH2_run_doctor | active | none | `python -m pytest tests\test_operator_run_doctor.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -64,8 +64,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `OEH1_operator_command_inventory`
-- command: `python -m pytest tests\test_operator_command_inventory.py -q`
+- decision: `OEH2_run_doctor`
+- command: `python -m pytest tests\test_operator_run_doctor.py -q`
 
 ## Machine Result
 
@@ -81,12 +81,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "OEH1",
         "name": "operator command inventory",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "OEH2",
         "name": "run doctor and environment checks",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "OEH3",
@@ -164,11 +164,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_OEH1_operator_command_inventory",
+      "id": "run_OEH2_run_doctor",
       "status": "active",
-      "decide": "Inventory operator-facing commands by goal so the toolkit is discoverable without reading ROADMAP internals.",
+      "decide": "Add a local run doctor that checks environment, protected boundaries, and missing report hints.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_operator_command_inventory.py -q"
+      "command": "python -m pytest tests\\test_operator_run_doctor.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -191,8 +191,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "OEH1_operator_command_inventory",
-  "next_command": "python -m pytest tests\\test_operator_command_inventory.py -q",
+  "next_leaf": "OEH2_run_doctor",
+  "next_command": "python -m pytest tests\\test_operator_run_doctor.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -6,12 +6,14 @@
     {
       "step": 1,
       "name": "operator-command-inventory",
-      "status": "active"
+      "status": "completed",
+      "summary": "OEH1 added scripts/operator_command_inventory.py, tests/test_operator_command_inventory.py, and docs/reports/2026-07-05-oeh1-operator-command-inventory.md. It inventories 8 operator-facing commands across quality, trust, controlled source, workflow, retriever promotion, progress, weakness queue, and operator-hardening goals with report links and safety notes.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 2,
       "name": "run-doctor-and-environment-checks",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 3,

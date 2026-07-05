@@ -12,14 +12,14 @@ Turn the CLI/report collection into a smoother local operator experience with co
 
 ### OEH1. Operator Command Inventory
 
-Status: active
+Status: completed
 
 - Deliverable: `docs/reports/2026-07-05-oeh1-operator-command-inventory.md`
 - Acceptance: demo, readiness, quality, parser, source, and workflow commands are indexed by operator goal.
 
 ### OEH2. Run Doctor And Environment Checks
 
-Status: pending
+Status: active
 
 - Deliverable: run doctor script, tests, `docs/reports/2026-07-05-oeh2-run-doctor.md`
 - Acceptance: Python, uv, local data expectations, protected boundaries, and missing report hints are checked.

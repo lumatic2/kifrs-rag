@@ -79,8 +79,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.",
         "milestones": [
-            {"id": "OEH1", "name": "operator command inventory", "status": "active_next"},
-            {"id": "OEH2", "name": "run doctor and environment checks", "status": "pending"},
+            {"id": "OEH1", "name": "operator command inventory", "status": "completed"},
+            {"id": "OEH2", "name": "run doctor and environment checks", "status": "active_next"},
             {"id": "OEH3", "name": "report manifest and navigation surface", "status": "pending"},
             {"id": "OEH4", "name": "error recovery playbook", "status": "pending"},
             {"id": "OEH5", "name": "operator experience close gate", "status": "pending"},
@@ -88,11 +88,11 @@ def build_progress_map() -> dict[str, Any]:
     }
     decisions = [
         {
-            "id": "run_OEH1_operator_command_inventory",
+            "id": "run_OEH2_run_doctor",
             "status": "active",
-            "decide": "Inventory operator-facing commands by goal so the toolkit is discoverable without reading ROADMAP internals.",
+            "decide": "Add a local run doctor that checks environment, protected boundaries, and missing report hints.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_operator_command_inventory.py -q",
+            "command": "python -m pytest tests\\test_operator_run_doctor.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -117,8 +117,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "OEH1_operator_command_inventory",
-        "next_command": "python -m pytest tests\\test_operator_command_inventory.py -q",
+        "next_leaf": "OEH2_run_doctor",
+        "next_command": "python -m pytest tests\\test_operator_run_doctor.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -133,7 +133,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is operator-experience-hardening: make command discovery and recovery visible to the local operator.",
+        "The active horizon is operator-experience-hardening: add run diagnostics after command discovery.",
         "",
         "## Objective",
         "",

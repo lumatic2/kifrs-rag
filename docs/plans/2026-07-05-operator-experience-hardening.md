@@ -11,9 +11,9 @@ This horizon makes the local toolkit easier for an operator to run, diagnose, na
 
 ### OEH1 — Operator Command Inventory
 
-- [ ] OEH1.1 — Inventory operator-facing commands.
-- [ ] OEH1.2 — Group commands by operator goal.
-- [ ] OEH1.3 — Write OEH1 report.
+- [x] OEH1.1 — Inventory operator-facing commands.
+- [x] OEH1.2 — Group commands by operator goal.
+- [x] OEH1.3 — Write OEH1 report.
 
 ### OEH2 — Run Doctor And Environment Checks
 
