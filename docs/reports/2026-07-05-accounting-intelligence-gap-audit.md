@@ -32,6 +32,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | local_parser_adapter_scaffold | `docs/reports/2026-07-05-lpas1-local-parser-adapter-scaffold.md` | present |
 | local_parser_operator_runbook | `docs/reports/2026-07-05-lpor1-local-parser-operator-runbook.md` | present |
 | local_parser_real_adapter_decision_gate | `docs/reports/2026-07-05-lprd1-local-parser-real-adapter-decision-gate.md` | present |
+| local_parser_real_adapter_implementation_plan | `docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md` | present |
 | external_body_ingestion_decision_gate | `docs/reports/2026-07-05-esbd1-external-source-body-ingestion-decision-gate.md` | present |
 | external_body_policy_plan | `docs/reports/2026-07-05-espp1-external-source-body-policy-plan.md` | present |
 | external_body_authorization_gate | `docs/reports/2026-07-05-esag1-external-source-body-authorization-gate.md` | present |
@@ -76,7 +77,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 ## Remaining Gaps
 
 - actual accountant session evidence is still external/user-owned
-- local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented
+- local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
@@ -101,7 +102,7 @@ real-accountant-session RS2/RS3 evidence capture, or opt-in retriever promotion 
   "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or opt-in retriever promotion decision after actual accountant evidence",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
+    "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],

@@ -71,6 +71,12 @@ def check_real_adapter_decision_gate(
 
     allowed_to_implement = not blockers
     decision = "proceed" if allowed_to_implement else "defer"
+    if allowed_to_implement:
+        next_leaf = "local parser real-adapter coding"
+    elif not implementation_plan_present:
+        next_leaf = "local parser real-adapter implementation plan"
+    else:
+        next_leaf = "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before real adapter coding"
     decision_record = RealAdapterDecision(
         decision_id="lprd1-local-parser-real-adapter-decision-gate",
         decision=decision,
@@ -80,11 +86,7 @@ def check_real_adapter_decision_gate(
         explicit_authorization=explicit_authorization,
         implementation_plan_present=implementation_plan_present,
         blockers=blockers,
-        next_leaf=(
-            "local parser real-adapter implementation plan"
-            if allowed_to_implement
-            else "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion decision gate"
-        ),
+        next_leaf=next_leaf,
     )
     return {
         "ok": bool(operator["ok"]),
@@ -111,6 +113,12 @@ def check_real_adapter_decision_gate(
 def render_report(result: dict[str, Any]) -> str:
     decision = result["decision"]
     session = result["real_accountant_session"]
+    if decision["allowed_to_implement"]:
+        conclusion = "Real adapter implementation is authorized by this gate because the runbook, actual accountant evidence, explicit authorization, and implementation plan are all present."
+    elif decision["implementation_plan_present"]:
+        conclusion = "Real adapter implementation remains deferred. The operator runbook and implementation plan are present, but actual accountant feedback evidence and explicit user authorization are still required. No real file upload, OCR, source-body parsing, deletion automation, or private embedding work is authorized by this gate."
+    else:
+        conclusion = "Real adapter implementation remains deferred. The operator runbook passes, but actual accountant feedback evidence, explicit user authorization, and a real-adapter implementation plan are not present. No real file upload, OCR, source-body parsing, deletion automation, or private embedding work is authorized by this gate."
     lines = [
         "# LPRD1 Local Parser Real-Adapter Decision Gate",
         "",
@@ -118,7 +126,7 @@ def render_report(result: dict[str, Any]) -> str:
         "",
         "## 한 줄 결론",
         "",
-        "Real adapter implementation remains deferred. The operator runbook passes, but actual accountant feedback evidence, explicit user authorization, and a real-adapter implementation plan are not present. No real file upload, OCR, source-body parsing, deletion automation, or private embedding work is authorized by this gate.",
+        conclusion,
         "",
         "## Decision",
         "",

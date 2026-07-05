@@ -4,7 +4,7 @@
 
 ## 한 줄 결론
 
-Real adapter implementation remains deferred. The operator runbook passes, but actual accountant feedback evidence, explicit user authorization, and a real-adapter implementation plan are not present. No real file upload, OCR, source-body parsing, deletion automation, or private embedding work is authorized by this gate.
+Real adapter implementation remains deferred. The operator runbook and implementation plan are present, but actual accountant feedback evidence and explicit user authorization are still required. No real file upload, OCR, source-body parsing, deletion automation, or private embedding work is authorized by this gate.
 
 ## Decision
 
@@ -13,13 +13,12 @@ Real adapter implementation remains deferred. The operator runbook passes, but a
 - Operator runbook ok: True
 - Actual accountant evidence: False
 - Explicit authorization: False
-- Implementation plan present: False
+- Implementation plan present: True
 
 ## Blockers
 
 - actual accountant feedback evidence is required before real private-file parser work
 - explicit user authorization is required before real adapter implementation
-- real adapter implementation plan is required before coding
 
 ## Real Accountant Session Snapshot
 
@@ -44,7 +43,7 @@ Real adapter implementation remains deferred. The operator runbook passes, but a
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion decision gate
+real-accountant-session RS2/RS3 evidence capture, then explicit authorization before real adapter coding
 
 ## Machine Result
 
@@ -59,13 +58,12 @@ real-accountant-session RS2/RS3 evidence capture, or external source body-ingest
     "operator_runbook_ok": true,
     "actual_accountant_evidence": false,
     "explicit_authorization": false,
-    "implementation_plan_present": false,
+    "implementation_plan_present": true,
     "blockers": [
       "actual accountant feedback evidence is required before real private-file parser work",
-      "explicit user authorization is required before real adapter implementation",
-      "real adapter implementation plan is required before coding"
+      "explicit user authorization is required before real adapter implementation"
     ],
-    "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion decision gate"
+    "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before real adapter coding"
   },
   "operator_runbook": {
     "ok": true,
@@ -102,6 +100,6 @@ real-accountant-session RS2/RS3 evidence capture, or external source body-ingest
   },
   "implementation_plan": "docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md",
   "report_path": "docs\\reports\\2026-07-05-lprd1-local-parser-real-adapter-decision-gate.md",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source body-ingestion decision gate"
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before real adapter coding"
 }
 ```

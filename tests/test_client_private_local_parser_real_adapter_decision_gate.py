@@ -15,10 +15,25 @@ def test_real_adapter_decision_gate_defers_by_default() -> None:
     assert result["decision"]["decision"] == "defer"
     assert result["decision"]["allowed_to_implement"] is False
     assert result["decision"]["operator_runbook_ok"] is True
+    assert result["decision"]["implementation_plan_present"] is True
     blockers = " ".join(result["decision"]["blockers"])
     assert "actual accountant feedback evidence" in blockers
     assert "explicit user authorization" in blockers
+    assert "implementation plan" not in blockers
+    assert result["next_leaf"] == (
+        "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before real adapter coding"
+    )
+
+
+def test_real_adapter_decision_gate_still_detects_missing_plan(tmp_path: Path) -> None:
+    result = check_real_adapter_decision_gate(implementation_plan=tmp_path / "missing-plan.md")
+
+    assert result["ok"], result["errors"]
+    assert result["decision"]["decision"] == "defer"
+    assert result["decision"]["implementation_plan_present"] is False
+    blockers = " ".join(result["decision"]["blockers"])
     assert "implementation plan" in blockers
+    assert result["next_leaf"] == "local parser real-adapter implementation plan"
 
 
 def test_real_adapter_decision_gate_can_proceed_when_all_preconditions_are_met(tmp_path: Path) -> None:
@@ -35,7 +50,7 @@ def test_real_adapter_decision_gate_can_proceed_when_all_preconditions_are_met(t
     assert result["decision"]["decision"] == "proceed"
     assert result["decision"]["allowed_to_implement"] is True
     assert result["decision"]["blockers"] == []
-    assert result["next_leaf"] == "local parser real-adapter implementation plan"
+    assert result["next_leaf"] == "local parser real-adapter coding"
 
 
 def test_real_adapter_decision_gate_report_states_no_real_parser_authorization() -> None:

@@ -44,6 +44,10 @@ REQUIRED_REPORTS = {
     / "docs"
     / "reports"
     / "2026-07-05-lprd1-local-parser-real-adapter-decision-gate.md",
+    "local_parser_real_adapter_implementation_plan": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-local-parser-real-adapter-implementation-plan.md",
     "external_body_ingestion_decision_gate": ROOT
     / "docs"
     / "reports"
@@ -170,7 +174,7 @@ def build_gap_audit() -> GapAudit:
 
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
-        "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
+        "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
         "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]

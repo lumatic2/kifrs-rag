@@ -16,7 +16,8 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert audit.human_review_packs <= 4
     joined_gaps = " ".join(audit.remaining_gaps)
     assert "actual accountant session" in joined_gaps
-    assert "local parser real-adapter decision gate is present and deferred" in joined_gaps
+    assert "local parser real-adapter implementation plan is present" in joined_gaps
+    assert "explicit authorization" in joined_gaps
     assert "parser/deletion automation" in joined_gaps
     assert "external source connector metadata-only lane is closed" in joined_gaps
     assert "demo-noted" in joined_gaps
