@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (OEH1 완료, OEH2 시작)
+> 마지막 업데이트: 2026-07-05 (OEH2 완료, OEH3 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -53,11 +53,11 @@ operator command 기준으로 판단했고 close result는 `defer`다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="OEH2" status="active" priority="P0" -->
-### OEH2 — Run Doctor And Environment Checks
-- DoD: Python, uv, local data expectations, protected boundaries, and missing report hints are checked.
-- Evidence: `docs/reports/2026-07-05-oeh2-run-doctor.md`; plan `docs/plans/2026-07-05-operator-experience-hardening.md`
-- Gap: OEH1 indexed commands, but operator preflight/diagnostics are not yet automated.
+<!-- harness:milestone id="OEH3" status="active" priority="P0" -->
+### OEH3 — Report Manifest And Navigation Surface
+- DoD: operator can open the right reports in sequence without reading ROADMAP internals.
+- Evidence: `docs/reports/2026-07-05-oeh3-report-manifest.md`; plan `docs/plans/2026-07-05-operator-experience-hardening.md`
+- Gap: OEH2 checks environment/reports, but there is no ordered report navigation surface yet.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -96,8 +96,8 @@ operator command 기준으로 판단했고 close result는 `defer`다.
 - RPG4 operator promotion command — 완료 (`docs/reports/2026-07-05-rpg4-operator-promotion-command.md`)
 - RPG5 promotion gate close report — 완료 (`docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md`)
 - OEH1 operator command inventory — 완료 (`docs/reports/2026-07-05-oeh1-operator-command-inventory.md`)
-- OEH2 run doctor and environment checks — active
-- OEH3 report manifest and navigation surface
+- OEH2 run doctor and environment checks — 완료 (`docs/reports/2026-07-05-oeh2-run-doctor.md`)
+- OEH3 report manifest and navigation surface — active
 - OEH4 error recovery playbook
 - OEH5 operator experience close gate
 

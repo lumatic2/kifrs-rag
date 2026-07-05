@@ -13,12 +13,14 @@
     {
       "step": 2,
       "name": "run-doctor-and-environment-checks",
-      "status": "active"
+      "status": "completed",
+      "summary": "OEH2 added scripts/operator_run_doctor.py, tests/test_operator_run_doctor.py, and docs/reports/2026-07-05-oeh2-run-doctor.md. It checks Python, uv availability, required public reports, missing report rerun hints, and protected-data boundaries without reading private payloads, embedding dumps, or dogfood material.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,
       "name": "report-manifest-and-navigation-surface",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 4,

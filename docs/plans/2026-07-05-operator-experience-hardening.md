@@ -17,9 +17,9 @@ This horizon makes the local toolkit easier for an operator to run, diagnose, na
 
 ### OEH2 — Run Doctor And Environment Checks
 
-- [ ] OEH2.1 — Define local environment checks.
-- [ ] OEH2.2 — Implement run doctor.
-- [ ] OEH2.3 — Add tests/report.
+- [x] OEH2.1 — Define local environment checks.
+- [x] OEH2.2 — Implement run doctor.
+- [x] OEH2.3 — Add tests/report.
 
 ### OEH3 — Report Manifest And Navigation Surface
 

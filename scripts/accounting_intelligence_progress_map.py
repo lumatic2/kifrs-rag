@@ -80,19 +80,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.",
         "milestones": [
             {"id": "OEH1", "name": "operator command inventory", "status": "completed"},
-            {"id": "OEH2", "name": "run doctor and environment checks", "status": "active_next"},
-            {"id": "OEH3", "name": "report manifest and navigation surface", "status": "pending"},
+            {"id": "OEH2", "name": "run doctor and environment checks", "status": "completed"},
+            {"id": "OEH3", "name": "report manifest and navigation surface", "status": "active_next"},
             {"id": "OEH4", "name": "error recovery playbook", "status": "pending"},
             {"id": "OEH5", "name": "operator experience close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_OEH2_run_doctor",
+            "id": "run_OEH3_report_manifest",
             "status": "active",
-            "decide": "Add a local run doctor that checks environment, protected boundaries, and missing report hints.",
+            "decide": "Create an ordered report manifest so the operator can navigate evidence without reading ROADMAP internals.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_operator_run_doctor.py -q",
+            "command": "python -m pytest tests\\test_operator_report_manifest.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -117,8 +117,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "OEH2_run_doctor",
-        "next_command": "python -m pytest tests\\test_operator_run_doctor.py -q",
+        "next_leaf": "OEH3_report_manifest",
+        "next_command": "python -m pytest tests\\test_operator_report_manifest.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -133,7 +133,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is operator-experience-hardening: add run diagnostics after command discovery.",
+        "The active horizon is operator-experience-hardening: add report navigation after run diagnostics.",
         "",
         "## Objective",
         "",

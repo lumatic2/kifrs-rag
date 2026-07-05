@@ -19,14 +19,14 @@ Status: completed
 
 ### OEH2. Run Doctor And Environment Checks
 
-Status: active
+Status: completed
 
 - Deliverable: run doctor script, tests, `docs/reports/2026-07-05-oeh2-run-doctor.md`
 - Acceptance: Python, uv, local data expectations, protected boundaries, and missing report hints are checked.
 
 ### OEH3. Report Manifest And Navigation Surface
 
-Status: pending
+Status: active
 
 - Deliverable: manifest script/report, tests, `docs/reports/2026-07-05-oeh3-report-manifest.md`
 - Acceptance: operator can open the right reports in sequence without reading ROADMAP internals.
