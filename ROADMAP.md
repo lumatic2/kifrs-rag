@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (WCE3 완료, WCE4 시작)
+> 마지막 업데이트: 2026-07-05 (WCE4 완료, WCE5 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -54,11 +54,11 @@ determinism, verification cost로 점수화한 뒤 하나의 decision-prep workf
 
 ## Active Milestones
 
-<!-- harness:milestone id="WCE4" status="active" priority="P0" -->
-### WCE4 — Coverage Metric Update
-- DoD: objective coverage map reflects the new workflow candidate and its limits.
-- Evidence: `docs/reports/2026-07-05-wce4-coverage-metric-update.md`; plan `docs/plans/2026-07-05-workflow-coverage-expansion.md`
-- Gap: WCE3 produces a 1037 provisions review-pack draft, but objective coverage metrics do not yet reflect it.
+<!-- harness:milestone id="WCE5" status="active" priority="P0" -->
+### WCE5 — Workflow Coverage Close Gate
+- DoD: WCE1~WCE4 evidence is connected to product trust, parser/runtime, and next horizon routing.
+- Evidence: `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md`; plan `docs/plans/2026-07-05-workflow-coverage-expansion.md`
+- Gap: WCE1~WCE4 are individual evidence pieces; horizon close still needs one integrated gate.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -89,8 +89,8 @@ determinism, verification cost로 점수화한 뒤 하나의 decision-prep workf
 - WCE1 coverage gap ranking — 완료 (`docs/reports/2026-07-05-wce1-coverage-gap-ranking.md`)
 - WCE2 first new workflow candidate contract — 완료 (`docs/reports/2026-07-05-wce2-first-workflow-contract.md`)
 - WCE3 minimal review-pack adapter — 완료 (`docs/reports/2026-07-05-wce3-minimal-review-pack-adapter.md`)
-- WCE4 coverage metric update — active
-- WCE5 workflow coverage close gate
+- WCE4 coverage metric update — 완료 (`docs/reports/2026-07-05-wce4-coverage-metric-update.md`)
+- WCE5 workflow coverage close gate — active
 - RPG1 promotion evidence inventory
 - RPG2 regression and latency gate
 - RPG3 failure and rollback policy

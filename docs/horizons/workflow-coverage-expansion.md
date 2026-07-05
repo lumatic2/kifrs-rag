@@ -33,14 +33,14 @@ Status: completed
 
 ### WCE4. Coverage Metric Update
 
-Status: active
+Status: completed
 
 - Deliverable: coverage metric script/report, tests, `docs/reports/2026-07-05-wce4-coverage-metric-update.md`
 - Acceptance: objective coverage map reflects the new workflow candidate and its limits.
 
 ### WCE5. Workflow Coverage Close Gate
 
-Status: pending
+Status: active
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md`
 - Acceptance: new coverage evidence is connected to product trust, parser/runtime, and firm-facing demo surfaces.

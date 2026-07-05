@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is workflow-coverage-expansion: reflect the new 1037 provisions adapter in objective coverage metrics.
+The active horizon is workflow-coverage-expansion: close the 1037 provisions coverage expansion with an integrated gate.
 
 ## Objective
 
@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | WCE1 | coverage gap ranking | completed |
 | WCE2 | first new workflow candidate contract | completed |
 | WCE3 | minimal review-pack adapter | completed |
-| WCE4 | coverage metric update | active_next |
-| WCE5 | workflow coverage close gate | pending |
+| WCE4 | coverage metric update | completed |
+| WCE5 | workflow coverage close gate | active_next |
 
 ## Completed Capability Chain
 
@@ -49,7 +49,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_WCE4_coverage_metric_update | active | none | `python -m pytest tests\test_workflow_coverage_metric_update.py -q` |
+| run_WCE5_workflow_coverage_close_gate | active | none | `python -m pytest tests\test_workflow_coverage_close_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -62,8 +62,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `WCE4_coverage_metric_update`
-- command: `python -m pytest tests\test_workflow_coverage_metric_update.py -q`
+- decision: `WCE5_workflow_coverage_close_gate`
+- command: `python -m pytest tests\test_workflow_coverage_close_gate.py -q`
 
 ## Machine Result
 
@@ -94,12 +94,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "WCE4",
         "name": "coverage metric update",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "WCE5",
         "name": "workflow coverage close gate",
-        "status": "pending"
+        "status": "active_next"
       }
     ]
   },
@@ -152,11 +152,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_WCE4_coverage_metric_update",
+      "id": "run_WCE5_workflow_coverage_close_gate",
       "status": "active",
-      "decide": "Update the objective coverage map to include the new 1037 provisions workflow candidate and its limits.",
+      "decide": "Close the workflow coverage expansion horizon by tying WCE1-WCE4 evidence to product trust, parser/runtime, and next horizon routing.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_workflow_coverage_metric_update.py -q"
+      "command": "python -m pytest tests\\test_workflow_coverage_close_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -179,8 +179,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "WCE4_coverage_metric_update",
-  "next_command": "python -m pytest tests\\test_workflow_coverage_metric_update.py -q",
+  "next_leaf": "WCE5_workflow_coverage_close_gate",
+  "next_command": "python -m pytest tests\\test_workflow_coverage_close_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

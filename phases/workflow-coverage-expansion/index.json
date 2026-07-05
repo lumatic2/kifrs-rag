@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "coverage-metric-update",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCE4 added scripts/workflow_coverage_metric_update.py, tests/test_workflow_coverage_metric_update.py, and docs/reports/2026-07-05-wce4-coverage-metric-update.md. It records 1037_provisions as one conditional decision-prep workflow candidate in the objective coverage map, preserves the existing 24 review-pack automation snapshot, and explicitly avoids claiming full automation.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "workflow-coverage-close-gate",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }

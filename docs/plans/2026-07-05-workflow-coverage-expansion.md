@@ -29,9 +29,9 @@ This horizon expands accountant-work coverage using the service map, but only th
 
 ### WCE4 — Coverage Metric Update
 
-- [ ] WCE4.1 — Update coverage metric script/report.
-- [ ] WCE4.2 — Show capability and limits.
-- [ ] WCE4.3 — Add tests/report.
+- [x] WCE4.1 — Update coverage metric script/report.
+- [x] WCE4.2 — Show capability and limits.
+- [x] WCE4.3 — Add tests/report.
 
 ### WCE5 — Workflow Coverage Close Gate
 
