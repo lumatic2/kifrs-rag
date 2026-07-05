@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "policy": {
+    "protected_material_committed": false,
+    "default_runtime_retriever_unchanged": true,
+    "source_record_contract": "kifrs.ingestion.source_record"
+  },
+  "lanes": {
+    "document_metadata": {
+      "record_type": "document_metadata",
+      "chunk_strategy": "metadata_card",
+      "index_strategy": "metadata_keyword_plus_optional_metadata_vector",
+      "vector_scope": "author_written_metadata_only",
+      "runtime_lookup": "metadata_search",
+      "citation_role": "supporting_interpretation",
+      "body_storage_policy": "public_metadata_only",
+      "notes": [
+        "Do not store copied document material.",
+        "Vector text, if generated later, must be author-written title, publisher, topics, and locator metadata only."
+      ]
+    },
+    "law_locator": {
+      "record_type": "law_locator",
+      "chunk_strategy": "locator_card",
+      "index_strategy": "keyword_locator_lookup",
+      "vector_scope": "none_for_public_fixture",
+      "runtime_lookup": "official_locator_lookup",
+      "citation_role": "legal_boundary",
+      "body_storage_policy": "no_store_link_only",
+      "notes": [
+        "Use legal locator as boundary evidence.",
+        "Do not copy law article material into the public repo."
+      ]
+    },
+    "structured_fact": {
+      "record_type": "structured_fact",
+      "chunk_strategy": "fact_row",
+      "index_strategy": "structured_lookup",
+      "vector_scope": "none_for_public_fixture",
+      "runtime_lookup": "fact_filter_and_aggregate",
+      "citation_role": "fact_evidence",
+      "body_storage_policy": "public_synthetic_fixture",
+      "notes": [
+        "Use normalized values and dimensions.",
+        "Do not store raw filing payloads in the public repo."
+      ]
+    },
+    "client_private_fact": {
+      "record_type": "client_private_fact",
+      "chunk_strategy": "local_private_fact_card",
+      "index_strategy": "local_only_lookup",
+      "vector_scope": "local_only_after_operator_policy",
+      "runtime_lookup": "local_private_namespace",
+      "citation_role": "collection_seed",
+      "body_storage_policy": "no_store_handoff",
+      "notes": [
+        "Public repo stores placeholder contract only.",
+        "Real private material stays local and deletion-attested."
+      ]
+    }
+  }
+}
