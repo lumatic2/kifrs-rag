@@ -22,10 +22,10 @@ metadata는 supporting interpretation, 법령은 legal boundary, DART-style 수�
 
 ### MAH1 — Runtime Evidence Boundary Audit
 
-- [ ] MAH1.1 — Inventory runtime evidence surfaces. (verify: report lists `kifrs/runtime/*`, review packs, statement draft, answer boundary tests)
-- [ ] MAH1.2 — Compare NIS handoff contract to current runtime fields. (verify: report maps NIS record types to runtime role support)
-- [ ] MAH1.3 — Classify hardening gaps by surface. (verify: report has MAH2~MAH5 gap table)
-- [ ] MAH1.4 — Produce MAH1 audit report. (verify: `docs/reports/2026-07-05-mah1-runtime-evidence-boundary-audit.md` exists)
+- [x] MAH1.1 — Inventory runtime evidence surfaces. (verify: report lists `kifrs/runtime/*`, review packs, statement draft, answer boundary tests)
+- [x] MAH1.2 — Compare NIS handoff contract to current runtime fields. (verify: report maps NIS record types to runtime role support)
+- [x] MAH1.3 — Classify hardening gaps by surface. (verify: report has MAH2~MAH5 gap table)
+- [x] MAH1.4 — Produce MAH1 audit report. (verify: `docs/reports/2026-07-05-mah1-runtime-evidence-boundary-audit.md` exists)
 
 ### MAH2 — Runtime Evidence Contract Hardening
 

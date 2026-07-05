@@ -49,8 +49,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Use K-IFRS, supporting interpretation, legal boundary, fact evidence, and client-private facts as separated runtime evidence.",
         "milestones": [
-            {"id": "MAH1", "name": "runtime evidence boundary audit", "status": "active_next"},
-            {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "pending"},
+            {"id": "MAH1", "name": "runtime evidence boundary audit", "status": "completed"},
+            {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "active_next"},
             {"id": "MAH3", "name": "review pack authority panel", "status": "pending"},
             {"id": "MAH4", "name": "statement draft and analytics fact hook", "status": "pending"},
             {"id": "MAH5", "name": "authority composer gate and runtime demo", "status": "pending"},
@@ -58,11 +58,11 @@ def build_progress_map() -> dict[str, Any]:
     }
     decisions = [
         {
-            "id": "run_MAH1_runtime_evidence_boundary_audit",
+            "id": "run_MAH2_runtime_evidence_contract_hardening",
             "status": "active",
-            "decide": "Audit current runtime evidence boundaries and map MAH2-MAH5 implementation gaps.",
+            "decide": "Add a shared runtime authority object that converts NIS source records without mixing primary, supporting, legal, fact, and private roles.",
             "blocker": "none",
-            "command": "python scripts\\quality_preflight.py --format text",
+            "command": "python -m pytest tests\\test_runtime_authority_boundary.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "MAH1_runtime_evidence_boundary_audit",
-        "next_command": "python scripts\\quality_preflight.py --format text",
+        "next_leaf": "MAH2_runtime_evidence_contract_hardening",
+        "next_command": "python -m pytest tests\\test_runtime_authority_boundary.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
