@@ -12,6 +12,7 @@
 - [ ] `python scripts\accounting_intelligence_decision_queue.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_packet.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write`
+- [ ] `python scripts\real_accountant_filled_receipt_guide.py --format text --write`
 - [ ] `python scripts\real_accountant_apply_invite_receipt.py --demo-receipt --dry-run --format text --write`
 - [ ] `python scripts\real_accountant_post_send_rehearsal_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_readiness_index.py --format text --write`

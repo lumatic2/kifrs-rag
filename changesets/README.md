@@ -29,3 +29,4 @@
 | 25 | `20260705-post-send-rehearsal-gate` | 2026-07-05 | rehearse receipt-to-sent ledger transition | 4/4 | completed |
 | 26 | `20260705-invite-receipt-apply` | 2026-07-05 | apply sent ledger update only after receipt validation | 4/4 | completed |
 | 27 | `20260705-next-action-apply-after` | 2026-07-05 | route next-action after step through receipt apply | 4/4 | completed |
+| 28 | `20260705-filled-receipt-guide` | 2026-07-05 | operator guide for filling post-send receipt | 4/4 | completed |

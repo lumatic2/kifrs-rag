@@ -23,6 +23,7 @@ def test_build_run_sheet_extracts_packet_and_runbook_items() -> None:
     assert any("accounting_intelligence_decision_queue.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_invite_packet.py" in command and "--write" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_invite_send_receipt.py" in command for command in sheet["preflight_commands"])
+    assert any("real_accountant_filled_receipt_guide.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_apply_invite_receipt.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_post_send_rehearsal_gate.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_external_action_boundary_gate.py" in command for command in sheet["preflight_commands"])

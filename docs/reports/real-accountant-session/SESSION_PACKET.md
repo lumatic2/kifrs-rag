@@ -15,6 +15,7 @@
 | `2026-07-05-session-invite.md` | reviewer에게 보낼 초대/설명 문구 |
 | `2026-07-05-reviewer-invite-action-packet.md` | 복사할 invite 문구와 실제 발송 후 ledger update 명령 |
 | `2026-07-05-invite-send-receipt.md` | 실제 발송 후 채울 public-safe receipt template/validator |
+| `2026-07-05-filled-receipt-guide.md` | 실제 발송 후 receipt 필드 작성, apply, verify 순서 안내 |
 | `2026-07-05-invite-receipt-apply.md` | 채워진 receipt 검증 후 ledger sent update를 적용하는 명령 |
 | `2026-07-05-post-send-rehearsal-gate.md` | receipt 검증 후 sent ledger 전이를 임시 파일로 rehearsal |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
@@ -78,6 +79,7 @@ python scripts\accounting_intelligence_next_action_sequence_gate.py --format tex
 python scripts\accounting_intelligence_decision_queue.py --format text --write
 python scripts\real_accountant_invite_packet.py --format text --write
 python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write
+python scripts\real_accountant_filled_receipt_guide.py --format text --write
 python scripts\real_accountant_apply_invite_receipt.py --demo-receipt --dry-run --format text --write
 python scripts\real_accountant_post_send_rehearsal_gate.py --format text --write
 python scripts\real_accountant_readiness_index.py --format text --write

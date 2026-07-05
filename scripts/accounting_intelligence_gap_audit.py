@@ -61,6 +61,11 @@ REQUIRED_REPORTS = {
     / "reports"
     / "real-accountant-session"
     / "2026-07-05-invite-send-receipt.md",
+    "real_accountant_filled_receipt_guide": ROOT
+    / "docs"
+    / "reports"
+    / "real-accountant-session"
+    / "2026-07-05-filled-receipt-guide.md",
     "real_accountant_invite_receipt_apply": ROOT
     / "docs"
     / "reports"
@@ -278,7 +283,7 @@ def build_gap_audit() -> GapAudit:
     automation_rate = rebuild.automated_packs / rebuild.total_packs if rebuild.total_packs else 0.0
 
     remaining_gaps = [
-        "actual accountant session evidence is still external/user-owned; decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
+        "actual accountant session evidence is still external/user-owned; decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, filled receipt guide, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
         "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
         "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
         "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization",
