@@ -9,6 +9,7 @@
 - [ ] `python scripts\feedback_incorporation_report.py --queue docs\reports\real-transaction-poc\feedback-queue.jsonl --out docs\reports\2026-07-05-af3-feedback-incorporation-report.md --questions-out docs\reports\field-feedback\2026-07-05-incorporated-review-questions.md`
 - [ ] `python scripts\real_accountant_invite_dispatch_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_response_handling_gate.py --format text --write`
+- [ ] `python scripts\real_accountant_scheduled_session_gate.py --format text --write`
 - [ ] Open one-page brief.
 - [ ] Open demo manifest.
 - [ ] Open real-transaction PoC index.
