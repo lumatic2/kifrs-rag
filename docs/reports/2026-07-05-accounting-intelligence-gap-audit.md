@@ -48,6 +48,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | external_connector_demo_index_bridge | `docs/reports/2026-07-05-esdib1-external-source-connector-demo-index-bridge.md` | present |
 | external_connector_demo_index_close_gate | `docs/reports/2026-07-05-esdibc1-external-source-connector-demo-index-close-gate.md` | present |
 | external_connector_lane_summary | `docs/reports/2026-07-05-esls1-external-source-connector-lane-summary.md` | present |
+| external_connector_lane_close_gate | `docs/reports/2026-07-05-eslsc1-external-source-connector-lane-close-gate.md` | present |
 
 ## Demo Outputs
 
@@ -75,12 +76,12 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 - actual accountant session evidence is still external/user-owned
 - local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented
-- external source connector lane summary is present, but connector lane close gate is not implemented
+- external source connector metadata-only lane is closed, but post-close demo packet note is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or external source connector lane close gate
+real-accountant-session RS2/RS3 evidence capture, or external source connector post-close demo packet note
 
 ## Machine Result
 
@@ -96,11 +97,11 @@ real-accountant-session RS2/RS3 evidence capture, or external source connector l
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source connector lane close gate",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source connector post-close demo packet note",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
     "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-    "external source connector lane summary is present, but connector lane close gate is not implemented",
+    "external source connector metadata-only lane is closed, but post-close demo packet note is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],
   "errors": []
