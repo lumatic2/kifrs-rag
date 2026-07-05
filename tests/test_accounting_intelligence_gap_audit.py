@@ -18,8 +18,8 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert "actual accountant session" in joined_gaps
     assert "local parser real-adapter decision gate is present and deferred" in joined_gaps
     assert "parser/deletion automation" in joined_gaps
-    assert "external source connector live-metadata decision gate is present" in joined_gaps
-    assert "live-metadata probe scaffold is not implemented" in joined_gaps
+    assert "external source connector live-metadata probe scaffold is present" in joined_gaps
+    assert "live-metadata close gate is not implemented" in joined_gaps
     assert "opt-in retriever demo validation is complete" in joined_gaps
 
 

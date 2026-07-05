@@ -80,6 +80,10 @@ REQUIRED_REPORTS = {
     / "docs"
     / "reports"
     / "2026-07-05-eslm1-external-source-connector-live-metadata-decision-gate.md",
+    "external_connector_live_metadata_probe_scaffold": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-eslp1-external-source-connector-live-metadata-probe-scaffold.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -135,7 +139,7 @@ def build_gap_audit() -> GapAudit:
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
         "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-        "external source connector live-metadata decision gate is present, but live-metadata probe scaffold is not implemented",
+        "external source connector live-metadata probe scaffold is present, but live-metadata close gate is not implemented",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]
 
@@ -152,7 +156,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source connector live-metadata probe scaffold",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source connector live-metadata close gate",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )
