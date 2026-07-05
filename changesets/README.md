@@ -24,3 +24,4 @@
 | 20 | `20260705-next-action-verify-command` | 2026-07-05 | show verification command in decision queue and next-action | 4/4 | completed |
 | 21 | `20260705-next-action-after-command` | 2026-07-05 | show post-action command in decision queue and next-action | 4/4 | completed |
 | 22 | `20260705-next-action-sequence-gate` | 2026-07-05 | gate command-after-verify next-action sequence | 4/4 | completed |
+| 23 | `20260705-invite-send-receipt` | 2026-07-05 | public-safe manual invite send receipt contract | 4/4 | completed |
