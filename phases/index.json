@@ -106,6 +106,10 @@
     },
     {
       "dir": "runtime-retriever-promotion-gate",
+      "status": "completed"
+    },
+    {
+      "dir": "operator-experience-hardening",
       "status": "active"
     },
     {

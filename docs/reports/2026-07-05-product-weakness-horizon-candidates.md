@@ -13,8 +13,8 @@ Use the next five horizons to close the remaining product weaknesses before pack
 | 1 | `real-local-parser-prototype` | Local private inputs are still mostly represented by contracts and synthetic parser dry-runs. | Moves the toolkit toward realistic local-file handling while preserving structured-facts-only public output. | closed | RLP1 parser prototype asset inventory |
 | 2 | `source-body-ingestion-controlled-lane` | K-IFRS-only evidence is insufficient for real accounting work that also needs interpretive, regulatory, legal, filing, and private facts. | Proves one non-IFRS source lane can be policy-bound, parsed, chunked, retrieved, and reported safely. | closed | SBI1 source class selection and authorization boundary |
 | 3 | `workflow-coverage-expansion` | Automation proof is concentrated in a narrow set of standards and review-pack surfaces. | Expands the firm-service map into another testable accountant workflow and updates coverage evidence. | closed | WCE1 coverage gap ranking |
-| 4 | `runtime-retriever-promotion-gate` | The strongest retriever remains opt-in and has not been converted into a reversible product-default decision. | Creates a promote/defer/rollback gate for runtime retrieval quality. | active | RPG1 promotion evidence inventory |
-| 5 | `operator-experience-hardening` | The toolkit has many scripts and reports, but the operator path is difficult to discover and recover. | Turns the local toolkit into a run, diagnose, navigate, and recover experience. | planned | OEH1 operator command inventory |
+| 4 | `runtime-retriever-promotion-gate` | The strongest retriever remains opt-in and has not been converted into a reversible product-default decision. | Creates a promote/defer/rollback gate for runtime retrieval quality. | closed | RPG1 promotion evidence inventory |
+| 5 | `operator-experience-hardening` | The toolkit has many scripts and reports, but the operator path is difficult to discover and recover. | Turns the local toolkit into a run, diagnose, navigate, and recover experience. | active | OEH1 operator command inventory |
 
 ## Parked
 
@@ -26,8 +26,9 @@ Use the next five horizons to close the remaining product weaknesses before pack
 - `real-local-parser-prototype` is closed.
 - `source-body-ingestion-controlled-lane` is closed.
 - `workflow-coverage-expansion` is closed.
-- Keep `runtime-retriever-promotion-gate` as the active horizon.
-- Treat horizon 5 as the remaining product weakness queue after retriever promotion.
+- `runtime-retriever-promotion-gate` is closed.
+- Keep `operator-experience-hardening` as the active horizon.
+- This is the last horizon in the current product weakness queue.
 - Do not reopen actual outreach or feedback capture unless the user explicitly asks.
 
 ## Machine Result
@@ -36,7 +37,7 @@ Use the next five horizons to close the remaining product weaknesses before pack
 {
   "title": "Product Weakness Horizon Candidates",
   "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
-  "active_horizon": "runtime-retriever-promotion-gate",
+  "active_horizon": "operator-experience-hardening",
   "candidates": [
     {
       "order": 1,
@@ -70,7 +71,7 @@ Use the next five horizons to close the remaining product weaknesses before pack
       "horizon_id": "runtime-retriever-promotion-gate",
       "weakness": "The strongest retriever remains opt-in and has not been converted into a reversible product-default decision.",
       "product_value": "Creates a promote/defer/rollback gate for runtime retrieval quality.",
-      "status": "active",
+      "status": "closed",
       "plan": "docs/plans/2026-07-05-runtime-retriever-promotion-gate.md",
       "first_milestone": "RPG1 promotion evidence inventory"
     },
@@ -79,7 +80,7 @@ Use the next five horizons to close the remaining product weaknesses before pack
       "horizon_id": "operator-experience-hardening",
       "weakness": "The toolkit has many scripts and reports, but the operator path is difficult to discover and recover.",
       "product_value": "Turns the local toolkit into a run, diagnose, navigate, and recover experience.",
-      "status": "planned",
+      "status": "active",
       "plan": "docs/plans/2026-07-05-operator-experience-hardening.md",
       "first_milestone": "OEH1 operator command inventory"
     }

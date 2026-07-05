@@ -56,7 +56,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="runtime-retriever-promotion-gate",
             weakness="The strongest retriever remains opt-in and has not been converted into a reversible product-default decision.",
             product_value="Creates a promote/defer/rollback gate for runtime retrieval quality.",
-            status="active",
+            status="closed",
             plan="docs/plans/2026-07-05-runtime-retriever-promotion-gate.md",
             first_milestone="RPG1 promotion evidence inventory",
         ),
@@ -65,7 +65,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="operator-experience-hardening",
             weakness="The toolkit has many scripts and reports, but the operator path is difficult to discover and recover.",
             product_value="Turns the local toolkit into a run, diagnose, navigate, and recover experience.",
-            status="planned",
+            status="active",
             plan="docs/plans/2026-07-05-operator-experience-hardening.md",
             first_milestone="OEH1 operator command inventory",
         ),
@@ -73,7 +73,7 @@ def build_candidates() -> dict[str, Any]:
     return {
         "title": "Product Weakness Horizon Candidates",
         "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
-        "active_horizon": "runtime-retriever-promotion-gate",
+        "active_horizon": "operator-experience-hardening",
         "candidates": [asdict(candidate) for candidate in candidates],
         "parked": [
             {
@@ -127,8 +127,9 @@ def render_markdown(result: dict[str, Any]) -> str:
             "- `real-local-parser-prototype` is closed.",
             "- `source-body-ingestion-controlled-lane` is closed.",
             "- `workflow-coverage-expansion` is closed.",
-            "- Keep `runtime-retriever-promotion-gate` as the active horizon.",
-            "- Treat horizon 5 as the remaining product weakness queue after retriever promotion.",
+            "- `runtime-retriever-promotion-gate` is closed.",
+            "- Keep `operator-experience-hardening` as the active horizon.",
+            "- This is the last horizon in the current product weakness queue.",
             "- Do not reopen actual outreach or feedback capture unless the user explicitly asks.",
             "",
             "## Machine Result",

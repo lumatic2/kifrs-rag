@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is runtime-retriever-promotion-gate: close the horizon with an explicit defer/promote/block result.
+The active horizon is operator-experience-hardening: make command discovery and recovery visible to the local operator.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `runtime-retriever-promotion-gate`
+- Horizon: `operator-experience-hardening`
 - Status: active
-- Goal: Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.
+- Goal: Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.
 
 | Milestone | Name | Status |
 |---|---|---|
-| RPG1 | promotion evidence inventory | completed |
-| RPG2 | regression and latency gate | completed |
-| RPG3 | failure and rollback policy | completed |
-| RPG4 | operator promotion command | completed |
-| RPG5 | promotion gate close report | active_next |
+| OEH1 | operator command inventory | active_next |
+| OEH2 | run doctor and environment checks | pending |
+| OEH3 | report manifest and navigation surface | pending |
+| OEH4 | error recovery playbook | pending |
+| OEH5 | operator experience close gate | pending |
 
 ## Completed Capability Chain
 
@@ -38,6 +38,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | real-local-parser-prototype | Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate. | `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md` |
 | source-body-ingestion-controlled-lane | Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate. | `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md` |
 | workflow-coverage-expansion | Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate. | `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md` |
+| runtime-retriever-promotion-gate | Closed retriever default promotion as defer with evidence inventory, regression/latency gate, rollback policy, operator dry-run, and close report. | `docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md` |
 
 ## Automation Snapshot
 
@@ -50,7 +51,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RPG5_promotion_gate_close_report | active | none | `python -m pytest tests\test_runtime_retriever_promotion_close_gate.py -q` |
+| run_OEH1_operator_command_inventory | active | none | `python -m pytest tests\test_operator_command_inventory.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -63,8 +64,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RPG5_promotion_gate_close_report`
-- command: `python -m pytest tests\test_runtime_retriever_promotion_close_gate.py -q`
+- decision: `OEH1_operator_command_inventory`
+- command: `python -m pytest tests\test_operator_command_inventory.py -q`
 
 ## Machine Result
 
@@ -73,34 +74,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "runtime-retriever-promotion-gate",
+    "id": "operator-experience-hardening",
     "status": "active",
-    "goal": "Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.",
+    "goal": "Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.",
     "milestones": [
       {
-        "id": "RPG1",
-        "name": "promotion evidence inventory",
-        "status": "completed"
-      },
-      {
-        "id": "RPG2",
-        "name": "regression and latency gate",
-        "status": "completed"
-      },
-      {
-        "id": "RPG3",
-        "name": "failure and rollback policy",
-        "status": "completed"
-      },
-      {
-        "id": "RPG4",
-        "name": "operator promotion command",
-        "status": "completed"
-      },
-      {
-        "id": "RPG5",
-        "name": "promotion gate close report",
+        "id": "OEH1",
+        "name": "operator command inventory",
         "status": "active_next"
+      },
+      {
+        "id": "OEH2",
+        "name": "run doctor and environment checks",
+        "status": "pending"
+      },
+      {
+        "id": "OEH3",
+        "name": "report manifest and navigation surface",
+        "status": "pending"
+      },
+      {
+        "id": "OEH4",
+        "name": "error recovery playbook",
+        "status": "pending"
+      },
+      {
+        "id": "OEH5",
+        "name": "operator experience close gate",
+        "status": "pending"
       }
     ]
   },
@@ -154,15 +155,20 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "workflow-coverage-expansion",
       "result": "Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate.",
       "evidence": "docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md"
+    },
+    {
+      "id": "runtime-retriever-promotion-gate",
+      "result": "Closed retriever default promotion as defer with evidence inventory, regression/latency gate, rollback policy, operator dry-run, and close report.",
+      "evidence": "docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": "run_RPG5_promotion_gate_close_report",
+      "id": "run_OEH1_operator_command_inventory",
       "status": "active",
-      "decide": "Close the runtime retriever promotion horizon with an explicit promote/defer/block result and rollback evidence.",
+      "decide": "Inventory operator-facing commands by goal so the toolkit is discoverable without reading ROADMAP internals.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q"
+      "command": "python -m pytest tests\\test_operator_command_inventory.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -185,8 +191,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RPG5_promotion_gate_close_report",
-  "next_command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q",
+  "next_leaf": "OEH1_operator_command_inventory",
+  "next_command": "python -m pytest tests\\test_operator_command_inventory.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

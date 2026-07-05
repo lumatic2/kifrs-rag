@@ -68,26 +68,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate.",
             "evidence": "docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md",
         },
+        {
+            "id": "runtime-retriever-promotion-gate",
+            "result": "Closed retriever default promotion as defer with evidence inventory, regression/latency gate, rollback policy, operator dry-run, and close report.",
+            "evidence": "docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "runtime-retriever-promotion-gate",
+        "id": "operator-experience-hardening",
         "status": "active",
-        "goal": "Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.",
+        "goal": "Turn the CLI/report collection into a smoother local operator experience with command discovery, diagnostics, manifests, and recovery.",
         "milestones": [
-            {"id": "RPG1", "name": "promotion evidence inventory", "status": "completed"},
-            {"id": "RPG2", "name": "regression and latency gate", "status": "completed"},
-            {"id": "RPG3", "name": "failure and rollback policy", "status": "completed"},
-            {"id": "RPG4", "name": "operator promotion command", "status": "completed"},
-            {"id": "RPG5", "name": "promotion gate close report", "status": "active_next"},
+            {"id": "OEH1", "name": "operator command inventory", "status": "active_next"},
+            {"id": "OEH2", "name": "run doctor and environment checks", "status": "pending"},
+            {"id": "OEH3", "name": "report manifest and navigation surface", "status": "pending"},
+            {"id": "OEH4", "name": "error recovery playbook", "status": "pending"},
+            {"id": "OEH5", "name": "operator experience close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_RPG5_promotion_gate_close_report",
+            "id": "run_OEH1_operator_command_inventory",
             "status": "active",
-            "decide": "Close the runtime retriever promotion horizon with an explicit promote/defer/block result and rollback evidence.",
+            "decide": "Inventory operator-facing commands by goal so the toolkit is discoverable without reading ROADMAP internals.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q",
+            "command": "python -m pytest tests\\test_operator_command_inventory.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -112,8 +117,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RPG5_promotion_gate_close_report",
-        "next_command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q",
+        "next_leaf": "OEH1_operator_command_inventory",
+        "next_command": "python -m pytest tests\\test_operator_command_inventory.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -128,7 +133,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is runtime-retriever-promotion-gate: close the horizon with an explicit defer/promote/block result.",
+        "The active horizon is operator-experience-hardening: make command discovery and recovery visible to the local operator.",
         "",
         "## Objective",
         "",

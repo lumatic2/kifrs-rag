@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "promotion-gate-close-report",
-      "status": "active"
+      "status": "completed",
+      "summary": "RPG5 added scripts/runtime_retriever_promotion_close_gate.py, tests/test_runtime_retriever_promotion_close_gate.py, and docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md. It closes runtime-retriever-promotion-gate with close_result defer, keeps current default hybrid, preserves rollback evidence, confirms dry-run operator command, and routes next horizon to operator-experience-hardening.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

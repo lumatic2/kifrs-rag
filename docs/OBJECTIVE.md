@@ -76,8 +76,8 @@
 
 ## Active horizon
 
-현재 active horizon은 `runtime-retriever-promotion-gate`이다. `workflow-coverage-expansion`까지 완료되어
-1037 provisions decision-prep workflow 증거는 붙었고, 이제 opt-in repair retriever의 default 승격 여부를 판단한다.
+현재 active horizon은 `operator-experience-hardening`이다. `runtime-retriever-promotion-gate`까지 완료되어
+retriever default 승격은 `defer`로 닫혔고, 이제 local operator UX를 정리한다.
 
 남은 horizon 순서:
 
@@ -90,8 +90,8 @@
 7. `real-local-parser-prototype` — 완료. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
 8. `source-body-ingestion-controlled-lane` — 완료. controlled non-IFRS source-body ingestion lane.
 9. `workflow-coverage-expansion` — 완료. service map 기반 업무 coverage 확장.
-10. `runtime-retriever-promotion-gate` — 현재. opt-in repair retriever의 default 승격 여부를 promote/defer/rollback gate로 판단.
-11. `operator-experience-hardening` — 계획됨. local operator UX, run doctor, manifest, recovery.
+10. `runtime-retriever-promotion-gate` — 완료. opt-in repair retriever의 default 승격 여부를 promote/defer/rollback gate로 판단.
+11. `operator-experience-hardening` — 현재. local operator UX, run doctor, manifest, recovery.
 
 제품 약점 기준 1~5 horizon queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 통합 데모 후보 `end-to-end-demo-scenario`는 위 5개 horizon 이후로 보류한다.
@@ -108,8 +108,9 @@
 최근 완료 horizon 상세: `docs/horizons/real-local-parser-prototype.md`
 최근 완료 horizon 상세: `docs/horizons/source-body-ingestion-controlled-lane.md`
 최근 완료 horizon 상세: `docs/horizons/workflow-coverage-expansion.md`
-현재 horizon 상세: `docs/horizons/runtime-retriever-promotion-gate.md`
-현재 milestone plan: `docs/plans/2026-07-05-runtime-retriever-promotion-gate.md`
+최근 완료 horizon 상세: `docs/horizons/runtime-retriever-promotion-gate.md`
+현재 horizon 상세: `docs/horizons/operator-experience-hardening.md`
+현재 milestone plan: `docs/plans/2026-07-05-operator-experience-hardening.md`
 제품 약점 후보 queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`

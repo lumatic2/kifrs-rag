@@ -1,6 +1,6 @@
 # Horizon: Runtime Retriever Promotion Gate
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/workflow-coverage-expansion.md`
 
@@ -50,7 +50,7 @@ Status: completed
 
 ### RPG5. Promotion Gate Close Report
 
-Status: active
+Status: completed
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md`
 - Acceptance: the horizon closes with an explicit `promote`, `defer`, or `block` result and rollback evidence.

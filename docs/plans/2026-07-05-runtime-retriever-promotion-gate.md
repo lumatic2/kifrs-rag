@@ -36,9 +36,9 @@ failure-boundary, operator-command, and rollback evidence.
 
 ### RPG5 — Promotion Gate Close Report
 
-- [ ] RPG5.1 — Implement close gate.
-- [ ] RPG5.2 — Run carried RAG/product trust regressions.
-- [ ] RPG5.3 — Close horizon with promote/defer/block result.
+- [x] RPG5.1 — Implement close gate.
+- [x] RPG5.2 — Run carried RAG/product trust regressions.
+- [x] RPG5.3 — Close horizon with promote/defer/block result.
 
 ## Decision Log
 

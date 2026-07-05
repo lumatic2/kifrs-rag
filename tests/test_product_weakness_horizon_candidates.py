@@ -6,7 +6,7 @@ from scripts.product_weakness_horizon_candidates import build_candidates, render
 def test_product_weakness_candidates_are_ordered_and_actionable() -> None:
     result = build_candidates()
 
-    assert result["active_horizon"] == "runtime-retriever-promotion-gate"
+    assert result["active_horizon"] == "operator-experience-hardening"
     candidates = result["candidates"]
     assert [candidate["order"] for candidate in candidates] == [1, 2, 3, 4, 5]
     assert [candidate["horizon_id"] for candidate in candidates] == [
@@ -19,7 +19,8 @@ def test_product_weakness_candidates_are_ordered_and_actionable() -> None:
     assert candidates[0]["status"] == "closed"
     assert candidates[1]["status"] == "closed"
     assert candidates[2]["status"] == "closed"
-    assert candidates[3]["status"] == "active"
+    assert candidates[3]["status"] == "closed"
+    assert candidates[4]["status"] == "active"
     assert all(candidate["plan"].startswith("docs/plans/") for candidate in candidates)
     assert all(candidate["first_milestone"] for candidate in candidates)
 

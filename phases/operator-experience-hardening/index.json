@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "operator-experience-hardening",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "operator-command-inventory",
+      "status": "active"
+    },
+    {
+      "step": 2,
+      "name": "run-doctor-and-environment-checks",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "report-manifest-and-navigation-surface",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "error-recovery-playbook",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "operator-experience-close-gate",
+      "status": "pending"
+    }
+  ]
+}
