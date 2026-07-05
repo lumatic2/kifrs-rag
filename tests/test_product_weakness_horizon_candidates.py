@@ -32,7 +32,7 @@ def test_product_weakness_candidates_markdown_is_public_safe() -> None:
     assert "Recommended Queue" in rendered
     assert "real-local-parser-prototype" in rendered
     assert "runtime-retriever-promotion-gate" in rendered
-    assert "real-accountant-session" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
+    assert "packaging" not in rendered.lower()

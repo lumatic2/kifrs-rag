@@ -73,9 +73,6 @@ def build_candidates() -> dict[str, Any]:
     return {
         "title": "Objective Gap Horizon Candidates",
         "objective": "Group the remaining objective gaps into implementation horizons and run them with the product harness.",
-        "excluded_from_plan": [
-            "external accountant feedback remains parked until explicitly reintroduced",
-        ],
         "active_horizon": "demo-rehearsal-quality-loop",
         "candidates": [asdict(candidate) for candidate in candidates],
         "report_path": _display_path(REPORT_PATH),
@@ -92,13 +89,9 @@ def render_markdown(result: dict[str, Any]) -> str:
         "",
         result["objective"],
         "",
-        "## Excluded From This Plan",
-        "",
     ]
-    lines.extend(f"- {item}" for item in result["excluded_from_plan"])
     lines.extend(
         [
-            "",
             "## Recommended Horizon Queue",
             "",
             "| # | Horizon | Objective Gap | Why Now | Status | First Milestone | Evidence Target |",
@@ -118,7 +111,7 @@ def render_markdown(result: dict[str, Any]) -> str:
             "",
             f"- Active horizon: `{result['active_horizon']}`",
             "- Run horizons in order unless a later gap becomes objectively blocking.",
-            "- Do not add external feedback work to this queue without explicit user instruction.",
+            "- Keep the queue focused on internal product evidence, quality, and workflow coverage.",
             "",
             "## Machine Result",
             "",

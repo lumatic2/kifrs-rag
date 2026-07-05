@@ -72,17 +72,13 @@ def build_candidates() -> dict[str, Any]:
     ]
     return {
         "title": "Product Weakness Horizon Candidates",
-        "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
+        "objective": "Use the next five horizons to close the remaining product weaknesses with internal, public-safe evidence.",
         "active_horizon": "none",
         "candidates": [asdict(candidate) for candidate in candidates],
         "parked": [
             {
                 "horizon_id": "end-to-end-demo-scenario",
                 "reason": "Should integrate the five horizons above instead of preceding them.",
-            },
-            {
-                "horizon_id": "real-accountant-session",
-                "reason": "User-owned external outreach remains parked until explicitly reopened.",
             },
         ],
         "report_path": _display_path(REPORT_PATH),
@@ -130,7 +126,6 @@ def render_markdown(result: dict[str, Any]) -> str:
             "- `runtime-retriever-promotion-gate` is closed.",
             "- `operator-experience-hardening` is closed.",
             "- The current five-horizon product weakness queue is closed.",
-            "- Do not reopen actual outreach or feedback capture unless the user explicitly asks.",
             "",
             "## Machine Result",
             "",

@@ -41,6 +41,5 @@ This horizon addresses the Objective gap that the demo packet exists but has not
 
 ## Decision Log
 
-- No external feedback capture in this horizon.
-- No packaging work in this horizon.
+- Keep this horizon focused on internal rehearsal evidence.
 - Use public-safe timing and quality metadata only.

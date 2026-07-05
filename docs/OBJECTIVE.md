@@ -84,7 +84,7 @@
 2. `non-ifrs-source-dataization` — 완료. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
 3. `multi-authority-runtime-hardening` — 완료. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
-5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
+5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface와 operator UX.
 6. `product-trust-and-quality-evidence` — 완료. 품질 증거, confidence label, failure boundary, retriever promotion decision.
 7. `real-local-parser-prototype` — 완료. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
 8. `source-body-ingestion-controlled-lane` — 완료. controlled non-IFRS source-body ingestion lane.
@@ -127,4 +127,4 @@
 최근 완료 horizon 상세: `docs/horizons/feedback-eval-backlog-integration.md`
 최근 완료 horizon 상세: `docs/horizons/real-case-feedback-loop.md`
 최근 완료 horizon 상세: `docs/horizons/workflow-rebuild-on-richer-knowledge.md`
-피드백 패키지 horizon 상세: `docs/horizons/field-feedback-ready-demo.md`
+이전 field-feedback 관련 상세: `docs/horizons/field-feedback-ready-demo.md`

@@ -21,9 +21,6 @@ def test_objective_gap_horizons_are_ordered_and_exclude_parked_work() -> None:
     assert result["candidates"][3]["status"] == "closed"
     assert result["candidates"][4]["status"] == "active"
     assert all(candidate["evidence_target"].startswith("docs/reports/") for candidate in result["candidates"])
-    excluded = " ".join(result["excluded_from_plan"])
-    assert "external accountant feedback" in excluded
-    assert "packaging" not in excluded
 
 
 def test_objective_gap_horizon_markdown_is_public_safe() -> None:
@@ -37,3 +34,5 @@ def test_objective_gap_horizon_markdown_is_public_safe() -> None:
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
+    assert "packaging" not in rendered.lower()
+    assert "external accountant feedback" not in rendered.lower()

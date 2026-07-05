@@ -6,10 +6,6 @@
 
 Group the remaining objective gaps into implementation horizons and run them with the product harness.
 
-## Excluded From This Plan
-
-- external accountant feedback remains parked until explicitly reintroduced
-
 ## Recommended Horizon Queue
 
 | # | Horizon | Objective Gap | Why Now | Status | First Milestone | Evidence Target |
@@ -24,7 +20,7 @@ Group the remaining objective gaps into implementation horizons and run them wit
 
 - Active horizon: `demo-rehearsal-quality-loop`
 - Run horizons in order unless a later gap becomes objectively blocking.
-- Do not add external feedback work to this queue without explicit user instruction.
+- Keep the queue focused on internal product evidence, quality, and workflow coverage.
 
 ## Machine Result
 
@@ -32,9 +28,6 @@ Group the remaining objective gaps into implementation horizons and run them wit
 {
   "title": "Objective Gap Horizon Candidates",
   "objective": "Group the remaining objective gaps into implementation horizons and run them with the product harness.",
-  "excluded_from_plan": [
-    "external accountant feedback remains parked until explicitly reintroduced"
-  ],
   "active_horizon": "demo-rehearsal-quality-loop",
   "candidates": [
     {

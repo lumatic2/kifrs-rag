@@ -4,7 +4,7 @@
 
 ## Objective
 
-Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.
+Use the next five horizons to close the remaining product weaknesses with internal, public-safe evidence.
 
 ## Recommended Queue
 
@@ -19,7 +19,6 @@ Use the next five horizons to close the remaining product weaknesses before pack
 ## Parked
 
 - `end-to-end-demo-scenario` — Should integrate the five horizons above instead of preceding them.
-- `real-accountant-session` — User-owned external outreach remains parked until explicitly reopened.
 
 ## Decision
 
@@ -29,14 +28,13 @@ Use the next five horizons to close the remaining product weaknesses before pack
 - `runtime-retriever-promotion-gate` is closed.
 - `operator-experience-hardening` is closed.
 - The current five-horizon product weakness queue is closed.
-- Do not reopen actual outreach or feedback capture unless the user explicitly asks.
 
 ## Machine Result
 
 ```json
 {
   "title": "Product Weakness Horizon Candidates",
-  "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
+  "objective": "Use the next five horizons to close the remaining product weaknesses with internal, public-safe evidence.",
   "active_horizon": "none",
   "candidates": [
     {
@@ -89,10 +87,6 @@ Use the next five horizons to close the remaining product weaknesses before pack
     {
       "horizon_id": "end-to-end-demo-scenario",
       "reason": "Should integrate the five horizons above instead of preceding them."
-    },
-    {
-      "horizon_id": "real-accountant-session",
-      "reason": "User-owned external outreach remains parked until explicitly reopened."
     }
   ],
   "report_path": "docs/reports/2026-07-05-product-weakness-horizon-candidates.md"

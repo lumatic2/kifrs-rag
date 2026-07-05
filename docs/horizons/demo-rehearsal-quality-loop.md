@@ -8,7 +8,7 @@
 
 Turn the existing demo packet into repeatable operator evidence. The product has reports and demo assets, but the Objective still needs proof that the demo can be rehearsed, timed, checked, and improved without relying on ad hoc explanation.
 
-This horizon stays local and public-safe. It does not introduce outreach or packaging work.
+This horizon stays local and public-safe. It only improves repeatable demo evidence.
 
 ## Milestones
 
@@ -50,5 +50,4 @@ Status: active
 ## Decision Log
 
 - Keep the rehearsal local and public-safe.
-- Do not add external feedback capture in this horizon.
-- Do not add packaging work in this horizon.
+- Keep the work focused on internal rehearsal evidence.
