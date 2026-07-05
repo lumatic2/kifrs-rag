@@ -14,6 +14,7 @@ Next: send the real accountant reviewer invite; implementation expansion should 
 - decide: Which reviewer should receive the invite, and should the invite be sent now?
 - blocker: reviewer invite has not been sent
 - command: `python scripts\real_accountant_invite_packet.py --format text --write`
+- verify: `python scripts\real_accountant_outreach_transition_verify.py --expected-status sent --format text`
 - evidence: `docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md`
 
 ## Queue Snapshot
@@ -37,6 +38,7 @@ Next: send the real accountant reviewer invite; implementation expansion should 
   "user_decision": "Which reviewer should receive the invite, and should the invite be sent now?",
   "current_blocker": "reviewer invite has not been sent",
   "next_command": "python scripts\\real_accountant_invite_packet.py --format text --write",
+  "verify_command": "python scripts\\real_accountant_outreach_transition_verify.py --expected-status sent --format text",
   "evidence": "docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md",
   "open_decision_count": 4,
   "operator_action_required_count": 2,

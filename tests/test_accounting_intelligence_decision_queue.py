@@ -25,6 +25,8 @@ def test_decision_queue_prioritizes_reviewer_invite() -> None:
     assert decisions["send_reviewer_invite"]["priority"] == 1
     assert decisions["send_reviewer_invite"]["status"] == "needs_user_action"
     assert "reviewer invite" in decisions["send_reviewer_invite"]["current_blocker"]
+    assert "real_accountant_outreach_transition_verify.py" in decisions["send_reviewer_invite"]["verify_command"]
+    assert "--expected-status sent" in decisions["send_reviewer_invite"]["verify_command"]
     assert decisions["approve_external_body_authorization_record"]["status"] == "needs_user_action"
     assert decisions["approve_external_body_authorization_record"]["current_blocker"] == "authorized_by is required"
     assert decisions["approve_local_private_parser_adapter"]["status"] == "waiting_on_accountant_evidence"
@@ -61,6 +63,7 @@ def test_reviewer_decision_transitions_after_invite_is_sent() -> None:
     assert decision["operator_action_required"] is True
     assert "follow up, schedule" in decision["user_decision"]
     assert "real_accountant_response_packet.py" in decision["next_command"]
+    assert "--expected-status sent" in decision["verify_command"]
 
 
 def test_decision_queue_accepts_explicit_outreach_ledger(tmp_path) -> None:
@@ -85,6 +88,7 @@ def test_decision_queue_accepts_explicit_outreach_ledger(tmp_path) -> None:
     assert queue["recommended_next_decision"] == "send_reviewer_invite"
     assert decisions["send_reviewer_invite"]["status"] == "waiting_on_reviewer_reply"
     assert "real_accountant_response_packet.py" in decisions["send_reviewer_invite"]["next_command"]
+    assert "--expected-status sent" in decisions["send_reviewer_invite"]["verify_command"]
 
 
 def test_reviewer_decision_transitions_after_session_is_scheduled() -> None:
@@ -105,6 +109,7 @@ def test_reviewer_decision_transitions_after_session_is_scheduled() -> None:
     assert decision["operator_action_required"] is True
     assert "run the scheduled session" in decision["user_decision"]
     assert "real_accountant_run_sheet.py" in decision["next_command"]
+    assert "--expected-status scheduled" in decision["verify_command"]
 
 
 def test_reviewer_decision_transitions_after_session_completed() -> None:
@@ -125,6 +130,7 @@ def test_reviewer_decision_transitions_after_session_completed() -> None:
     assert decision["operator_action_required"] is True
     assert "convert actual public-safe notes" in decision["user_decision"]
     assert "real_accountant_post_session_final_gate.py" in decision["next_command"]
+    assert "--expected-status completed" in decision["verify_command"]
 
 
 def _session_with_counts(counts: dict[str, int]) -> dict[str, object]:

@@ -51,6 +51,7 @@ def build_next_action_from_queue(queue: dict[str, Any]) -> dict[str, Any]:
         "user_decision": decision["user_decision"] if decision else "No user-owned decision is currently required.",
         "current_blocker": decision["current_blocker"] if decision else "none",
         "next_command": decision["next_command"] if decision else "none",
+        "verify_command": decision["verify_command"] if decision else "none",
         "evidence": decision["evidence"] if decision else queue["report_path"],
         "open_decision_count": queue["open_decision_count"],
         "operator_action_required_count": queue["operator_action_required_count"],
@@ -77,6 +78,7 @@ def render_markdown(action: dict[str, Any]) -> str:
         f"- decide: {action['user_decision']}",
         f"- blocker: {action['current_blocker']}",
         f"- command: `{action['next_command']}`",
+        f"- verify: `{action['verify_command']}`",
         f"- evidence: `{action['evidence']}`",
         "",
         "## Queue Snapshot",
@@ -179,6 +181,7 @@ def main() -> None:
         print(f"- decide: {action['user_decision']}")
         print(f"- blocker: {action['current_blocker']}")
         print(f"- command: {action['next_command']}")
+        print(f"- verify: {action['verify_command']}")
         print(f"- evidence: {action['evidence']}")
         for error in action["errors"]:
             print(f"- {error}")

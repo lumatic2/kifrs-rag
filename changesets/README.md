@@ -21,3 +21,4 @@
 | 17 | `20260705-decision-queue-ledger-args` | 2026-07-05 | decision queue and next-action ledger path args | 4/4 | completed |
 | 18 | `20260705-outreach-transition-verify` | 2026-07-05 | verify outreach ledger state routes to next action | 4/4 | completed |
 | 19 | `20260705-outreach-transition-verify-wiring` | 2026-07-05 | wire outreach transition verifier into session packet/gap audit | 4/4 | completed |
+| 20 | `20260705-next-action-verify-command` | 2026-07-05 | show verification command in decision queue and next-action | 4/4 | completed |
