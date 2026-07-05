@@ -178,6 +178,25 @@ class ClientPrivateParserDryRunFixture:
 
 
 @dataclass(frozen=True)
+class ClientPrivateDeletionAttestation:
+    attestation_id: str
+    fixture_id: str
+    source_stub: str
+    deletion_status: str
+    deletion_mode: str
+    operator_check: str
+    allowed_public_artifact: str = "deletion attestation"
+    deleted_before_report_write: bool = False
+    raw_file_present: bool = False
+    parsed_body_present: bool = False
+    ocr_text_present: bool = False
+    embedding_present: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class ReviewerCorrection:
     case_id: str
     issue: str
@@ -337,6 +356,49 @@ def validate_client_private_parser_dry_run_fixture(
         if route.status != "candidate":
             issues.append(ValidationIssue("route", f"expected candidate route, got {route.status}: {route.missing_facts}"))
     issues.extend(_public_safe_issues(fixture.to_dict()))
+    return issues
+
+
+def validate_client_private_deletion_attestation(
+    attestation: ClientPrivateDeletionAttestation,
+    policy: ClientPrivateUploadStoragePolicy,
+    fixture: ClientPrivateParserDryRunFixture,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    policy_issues = validate_client_private_upload_storage_policy(policy)
+    fixture_issues = validate_client_private_parser_dry_run_fixture(fixture, policy)
+    issues.extend(ValidationIssue(f"policy.{issue.path}", issue.message) for issue in policy_issues)
+    issues.extend(ValidationIssue(f"fixture.{issue.path}", issue.message) for issue in fixture_issues)
+
+    if not attestation.attestation_id:
+        issues.append(ValidationIssue("attestation_id", "attestation_id is required"))
+    if attestation.fixture_id != fixture.fixture_id:
+        issues.append(ValidationIssue("fixture_id", "attestation fixture_id must match dry-run fixture"))
+    if attestation.source_stub != fixture.source_stub:
+        issues.append(ValidationIssue("source_stub", "attestation source_stub must match dry-run fixture"))
+    if not attestation.source_stub.startswith("local-private://dry-run/"):
+        issues.append(ValidationIssue("source_stub", "source_stub must use local-private://dry-run/"))
+    if attestation.deletion_status != "deleted":
+        issues.append(ValidationIssue("deletion_status", "deletion_status must be deleted"))
+    if attestation.deletion_mode != policy.deletion_mode:
+        issues.append(ValidationIssue("deletion_mode", "attestation deletion_mode must match storage policy"))
+    if attestation.allowed_public_artifact != "deletion attestation":
+        issues.append(ValidationIssue("allowed_public_artifact", "only deletion attestation may be public"))
+    if not attestation.deleted_before_report_write:
+        issues.append(ValidationIssue("deleted_before_report_write", "deletion must be attested before report write"))
+    if attestation.raw_file_present:
+        issues.append(ValidationIssue("raw_file_present", "raw private file must not be present"))
+    if attestation.parsed_body_present:
+        issues.append(ValidationIssue("parsed_body_present", "parsed private body must not be present"))
+    if attestation.ocr_text_present:
+        issues.append(ValidationIssue("ocr_text_present", "OCR text must not be present"))
+    if attestation.embedding_present:
+        issues.append(ValidationIssue("embedding_present", "private embedding must not be present"))
+    if "gitignored" not in attestation.operator_check:
+        issues.append(ValidationIssue("operator_check", "operator_check must mention gitignored local-only paths"))
+    if "deleted" not in attestation.operator_check.lower():
+        issues.append(ValidationIssue("operator_check", "operator_check must state deletion was checked"))
+    issues.extend(_public_safe_issues(attestation.to_dict()))
     return issues
 
 
@@ -704,6 +766,44 @@ def render_client_private_parser_dry_run_fixture(
         "- This fixture does not contain raw file content, OCR text, parsed source body, customer identifiers, or embeddings.",
         "- It models the public-safe output contract a future local parser must satisfy.",
         "- It must remain synthetic and repo-safe.",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+def render_client_private_deletion_attestation(
+    attestation: ClientPrivateDeletionAttestation,
+    policy: ClientPrivateUploadStoragePolicy,
+    fixture: ClientPrivateParserDryRunFixture,
+) -> str:
+    issues = validate_client_private_deletion_attestation(attestation, policy, fixture)
+    lines = [
+        f"# Client-Private Deletion Attestation - {attestation.attestation_id}",
+        "",
+        f"- Fixture id: {attestation.fixture_id}",
+        f"- Source stub: {attestation.source_stub}",
+        f"- Deletion status: {attestation.deletion_status}",
+        f"- Deletion mode: {attestation.deletion_mode}",
+        f"- Deleted before report write: {attestation.deleted_before_report_write}",
+        f"- Raw file present: {attestation.raw_file_present}",
+        f"- Parsed body present: {attestation.parsed_body_present}",
+        f"- OCR text present: {attestation.ocr_text_present}",
+        f"- Embedding present: {attestation.embedding_present}",
+        f"- Allowed public artifact: {attestation.allowed_public_artifact}",
+        "",
+        "## Operator Check",
+        "",
+        f"- {attestation.operator_check}",
+    ]
+    if issues:
+        lines.extend(["", "## Validation Issues", ""])
+        lines.extend(f"- {issue.path}: {issue.message}" for issue in issues)
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This attestation records deletion evidence only.",
+        "- It does not contain raw file content, OCR text, parsed source body, customer identifiers, or embeddings.",
+        "- It does not automate deletion or prove filesystem state by itself.",
     ])
     return "\n".join(lines) + "\n"
 
