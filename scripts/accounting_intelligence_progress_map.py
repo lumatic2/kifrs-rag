@@ -62,17 +62,17 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "RLP1", "name": "parser prototype asset inventory", "status": "completed"},
             {"id": "RLP2", "name": "local fixture parser adapter", "status": "completed"},
             {"id": "RLP3", "name": "deletion automation simulation", "status": "completed"},
-            {"id": "RLP4", "name": "private payload leak tests", "status": "active_next"},
-            {"id": "RLP5", "name": "local parser prototype close gate", "status": "pending"},
+            {"id": "RLP4", "name": "private payload leak tests", "status": "completed"},
+            {"id": "RLP5", "name": "local parser prototype close gate", "status": "active_next"},
         ],
     }
     decisions = [
         {
-            "id": "run_RLP4_private_payload_leak_tests",
+            "id": "run_RLP5_local_parser_prototype_close_gate",
             "status": "active",
-            "decide": "Add leak tests that fail if parser outputs or reports contain body-like, identifier-like, OCR-like, or embedding-like payloads.",
+            "decide": "Close the local parser prototype horizon by tying RLP1-RLP4 evidence to carried trust/runtime gates.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_private_payload_leak_tests.py -q",
+            "command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RLP4_private_payload_leak_tests",
-        "next_command": "python -m pytest tests\\test_private_payload_leak_tests.py -q",
+        "next_leaf": "RLP5_local_parser_prototype_close_gate",
+        "next_command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

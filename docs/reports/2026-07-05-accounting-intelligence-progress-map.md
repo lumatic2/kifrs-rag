@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | RLP1 | parser prototype asset inventory | completed |
 | RLP2 | local fixture parser adapter | completed |
 | RLP3 | deletion automation simulation | completed |
-| RLP4 | private payload leak tests | active_next |
-| RLP5 | local parser prototype close gate | pending |
+| RLP4 | private payload leak tests | completed |
+| RLP5 | local parser prototype close gate | active_next |
 
 ## Completed Capability Chain
 
@@ -47,7 +47,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RLP4_private_payload_leak_tests | active | none | `python -m pytest tests\test_private_payload_leak_tests.py -q` |
+| run_RLP5_local_parser_prototype_close_gate | active | none | `python -m pytest tests\test_real_local_parser_prototype_close_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -60,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RLP4_private_payload_leak_tests`
-- command: `python -m pytest tests\test_private_payload_leak_tests.py -q`
+- decision: `RLP5_local_parser_prototype_close_gate`
+- command: `python -m pytest tests\test_real_local_parser_prototype_close_gate.py -q`
 
 ## Machine Result
 
@@ -92,12 +92,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RLP4",
         "name": "private payload leak tests",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "RLP5",
         "name": "local parser prototype close gate",
-        "status": "pending"
+        "status": "active_next"
       }
     ]
   },
@@ -140,11 +140,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_RLP4_private_payload_leak_tests",
+      "id": "run_RLP5_local_parser_prototype_close_gate",
       "status": "active",
-      "decide": "Add leak tests that fail if parser outputs or reports contain body-like, identifier-like, OCR-like, or embedding-like payloads.",
+      "decide": "Close the local parser prototype horizon by tying RLP1-RLP4 evidence to carried trust/runtime gates.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_private_payload_leak_tests.py -q"
+      "command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -167,8 +167,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RLP4_private_payload_leak_tests",
-  "next_command": "python -m pytest tests\\test_private_payload_leak_tests.py -q",
+  "next_leaf": "RLP5_local_parser_prototype_close_gate",
+  "next_command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -27,7 +27,9 @@
     {
       "step": 4,
       "name": "private-payload-leak-tests",
-      "status": "pending"
+      "status": "completed",
+      "summary": "RLP4 added scripts/private_payload_leak_tests.py, tests/test_private_payload_leak_tests.py, and docs/reports/2026-07-05-rlp4-private-payload-leak-tests.md. It scans RLP1-RLP3 public parser reports for identifier-like values, OCR payload markers, raw body markers, embedding-like vectors, and private absolute file paths; current leak count is 0.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,

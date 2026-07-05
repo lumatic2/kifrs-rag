@@ -33,12 +33,14 @@ Status: completed
 
 ### RLP4. Private Payload Leak Tests
 
-Status: active
+Status: completed
 
 - Deliverable: leak-test script, tests, `docs/reports/2026-07-05-rlp4-private-payload-leak-tests.md`
 - Acceptance: body-like, identifier-like, OCR-like, and embedding-like fields are rejected from public artifacts.
 
 ### RLP5. Local Parser Prototype Close Gate
+
+Status: active
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`
 - Acceptance: prototype path is demonstrable with synthetic/local-safe fixtures and no public private payload.

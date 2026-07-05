@@ -29,9 +29,9 @@ This horizon makes the private parser path more realistic while staying local-on
 
 ### RLP4 — Private Payload Leak Tests
 
-- [ ] RLP4.1 — Define forbidden payload patterns.
-- [ ] RLP4.2 — Add leak tests around parser outputs/reports.
-- [ ] RLP4.3 — Write leak-test report.
+- [x] RLP4.1 — Define forbidden payload patterns.
+- [x] RLP4.2 — Add leak tests around parser outputs/reports.
+- [x] RLP4.3 — Write leak-test report.
 
 ### RLP5 — Local Parser Prototype Close Gate
 
