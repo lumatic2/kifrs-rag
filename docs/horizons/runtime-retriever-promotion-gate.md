@@ -43,14 +43,14 @@ Status: completed
 
 ### RPG4. Operator Promotion Command
 
-Status: active
+Status: completed
 
 - Deliverable: promotion command dry-run, tests, `docs/reports/2026-07-05-rpg4-operator-promotion-command.md`
 - Acceptance: operator can see promote/defer status and required evidence without editing runtime code by hand.
 
 ### RPG5. Promotion Gate Close Report
 
-Status: pending
+Status: active
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md`
 - Acceptance: the horizon closes with an explicit `promote`, `defer`, or `block` result and rollback evidence.

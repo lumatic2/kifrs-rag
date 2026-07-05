@@ -77,17 +77,17 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "RPG1", "name": "promotion evidence inventory", "status": "completed"},
             {"id": "RPG2", "name": "regression and latency gate", "status": "completed"},
             {"id": "RPG3", "name": "failure and rollback policy", "status": "completed"},
-            {"id": "RPG4", "name": "operator promotion command", "status": "active_next"},
-            {"id": "RPG5", "name": "promotion gate close report", "status": "pending"},
+            {"id": "RPG4", "name": "operator promotion command", "status": "completed"},
+            {"id": "RPG5", "name": "promotion gate close report", "status": "active_next"},
         ],
     }
     decisions = [
         {
-            "id": "run_RPG4_operator_promotion_command",
+            "id": "run_RPG5_promotion_gate_close_report",
             "status": "active",
-            "decide": "Provide a dry-run operator command output that shows defer status, required evidence, and rollback path without changing runtime defaults.",
+            "decide": "Close the runtime retriever promotion horizon with an explicit promote/defer/block result and rollback evidence.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_retriever_promotion_command.py -q",
+            "command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -112,8 +112,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RPG4_operator_promotion_command",
-        "next_command": "python -m pytest tests\\test_retriever_promotion_command.py -q",
+        "next_leaf": "RPG5_promotion_gate_close_report",
+        "next_command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -128,7 +128,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is runtime-retriever-promotion-gate: expose the promotion decision as a safe operator dry-run command.",
+        "The active horizon is runtime-retriever-promotion-gate: close the horizon with an explicit defer/promote/block result.",
         "",
         "## Objective",
         "",

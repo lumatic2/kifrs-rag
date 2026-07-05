@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is runtime-retriever-promotion-gate: expose the promotion decision as a safe operator dry-run command.
+The active horizon is runtime-retriever-promotion-gate: close the horizon with an explicit defer/promote/block result.
 
 ## Objective
 
@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | RPG1 | promotion evidence inventory | completed |
 | RPG2 | regression and latency gate | completed |
 | RPG3 | failure and rollback policy | completed |
-| RPG4 | operator promotion command | active_next |
-| RPG5 | promotion gate close report | pending |
+| RPG4 | operator promotion command | completed |
+| RPG5 | promotion gate close report | active_next |
 
 ## Completed Capability Chain
 
@@ -50,7 +50,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RPG4_operator_promotion_command | active | none | `python -m pytest tests\test_retriever_promotion_command.py -q` |
+| run_RPG5_promotion_gate_close_report | active | none | `python -m pytest tests\test_runtime_retriever_promotion_close_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -63,8 +63,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RPG4_operator_promotion_command`
-- command: `python -m pytest tests\test_retriever_promotion_command.py -q`
+- decision: `RPG5_promotion_gate_close_report`
+- command: `python -m pytest tests\test_runtime_retriever_promotion_close_gate.py -q`
 
 ## Machine Result
 
@@ -95,12 +95,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RPG4",
         "name": "operator promotion command",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "RPG5",
         "name": "promotion gate close report",
-        "status": "pending"
+        "status": "active_next"
       }
     ]
   },
@@ -158,11 +158,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_RPG4_operator_promotion_command",
+      "id": "run_RPG5_promotion_gate_close_report",
       "status": "active",
-      "decide": "Provide a dry-run operator command output that shows defer status, required evidence, and rollback path without changing runtime defaults.",
+      "decide": "Close the runtime retriever promotion horizon with an explicit promote/defer/block result and rollback evidence.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_retriever_promotion_command.py -q"
+      "command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -185,8 +185,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RPG4_operator_promotion_command",
-  "next_command": "python -m pytest tests\\test_retriever_promotion_command.py -q",
+  "next_leaf": "RPG5_promotion_gate_close_report",
+  "next_command": "python -m pytest tests\\test_runtime_retriever_promotion_close_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

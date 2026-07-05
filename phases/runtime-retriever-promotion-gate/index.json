@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "operator-promotion-command",
-      "status": "active"
+      "status": "completed",
+      "summary": "RPG4 added scripts/retriever_promotion_command.py, tests/test_retriever_promotion_command.py, and docs/reports/2026-07-05-rpg4-operator-promotion-command.md. It creates a dry-run operator status surface that reports decision defer, target retriever, current default, safe fallback, required evidence, and operator actions while mutates_runtime remains false.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "promotion-gate-close-report",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }

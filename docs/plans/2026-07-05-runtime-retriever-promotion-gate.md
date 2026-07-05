@@ -30,9 +30,9 @@ failure-boundary, operator-command, and rollback evidence.
 
 ### RPG4 — Operator Promotion Command
 
-- [ ] RPG4.1 — Define operator-facing promote/defer command output.
-- [ ] RPG4.2 — Implement dry-run command without changing runtime default by accident.
-- [ ] RPG4.3 — Add tests and report.
+- [x] RPG4.1 — Define operator-facing promote/defer command output.
+- [x] RPG4.2 — Implement dry-run command without changing runtime default by accident.
+- [x] RPG4.3 — Add tests and report.
 
 ### RPG5 — Promotion Gate Close Report
 
