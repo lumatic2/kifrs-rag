@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon은 `end-to-end-demo-scenario`다. 제품 약점 5-horizon queue는 `operator-experience-hardening`까지 완료됐고, 이제 그 chain을 회계법인에 설명 가능한 public-safe end-to-end demo 흐름으로 묶는다.
+현재 active horizon은 없다. `end-to-end-demo-scenario`는 `demo_ready`로 완료됐고, 제품 약점 5-horizon chain을 회계법인에 설명 가능한 public-safe end-to-end demo packet으로 묶었다.
 
 남은 horizon 순서:
 
@@ -93,7 +93,7 @@
 11. `operator-experience-hardening` — 완료. local operator UX, run doctor, manifest, recovery.
 
 제품 약점 기준 1~5 horizon queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
-통합 데모 horizon: `docs/horizons/end-to-end-demo-scenario.md`
+완료된 통합 데모 horizon: `docs/horizons/end-to-end-demo-scenario.md`
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
 최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
@@ -113,6 +113,8 @@
 제품 약점 후보 queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 현재 active horizon 상세: `docs/horizons/end-to-end-demo-scenario.md`
 현재 active milestone plan: `docs/plans/2026-07-05-end-to-end-demo-scenario.md`
+최근 완료 demo packet: `docs/reports/end-to-end-demo/INDEX.md`
+최근 완료 close report: `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`

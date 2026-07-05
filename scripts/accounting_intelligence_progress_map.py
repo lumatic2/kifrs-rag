@@ -81,23 +81,23 @@ def build_progress_map() -> dict[str, Any]:
     ]
     current_horizon = {
         "id": "end-to-end-demo-scenario",
-        "status": "active",
-        "goal": "Turn the completed product weakness chain into one public-safe firm-facing demo scenario.",
+        "status": "closed",
+        "goal": "The completed product weakness chain has been turned into one public-safe firm-facing demo packet.",
         "milestones": [
             {"id": "E2E1", "name": "demo asset inventory and storyboard", "status": "completed"},
             {"id": "E2E2", "name": "scenario contract", "status": "completed"},
             {"id": "E2E3", "name": "demo packet builder", "status": "completed"},
             {"id": "E2E4", "name": "demo smoke and navigation gate", "status": "completed"},
-            {"id": "E2E5", "name": "horizon close gate", "status": "active"},
+            {"id": "E2E5", "name": "horizon close gate", "status": "completed"},
         ],
     }
     decisions = [
         {
-            "id": "run_end_to_end_demo_scenario",
-            "status": "active_horizon",
-            "decide": "Build the public-safe demo inventory, contract, packet, smoke gate, and close report.",
+            "id": "select_next_post_demo_horizon",
+            "status": "pending_next_plan",
+            "decide": "Choose whether to rehearse the demo path or move toward packaging readiness.",
             "blocker": "none",
-            "command": "python scripts\\e2e_demo_asset_inventory.py --format text --write",
+            "command": "python scripts\\e2e_demo_close_gate.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -122,8 +122,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "E2E5_horizon_close_gate",
-        "next_command": "python scripts\\e2e_demo_close_gate.py --format text --write",
+        "next_leaf": "none_end_to_end_demo_scenario_closed",
+        "next_command": "python scripts\\e2e_demo_close_gate.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -138,7 +138,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is end-to-end-demo-scenario; E2E1 to E2E4 are complete and the next move is E2E5 horizon close gate.",
+        "The end-to-end-demo-scenario horizon is closed as demo_ready; the next move is a new post-demo horizon decision.",
         "",
         "## Objective",
         "",

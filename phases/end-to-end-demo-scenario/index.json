@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "horizon-close-gate",
-      "status": "active"
+      "status": "completed",
+      "summary": "E2E5 added scripts/e2e_demo_close_gate.py, tests/test_e2e_demo_close_gate.py, and docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md. The horizon closes as demo_ready with docs/reports/end-to-end-demo/INDEX.md as the packet and demo-rehearsal-or-packaging-readiness as the next candidate.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

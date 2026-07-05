@@ -35,9 +35,9 @@ This horizon turns the completed product-weakness work into one end-to-end demon
 
 ### E2E5 — Horizon Close Gate
 
-- [ ] E2E5.1 — Combine E2E1~E2E4 evidence. `(next)`
-- [ ] E2E5.2 — State demo-ready result and residual risks.
-- [ ] E2E5.3 — Close horizon or name the next integration horizon.
+- [x] E2E5.1 — Combine E2E1~E2E4 evidence.
+- [x] E2E5.2 — State demo-ready result and residual risks.
+- [x] E2E5.3 — Close horizon or name the next integration horizon.
 
 ## Decision Log
 

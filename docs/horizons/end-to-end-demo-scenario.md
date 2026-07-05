@@ -1,6 +1,6 @@
 # Horizon: End-to-End Demo Scenario
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 
@@ -42,7 +42,7 @@ Status: completed
 
 ### E2E5. Horizon Close Gate
 
-Status: active
+Status: completed
 
 - Deliverable: close report.
 - Acceptance: the end-to-end demo scenario is ready for a local run-through and its remaining risks are explicit.
@@ -52,3 +52,10 @@ Status: active
 - Use existing synthetic/public-safe artifacts only. No protected PDFs, DB dumps, embeddings, dogfood, private payloads, or secrets are included.
 - The demo is a local toolkit walkthrough, not SaaS packaging.
 - No external accountant outreach is part of this horizon.
+
+## Close Result
+
+- Result: `demo_ready`
+- Evidence: `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`
+- Demo packet: `docs/reports/end-to-end-demo/INDEX.md`
+- Next candidate: `demo-rehearsal-or-packaging-readiness`

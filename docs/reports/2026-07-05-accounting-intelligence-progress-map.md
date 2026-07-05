@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is end-to-end-demo-scenario; E2E1 to E2E4 are complete and the next move is E2E5 horizon close gate.
+The end-to-end-demo-scenario horizon is closed as demo_ready; the next move is a new post-demo horizon decision.
 
 ## Objective
 
@@ -13,8 +13,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 ## Current Horizon
 
 - Horizon: `end-to-end-demo-scenario`
-- Status: active
-- Goal: Turn the completed product weakness chain into one public-safe firm-facing demo scenario.
+- Status: closed
+- Goal: The completed product weakness chain has been turned into one public-safe firm-facing demo packet.
 
 | Milestone | Name | Status |
 |---|---|---|
@@ -22,7 +22,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | E2E2 | scenario contract | completed |
 | E2E3 | demo packet builder | completed |
 | E2E4 | demo smoke and navigation gate | completed |
-| E2E5 | horizon close gate | active |
+| E2E5 | horizon close gate | completed |
 
 ## Completed Capability Chain
 
@@ -52,7 +52,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_end_to_end_demo_scenario | active_horizon | none | `python scripts\e2e_demo_asset_inventory.py --format text --write` |
+| select_next_post_demo_horizon | pending_next_plan | none | `python scripts\e2e_demo_close_gate.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -65,8 +65,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `E2E5_horizon_close_gate`
-- command: `python scripts\e2e_demo_close_gate.py --format text --write`
+- decision: `none_end_to_end_demo_scenario_closed`
+- command: `python scripts\e2e_demo_close_gate.py --format text`
 
 ## Machine Result
 
@@ -76,8 +76,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
     "id": "end-to-end-demo-scenario",
-    "status": "active",
-    "goal": "Turn the completed product weakness chain into one public-safe firm-facing demo scenario.",
+    "status": "closed",
+    "goal": "The completed product weakness chain has been turned into one public-safe firm-facing demo packet.",
     "milestones": [
       {
         "id": "E2E1",
@@ -102,7 +102,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "E2E5",
         "name": "horizon close gate",
-        "status": "active"
+        "status": "completed"
       }
     ]
   },
@@ -170,11 +170,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_end_to_end_demo_scenario",
-      "status": "active_horizon",
-      "decide": "Build the public-safe demo inventory, contract, packet, smoke gate, and close report.",
+      "id": "select_next_post_demo_horizon",
+      "status": "pending_next_plan",
+      "decide": "Choose whether to rehearse the demo path or move toward packaging readiness.",
       "blocker": "none",
-      "command": "python scripts\\e2e_demo_asset_inventory.py --format text --write"
+      "command": "python scripts\\e2e_demo_close_gate.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -197,8 +197,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "E2E5_horizon_close_gate",
-  "next_command": "python scripts\\e2e_demo_close_gate.py --format text --write",
+  "next_leaf": "none_end_to_end_demo_scenario_closed",
+  "next_command": "python scripts\\e2e_demo_close_gate.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
