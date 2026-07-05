@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "horizon-close-and-workflow-coverage-handoff",
-      "status": "active"
+      "status": "completed",
+      "summary": "ESB5 added scripts/external_source_connector_body_close_gate.py, tests/test_external_source_connector_body_close_gate.py, and docs/reports/2026-07-05-external-source-body-connector-expansion-close-report.md. The horizon closes as connector_body_lane_ready and hands off to workflow-coverage-depth-expansion.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

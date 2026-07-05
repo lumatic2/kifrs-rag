@@ -35,9 +35,9 @@ This horizon addresses the Objective gap that external source connector evidence
 
 ### ESB5 — Horizon Close And Workflow Coverage Handoff
 
-- [ ] ESB5.1 — Combine ESB1~ESB4 evidence.
-- [ ] ESB5.2 — Close horizon and name next objective-gap horizon.
-- [ ] ESB5.3 — Sync ROADMAP/OBJECTIVE/progress map.
+- [x] ESB5.1 — Combine ESB1~ESB4 evidence.
+- [x] ESB5.2 — Close horizon and name next objective-gap horizon.
+- [x] ESB5.3 — Sync ROADMAP/OBJECTIVE/progress map.
 
 ## Decision Log
 

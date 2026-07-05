@@ -1,6 +1,6 @@
 # Horizon: External Source Body Connector Expansion
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/private-parser-realism-hardening.md`
 
@@ -42,10 +42,16 @@ Status: completed
 
 ### ESB5. Horizon Close And Workflow Coverage Handoff
 
-Status: active
+Status: completed
 
 - Deliverable: close report.
 - Acceptance: external source-body connector expansion status is closed and next objective-gap horizon is named.
+
+## Close Result
+
+- Close result: `connector_body_lane_ready`
+- Evidence: `docs/reports/2026-07-05-external-source-body-connector-expansion-close-report.md`
+- Next horizon: `workflow-coverage-depth-expansion`
 
 ## Decision Log
 

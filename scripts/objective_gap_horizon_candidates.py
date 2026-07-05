@@ -47,7 +47,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="external-source-body-connector-expansion",
             objective_gap="External sources have metadata/demo evidence, but broader source-body connector implementation is still missing.",
             why_now="Accounting work needs regulator, interpretive, legal, filing, and policy evidence beyond K-IFRS paragraphs.",
-            status="active",
+            status="closed",
             first_milestone="ESB1 source-body connector selection and policy gate",
             evidence_target="docs/reports/2026-07-05-esb1-source-body-connector-selection.md",
         ),
@@ -56,7 +56,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="workflow-coverage-depth-expansion",
             objective_gap="Automation coverage is strong in selected workflows but still shallow against the full firm-service map.",
             why_now="The north-star question asks how far accountant work can be automated, which requires broader workflow sampling.",
-            status="pending",
+            status="active",
             first_milestone="WCD1 service-line coverage rerank",
             evidence_target="docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md",
         ),
@@ -76,7 +76,7 @@ def build_candidates() -> dict[str, Any]:
         "excluded_from_plan": [
             "external accountant feedback remains parked until explicitly reintroduced",
         ],
-        "active_horizon": "external-source-body-connector-expansion",
+        "active_horizon": "workflow-coverage-depth-expansion",
         "candidates": [asdict(candidate) for candidate in candidates],
         "report_path": _display_path(REPORT_PATH),
     }

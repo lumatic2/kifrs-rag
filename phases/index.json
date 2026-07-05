@@ -126,6 +126,10 @@
     },
     {
       "dir": "external-source-body-connector-expansion",
+      "status": "completed"
+    },
+    {
+      "dir": "workflow-coverage-depth-expansion",
       "status": "active"
     },
     {

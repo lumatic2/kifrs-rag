@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "workflow-coverage-depth-expansion",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "service-line-coverage-rerank",
+      "status": "active"
+    },
+    {
+      "step": 2,
+      "name": "workflow-sample-contract-pack",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "minimal-adapter-expansion",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "coverage-depth-metric-update",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "horizon-close-and-demo-rehearsal-handoff",
+      "status": "pending"
+    }
+  ]
+}

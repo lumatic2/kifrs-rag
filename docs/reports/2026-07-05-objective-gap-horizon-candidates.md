@@ -16,13 +16,13 @@ Group the remaining objective gaps into implementation horizons and run them wit
 |---:|---|---|---|---|---|---|
 | 1 | `rag-quality-fresh-validation` | Default retrieval quality is still deferred; the strongest retriever is not yet trusted as a product default. | Every accountant-facing workflow depends on retrieval trust, so this should run before deeper source/parser expansion. | closed | RQF1 validation corpus and acceptance contract | `docs/reports/2026-07-05-rqf1-validation-contract.md` |
 | 2 | `private-parser-realism-hardening` | Local parser evidence is still fixture-heavy; actual local-file adapter evidence remains gated by explicit authorization. | The objective needs realistic client-input handling, but protected payloads must stay local and authorization-gated. | closed | PPR1 authorization-safe adapter proof plan | `docs/reports/2026-07-05-ppr1-authorization-safe-adapter-proof.md` |
-| 3 | `external-source-body-connector-expansion` | External sources have metadata/demo evidence, but broader source-body connector implementation is still missing. | Accounting work needs regulator, interpretive, legal, filing, and policy evidence beyond K-IFRS paragraphs. | active | ESB1 source-body connector selection and policy gate | `docs/reports/2026-07-05-esb1-source-body-connector-selection.md` |
-| 4 | `workflow-coverage-depth-expansion` | Automation coverage is strong in selected workflows but still shallow against the full firm-service map. | The north-star question asks how far accountant work can be automated, which requires broader workflow sampling. | pending | WCD1 service-line coverage rerank | `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md` |
+| 3 | `external-source-body-connector-expansion` | External sources have metadata/demo evidence, but broader source-body connector implementation is still missing. | Accounting work needs regulator, interpretive, legal, filing, and policy evidence beyond K-IFRS paragraphs. | closed | ESB1 source-body connector selection and policy gate | `docs/reports/2026-07-05-esb1-source-body-connector-selection.md` |
+| 4 | `workflow-coverage-depth-expansion` | Automation coverage is strong in selected workflows but still shallow against the full firm-service map. | The north-star question asks how far accountant work can be automated, which requires broader workflow sampling. | active | WCD1 service-line coverage rerank | `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md` |
 | 5 | `demo-rehearsal-quality-loop` | The demo packet is ready, but it has not been rehearsed into repeatable operator evidence and quality notes. | Before any external step, the local demo needs timed, repeatable, failure-aware rehearsal evidence. | pending | DRQ1 demo rehearsal script and timing gate | `docs/reports/2026-07-05-drq1-demo-rehearsal-script.md` |
 
 ## Decision
 
-- Active horizon: `external-source-body-connector-expansion`
+- Active horizon: `workflow-coverage-depth-expansion`
 - Run horizons in order unless a later gap becomes objectively blocking.
 - Do not add external feedback work to this queue without explicit user instruction.
 
@@ -35,7 +35,7 @@ Group the remaining objective gaps into implementation horizons and run them wit
   "excluded_from_plan": [
     "external accountant feedback remains parked until explicitly reintroduced"
   ],
-  "active_horizon": "external-source-body-connector-expansion",
+  "active_horizon": "workflow-coverage-depth-expansion",
   "candidates": [
     {
       "order": 1,
@@ -60,7 +60,7 @@ Group the remaining objective gaps into implementation horizons and run them wit
       "horizon_id": "external-source-body-connector-expansion",
       "objective_gap": "External sources have metadata/demo evidence, but broader source-body connector implementation is still missing.",
       "why_now": "Accounting work needs regulator, interpretive, legal, filing, and policy evidence beyond K-IFRS paragraphs.",
-      "status": "active",
+      "status": "closed",
       "first_milestone": "ESB1 source-body connector selection and policy gate",
       "evidence_target": "docs/reports/2026-07-05-esb1-source-body-connector-selection.md"
     },
@@ -69,7 +69,7 @@ Group the remaining objective gaps into implementation horizons and run them wit
       "horizon_id": "workflow-coverage-depth-expansion",
       "objective_gap": "Automation coverage is strong in selected workflows but still shallow against the full firm-service map.",
       "why_now": "The north-star question asks how far accountant work can be automated, which requires broader workflow sampling.",
-      "status": "pending",
+      "status": "active",
       "first_milestone": "WCD1 service-line coverage rerank",
       "evidence_target": "docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md"
     },

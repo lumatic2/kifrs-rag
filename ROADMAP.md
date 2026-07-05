@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (ESB4 완료, ESB5 active)
+> 마지막 업데이트: 2026-07-05 (external-source-body-connector-expansion 완료, WCD1 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -43,49 +43,57 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
 
-## Current Horizon — external-source-body-connector-expansion
+## Current Horizon — workflow-coverage-depth-expansion
 
-<!-- harness:goal id="external-source-body-connector-expansion" status="active" -->
-`docs/horizons/external-source-body-connector-expansion.md` — K-IFRS만으로 부족한 회계 실무 근거를 source-body connector 단위로 확장한다.
+<!-- harness:goal id="workflow-coverage-depth-expansion" status="active" -->
+`docs/horizons/workflow-coverage-depth-expansion.md` — firm-service map 대비 자동화 workflow 표본을 더 깊고 넓게 확장한다.
 
-순서: ESB1 source-body connector selection/policy gate ✅ → ESB2 synthetic fixture contract ✅ → ESB3 chunking/retrieval dry run ✅ → ESB4 leak/policy gate ✅ → ESB5 close/handoff.
+순서: WCD1 service-line coverage rerank → WCD2 workflow sample contract pack → WCD3 minimal adapter expansion → WCD4 coverage depth metric update → WCD5 close/handoff.
 
 ## Active Milestones
 
-<!-- harness:milestone id="ESB1" status="completed" priority="P0" -->
-### ESB1 — Source-Body Connector Selection And Policy Gate
-DoD: one non-IFRS source-body lane is selected with storage, citation, and public-safety boundaries before implementation.
-Evidence: `docs/reports/2026-07-05-esb1-source-body-connector-selection.md`
-Gap: Closed by ESB1 selection/policy script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="ESB2" status="completed" priority="P0" -->
-### ESB2 — Synthetic Source-Body Fixture Contract
-DoD: the connector has synthetic source-body fixtures, allowed fields, and forbidden payload states.
-Evidence: `docs/reports/2026-07-05-esb2-source-body-fixture-contract.md`
-Gap: Closed by ESB2 fixture contract script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="ESB3" status="completed" priority="P0" -->
-### ESB3 — Chunking And Retrieval Dry Run
-DoD: selected lane can be chunked and retrieved without storing or exposing protected body text.
-Evidence: `docs/reports/2026-07-05-esb3-chunking-retrieval-dry-run.md`
-Gap: Closed by ESB3 synthetic retrieval dry-run script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="ESB4" status="completed" priority="P0" -->
-### ESB4 — Connector Leak And Policy Gate
-DoD: generated reports prove source-body handling is public-safe and policy-compliant.
-Evidence: `docs/reports/2026-07-05-esb4-connector-leak-policy-gate.md`
-Gap: Closed by ESB4 leak/policy gate script/tests/report.
-Status: [x]
-
-<!-- harness:milestone id="ESB5" status="active" priority="P0" -->
-### ESB5 — Horizon Close And Workflow Coverage Handoff
-DoD: external source-body connector expansion is closed and the next workflow-depth horizon is named.
-Evidence: `docs/reports/2026-07-05-external-source-body-connector-expansion-close-report.md`
-Gap: Need close gate script/tests/report.
+<!-- harness:milestone id="WCD1" status="active" priority="P0" -->
+### WCD1 — Service-Line Coverage Rerank
+DoD: firm-service map gaps are ranked by automation value, evidence availability, implementation cost, and public-safety boundary.
+Evidence: `docs/reports/2026-07-05-wcd1-service-line-coverage-rerank.md`
+Gap: Need service-line coverage rerank script/tests/report.
 Status: [ ]
+
+<!-- harness:milestone id="WCD2" status="pending" priority="P0" -->
+### WCD2 — Workflow Sample Contract Pack
+DoD: selected workflow samples have input facts, authority needs, output surface, review boundary, and failure states.
+Evidence: `docs/reports/2026-07-05-wcd2-workflow-sample-contract-pack.md`
+Gap: Pending WCD1.
+Status: [ ]
+
+<!-- harness:milestone id="WCD3" status="pending" priority="P0" -->
+### WCD3 — Minimal Adapter Expansion
+DoD: at least one additional workflow produces decision-prep metadata without protected payload exposure.
+Evidence: `docs/reports/2026-07-05-wcd3-minimal-adapter-expansion.md`
+Gap: Pending WCD2.
+Status: [ ]
+
+<!-- harness:milestone id="WCD4" status="pending" priority="P0" -->
+### WCD4 — Coverage Depth Metric Update
+DoD: automation coverage depth is updated with service-line and workflow-surface counts.
+Evidence: `docs/reports/2026-07-05-wcd4-coverage-depth-metric.md`
+Gap: Pending WCD3.
+Status: [ ]
+
+<!-- harness:milestone id="WCD5" status="pending" priority="P0" -->
+### WCD5 — Horizon Close And Demo Rehearsal Handoff
+DoD: workflow coverage depth status is closed and demo rehearsal quality loop is named.
+Evidence: `docs/reports/2026-07-05-workflow-coverage-depth-expansion-close-report.md`
+Gap: Pending WCD4.
+Status: [ ]
+
+## Recently Closed External Source Body Horizon
+
+- ESB1 source-body connector selection and policy gate — 완료 (`docs/reports/2026-07-05-esb1-source-body-connector-selection.md`)
+- ESB2 synthetic source-body fixture contract — 완료 (`docs/reports/2026-07-05-esb2-source-body-fixture-contract.md`)
+- ESB3 chunking and retrieval dry run — 완료 (`docs/reports/2026-07-05-esb3-chunking-retrieval-dry-run.md`)
+- ESB4 connector leak and policy gate — 완료 (`docs/reports/2026-07-05-esb4-connector-leak-policy-gate.md`)
+- ESB5 external source-body connector expansion close gate — 완료 (`docs/reports/2026-07-05-external-source-body-connector-expansion-close-report.md`)
 
 ## Recently Closed Private Parser Horizon
 
@@ -249,7 +257,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `external-source-body-connector-expansion` / ESB5 — horizon close and workflow coverage handoff.
+**[현재 active]** `workflow-coverage-depth-expansion` / WCD1 — service-line coverage rerank.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

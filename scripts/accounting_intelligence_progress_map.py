@@ -80,15 +80,15 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "external-source-body-connector-expansion",
+        "id": "workflow-coverage-depth-expansion",
         "status": "active",
-        "goal": "Expand non-IFRS source body connector evidence under policy-gated, public-safe source-body handling.",
+        "goal": "Deepen automation coverage against the firm-service map with broader workflow sampling and public-safe decision-prep evidence.",
         "milestones": [
-            {"id": "ESB1", "name": "source-body connector selection and policy gate", "status": "completed"},
-            {"id": "ESB2", "name": "synthetic source-body fixture contract", "status": "completed"},
-            {"id": "ESB3", "name": "chunking and retrieval dry run", "status": "completed"},
-            {"id": "ESB4", "name": "connector leak and policy gate", "status": "completed"},
-            {"id": "ESB5", "name": "close and workflow coverage handoff", "status": "active"},
+            {"id": "WCD1", "name": "service-line coverage rerank", "status": "active"},
+            {"id": "WCD2", "name": "workflow sample contract pack", "status": "pending"},
+            {"id": "WCD3", "name": "minimal adapter expansion", "status": "pending"},
+            {"id": "WCD4", "name": "coverage depth metric update", "status": "pending"},
+            {"id": "WCD5", "name": "close and demo rehearsal handoff", "status": "pending"},
         ],
     }
     decisions = [
@@ -115,10 +115,17 @@ def build_progress_map() -> dict[str, Any]:
         },
         {
             "id": "run_external_connector_body_expansion",
-            "status": "active_horizon",
-            "decide": "ESB1 to ESB4 are complete; close the horizon and hand off to workflow coverage depth expansion.",
+            "status": "closed_connector_body_lane_ready",
+            "decide": "External source-body connector expansion closed with selected lane, fixture contract, retrieval dry run, leak gate, and workflow coverage handoff.",
             "blocker": "none",
-            "command": "python scripts\\external_source_connector_body_close_gate.py --format text --write",
+            "command": "python scripts\\external_source_connector_body_close_gate.py --format text",
+        },
+        {
+            "id": "run_workflow_coverage_depth_expansion",
+            "status": "active_horizon",
+            "decide": "Rerank firm-service map gaps and broaden workflow automation evidence.",
+            "blocker": "none",
+            "command": "python scripts\\workflow_coverage_depth_rerank.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -143,8 +150,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "ESB5_horizon_close_and_workflow_coverage_handoff",
-        "next_command": "python scripts\\external_source_connector_body_close_gate.py --format text --write",
+        "next_leaf": "WCD1_service_line_coverage_rerank",
+        "next_command": "python scripts\\workflow_coverage_depth_rerank.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -159,7 +166,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; ESB1 to ESB4 are complete and ESB5 close/handoff is now active.",
+        "Objective gaps are grouped into horizons; external source-body connector expansion is closed and workflow coverage depth expansion is now active.",
         "",
         "## Objective",
         "",
