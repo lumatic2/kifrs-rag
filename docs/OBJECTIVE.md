@@ -76,23 +76,25 @@
 
 ## Active horizon
 
-현재 active horizon은 `multi-authority-runtime-hardening`이다. 남은 Objective gap은 내부 제품 완성도
-기준으로 나누어 처리한다.
+현재 active horizon은 없다. `firm-facing-product-surface`까지 완료되어, 다음 구현은 새 horizon planning
+cascade에서 정한다. 남은 Objective gap은 내부 제품 완성도 기준으로 다시 나누어 처리한다.
 
 남은 horizon 순서:
 
 1. `rag-reliability-revalidation` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준.
 2. `non-ifrs-source-dataization` — 완료. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
-3. `multi-authority-runtime-hardening` — 현재. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
-4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
-5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
+3. `multi-authority-runtime-hardening` — 완료. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
+4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
+5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
 최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
 최근 완료 horizon 상세: `docs/horizons/non-ifrs-source-dataization.md`
 최근 완료 milestone plan: `docs/plans/2026-07-05-non-ifrs-source-dataization.md`
-현재 horizon 상세: `docs/horizons/multi-authority-runtime-hardening.md`
-현재 milestone plan: `docs/plans/2026-07-05-multi-authority-runtime-hardening.md`
+최근 완료 horizon 상세: `docs/horizons/multi-authority-runtime-hardening.md`
+최근 완료 horizon 상세: `docs/horizons/client-private-parser-runtime.md`
+최근 완료 horizon 상세: `docs/horizons/firm-facing-product-surface.md`
+최근 완료 milestone plan: `docs/plans/2026-07-05-firm-facing-product-surface.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`

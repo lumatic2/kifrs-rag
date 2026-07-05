@@ -60,27 +60,43 @@ uv run python scripts/quality_preflight.py --format text
 
 This preflight runs focused tests, the no-network `local-rag` threshold gate, authority metadata validators, and the `user_note_v2` audit. `docs/ci/quality.yml` provides a GitHub Actions template that runs the same command. The preflight does not require protected PDFs, parsed source text, embeddings, DB dumps, dogfood questions, API keys, or network access.
 
-## Product PoC Demo
+## Firm-Facing Local Demo
 
-The public-safe product demo uses invented fixtures only. It shows a 1115 revenue-recognition flow through review pack,
-statement draft candidates, audit analytics linkage, and a secondary 1116 lease review-pack card.
+This repository is now shaped as a local accounting-intelligence toolkit prototype for a firm-side PoC. The current
+showable surface is a public-safe K-IFRS 1116 lease review-pack walkthrough. It demonstrates what the tool can do today:
+generate a review memo, journal-entry draft, disclosure draft, review checklist, authority boundary panel, client-private
+runtime boundary summary, and verification status from invented fixture data.
 
-Generate the demo bundle:
+Generate the operator walkthrough packet:
 
 ```powershell
-python scripts/demo_poc.py --scenario revenue-financing --out docs/reports/demo-poc
+python scripts/firm_facing_operator_demo_command.py --format markdown --write
 ```
 
-Read the generated bundle from:
+Check local readiness:
 
-- `docs/reports/demo-poc/MANIFEST.md`
-- `docs/reports/demo-poc/index.md`
-- `docs/reports/demo-poc/statement-candidates.md`
-- `docs/reports/demo-poc/audit-analytics-note.md`
-- `docs/reports/demo-poc/audit-facc-links.md`
+```powershell
+python scripts/firm_facing_readiness_checklist.py --format text --write
+```
 
-The demo does not include K-IFRS source text, parsed DB rows, embeddings, dogfood questions, customer data, DART data,
-API keys, or network calls. Outputs are decision-prep drafts; accountant review remains required.
+Read the generated reports from:
+
+- `docs/reports/2026-07-05-fps2-operator-demo-command.md`
+- `docs/reports/2026-07-05-fps3-readiness-checklist.md`
+- `docs/reports/2026-07-05-firm-facing-product-surface-close-report.md`
+
+What it can do now:
+
+- Prepare decision-support drafts for K-IFRS review-pack workflows, especially 1116 lease cases.
+- Render K-IFRS primary evidence separately from supporting interpretation, legal boundary, structured fact evidence, and client-private fact references.
+- Show the client-private parser path as structured-facts-only and deletion-gated, without publishing real private files.
+- Keep RAG quality and default retriever promotion behind explicit gates.
+
+What it does not do:
+
+- It does not replace accountant judgment, partner review, audit opinion, tax/legal conclusion, sign-off, or client communication.
+- It does not publish K-IFRS source text, parsed standards, embeddings, dogfood questions, real client files, private identifiers, or private-source payloads.
+- It is not a packaged SaaS product yet; it is a local toolkit surface for technical PoC walkthroughs.
 
 ## License
 

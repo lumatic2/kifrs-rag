@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (FPS1 완료, FPS2 진행)
+> 마지막 업데이트: 2026-07-05 (firm-facing-product-surface 완료)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -32,24 +32,19 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 2. `non-ifrs-source-dataization` — 완료. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
 3. `multi-authority-runtime-hardening` — 완료. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
-5. `firm-facing-product-surface` — 현재. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
+5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
 ## Current Horizon — firm-facing-product-surface
 
-<!-- harness:goal id="firm-facing-product-surface" status="active" -->
+<!-- harness:goal id="firm-facing-product-surface" status="closed" -->
 `docs/horizons/firm-facing-product-surface.md` — 지금까지 만든 RAG/runtime/private-parser proof를 operator-facing local demo/readiness surface로 연결한다.
 
 직전 horizon에서 client-private placeholder lane을 structured-facts-only, deletion-gated local runtime으로 연결했다.
-이제 회계법인에 보여줄 수 있는 demo flow, operator command, readiness checklist, product narrative를 만든다.
+회계법인에 보여줄 수 있는 demo flow, operator command, readiness checklist, product narrative, close gate를 만들었다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="FPS2" status="active" priority="P0" -->
-### FPS2 — operator demo command
-- DoD: 1116 lease review pack + authority boundary + client-private runtime boundary + verification status를 하나의 public-safe walkthrough packet으로 생성하는 command를 만든다.
-- Evidence: `docs/reports/2026-07-05-fps2-operator-demo-command.md`; plan `docs/plans/2026-07-05-firm-facing-product-surface.md`
-- Gap: FPS1에서 추천 demo flow를 정했지만 operator가 한 번에 실행할 command는 아직 없다.
-- Status: [ ]
+없음. `firm-facing-product-surface` horizon은 닫혔다. 다음 작업은 새 horizon planning cascade에서 정한다.
 
 ## Horizon Milestones
 
@@ -57,14 +52,14 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - MAH2 runtime evidence contract hardening — 완료 (`docs/reports/2026-07-05-mah2-runtime-evidence-contract.md`)
 - MAH3 review pack authority panel — 완료 (`docs/reports/2026-07-05-mah3-review-pack-authority-panel.md`)
 - FPS1 product surface inventory and demo flow — 완료 (`docs/reports/2026-07-05-fps1-product-surface-inventory.md`)
-- FPS2 operator demo command — active
-- FPS3 readiness checklist and local install path
-- FPS4 product narrative README surface
-- FPS5 firm-facing surface close gate
+- FPS2 operator demo command — 완료 (`docs/reports/2026-07-05-fps2-operator-demo-command.md`)
+- FPS3 readiness checklist and local install path — 완료 (`docs/reports/2026-07-05-fps3-readiness-checklist.md`)
+- FPS4 product narrative README surface — 완료 (`docs/reports/2026-07-05-fps4-product-narrative.md`)
+- FPS5 firm-facing surface close gate — 완료 (`docs/reports/2026-07-05-firm-facing-product-surface-close-report.md`)
 
 ## Closed Horizons
 
-Recent closed horizons are archived in `BACKLOG.md`: client-private-parser-runtime, multi-authority-runtime-hardening, non-ifrs-source-dataization, rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
+Recent closed horizons are archived in `BACKLOG.md`: firm-facing-product-surface, client-private-parser-runtime, multi-authority-runtime-hardening, non-ifrs-source-dataization, rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
 accountant-feedback-incorporation, real-anonymized-transaction-poc, firm-facing-poc-brief,
 toolkit-packaging-readiness, workflow-rebuild, real-case feedback, feedback eval/backlog,
 multi-authority runtime, multi-source ingestion, authority source map, rag quality refresh,
@@ -91,7 +86,7 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `firm-facing-product-surface` — runtime proof를 operator-facing local demo/readiness surface로 연결하는 단계.
+**[현재 active]** 없음. `firm-facing-product-surface`는 완료됨.
 계획: `docs/horizons/firm-facing-product-surface.md` →
 `docs/plans/2026-07-05-firm-facing-product-surface.md`.
 

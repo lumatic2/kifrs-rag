@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is client-private parser runtime: connect local private files to runtime through structured facts, client-private evidence, and deletion gates.
+The firm-facing product surface horizon is closed; the next implementation should start from a new horizon plan.
 
 ## Objective
 
@@ -13,16 +13,16 @@ Prove how far accountant work can be automated, then package that proof as a loc
 ## Current Horizon
 
 - Horizon: `firm-facing-product-surface`
-- Status: active
-- Goal: Turn the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.
+- Status: closed
+- Goal: Turned the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.
 
 | Milestone | Name | Status |
 |---|---|---|
 | FPS1 | product surface inventory and demo flow | completed |
-| FPS2 | operator demo command | active_next |
-| FPS3 | readiness checklist and local install path | pending |
-| FPS4 | product narrative README surface | pending |
-| FPS5 | firm-facing surface close gate | pending |
+| FPS2 | operator demo command | completed |
+| FPS3 | readiness checklist and local install path | completed |
+| FPS4 | product narrative README surface | completed |
+| FPS5 | firm-facing surface close gate | completed |
 
 ## Completed Capability Chain
 
@@ -47,7 +47,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_FPS2_operator_demo_command | active | none | `python -m pytest tests\test_firm_facing_operator_demo_command.py -q` |
+| plan_next_horizon | ready_for_planning | none | `python scripts\accounting_intelligence_progress_map.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -60,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `FPS2_operator_demo_command`
-- command: `python -m pytest tests\test_firm_facing_operator_demo_command.py -q`
+- decision: `plan_next_horizon`
+- command: `define the next horizon in ROADMAP/docs/horizons before new implementation`
 
 ## Machine Result
 
@@ -71,8 +71,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
     "id": "firm-facing-product-surface",
-    "status": "active",
-    "goal": "Turn the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
+    "status": "closed",
+    "goal": "Turned the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
     "milestones": [
       {
         "id": "FPS1",
@@ -82,22 +82,22 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "FPS2",
         "name": "operator demo command",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "FPS3",
         "name": "readiness checklist and local install path",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "FPS4",
         "name": "product narrative README surface",
-        "status": "pending"
+        "status": "completed"
       },
       {
         "id": "FPS5",
         "name": "firm-facing surface close gate",
-        "status": "pending"
+        "status": "completed"
       }
     ]
   },
@@ -140,11 +140,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_FPS2_operator_demo_command",
-      "status": "active",
-      "decide": "Build one operator command that generates the recommended 1116 firm-facing walkthrough packet.",
+      "id": "plan_next_horizon",
+      "status": "ready_for_planning",
+      "decide": "Select the next internal capability horizon after firm-facing product surface close.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q"
+      "command": "python scripts\\accounting_intelligence_progress_map.py --format text"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -167,8 +167,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "FPS2_operator_demo_command",
-  "next_command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q",
+  "next_leaf": "plan_next_horizon",
+  "next_command": "define the next horizon in ROADMAP/docs/horizons before new implementation",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

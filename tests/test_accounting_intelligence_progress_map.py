@@ -7,10 +7,10 @@ def test_progress_map_explains_current_position_and_results() -> None:
     progress = build_progress_map()
 
     assert progress["current_horizon"]["id"] == "firm-facing-product-surface"
-    assert progress["current_horizon"]["status"] == "active"
+    assert progress["current_horizon"]["status"] == "closed"
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][1]["status"] == "active_next"
-    assert progress["next_leaf"] == "FPS2_operator_demo_command"
+    assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
+    assert progress["next_leaf"] == "plan_next_horizon"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -28,7 +28,7 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "firm-facing-product-surface" in rendered
-    assert "FPS2_operator_demo_command" in rendered
+    assert "plan_next_horizon" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

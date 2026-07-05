@@ -56,23 +56,23 @@ def build_progress_map() -> dict[str, Any]:
     ]
     current_horizon = {
         "id": "firm-facing-product-surface",
-        "status": "active",
-        "goal": "Turn the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
+        "status": "closed",
+        "goal": "Turned the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
         "milestones": [
             {"id": "FPS1", "name": "product surface inventory and demo flow", "status": "completed"},
-            {"id": "FPS2", "name": "operator demo command", "status": "active_next"},
-            {"id": "FPS3", "name": "readiness checklist and local install path", "status": "pending"},
-            {"id": "FPS4", "name": "product narrative README surface", "status": "pending"},
-            {"id": "FPS5", "name": "firm-facing surface close gate", "status": "pending"},
+            {"id": "FPS2", "name": "operator demo command", "status": "completed"},
+            {"id": "FPS3", "name": "readiness checklist and local install path", "status": "completed"},
+            {"id": "FPS4", "name": "product narrative README surface", "status": "completed"},
+            {"id": "FPS5", "name": "firm-facing surface close gate", "status": "completed"},
         ],
     }
     decisions = [
         {
-            "id": "run_FPS2_operator_demo_command",
-            "status": "active",
-            "decide": "Build one operator command that generates the recommended 1116 firm-facing walkthrough packet.",
+            "id": "plan_next_horizon",
+            "status": "ready_for_planning",
+            "decide": "Select the next internal capability horizon after firm-facing product surface close.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q",
+            "command": "python scripts\\accounting_intelligence_progress_map.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "FPS2_operator_demo_command",
-        "next_command": "python -m pytest tests\\test_firm_facing_operator_demo_command.py -q",
+        "next_leaf": "plan_next_horizon",
+        "next_command": "define the next horizon in ROADMAP/docs/horizons before new implementation",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -113,7 +113,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is client-private parser runtime: connect local private files to runtime through structured facts, client-private evidence, and deletion gates.",
+        "The firm-facing product surface horizon is closed; the next implementation should start from a new horizon plan.",
         "",
         "## Objective",
         "",

@@ -19,28 +19,28 @@ The engine now has K-IFRS RAG quality gates, non-IFRS source records, multi-auth
 
 ### FPS2 — Operator Demo Command
 
-- [ ] FPS2.1 — Define demo packet schema.
-- [ ] FPS2.2 — Generate one walkthrough packet with workflow output, authority boundary, private-runtime boundary, and verification status.
-- [ ] FPS2.3 — Add focused tests.
-- [ ] FPS2.4 — Write FPS2 report.
+- [x] FPS2.1 — Define demo packet schema.
+- [x] FPS2.2 — Generate one walkthrough packet with workflow output, authority boundary, private-runtime boundary, and verification status.
+- [x] FPS2.3 — Add focused tests.
+- [x] FPS2.4 — Write FPS2 report.
 
 ### FPS3 — Readiness Checklist And Local Install Path
 
-- [ ] FPS3.1 — Define prerequisites and local commands.
-- [ ] FPS3.2 — Document protected/private boundary.
-- [ ] FPS3.3 — Write readiness checklist report.
+- [x] FPS3.1 — Define prerequisites and local commands.
+- [x] FPS3.2 — Document protected/private boundary.
+- [x] FPS3.3 — Write readiness checklist report.
 
 ### FPS4 — Product Narrative README Surface
 
-- [ ] FPS4.1 — Explain current capabilities plainly.
-- [ ] FPS4.2 — Explain limits and non-goals plainly.
-- [ ] FPS4.3 — Connect demo command to product objective.
+- [x] FPS4.1 — Explain current capabilities plainly.
+- [x] FPS4.2 — Explain limits and non-goals plainly.
+- [x] FPS4.3 — Connect demo command to product objective.
 
 ### FPS5 — Firm-Facing Surface Close Gate
 
-- [ ] FPS5.1 — Implement product surface gate.
-- [ ] FPS5.2 — Run carried runtime/RAG regressions.
-- [ ] FPS5.3 — Close horizon.
+- [x] FPS5.1 — Implement product surface gate.
+- [x] FPS5.2 — Run carried runtime/RAG regressions.
+- [x] FPS5.3 — Close horizon.
 
 ## Stop Conditions
 

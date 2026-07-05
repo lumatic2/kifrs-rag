@@ -85,6 +85,10 @@
       "status": "completed"
     },
     {
+      "dir": "firm-facing-product-surface",
+      "status": "completed"
+    },
+    {
       "dir": "real-accountant-session",
       "status": "active"
     }

@@ -1,0 +1,42 @@
+{
+  "project": "kifrs-rag",
+  "phase": "firm-facing-product-surface",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "product-surface-inventory",
+      "status": "completed",
+      "summary": "FPS1 inventoried existing demo, review-pack, runtime gate, and narrative surfaces; selected the 1116 lease review pack with authority and private-runtime boundary as the first firm-facing walkthrough.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "operator-demo-command",
+      "status": "completed",
+      "summary": "FPS2 added scripts/firm_facing_operator_demo_command.py and tests/test_firm_facing_operator_demo_command.py. The command writes docs/reports/2026-07-05-fps2-operator-demo-command.md with 1116 review pack output, five-role authority boundary counts, client-private runtime boundary summary, and verification status from closed runtime/RAG reports.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "readiness-checklist",
+      "status": "completed",
+      "summary": "FPS3 added scripts/firm_facing_readiness_checklist.py and tests/test_firm_facing_readiness_checklist.py. The report fixes the local install/run path, required files, expected outputs, protected-data boundary, and human-review boundary for the firm-facing demo.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 4,
+      "name": "product-narrative-readme",
+      "status": "completed",
+      "summary": "FPS4 replaced the README Product PoC Demo section with a Firm-Facing Local Demo section and added scripts/firm_facing_product_narrative.py plus tests/test_firm_facing_product_narrative.py to verify capability, non-goal, and demo-command wording.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 5,
+      "name": "product-surface-close-gate",
+      "status": "completed",
+      "summary": "FPS5 added scripts/firm_facing_product_surface_gate.py and tests/test_firm_facing_product_surface_gate.py. The close report ties FPS1~FPS4 reports to carried quality_preflight, rag_quality_final_gate, default retriever guard, multi-authority runtime gate, and client-private parser runtime gate verification.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    }
+  ]
+}

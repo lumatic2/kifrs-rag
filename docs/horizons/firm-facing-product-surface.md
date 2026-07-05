@@ -1,6 +1,6 @@
 # Horizon: Firm-Facing Product Surface
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/client-private-parser-runtime.md`
 
@@ -39,7 +39,7 @@ Acceptance:
 
 ### FPS2. Operator Demo Command
 
-Status: active
+Status: complete (`docs/reports/2026-07-05-fps2-operator-demo-command.md`)
 
 Deliverable:
 
@@ -54,6 +54,8 @@ Acceptance:
 
 ### FPS3. Readiness Checklist And Local Install Path
 
+Status: complete (`docs/reports/2026-07-05-fps3-readiness-checklist.md`)
+
 Deliverable:
 
 - readiness checklist
@@ -66,6 +68,8 @@ Acceptance:
 
 ### FPS4. Product Narrative README Surface
 
+Status: complete (`docs/reports/2026-07-05-fps4-product-narrative.md`)
+
 Deliverable:
 
 - README/product section refresh or dedicated product brief
@@ -76,6 +80,8 @@ Acceptance:
 - The repo explains what the accounting AI can do today, what it cannot do, and how to run the demo without exposing protected assets.
 
 ### FPS5. Firm-Facing Surface Close Gate
+
+Status: complete (`docs/reports/2026-07-05-firm-facing-product-surface-close-report.md`)
 
 Deliverable:
 

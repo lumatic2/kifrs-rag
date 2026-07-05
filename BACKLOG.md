@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-05 — Firm-Facing Product Surface
+- Completed: 2026-07-05
+- Result: runtime/RAG/private-parser proof를 회계법인 운영자가 볼 수 있는 local demo surface로 묶었다. 1116 lease review pack operator command, readiness checklist, README product narrative, close gate를 추가했고 protected data boundary와 human-review boundary를 명시했다.
+- Evidence: `docs/reports/2026-07-05-fps1-product-surface-inventory.md`; `docs/reports/2026-07-05-fps2-operator-demo-command.md`; `docs/reports/2026-07-05-fps3-readiness-checklist.md`; `docs/reports/2026-07-05-fps4-product-narrative.md`; `docs/reports/2026-07-05-firm-facing-product-surface-close-report.md`.
+- Verification: `python -m pytest tests\test_firm_facing_product_surface_inventory.py tests\test_firm_facing_operator_demo_command.py tests\test_firm_facing_readiness_checklist.py tests\test_firm_facing_product_narrative.py tests\test_firm_facing_product_surface_gate.py -q`; `python scripts\quality_preflight.py --format text`; `python scripts\rag_quality_final_gate.py --format text`; `python scripts\default_retriever_guard.py --format text`; `python scripts\multi_authority_runtime_gate.py --format text`; `python scripts\client_private_parser_runtime_gate.py --format text`.
+
 ### 2026-07-05 — Client-Private Parser Runtime
 - Completed: 2026-07-05
 - Result: local private parser path를 public-safe runtime contract로 연결. structured-facts-only parser contract, `client_private_fact` authority adapter, deletion-gated close, horizon close demo를 구현했다. 실제 private source body, OCR text, private embedding, client identifier는 공개 산출물에 포함하지 않는다.
