@@ -14,6 +14,7 @@
 |---|---|
 | `2026-07-05-session-invite.md` | reviewer에게 보낼 초대/설명 문구 |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
+| `2026-07-05-readiness-index.md` | 전체 RS1~RS4 readiness와 실제 외부 open item 요약 |
 | `2026-07-05-invite-dispatch-gate.md` | 초대 발송 전 public-safe packet과 발송 후 ledger update 경로 검증 |
 | `2026-07-05-response-handling-gate.md` | 초대 후 follow-up/schedule/decline 응답 처리와 ledger update 경로 검증 |
 | `2026-07-05-scheduled-session-gate.md` | 일정 확정 후 세션 당일 실행 경로와 close 차단 조건 검증 |
@@ -62,6 +63,7 @@
 
 ```powershell
 python scripts\real_accountant_status.py
+python scripts\real_accountant_readiness_index.py --format text --write
 ```
 
 초대 발송부터 세션 후 capture까지 한 번에 볼 때는 아래 operator brief를 먼저 렌더한다.
