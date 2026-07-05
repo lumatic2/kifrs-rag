@@ -32,6 +32,7 @@ External source body ingestion remains deferred because no explicit authorizatio
 - `risk_acknowledgement` must be true.
 - `source_review_required` must be true.
 - `public_repo_body_commit_allowed` must be false.
+- Optional JSON record can be supplied with `--authorization-record <path>`; keep it source-specific and do not include source bodies, credentials, or copied text.
 
 ## Still Not Implemented
 
@@ -54,6 +55,7 @@ real-accountant-session RS2/RS3 evidence capture, or external source synthetic p
   "authorization_present": false,
   "authorization_valid": false,
   "authorization": null,
+  "authorization_record_path": null,
   "decision": "defer",
   "allowed_to_implement": false,
   "blockers": [

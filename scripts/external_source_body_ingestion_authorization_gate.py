@@ -43,9 +43,39 @@ class BodyIngestionAuthorization:
         return asdict(self)
 
 
+def load_authorization_record(path: Path) -> BodyIngestionAuthorization:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("authorization record must be a JSON object")
+    required = {
+        "authorized_by",
+        "authorization_scope",
+        "risk_acknowledgement",
+        "source_review_required",
+        "public_repo_body_commit_allowed",
+        "live_fetch_allowed",
+        "chunking_allowed",
+        "embedding_allowed",
+    }
+    missing = sorted(required.difference(payload))
+    if missing:
+        raise ValueError(f"authorization record missing fields: {missing}")
+    return BodyIngestionAuthorization(
+        authorized_by=str(payload["authorized_by"]),
+        authorization_scope=str(payload["authorization_scope"]),
+        risk_acknowledgement=bool(payload["risk_acknowledgement"]),
+        source_review_required=bool(payload["source_review_required"]),
+        public_repo_body_commit_allowed=bool(payload["public_repo_body_commit_allowed"]),
+        live_fetch_allowed=bool(payload["live_fetch_allowed"]),
+        chunking_allowed=bool(payload["chunking_allowed"]),
+        embedding_allowed=bool(payload["embedding_allowed"]),
+    )
+
+
 def check_authorization_gate(
     *,
     authorization: BodyIngestionAuthorization | None = None,
+    authorization_record_path: Path | None = None,
 ) -> dict[str, Any]:
     policy_plan = check_policy_plan()
     authorization_errors = _validate_authorization(authorization)
@@ -74,6 +104,7 @@ def check_authorization_gate(
         "authorization_present": authorization is not None,
         "authorization_valid": has_valid_authorization,
         "authorization": authorization.to_dict() if authorization else None,
+        "authorization_record_path": str(authorization_record_path) if authorization_record_path else None,
         "decision": "proceed" if allowed_to_implement else "defer",
         "allowed_to_implement": allowed_to_implement,
         "blockers": blockers,
@@ -96,6 +127,22 @@ def check_authorization_gate(
 
 
 def render_report(result: dict[str, Any]) -> str:
+    if result["authorization_present"] and result["authorization_valid"] and result["allowed_to_implement"]:
+        conclusion = (
+            "External source body ingestion can proceed because a valid explicit authorization record is present. "
+            "Implementation must still keep body cache/chunks/embeddings local-private and out of public commits."
+        )
+    elif result["authorization_present"]:
+        conclusion = (
+            "External source body ingestion remains deferred because the supplied authorization record is not valid. "
+            "No live body fetching, chunking, embedding, or indexing is authorized."
+        )
+    else:
+        conclusion = (
+            "External source body ingestion remains deferred because no explicit authorization record is present. "
+            "The gate is now machine-readable: policy/plan and ESBD1 prerequisites are checked, but live body fetching, "
+            "chunking, embedding, and indexing remain blocked."
+        )
     lines = [
         "# ESAG1 External Source Body Authorization Gate",
         "",
@@ -103,7 +150,7 @@ def render_report(result: dict[str, Any]) -> str:
         "",
         "## 한 줄 결론",
         "",
-        "External source body ingestion remains deferred because no explicit authorization record is present. The gate is now machine-readable: policy/plan and ESBD1 prerequisites are checked, but live body fetching, chunking, embedding, and indexing remain blocked.",
+        conclusion,
         "",
         "## Decision",
         "",
@@ -133,6 +180,7 @@ def render_report(result: dict[str, Any]) -> str:
         "- `risk_acknowledgement` must be true.",
         "- `source_review_required` must be true.",
         "- `public_repo_body_commit_allowed` must be false.",
+        "- Optional JSON record can be supplied with `--authorization-record <path>`; keep it source-specific and do not include source bodies, credentials, or copied text.",
         "",
         "## Still Not Implemented",
         "",
@@ -155,8 +203,15 @@ def render_report(result: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_report() -> dict[str, Any]:
-    result = check_authorization_gate()
+def write_report(
+    *,
+    authorization: BodyIngestionAuthorization | None = None,
+    authorization_record_path: Path | None = None,
+) -> dict[str, Any]:
+    result = check_authorization_gate(
+        authorization=authorization,
+        authorization_record_path=authorization_record_path,
+    )
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     REPORT_PATH.write_text(render_report(result), encoding="utf-8")
     return result
@@ -177,10 +232,21 @@ def _validate_authorization(authorization: BodyIngestionAuthorization | None) ->
         errors.append("source_review_required must be true")
     if authorization.public_repo_body_commit_allowed is not False:
         errors.append("public_repo_body_commit_allowed must be false")
+    live_actions = (
+        authorization.live_fetch_allowed,
+        authorization.chunking_allowed,
+        authorization.embedding_allowed,
+    )
+    if authorization.authorization_scope == "synthetic_dry_run_only" and any(live_actions):
+        errors.append("synthetic_dry_run_only scope must not allow live fetch, chunking, or embedding")
+    if authorization.authorization_scope == "source_specific_local_private_body" and not authorization.live_fetch_allowed:
+        errors.append("source_specific_local_private_body scope requires live_fetch_allowed")
     return errors
 
 
 def _authorization_from_args(args: argparse.Namespace) -> BodyIngestionAuthorization | None:
+    if args.authorization_record:
+        return load_authorization_record(args.authorization_record)
     if not args.authorize_body_ingestion:
         return None
     return BodyIngestionAuthorization(
@@ -199,6 +265,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run external source body-ingestion authorization gate.")
     parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--authorization-record", type=Path)
     parser.add_argument("--authorize-body-ingestion", action="store_true")
     parser.add_argument("--authorized-by", default="")
     parser.add_argument("--authorization-scope", default="synthetic_dry_run_only")
@@ -210,8 +277,23 @@ def main() -> None:
     parser.add_argument("--embedding-allowed", action="store_true")
     args = parser.parse_args()
 
-    authorization = _authorization_from_args(args)
-    result = write_report() if args.write and authorization is None else check_authorization_gate(authorization=authorization)
+    try:
+        authorization = _authorization_from_args(args)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(f"authorization_record_error: {exc}")
+        raise SystemExit(1) from exc
+
+    result = (
+        write_report(
+            authorization=authorization,
+            authorization_record_path=args.authorization_record,
+        )
+        if args.write
+        else check_authorization_gate(
+            authorization=authorization,
+            authorization_record_path=args.authorization_record,
+        )
+    )
     if args.format == "json":
         print(json.dumps(result, ensure_ascii=False, indent=2, default=str))
     elif args.format == "markdown":
