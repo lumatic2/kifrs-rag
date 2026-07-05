@@ -3,7 +3,7 @@
 ## 읽어야 할 파일
 
 - `docs/reports/2026-07-05-esb2-source-body-fixture-contract.md` - 왜: policy leak 기준이다.
-- `docs/reports/2026-07-05-esb3-chunk-retrieval-dry-run.md` - 왜: scan 대상 report다.
+- `docs/reports/2026-07-05-esb3-chunking-retrieval-dry-run.md` - 왜: scan 대상 report다.
 
 ## 작업
 
@@ -12,8 +12,8 @@ connector public reports가 protected body text나 secret을 노출하지 않는
 ## Acceptance Criteria
 
 ```powershell
-python -m pytest tests\test_external_source_body_connector_leak_gate.py -q
-python scripts\external_source_body_connector_leak_gate.py --format text --write
+python -m pytest tests\test_external_source_connector_body_leak_policy_gate.py -q
+python scripts\external_source_connector_body_leak_policy_gate.py --format text --write
 ```
 
 ## 검증 절차

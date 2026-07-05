@@ -35,14 +35,14 @@ Status: completed
 
 ### ESB4. Connector Leak And Policy Gate
 
-Status: active
+Status: completed
 
 - Deliverable: leak/policy gate script/tests/report.
 - Acceptance: connector reports do not expose protected body text or secrets.
 
 ### ESB5. Horizon Close And Workflow Coverage Handoff
 
-Status: pending
+Status: active
 
 - Deliverable: close report.
 - Acceptance: external source-body connector expansion status is closed and next objective-gap horizon is named.

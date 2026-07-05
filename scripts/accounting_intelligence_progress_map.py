@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "ESB1", "name": "source-body connector selection and policy gate", "status": "completed"},
             {"id": "ESB2", "name": "synthetic source-body fixture contract", "status": "completed"},
             {"id": "ESB3", "name": "chunking and retrieval dry run", "status": "completed"},
-            {"id": "ESB4", "name": "connector leak and policy gate", "status": "active"},
-            {"id": "ESB5", "name": "close and workflow coverage handoff", "status": "pending"},
+            {"id": "ESB4", "name": "connector leak and policy gate", "status": "completed"},
+            {"id": "ESB5", "name": "close and workflow coverage handoff", "status": "active"},
         ],
     }
     decisions = [
@@ -116,9 +116,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_external_connector_body_expansion",
             "status": "active_horizon",
-            "decide": "ESB1 selected the connector lane, ESB2 defined the fixture contract, and ESB3 proved synthetic retrieval metadata; continue with leak/policy gate evidence.",
+            "decide": "ESB1 to ESB4 are complete; close the horizon and hand off to workflow coverage depth expansion.",
             "blocker": "none",
-            "command": "python scripts\\external_source_connector_body_leak_policy_gate.py --format text --write",
+            "command": "python scripts\\external_source_connector_body_close_gate.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -143,8 +143,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "ESB4_connector_leak_and_policy_gate",
-        "next_command": "python scripts\\external_source_connector_body_leak_policy_gate.py --format text --write",
+        "next_leaf": "ESB5_horizon_close_and_workflow_coverage_handoff",
+        "next_command": "python scripts\\external_source_connector_body_close_gate.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -159,7 +159,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; ESB1 to ESB3 are complete and ESB4 leak/policy gate is now active.",
+        "Objective gaps are grouped into horizons; ESB1 to ESB4 are complete and ESB5 close/handoff is now active.",
         "",
         "## Objective",
         "",

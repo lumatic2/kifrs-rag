@@ -29,9 +29,9 @@ This horizon addresses the Objective gap that external source connector evidence
 
 ### ESB4 — Connector Leak And Policy Gate
 
-- [ ] ESB4.1 — Define protected body leak checks.
-- [ ] ESB4.2 — Add synthetic negative cases.
-- [ ] ESB4.3 — Write leak/policy gate report.
+- [x] ESB4.1 — Define protected body leak checks.
+- [x] ESB4.2 — Add synthetic negative cases.
+- [x] ESB4.3 — Write leak/policy gate report.
 
 ### ESB5 — Horizon Close And Workflow Coverage Handoff
 

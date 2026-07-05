@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "connector-leak-and-policy-gate",
-      "status": "active"
+      "status": "completed",
+      "summary": "ESB4 added scripts/external_source_connector_body_leak_policy_gate.py, tests/test_external_source_connector_body_leak_policy_gate.py, and docs/reports/2026-07-05-esb4-connector-leak-policy-gate.md. It scans ESB1~ESB3 public reports for blocked markers, verifies synthetic negative cases only, and reports marker counts without rendering blocked marker contents.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "horizon-close-and-workflow-coverage-handoff",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }

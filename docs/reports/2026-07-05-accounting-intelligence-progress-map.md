@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Objective gaps are grouped into horizons; ESB1 to ESB3 are complete and ESB4 leak/policy gate is now active.
+Objective gaps are grouped into horizons; ESB1 to ESB4 are complete and ESB5 close/handoff is now active.
 
 ## Objective
 
@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | ESB1 | source-body connector selection and policy gate | completed |
 | ESB2 | synthetic source-body fixture contract | completed |
 | ESB3 | chunking and retrieval dry run | completed |
-| ESB4 | connector leak and policy gate | active |
-| ESB5 | close and workflow coverage handoff | pending |
+| ESB4 | connector leak and policy gate | completed |
+| ESB5 | close and workflow coverage handoff | active |
 
 ## Completed Capability Chain
 
@@ -55,7 +55,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | select_next_post_demo_horizon | closed_by_objective_gap_queue | none | `python scripts\objective_gap_horizon_candidates.py --format text` |
 | run_rag_quality_fresh_validation | closed_defer | none | `python scripts\rag_quality_fresh_validation_close_gate.py --format text` |
 | run_private_parser_realism_hardening | closed_realism_contract_ready | none | `python scripts\private_parser_realism_close_gate.py --format text` |
-| run_external_connector_body_expansion | active_horizon | none | `python scripts\external_source_connector_body_leak_policy_gate.py --format text --write` |
+| run_external_connector_body_expansion | active_horizon | none | `python scripts\external_source_connector_body_close_gate.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -68,8 +68,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Next Leaf
 
-- decision: `ESB4_connector_leak_and_policy_gate`
-- command: `python scripts\external_source_connector_body_leak_policy_gate.py --format text --write`
+- decision: `ESB5_horizon_close_and_workflow_coverage_handoff`
+- command: `python scripts\external_source_connector_body_close_gate.py --format text --write`
 
 ## Machine Result
 
@@ -100,12 +100,12 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
       {
         "id": "ESB4",
         "name": "connector leak and policy gate",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "ESB5",
         "name": "close and workflow coverage handoff",
-        "status": "pending"
+        "status": "active"
       }
     ]
   },
@@ -196,9 +196,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     {
       "id": "run_external_connector_body_expansion",
       "status": "active_horizon",
-      "decide": "ESB1 selected the connector lane, ESB2 defined the fixture contract, and ESB3 proved synthetic retrieval metadata; continue with leak/policy gate evidence.",
+      "decide": "ESB1 to ESB4 are complete; close the horizon and hand off to workflow coverage depth expansion.",
       "blocker": "none",
-      "command": "python scripts\\external_source_connector_body_leak_policy_gate.py --format text --write"
+      "command": "python scripts\\external_source_connector_body_close_gate.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -221,8 +221,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
-  "next_leaf": "ESB4_connector_leak_and_policy_gate",
-  "next_command": "python scripts\\external_source_connector_body_leak_policy_gate.py --format text --write",
+  "next_leaf": "ESB5_horizon_close_and_workflow_coverage_handoff",
+  "next_command": "python scripts\\external_source_connector_body_close_gate.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
