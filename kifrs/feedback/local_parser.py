@@ -143,6 +143,50 @@ class LocalPrivateParserAdapterDryRunGate:
         }
 
 
+@dataclass(frozen=True)
+class LocalPrivateParserAdapterScaffoldRequest:
+    scaffold_run_id: str
+    source_kind: str
+    source_stub: str
+    document_type: str
+    expected_domain: str
+    extracted_fields: dict[str, Any] = field(default_factory=dict)
+    operator_ack: str = ""
+    raw_file_path: str = ""
+    ocr_enabled: bool = False
+    parse_source_body: bool = False
+    persist_source_body: bool = False
+    create_private_embedding: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class LocalPrivateParserAdapterScaffoldRun:
+    scaffold_id: str
+    contract_id: str
+    request: LocalPrivateParserAdapterScaffoldRequest
+    prototype_result: LocalPrivateParserPrototypeResult | None = None
+    errors: list[str] = field(default_factory=list)
+    real_adapter_implemented: bool = False
+
+    @property
+    def ok(self) -> bool:
+        return not self.errors and self.prototype_result is not None and self.prototype_result.route.status == "candidate"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "scaffold_id": self.scaffold_id,
+            "contract_id": self.contract_id,
+            "request": self.request.to_dict(),
+            "prototype_result": self.prototype_result.to_dict() if self.prototype_result is not None else {},
+            "errors": list(self.errors),
+            "real_adapter_implemented": self.real_adapter_implemented,
+            "ok": self.ok,
+        }
+
+
 def validate_local_private_parser_prototype_input(
     parser_input: LocalPrivateParserPrototypeInput,
     policy: ClientPrivateUploadStoragePolicy,
@@ -231,6 +275,98 @@ def validate_local_private_parser_adapter_contract(
         issues.append(ValidationIssue("deletion_automation", "adapter contract must not claim deletion automation yet"))
     issues.extend(_public_safe_issues(contract.to_dict()))
     return issues
+
+
+def validate_local_private_parser_adapter_scaffold_request(
+    request: LocalPrivateParserAdapterScaffoldRequest,
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    contract_issues = validate_local_private_parser_adapter_contract(contract, policy)
+    issues.extend(ValidationIssue(f"contract.{issue.path}", issue.message) for issue in contract_issues)
+
+    if not request.scaffold_run_id:
+        issues.append(ValidationIssue("scaffold_run_id", "scaffold_run_id is required"))
+    if request.source_kind != contract.source_kind:
+        issues.append(ValidationIssue("source_kind", "source_kind must match adapter contract"))
+    if request.source_kind != "synthetic_fixture":
+        issues.append(ValidationIssue("source_kind", "scaffold only supports synthetic_fixture until real adapter gate exists"))
+    if not request.source_stub.startswith("local-private://dry-run/"):
+        issues.append(ValidationIssue("source_stub", "source_stub must use local-private://dry-run/"))
+    if request.document_type not in contract.allowed_document_types:
+        issues.append(ValidationIssue("document_type", f"document_type is outside adapter contract: {request.document_type}"))
+    if request.expected_domain not in contract.allowed_domains:
+        issues.append(ValidationIssue("expected_domain", f"expected_domain is outside adapter contract: {request.expected_domain}"))
+    if not request.extracted_fields:
+        issues.append(ValidationIssue("extracted_fields", "extracted_fields are required"))
+    missing_fields = sorted(set(contract.required_extracted_fields).difference(request.extracted_fields))
+    if missing_fields:
+        issues.append(ValidationIssue("extracted_fields", f"missing adapter-required fields: {missing_fields}"))
+    if request.operator_ack != "structured-facts-only-public-safe":
+        issues.append(ValidationIssue("operator_ack", "operator_ack must be structured-facts-only-public-safe"))
+    if request.raw_file_path:
+        issues.append(ValidationIssue("raw_file_path", "scaffold must not receive raw file paths"))
+    if request.ocr_enabled:
+        issues.append(ValidationIssue("ocr_enabled", "scaffold must not enable OCR"))
+    if request.parse_source_body:
+        issues.append(ValidationIssue("parse_source_body", "scaffold must not parse source bodies"))
+    if request.persist_source_body:
+        issues.append(ValidationIssue("persist_source_body", "scaffold must not persist source bodies"))
+    if request.create_private_embedding:
+        issues.append(ValidationIssue("create_private_embedding", "scaffold must not create private embeddings"))
+    issues.extend(_public_safe_issues(request.to_dict()))
+    return issues
+
+
+def run_local_private_parser_adapter_scaffold(
+    scaffold_id: str,
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+    request: LocalPrivateParserAdapterScaffoldRequest,
+) -> LocalPrivateParserAdapterScaffoldRun:
+    errors: list[str] = []
+    if not scaffold_id:
+        errors.append("scaffold_id: scaffold_id is required")
+    request_issues = validate_local_private_parser_adapter_scaffold_request(request, contract, policy)
+    errors.extend(f"{issue.path}: {issue.message}" for issue in request_issues)
+    if errors:
+        return LocalPrivateParserAdapterScaffoldRun(
+            scaffold_id=scaffold_id,
+            contract_id=contract.adapter_id,
+            request=request,
+            errors=errors,
+            real_adapter_implemented=False,
+        )
+
+    try:
+        prototype_input = contract_to_local_private_parser_prototype_input(
+            contract,
+            policy,
+            parser_run_id=request.scaffold_run_id,
+            source_stub=request.source_stub,
+            document_type=request.document_type,
+            expected_domain=request.expected_domain,
+            extracted_fields=request.extracted_fields,
+        )
+        prototype_result = run_local_private_parser_prototype(prototype_input, policy)
+    except ValueError as exc:
+        return LocalPrivateParserAdapterScaffoldRun(
+            scaffold_id=scaffold_id,
+            contract_id=contract.adapter_id,
+            request=request,
+            errors=[str(exc)],
+            real_adapter_implemented=False,
+        )
+
+    return LocalPrivateParserAdapterScaffoldRun(
+        scaffold_id=scaffold_id,
+        contract_id=contract.adapter_id,
+        request=request,
+        prototype_result=prototype_result,
+        errors=[],
+        real_adapter_implemented=False,
+    )
 
 
 def validate_local_private_parser_adapter_dry_run_case(
@@ -436,6 +572,45 @@ def render_local_private_parser_prototype_result(result: LocalPrivateParserProto
         "- It only converts synthetic parser-shaped input into redacted structured facts and a review-pack route candidate.",
         "- Real private file handling remains outside this repo until a separate local-only implementation gate exists.",
     ])
+    return "\n".join(lines) + "\n"
+
+
+def render_local_private_parser_adapter_scaffold_run(run: LocalPrivateParserAdapterScaffoldRun) -> str:
+    lines = [
+        f"# Local Parser Adapter Scaffold Run - {run.scaffold_id}",
+        "",
+        f"- Contract: {run.contract_id}",
+        f"- OK: {run.ok}",
+        f"- Real adapter implemented: {run.real_adapter_implemented}",
+        f"- Source kind: {run.request.source_kind}",
+        f"- Source stub: {run.request.source_stub}",
+        "",
+        "## Route",
+        "",
+    ]
+    if run.prototype_result is not None:
+        lines.extend([
+            f"- Route: {run.prototype_result.route.route}",
+            f"- Route status: {run.prototype_result.route.status}",
+            f"- Deletion status: {run.prototype_result.deletion_attestation.deletion_status}",
+        ])
+    else:
+        lines.append("- prototype route not produced")
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This scaffold accepts structured facts only.",
+        "- It refuses raw file paths, OCR, source-body parsing, source-body persistence, and private embeddings.",
+        "- It is an adapter entrypoint scaffold, not a real private-file parser.",
+    ])
+    if run.errors:
+        lines.extend([
+            "",
+            "## Errors",
+            "",
+        ])
+        lines.extend(f"- {error}" for error in run.errors)
     return "\n".join(lines) + "\n"
 
 

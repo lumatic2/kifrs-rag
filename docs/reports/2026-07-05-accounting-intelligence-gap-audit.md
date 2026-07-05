@@ -29,6 +29,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | local_parser_prototype_close_gate | `docs/reports/2026-07-05-lpc1-local-parser-prototype-close-gate.md` | present |
 | local_parser_adapter_contract | `docs/reports/2026-07-05-lpa1-local-parser-adapter-contract.md` | present |
 | local_parser_adapter_dry_run_gate | `docs/reports/2026-07-05-lpad1-local-parser-adapter-dry-run-gate.md` | present |
+| local_parser_adapter_scaffold | `docs/reports/2026-07-05-lpas1-local-parser-adapter-scaffold.md` | present |
 
 ## Demo Outputs
 
@@ -55,13 +56,13 @@ technical demo package is ready for review, but final PoC proof requires an actu
 ## Remaining Gaps
 
 - actual accountant session evidence is still external/user-owned
-- local parser adapter dry-run gate is closed, but real upload/OCR/parser/deletion automation are not implemented
+- local parser adapter scaffold is present, but real upload/OCR/parser/deletion automation are not implemented
 - external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or local parser adapter scaffold
+real-accountant-session RS2/RS3 evidence capture, or local parser operator runbook
 
 ## Machine Result
 
@@ -77,10 +78,10 @@ real-accountant-session RS2/RS3 evidence capture, or local parser adapter scaffo
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or local parser adapter scaffold",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or local parser operator runbook",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "local parser adapter dry-run gate is closed, but real upload/OCR/parser/deletion automation are not implemented",
+    "local parser adapter scaffold is present, but real upload/OCR/parser/deletion automation are not implemented",
     "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],
