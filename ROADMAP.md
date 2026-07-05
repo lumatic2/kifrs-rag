@@ -45,18 +45,18 @@ chunk/index 정책으로 바꾼다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="NIS2" status="active" priority="P0" -->
-### NIS2 — source record contract
-- DoD: 문서형 source, 법령 locator, structured fact, private fact를 같은 RAG pipeline에 넘기기 위한 record contract를 정의하고 검증한다.
-- Evidence: `docs/reports/2026-07-05-nis2-source-record-contract.md`; plan `docs/plans/2026-07-05-non-ifrs-source-dataization.md`
-- Gap: NIS1은 기존 asset 재사용 범위를 정했지만, 다음 fixture와 runtime handoff가 읽을 단일 source record contract는 아직 없다.
+<!-- harness:milestone id="NIS3" status="active" priority="P0" -->
+### NIS3 — dataization fixtures and validators
+- DoD: 각 source lane을 public-safe synthetic/metadata fixture로 만들고 validator로 검증한다.
+- Evidence: `docs/reports/2026-07-05-nis3-dataization-fixtures.md`; plan `docs/plans/2026-07-05-non-ifrs-source-dataization.md`
+- Gap: NIS2는 source record contract를 정의했지만, 네 lane을 모두 담은 public-safe fixture와 CLI validator는 아직 없다.
 - Status: [ ]
 
 ## Horizon Milestones
 
 - NIS1 existing source asset inventory — 완료 (`docs/reports/2026-07-05-nis1-source-asset-inventory.md`)
-- NIS2 source record contract — active
-- NIS3 dataization fixtures and validators
+- NIS2 source record contract — 완료 (`docs/reports/2026-07-05-nis2-source-record-contract.md`)
+- NIS3 dataization fixtures and validators — active
 - NIS4 chunking and embedding policy
 - NIS5 dataization gate and runtime handoff
 

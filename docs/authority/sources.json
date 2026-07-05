@@ -69,6 +69,16 @@
       "keywords": ["OpenDART", "DART", "공시", "재무제표", "XBRL", "감사분석"],
       "status": "metadata-only",
       "note": "Fact source candidate only. Public repo stores schema and synthetic fixtures, not raw filings or API payloads."
+    },
+    {
+      "id": "client-private-local",
+      "title": "Client-private local case facts",
+      "authority_type": "personal_note",
+      "priority": 30,
+      "scope": "Local-only client facts from contracts, trial balances, accounting policies, and workpapers",
+      "keywords": ["client-private", "local-only", "contract", "trial balance", "accounting policy", "workpaper"],
+      "status": "metadata-only",
+      "note": "Placeholder source id only. Public repo stores schema and placeholders, not client content."
     }
   ]
 }

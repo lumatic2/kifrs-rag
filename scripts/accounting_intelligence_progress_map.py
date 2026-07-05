@@ -50,19 +50,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
         "milestones": [
             {"id": "NIS1", "name": "existing source asset inventory", "status": "completed"},
-            {"id": "NIS2", "name": "source record contract", "status": "active_next"},
-            {"id": "NIS3", "name": "dataization fixtures and validators", "status": "pending"},
+            {"id": "NIS2", "name": "source record contract", "status": "completed"},
+            {"id": "NIS3", "name": "dataization fixtures and validators", "status": "active_next"},
             {"id": "NIS4", "name": "chunking and embedding policy", "status": "pending"},
             {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_NIS2_source_record_contract",
+            "id": "run_NIS3_dataization_fixtures",
             "status": "active",
-            "decide": "Define and test the source record contract for non-IFRS dataization.",
+            "decide": "Create and validate public-safe non-IFRS source record fixtures.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_source_record_contract.py -q",
+            "command": "python scripts\\validate_non_ifrs_source_records.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "NIS2_source_record_contract",
-        "next_command": "python -m pytest tests\\test_source_record_contract.py -q",
+        "next_leaf": "NIS3_dataization_fixtures_and_validators",
+        "next_command": "python scripts\\validate_non_ifrs_source_records.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
