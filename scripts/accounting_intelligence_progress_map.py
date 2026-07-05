@@ -60,8 +60,8 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "RR1", "name": "baseline inventory", "status": "completed"},
             {"id": "RR2", "name": "eval matrix and seed coverage", "status": "completed"},
-            {"id": "RR3", "name": "retrieval and citation diagnostics", "status": "active_next"},
-            {"id": "RR4", "name": "repair policy candidate", "status": "pending"},
+            {"id": "RR3", "name": "retrieval and citation diagnostics", "status": "completed"},
+            {"id": "RR4", "name": "repair policy candidate", "status": "active_next"},
             {"id": "RR5", "name": "promotion gate and handoff", "status": "pending"},
         ],
     }
@@ -94,7 +94,7 @@ def build_progress_map() -> dict[str, Any]:
             "automation_rate": gap.automation_rate,
         },
         "remaining_gaps": gap.remaining_gaps,
-        "next_leaf": next_action["recommended_next_decision"] or "RR3_retrieval_and_citation_diagnostics",
+        "next_leaf": next_action["recommended_next_decision"] or "RR4_repair_policy_candidate",
         "next_command": next_action["next_command"]
         if next_action["next_command"] != "none"
         else "python scripts\\quality_preflight.py --format text",

@@ -45,19 +45,19 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Active Milestones
 
-<!-- harness:milestone id="RR3" status="active" priority="P0" -->
-### RR3 — retrieval and citation diagnostics
-- DoD: default `hybrid`와 opt-in `ifrs1109_classification_hybrid`의 retrieval/citation 결과를 RR2 bucket별로 비교하고 실패 유형을 public-safe report로 남긴다.
-- Evidence: `docs/reports/2026-07-05-rr3-retrieval-citation-diagnostics.md`; plan `docs/plans/2026-07-05-rag-reliability-revalidation.md`
-- Gap: RR1은 검증 명령 inventory, RR2는 eval coverage matrix였고, 아직 실제 bucket별 retrieval/citation 품질 진단이 없다.
+<!-- harness:milestone id="RR4" status="active" priority="P0" -->
+### RR4 — repair policy candidate
+- DoD: default retriever 변경 없이 적용 가능한 repair 정책 후보와 보류할 정책을 정리하고, default retriever guard가 계속 통과한다.
+- Evidence: `docs/reports/2026-07-05-rr4-repair-policy-candidate.md`; plan `docs/plans/2026-07-05-rag-reliability-revalidation.md`
+- Gap: RR3는 retrieval/citation 성능을 진단했지만, 어떤 repair policy를 product runtime에 적용하거나 보류할지 아직 결정하지 않았다.
 - Status: [ ]
 
 ## Horizon Milestones
 
 - RR1 baseline inventory — 완료 (`docs/reports/2026-07-05-rr1-rag-baseline-inventory.md`)
 - RR2 eval matrix and seed coverage — 완료 (`docs/reports/2026-07-05-rr2-eval-matrix.md`)
-- RR3 retrieval and citation diagnostics — active
-- RR4 repair policy candidate
+- RR3 retrieval and citation diagnostics — 완료 (`docs/reports/2026-07-05-rr3-retrieval-citation-diagnostics.md`)
+- RR4 repair policy candidate — active
 - RR5 promotion gate and next-horizon handoff
 
 Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 외부 검증 실행은 사용자가 다시
