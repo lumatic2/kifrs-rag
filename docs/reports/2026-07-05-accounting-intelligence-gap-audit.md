@@ -42,6 +42,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | external_connector_metadata_close_gate | `docs/reports/2026-07-05-esmc1-external-source-connector-metadata-close-gate.md` | present |
 | external_connector_live_metadata_decision_gate | `docs/reports/2026-07-05-eslm1-external-source-connector-live-metadata-decision-gate.md` | present |
 | external_connector_live_metadata_probe_scaffold | `docs/reports/2026-07-05-eslp1-external-source-connector-live-metadata-probe-scaffold.md` | present |
+| external_connector_live_metadata_close_gate | `docs/reports/2026-07-05-eslc1-external-source-connector-live-metadata-close-gate.md` | present |
 
 ## Demo Outputs
 
@@ -69,12 +70,12 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 - actual accountant session evidence is still external/user-owned
 - local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented
-- external source connector live-metadata probe scaffold is present, but live-metadata close gate is not implemented
+- external source connector live-metadata scaffold is closed, but live-metadata report fixture is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or external source connector live-metadata close gate
+real-accountant-session RS2/RS3 evidence capture, or external source connector live-metadata report fixture
 
 ## Machine Result
 
@@ -90,11 +91,11 @@ real-accountant-session RS2/RS3 evidence capture, or external source connector l
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source connector live-metadata close gate",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source connector live-metadata report fixture",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
     "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-    "external source connector live-metadata probe scaffold is present, but live-metadata close gate is not implemented",
+    "external source connector live-metadata scaffold is closed, but live-metadata report fixture is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],
   "errors": []
