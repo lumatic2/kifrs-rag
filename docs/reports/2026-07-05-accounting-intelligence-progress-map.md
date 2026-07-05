@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Objective gaps are grouped into horizons; workflow coverage depth is closed and demo rehearsal quality loop is now active.
+Objective gaps are grouped into horizons; DRQ1 is complete and DRQ2 demo run quality checklist is now active.
 
 ## Objective
 
@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 | Milestone | Name | Status |
 |---|---|---|
-| DRQ1 | demo rehearsal script and timing gate | active |
-| DRQ2 | demo run quality checklist | pending |
+| DRQ1 | demo rehearsal script and timing gate | completed |
+| DRQ2 | demo run quality checklist | active |
 | DRQ3 | rehearsal evidence capture | pending |
 | DRQ4 | demo improvement backlog | pending |
 | DRQ5 | close and objective gap audit | pending |
@@ -57,7 +57,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | run_private_parser_realism_hardening | closed_realism_contract_ready | none | `python scripts\private_parser_realism_close_gate.py --format text` |
 | run_external_connector_body_expansion | closed_connector_body_lane_ready | none | `python scripts\external_source_connector_body_close_gate.py --format text` |
 | run_workflow_coverage_depth_expansion | closed_coverage_depth_expanded | none | `python scripts\workflow_coverage_depth_close_gate.py --format text` |
-| run_demo_rehearsal_quality_loop | active_horizon | none | `python scripts\demo_rehearsal_script.py --format text --write` |
+| run_demo_rehearsal_quality_loop | active_horizon | none | `python scripts\demo_run_quality_checklist.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -70,8 +70,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Next Leaf
 
-- decision: `DRQ1_demo_rehearsal_script_and_timing_gate`
-- command: `python scripts\demo_rehearsal_script.py --format text --write`
+- decision: `DRQ2_demo_run_quality_checklist`
+- command: `python scripts\demo_run_quality_checklist.py --format text --write`
 
 ## Machine Result
 
@@ -87,12 +87,12 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
       {
         "id": "DRQ1",
         "name": "demo rehearsal script and timing gate",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "DRQ2",
         "name": "demo run quality checklist",
-        "status": "pending"
+        "status": "active"
       },
       {
         "id": "DRQ3",
@@ -212,9 +212,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     {
       "id": "run_demo_rehearsal_quality_loop",
       "status": "active_horizon",
-      "decide": "Define the demo rehearsal stages, timing gate, and expected public-safe evidence outputs.",
+      "decide": "DRQ1 defined demo rehearsal stages and timing; continue with pass/fail quality checklist.",
       "blocker": "none",
-      "command": "python scripts\\demo_rehearsal_script.py --format text --write"
+      "command": "python scripts\\demo_run_quality_checklist.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -237,8 +237,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
-  "next_leaf": "DRQ1_demo_rehearsal_script_and_timing_gate",
-  "next_command": "python scripts\\demo_rehearsal_script.py --format text --write",
+  "next_leaf": "DRQ2_demo_run_quality_checklist",
+  "next_command": "python scripts\\demo_run_quality_checklist.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

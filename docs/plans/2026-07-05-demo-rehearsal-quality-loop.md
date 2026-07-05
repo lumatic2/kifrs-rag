@@ -11,9 +11,9 @@ This horizon addresses the Objective gap that the demo packet exists but has not
 
 ### DRQ1 — Demo Rehearsal Script And Timing Gate
 
-- [ ] DRQ1.1 — Inventory demo stages from the existing packet.
-- [ ] DRQ1.2 — Define timing budget and expected outputs.
-- [ ] DRQ1.3 — Write rehearsal script report.
+- [x] DRQ1.1 — Inventory demo stages from the existing packet.
+- [x] DRQ1.2 — Define timing budget and expected outputs.
+- [x] DRQ1.3 — Write rehearsal script report.
 
 ### DRQ2 — Demo Run Quality Checklist
 

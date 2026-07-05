@@ -14,14 +14,14 @@ This horizon stays local and public-safe. It does not introduce outreach or pack
 
 ### DRQ1. Demo Rehearsal Script And Timing Gate
 
-Status: active
+Status: completed
 
 - Deliverable: rehearsal script, tests, `docs/reports/2026-07-05-drq1-demo-rehearsal-script.md`
 - Acceptance: demo stages, timing budget, operator command, and expected evidence outputs are explicit.
 
 ### DRQ2. Demo Run Quality Checklist
 
-Status: pending
+Status: active
 
 - Deliverable: quality checklist script/report.
 - Acceptance: each demo stage has pass/fail checks, failure notes, and recovery route.

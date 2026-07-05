@@ -84,8 +84,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Turn the existing demo packet into repeatable, timed, public-safe operator rehearsal evidence.",
         "milestones": [
-            {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "active"},
-            {"id": "DRQ2", "name": "demo run quality checklist", "status": "pending"},
+            {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "completed"},
+            {"id": "DRQ2", "name": "demo run quality checklist", "status": "active"},
             {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "pending"},
             {"id": "DRQ4", "name": "demo improvement backlog", "status": "pending"},
             {"id": "DRQ5", "name": "close and objective gap audit", "status": "pending"},
@@ -130,9 +130,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_demo_rehearsal_quality_loop",
             "status": "active_horizon",
-            "decide": "Define the demo rehearsal stages, timing gate, and expected public-safe evidence outputs.",
+            "decide": "DRQ1 defined demo rehearsal stages and timing; continue with pass/fail quality checklist.",
             "blocker": "none",
-            "command": "python scripts\\demo_rehearsal_script.py --format text --write",
+            "command": "python scripts\\demo_run_quality_checklist.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -157,8 +157,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "DRQ1_demo_rehearsal_script_and_timing_gate",
-        "next_command": "python scripts\\demo_rehearsal_script.py --format text --write",
+        "next_leaf": "DRQ2_demo_run_quality_checklist",
+        "next_command": "python scripts\\demo_run_quality_checklist.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -173,7 +173,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; workflow coverage depth is closed and demo rehearsal quality loop is now active.",
+        "Objective gaps are grouped into horizons; DRQ1 is complete and DRQ2 demo run quality checklist is now active.",
         "",
         "## Objective",
         "",
