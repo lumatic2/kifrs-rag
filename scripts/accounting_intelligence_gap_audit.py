@@ -112,6 +112,10 @@ REQUIRED_REPORTS = {
     / "docs"
     / "reports"
     / "2026-07-05-eslsc1-external-source-connector-lane-close-gate.md",
+    "external_connector_post_close_demo_packet_note": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -167,7 +171,7 @@ def build_gap_audit() -> GapAudit:
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
         "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-        "external source connector metadata-only lane is closed, but post-close demo packet note is not implemented",
+        "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]
 
@@ -184,7 +188,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source connector post-close demo packet note",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or opt-in retriever promotion decision after actual accountant evidence",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )

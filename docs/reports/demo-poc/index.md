@@ -10,9 +10,11 @@ Demo scenario: 1115 수익인식 + F/S draft + audit analytics linkage.
 - `audit-analytics-note.md`
 - `audit-facc-links.md`
 - `1116-lease-review-pack.md`
+- `../2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md`
 - `../2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`
 
 ## External Connector Evidence
+- Open `../2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md` first when explaining the KASB/FSS connector boundary.
 - KASB/FSS connector readiness is shown as metadata-only evidence in `../2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`.
 - The connector evidence is locator/status readiness only; it does not fetch, store, chunk, embed, or answer from external source body text.
 

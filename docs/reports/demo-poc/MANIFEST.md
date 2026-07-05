@@ -20,7 +20,8 @@ only. It does not contain K-IFRS source text, parsed DB rows, embeddings, dogfoo
 | 6 | `audit-analytics-note.md` | Synthetic F/S analytical procedure findings and review questions |
 | 7 | `audit-facc-links.md` | Links between audit findings and F-ACC statement candidates |
 | 8 | `1116-lease-review-pack.md` | Secondary lease review-pack card |
-| 9 | `../2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md` | Metadata-only KASB/FSS connector readiness evidence |
+| 9 | `../2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md` | Reviewer-facing note explaining the metadata-only KASB/FSS connector boundary |
+| 10 | `../2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md` | Metadata-only KASB/FSS connector readiness evidence |
 
 ## Regeneration
 

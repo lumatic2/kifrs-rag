@@ -25,7 +25,9 @@ python scripts\demo_poc.py --scenario revenue-financing --out docs\reports\demo-
    - 피드백 기록용 질문지.
 7. `docs/reports/2026-07-05-accounting-intelligence-gap-audit.md`
    - 현재 기술 증거, 24개 review pack 자동화율, 남은 PoC gap.
-8. `docs/reports/2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`
+8. `docs/reports/2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md`
+   - KASB/FSS 외부자료 connector가 metadata-only 보조 근거임을 먼저 설명하는 reviewer-facing note.
+9. `docs/reports/2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`
    - KASB/FSS 외부자료 connector가 본문 없이 metadata-only report fixture 수준에서 닫혔는지 확인.
 
 ## 피드백 목표
