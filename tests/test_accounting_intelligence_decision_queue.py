@@ -7,6 +7,7 @@ def test_decision_queue_prioritizes_reviewer_invite() -> None:
     queue = build_decision_queue()
 
     assert queue["ok"], queue["errors"]
+    assert queue["mode"] == "cached_reports"
     assert queue["open_decision_count"] == 4
     assert queue["operator_action_required_count"] == 2
     assert queue["recommended_next_decision"] == "send_reviewer_invite"

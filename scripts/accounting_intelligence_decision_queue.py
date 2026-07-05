@@ -18,13 +18,13 @@ from scripts.external_source_body_ingestion_authorization_gate import (  # noqa:
     check_authorization_gate,
     load_authorization_record,
 )
-from scripts.opt_in_retriever_promotion_decision_gate import (  # noqa: E402
-    check_promotion_decision_gate,
-)
 from scripts.real_accountant_status import summarize_status  # noqa: E402
 
 
 REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-accounting-intelligence-decision-queue.md"
+DEFAULT_RETRIEVER_PROMOTION_REPORT = (
+    ROOT / "docs" / "reports" / "2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md"
+)
 DEFAULT_SESSION_MANIFEST = ROOT / "docs" / "reports" / "real-accountant-session" / "session_manifest.json"
 DEFAULT_OUTREACH_LEDGER = ROOT / "docs" / "reports" / "real-accountant-session" / "outreach-log.sample.jsonl"
 DEFAULT_EXTERNAL_AUTH_TEMPLATE = ROOT / "docs" / "reports" / "external-source-body-authorization-record.template.json"
@@ -33,6 +33,7 @@ DEFAULT_EXTERNAL_AUTH_TEMPLATE = ROOT / "docs" / "reports" / "external-source-bo
 def build_decision_queue(
     *,
     external_authorization_record: Path = DEFAULT_EXTERNAL_AUTH_TEMPLATE,
+    refresh_gates: bool = False,
 ) -> dict[str, Any]:
     session = summarize_status(
         root=ROOT,
@@ -41,7 +42,7 @@ def build_decision_queue(
     )
     external_authorization = _check_external_authorization(external_authorization_record)
     local_parser = check_real_adapter_decision_gate()
-    retriever_promotion = check_promotion_decision_gate()
+    retriever_promotion = _check_retriever_promotion(refresh_gates=refresh_gates)
 
     decisions = [
         _reviewer_invite_decision(session),
@@ -55,6 +56,7 @@ def build_decision_queue(
         "ok": all(decision["gate_ok"] for decision in decisions),
         "errors": [error for decision in decisions for error in decision["errors"]],
         "title": "Accounting Intelligence Decision Queue",
+        "mode": "refresh_gates" if refresh_gates else "cached_reports",
         "decision_count": len(decisions),
         "open_decision_count": len(open_decisions),
         "operator_action_required_count": len(ready_to_act),
@@ -77,6 +79,7 @@ def render_markdown(queue: dict[str, Any]) -> str:
         "## Summary",
         "",
         f"- ok: {queue['ok']}",
+        f"- mode: {queue['mode']}",
         f"- decisions: {queue['decision_count']}",
         f"- open decisions: {queue['open_decision_count']}",
         f"- operator action required: {queue['operator_action_required_count']}",
@@ -151,6 +154,29 @@ def _check_external_authorization(record_path: Path) -> dict[str, Any]:
         authorization=authorization,
         authorization_record_path=record_path,
     )
+
+
+def _check_retriever_promotion(*, refresh_gates: bool) -> dict[str, Any]:
+    if refresh_gates:
+        from scripts.opt_in_retriever_promotion_decision_gate import (  # noqa: PLC0415
+            check_promotion_decision_gate,
+        )
+
+        return check_promotion_decision_gate()
+    try:
+        result = _load_machine_result(DEFAULT_RETRIEVER_PROMOTION_REPORT)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        return {
+            "ok": False,
+            "errors": [str(exc)],
+            "decision": {
+                "blockers": [str(exc)],
+                "promote_to_default": False,
+            },
+            "report_path": _display_path(DEFAULT_RETRIEVER_PROMOTION_REPORT),
+        }
+    result["report_path"] = result.get("report_path") or _display_path(DEFAULT_RETRIEVER_PROMOTION_REPORT)
+    return result
 
 
 def _reviewer_invite_decision(session: dict[str, Any]) -> dict[str, Any]:
@@ -234,6 +260,25 @@ def _retriever_promotion_decision(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _load_machine_result(path: Path) -> dict[str, Any]:
+    text = path.read_text(encoding="utf-8")
+    marker = "## Machine Result"
+    marker_index = text.find(marker)
+    if marker_index < 0:
+        raise ValueError(f"missing Machine Result section: {_display_path(path)}")
+    json_start = text.find("```json", marker_index)
+    if json_start < 0:
+        raise ValueError(f"missing Machine Result json fence: {_display_path(path)}")
+    json_start = text.find("\n", json_start)
+    json_end = text.find("```", json_start)
+    if json_start < 0 or json_end < 0:
+        raise ValueError(f"malformed Machine Result json fence: {_display_path(path)}")
+    payload = json.loads(text[json_start:json_end].strip())
+    if not isinstance(payload, dict):
+        raise ValueError(f"Machine Result must be a JSON object: {_display_path(path)}")
+    return payload
+
+
 def _one_line_conclusion(queue: dict[str, Any]) -> str:
     if queue["recommended_next_decision"] == "send_reviewer_invite":
         return "The next useful user-owned decision is sending the real accountant reviewer invite; other implementation approvals should wait for actual feedback evidence."
@@ -254,15 +299,24 @@ def main() -> None:
     parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--external-authorization-record", type=Path, default=DEFAULT_EXTERNAL_AUTH_TEMPLATE)
+    parser.add_argument("--refresh-gates", action="store_true")
     args = parser.parse_args()
 
-    queue = write_report() if args.write and args.external_authorization_record == DEFAULT_EXTERNAL_AUTH_TEMPLATE else build_decision_queue(external_authorization_record=args.external_authorization_record)
+    queue = (
+        write_report()
+        if args.write and args.external_authorization_record == DEFAULT_EXTERNAL_AUTH_TEMPLATE and not args.refresh_gates
+        else build_decision_queue(
+            external_authorization_record=args.external_authorization_record,
+            refresh_gates=args.refresh_gates,
+        )
+    )
     if args.format == "json":
         print(json.dumps(queue, ensure_ascii=False, indent=2, default=str))
     elif args.format == "markdown":
         print(render_markdown(queue), end="")
     else:
         print(f"ok: {queue['ok']}")
+        print(f"mode: {queue['mode']}")
         print(f"open_decisions: {queue['open_decision_count']}")
         print(f"operator_action_required: {queue['operator_action_required_count']}")
         print(f"recommended_next_decision: {queue['recommended_next_decision']}")

@@ -9,6 +9,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 ## Summary
 
 - ok: True
+- mode: cached_reports
 - decisions: 4
 - open decisions: 4
 - operator action required: 2
@@ -76,6 +77,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
   "ok": true,
   "errors": [],
   "title": "Accounting Intelligence Decision Queue",
+  "mode": "cached_reports",
   "decision_count": 4,
   "open_decision_count": 4,
   "operator_action_required_count": 2,
