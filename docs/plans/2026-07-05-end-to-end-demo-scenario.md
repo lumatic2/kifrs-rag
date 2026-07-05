@@ -29,13 +29,13 @@ This horizon turns the completed product-weakness work into one end-to-end demon
 
 ### E2E4 — Demo Smoke And Navigation Gate
 
-- [ ] E2E4.1 — Verify all packet links exist. `(next)`
-- [ ] E2E4.2 — Verify public-safety and missing-report failure path.
-- [ ] E2E4.3 — Write smoke report.
+- [x] E2E4.1 — Verify all packet links exist.
+- [x] E2E4.2 — Verify public-safety and missing-report failure path.
+- [x] E2E4.3 — Write smoke report.
 
 ### E2E5 — Horizon Close Gate
 
-- [ ] E2E5.1 — Combine E2E1~E2E4 evidence.
+- [ ] E2E5.1 — Combine E2E1~E2E4 evidence. `(next)`
 - [ ] E2E5.2 — State demo-ready result and residual risks.
 - [ ] E2E5.3 — Close horizon or name the next integration horizon.
 

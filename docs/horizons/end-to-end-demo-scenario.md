@@ -35,14 +35,14 @@ Status: completed
 
 ### E2E4. Demo Smoke And Navigation Gate
 
-Status: active
+Status: completed
 
 - Deliverable: smoke gate script/tests/report.
 - Acceptance: every referenced report exists, public-safety checks pass, and the packet is navigable.
 
 ### E2E5. Horizon Close Gate
 
-Status: pending
+Status: active
 
 - Deliverable: close report.
 - Acceptance: the end-to-end demo scenario is ready for a local run-through and its remaining risks are explicit.

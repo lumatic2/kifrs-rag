@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "E2E1", "name": "demo asset inventory and storyboard", "status": "completed"},
             {"id": "E2E2", "name": "scenario contract", "status": "completed"},
             {"id": "E2E3", "name": "demo packet builder", "status": "completed"},
-            {"id": "E2E4", "name": "demo smoke and navigation gate", "status": "active"},
-            {"id": "E2E5", "name": "horizon close gate", "status": "pending"},
+            {"id": "E2E4", "name": "demo smoke and navigation gate", "status": "completed"},
+            {"id": "E2E5", "name": "horizon close gate", "status": "active"},
         ],
     }
     decisions = [
@@ -122,8 +122,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "E2E4_demo_smoke_and_navigation_gate",
-        "next_command": "python scripts\\e2e_demo_smoke_gate.py --format text --write",
+        "next_leaf": "E2E5_horizon_close_gate",
+        "next_command": "python scripts\\e2e_demo_close_gate.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -138,7 +138,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is end-to-end-demo-scenario; E2E1 to E2E3 are complete and the next move is E2E4 demo smoke and navigation gate.",
+        "The active horizon is end-to-end-demo-scenario; E2E1 to E2E4 are complete and the next move is E2E5 horizon close gate.",
         "",
         "## Objective",
         "",

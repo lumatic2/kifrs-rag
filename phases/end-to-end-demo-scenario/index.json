@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "demo-smoke-and-navigation-gate",
-      "status": "active"
+      "status": "completed",
+      "summary": "E2E4 added scripts/e2e_demo_smoke_gate.py, tests/test_e2e_demo_smoke_gate.py, and docs/reports/2026-07-05-e2e4-demo-smoke-gate.md. The smoke gate verifies packet existence, report links, local script commands, recovery hints, public-safe packet surface, and a synthetic missing-report failure path.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "horizon-close-gate",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }
