@@ -36,14 +36,27 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Current Horizon — rag-reliability-revalidation
 
+<!-- harness:goal id="rag-reliability-revalidation" status="active" -->
+`docs/horizons/rag-reliability-revalidation.md` — K-IFRS RAG 품질 재검증과 default promotion 기준을 정한다.
+
 외부 회계사 outreach는 사용자 요청에 따라 active plan에서 제외한다. 현재 proof는 이미 만든
 회계법인 업무 지도, F-ACC review-pack 자동화, 데이터 소스 경계, client-private parser 계획을
 바탕으로, 먼저 K-IFRS RAG 품질을 다시 검증하고 default retriever promotion 기준을 정한다.
 
-Active milestones:
+## Active Milestones
+
+<!-- harness:milestone id="RR3" status="active" priority="P0" -->
+### RR3 — retrieval and citation diagnostics
+- DoD: default `hybrid`와 opt-in `ifrs1109_classification_hybrid`의 retrieval/citation 결과를 RR2 bucket별로 비교하고 실패 유형을 public-safe report로 남긴다.
+- Evidence: `docs/reports/2026-07-05-rr3-retrieval-citation-diagnostics.md`; plan `docs/plans/2026-07-05-rag-reliability-revalidation.md`
+- Gap: RR1은 검증 명령 inventory, RR2는 eval coverage matrix였고, 아직 실제 bucket별 retrieval/citation 품질 진단이 없다.
+- Status: [ ]
+
+## Horizon Milestones
+
 - RR1 baseline inventory — 완료 (`docs/reports/2026-07-05-rr1-rag-baseline-inventory.md`)
 - RR2 eval matrix and seed coverage — 완료 (`docs/reports/2026-07-05-rr2-eval-matrix.md`)
-- RR3 retrieval and citation diagnostics — next
+- RR3 retrieval and citation diagnostics — active
 - RR4 repair policy candidate
 - RR5 promotion gate and next-horizon handoff
 
@@ -52,40 +65,12 @@ Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 외부
 
 ## Closed Horizons
 
-<!-- harness:goal id="field-feedback-capture" status="closed" -->
-`docs/horizons/field-feedback-capture.md` — close (2026-07-05). FC1~FC4 완료:
-horizon/plan/phase setup, feedback notes capture contract, sample capture package command, close gate.
-Evidence: `docs/reports/2026-07-05-fc4-field-feedback-capture-close-report.md`.
-
-<!-- harness:goal id="field-feedback-runbook" status="closed" -->
-`docs/horizons/field-feedback-runbook.md` — close (2026-07-05). FB1~FB4 완료:
-horizon/plan/phase setup, 30분 runbook/checklist, manifest/checker, close gate.
-Evidence: `docs/reports/2026-07-05-fb4-field-feedback-runbook-close-report.md`.
-
-<!-- harness:goal id="accountant-feedback-incorporation" status="closed" -->
-`docs/horizons/accountant-feedback-incorporation.md` — close (2026-07-05). AF1~AF4 완료:
-horizon/plan/phase setup, feedback incorporation planner, report/question supplement command, close gate.
-Evidence: `docs/reports/2026-07-05-af4-accountant-feedback-incorporation-close-report.md`.
-
-<!-- harness:goal id="real-anonymized-transaction-poc" status="closed" -->
-`docs/horizons/real-anonymized-transaction-poc.md` — close (2026-07-05). RA1~RA4 완료:
-horizon/plan/phase setup, 익명화 거래 adapter, public-safe sample package command, close gate.
-Evidence: `docs/reports/2026-07-05-ra4-real-transaction-poc-close-report.md`.
-
-<!-- harness:goal id="firm-facing-poc-brief" status="closed" -->
-`docs/horizons/firm-facing-poc-brief.md` — close (2026-07-05). PB1~PB4 완료:
-horizon/phase setup, 회계법인용 PoC brief, one-page brief/index, close gate.
-Evidence: `docs/reports/2026-07-05-pb4-firm-facing-poc-brief-close-report.md`.
-
-<!-- harness:goal id="toolkit-packaging-readiness" status="closed" -->
-`docs/horizons/toolkit-packaging-readiness.md` — close (2026-07-05). TK1~TK4 완료:
-readiness manifest/README, checker/tests, readiness report, close gate.
-Evidence: `docs/reports/2026-07-05-tk4-toolkit-readiness-close-report.md`.
-
-Older closed horizons are archived in `BACKLOG.md`: field-feedback-ready-demo, workflow-rebuild, real-case feedback,
-feedback eval/backlog, multi-authority runtime, multi-source ingestion,
-authority source map, rag quality refresh, product packaging PoC, audit analytical procedures, F-ACC sequence,
-firm-service-map, automation-expansion, practice-map, workflow-automation.
+Recent closed horizons are archived in `BACKLOG.md`: field-feedback-capture, field-feedback-runbook,
+accountant-feedback-incorporation, real-anonymized-transaction-poc, firm-facing-poc-brief,
+toolkit-packaging-readiness, workflow-rebuild, real-case feedback, feedback eval/backlog,
+multi-authority runtime, multi-source ingestion, authority source map, rag quality refresh,
+product packaging PoC, audit analytical procedures, F-ACC sequence, firm-service-map,
+automation-expansion, practice-map, workflow-automation.
 
 ## Paused Horizons
 
