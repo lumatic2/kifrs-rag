@@ -45,23 +45,23 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "rag-reliability-revalidation",
-        "status": "closed",
-        "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
+        "id": "non-ifrs-source-dataization",
+        "status": "active",
+        "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
         "milestones": [
-            {"id": "RR1", "name": "baseline inventory", "status": "completed"},
-            {"id": "RR2", "name": "eval matrix and seed coverage", "status": "completed"},
-            {"id": "RR3", "name": "retrieval and citation diagnostics", "status": "completed"},
-            {"id": "RR4", "name": "repair policy candidate", "status": "completed"},
-            {"id": "RR5", "name": "promotion gate and handoff", "status": "completed"},
+            {"id": "NIS1", "name": "existing source asset inventory", "status": "active_next"},
+            {"id": "NIS2", "name": "source record contract", "status": "pending"},
+            {"id": "NIS3", "name": "dataization fixtures and validators", "status": "pending"},
+            {"id": "NIS4", "name": "chunking and embedding policy", "status": "pending"},
+            {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "start_non_ifrs_source_dataization",
-            "status": "next_horizon_candidate",
-            "decide": "Plan the next horizon that dataizes KASB, FSS, law, DART, and client-private source lanes for RAG.",
-            "blocker": "RAG reliability horizon is closed; next horizon planning has not been opened yet.",
+            "id": "run_NIS1_source_asset_inventory",
+            "status": "active",
+            "decide": "Build the first inventory report for non-IFRS source dataization.",
+            "blocker": "none",
             "command": "python scripts\\quality_preflight.py --format text",
         },
         {
@@ -87,7 +87,7 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "start_non_ifrs_source_dataization_horizon_planning",
+        "next_leaf": "NIS1_existing_source_asset_inventory",
         "next_command": "python scripts\\quality_preflight.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
@@ -103,7 +103,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "RAG reliability revalidation is closed: the repair retriever stays opt-in, and the next candidate is non-IFRS source dataization.",
+        "The active horizon is non-IFRS source dataization: turn non-IFRS source lanes into public-safe RAG dataization units.",
         "",
         "## Objective",
         "",

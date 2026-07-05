@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-RAG reliability revalidation is closed: the repair retriever stays opt-in, and the next candidate is non-IFRS source dataization.
+The active horizon is non-IFRS source dataization: turn non-IFRS source lanes into public-safe RAG dataization units.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `rag-reliability-revalidation`
-- Status: closed
-- Goal: Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.
+- Horizon: `non-ifrs-source-dataization`
+- Status: active
+- Goal: Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.
 
 | Milestone | Name | Status |
 |---|---|---|
-| RR1 | baseline inventory | completed |
-| RR2 | eval matrix and seed coverage | completed |
-| RR3 | retrieval and citation diagnostics | completed |
-| RR4 | repair policy candidate | completed |
-| RR5 | promotion gate and handoff | completed |
+| NIS1 | existing source asset inventory | active_next |
+| NIS2 | source record contract | pending |
+| NIS3 | dataization fixtures and validators | pending |
+| NIS4 | chunking and embedding policy | pending |
+| NIS5 | dataization gate and runtime handoff | pending |
 
 ## Completed Capability Chain
 
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| start_non_ifrs_source_dataization | next_horizon_candidate | RAG reliability horizon is closed; next horizon planning has not been opened yet. | `python scripts\quality_preflight.py --format text` |
+| run_NIS1_source_asset_inventory | active | none | `python scripts\quality_preflight.py --format text` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,7 +58,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `start_non_ifrs_source_dataization_horizon_planning`
+- decision: `NIS1_existing_source_asset_inventory`
 - command: `python scripts\quality_preflight.py --format text`
 
 ## Machine Result
@@ -68,34 +68,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "rag-reliability-revalidation",
-    "status": "closed",
-    "goal": "Re-validate K-IFRS RAG quality and define retriever promotion criteria before expanding sources or product UX.",
+    "id": "non-ifrs-source-dataization",
+    "status": "active",
+    "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
     "milestones": [
       {
-        "id": "RR1",
-        "name": "baseline inventory",
-        "status": "completed"
+        "id": "NIS1",
+        "name": "existing source asset inventory",
+        "status": "active_next"
       },
       {
-        "id": "RR2",
-        "name": "eval matrix and seed coverage",
-        "status": "completed"
+        "id": "NIS2",
+        "name": "source record contract",
+        "status": "pending"
       },
       {
-        "id": "RR3",
-        "name": "retrieval and citation diagnostics",
-        "status": "completed"
+        "id": "NIS3",
+        "name": "dataization fixtures and validators",
+        "status": "pending"
       },
       {
-        "id": "RR4",
-        "name": "repair policy candidate",
-        "status": "completed"
+        "id": "NIS4",
+        "name": "chunking and embedding policy",
+        "status": "pending"
       },
       {
-        "id": "RR5",
-        "name": "promotion gate and handoff",
-        "status": "completed"
+        "id": "NIS5",
+        "name": "dataization gate and runtime handoff",
+        "status": "pending"
       }
     ]
   },
@@ -128,10 +128,10 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "start_non_ifrs_source_dataization",
-      "status": "next_horizon_candidate",
-      "decide": "Plan the next horizon that dataizes KASB, FSS, law, DART, and client-private source lanes for RAG.",
-      "blocker": "RAG reliability horizon is closed; next horizon planning has not been opened yet.",
+      "id": "run_NIS1_source_asset_inventory",
+      "status": "active",
+      "decide": "Build the first inventory report for non-IFRS source dataization.",
+      "blocker": "none",
       "command": "python scripts\\quality_preflight.py --format text"
     },
     {
@@ -155,7 +155,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "start_non_ifrs_source_dataization_horizon_planning",
+  "next_leaf": "NIS1_existing_source_asset_inventory",
   "next_command": "python scripts\\quality_preflight.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }

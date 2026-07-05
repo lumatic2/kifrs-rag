@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (RAG Reliability Revalidation 완료)
+> 마지막 업데이트: 2026-07-05 (Non-IFRS Source Dataization 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -29,35 +29,40 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 ## Remaining Horizon Order
 
 1. `rag-reliability-revalidation` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준.
-2. `non-ifrs-source-dataization` — 다음 후보. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
+2. `non-ifrs-source-dataization` — 현재. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
 3. `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
-## Current Horizon — none
+## Current Horizon — non-ifrs-source-dataization
 
-<!-- harness:goal id="rag-reliability-revalidation" status="closed" -->
-`docs/horizons/rag-reliability-revalidation.md` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준을 정했다.
+<!-- harness:goal id="non-ifrs-source-dataization" status="active" -->
+`docs/horizons/non-ifrs-source-dataization.md` — KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장한다.
 
-현재 proof는 이미 만든 회계법인 업무 지도, F-ACC review-pack 자동화, 데이터 소스 경계,
-client-private parser 계획을 바탕으로, K-IFRS RAG 품질을 다시 검증하고 default retriever
-promotion 기준을 정했다.
+직전 horizon에서 K-IFRS RAG baseline과 promotion gate를 닫았다. 이제 IFRS 본문만으로 부족한
+해석자료, 법령 locator, 공시 structured fact, client-private local fact를 public-safe record와
+chunk/index 정책으로 바꾼다.
 
 ## Active Milestones
 
-없음. 다음 후보 horizon은 `non-ifrs-source-dataization`.
+<!-- harness:milestone id="NIS1" status="active" priority="P0" -->
+### NIS1 — existing source asset inventory
+- DoD: 기존 source-map/ingestion/connector/parser 산출물을 lane별로 분류하고, 재사용/폐기/보강 대상을 정한다.
+- Evidence: `docs/reports/2026-07-05-nis1-source-asset-inventory.md`; plan `docs/plans/2026-07-05-non-ifrs-source-dataization.md`
+- Gap: source 관련 산출물은 많지만 실제 non-IFRS RAG dataization에 어떤 조각을 이어 쓸지 아직 한 장으로 잠겨 있지 않다.
+- Status: [ ]
 
 ## Horizon Milestones
 
-- RR1 baseline inventory — 완료 (`docs/reports/2026-07-05-rr1-rag-baseline-inventory.md`)
-- RR2 eval matrix and seed coverage — 완료 (`docs/reports/2026-07-05-rr2-eval-matrix.md`)
-- RR3 retrieval and citation diagnostics — 완료 (`docs/reports/2026-07-05-rr3-retrieval-citation-diagnostics.md`)
-- RR4 repair policy candidate — 완료 (`docs/reports/2026-07-05-rr4-repair-policy-candidate.md`)
-- RR5 promotion gate and next-horizon handoff — 완료 (`docs/reports/2026-07-05-rr5-rag-promotion-gate.md`)
+- NIS1 existing source asset inventory — active
+- NIS2 source record contract
+- NIS3 dataization fixtures and validators
+- NIS4 chunking and embedding policy
+- NIS5 dataization gate and runtime handoff
 
 ## Closed Horizons
 
-Recent closed horizons are archived in `BACKLOG.md`: field-feedback-capture, field-feedback-runbook,
+Recent closed horizons are archived in `BACKLOG.md`: rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
 accountant-feedback-incorporation, real-anonymized-transaction-poc, firm-facing-poc-brief,
 toolkit-packaging-readiness, workflow-rebuild, real-case feedback, feedback eval/backlog,
 multi-authority runtime, multi-source ingestion, authority source map, rag quality refresh,
@@ -84,8 +89,9 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. `rag-reliability-revalidation`은 완료.
-다음 후보: `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane 데이터화.
+**[현재 active]** `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane 데이터화.
+계획: `docs/horizons/non-ifrs-source-dataization.md` →
+`docs/plans/2026-07-05-non-ifrs-source-dataization.md`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

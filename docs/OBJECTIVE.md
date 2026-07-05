@@ -76,20 +76,21 @@
 
 ## Active horizon
 
-현재 active horizon은 `rag-reliability-revalidation`이다. 외부 회계사 outreach/mail/invite는 active
-plan에서 제외한다. 남은 Objective gap은 내부 제품 완성도 기준으로 나누어 처리한다.
+현재 active horizon은 `non-ifrs-source-dataization`이다. 남은 Objective gap은 내부 제품 완성도 기준으로
+나누어 처리한다.
 
 남은 horizon 순서:
 
-1. `rag-reliability-revalidation` — K-IFRS RAG 품질 재검증과 default promotion 기준.
-2. `non-ifrs-source-dataization` — KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
+1. `rag-reliability-revalidation` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준.
+2. `non-ifrs-source-dataization` — 현재. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
 3. `multi-authority-runtime-hardening` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
-현재 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
-현재 milestone plan: `docs/plans/2026-07-05-rag-reliability-revalidation.md`
+최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
+현재 horizon 상세: `docs/horizons/non-ifrs-source-dataization.md`
+현재 milestone plan: `docs/plans/2026-07-05-non-ifrs-source-dataization.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`
