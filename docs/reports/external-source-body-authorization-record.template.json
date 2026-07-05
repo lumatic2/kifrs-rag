@@ -1,0 +1,11 @@
+{
+  "authorized_by": "",
+  "authorization_scope": "synthetic_dry_run_only",
+  "risk_acknowledgement": true,
+  "source_review_required": true,
+  "public_repo_body_commit_allowed": false,
+  "live_fetch_allowed": false,
+  "chunking_allowed": false,
+  "embedding_allowed": false,
+  "operator_note": "Fill authorized_by and change scope/actions only after explicit user approval and source-specific review."
+}

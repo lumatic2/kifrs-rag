@@ -63,12 +63,12 @@ def load_authorization_record(path: Path) -> BodyIngestionAuthorization:
     return BodyIngestionAuthorization(
         authorized_by=str(payload["authorized_by"]),
         authorization_scope=str(payload["authorization_scope"]),
-        risk_acknowledgement=bool(payload["risk_acknowledgement"]),
-        source_review_required=bool(payload["source_review_required"]),
-        public_repo_body_commit_allowed=bool(payload["public_repo_body_commit_allowed"]),
-        live_fetch_allowed=bool(payload["live_fetch_allowed"]),
-        chunking_allowed=bool(payload["chunking_allowed"]),
-        embedding_allowed=bool(payload["embedding_allowed"]),
+        risk_acknowledgement=_require_bool(payload, "risk_acknowledgement"),
+        source_review_required=_require_bool(payload, "source_review_required"),
+        public_repo_body_commit_allowed=_require_bool(payload, "public_repo_body_commit_allowed"),
+        live_fetch_allowed=_require_bool(payload, "live_fetch_allowed"),
+        chunking_allowed=_require_bool(payload, "chunking_allowed"),
+        embedding_allowed=_require_bool(payload, "embedding_allowed"),
     )
 
 
@@ -242,6 +242,13 @@ def _validate_authorization(authorization: BodyIngestionAuthorization | None) ->
     if authorization.authorization_scope == "source_specific_local_private_body" and not authorization.live_fetch_allowed:
         errors.append("source_specific_local_private_body scope requires live_fetch_allowed")
     return errors
+
+
+def _require_bool(payload: dict[str, Any], key: str) -> bool:
+    value = payload[key]
+    if not isinstance(value, bool):
+        raise ValueError(f"authorization record field {key} must be a JSON boolean")
+    return value
 
 
 def _authorization_from_args(args: argparse.Namespace) -> BodyIngestionAuthorization | None:

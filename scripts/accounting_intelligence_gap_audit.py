@@ -124,6 +124,10 @@ REQUIRED_REPORTS = {
     / "docs"
     / "reports"
     / "2026-07-05-esag1-external-source-body-authorization-gate.md",
+    "external_body_authorization_record_scaffold": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-esars1-external-source-body-authorization-record-scaffold.md",
     "external_synthetic_parser_chunker_dry_run": ROOT
     / "docs"
     / "reports"
@@ -239,7 +243,7 @@ def build_gap_audit() -> GapAudit:
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned; readiness index, external-action boundary, invite, response handling, after-send action matrix, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
         "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
-        "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
+        "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
         "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization",
     ]
 

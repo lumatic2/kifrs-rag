@@ -22,6 +22,7 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert "explicit authorization" in joined_gaps
     assert "parser/deletion automation" in joined_gaps
     assert "external source connector metadata-only lane is closed" in joined_gaps
+    assert "authorization record scaffold is present" in joined_gaps
     assert "demo-noted" in joined_gaps
     assert "source-body connector is still not implemented" in joined_gaps
     assert "opt-in retriever promotion decision gate is present" in joined_gaps
