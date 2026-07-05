@@ -20,8 +20,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 |---|---|---|
 | SBI1 | source class selection and authorization boundary | completed |
 | SBI2 | source body policy record | completed |
-| SBI3 | synthetic body parser and chunker | active_next |
-| SBI4 | retrieval gate for controlled lane | pending |
+| SBI3 | synthetic body parser and chunker | completed |
+| SBI4 | retrieval gate for controlled lane | active_next |
 | SBI5 | controlled lane close gate | pending |
 
 ## Completed Capability Chain
@@ -48,7 +48,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_SBI3_synthetic_parser_chunker | active | none | `python -m pytest tests\test_synthetic_body_parser_chunker.py -q` |
+| run_SBI4_controlled_lane_retrieval_gate | active | none | `python -m pytest tests\test_controlled_lane_retrieval_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -61,8 +61,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `SBI3_synthetic_parser_chunker`
-- command: `python -m pytest tests\test_synthetic_body_parser_chunker.py -q`
+- decision: `SBI4_controlled_lane_retrieval_gate`
+- command: `python -m pytest tests\test_controlled_lane_retrieval_gate.py -q`
 
 ## Machine Result
 
@@ -88,12 +88,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "SBI3",
         "name": "synthetic body parser and chunker",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "SBI4",
         "name": "retrieval gate for controlled lane",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "SBI5",
@@ -146,11 +146,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_SBI3_synthetic_parser_chunker",
+      "id": "run_SBI4_controlled_lane_retrieval_gate",
       "status": "active",
-      "decide": "Build a synthetic parser/chunker dry-run for the selected controlled interpretive lane.",
+      "decide": "Add retrieval gate for controlled chunks as supporting interpretation without replacing K-IFRS primary evidence.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_synthetic_body_parser_chunker.py -q"
+      "command": "python -m pytest tests\\test_controlled_lane_retrieval_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -173,8 +173,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "SBI3_synthetic_parser_chunker",
-  "next_command": "python -m pytest tests\\test_synthetic_body_parser_chunker.py -q",
+  "next_leaf": "SBI4_controlled_lane_retrieval_gate",
+  "next_command": "python -m pytest tests\\test_controlled_lane_retrieval_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

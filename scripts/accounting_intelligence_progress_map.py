@@ -66,18 +66,18 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "SBI1", "name": "source class selection and authorization boundary", "status": "completed"},
             {"id": "SBI2", "name": "source body policy record", "status": "completed"},
-            {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "active_next"},
-            {"id": "SBI4", "name": "retrieval gate for controlled lane", "status": "pending"},
+            {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "completed"},
+            {"id": "SBI4", "name": "retrieval gate for controlled lane", "status": "active_next"},
             {"id": "SBI5", "name": "controlled lane close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_SBI3_synthetic_parser_chunker",
+            "id": "run_SBI4_controlled_lane_retrieval_gate",
             "status": "active",
-            "decide": "Build a synthetic parser/chunker dry-run for the selected controlled interpretive lane.",
+            "decide": "Add retrieval gate for controlled chunks as supporting interpretation without replacing K-IFRS primary evidence.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_synthetic_body_parser_chunker.py -q",
+            "command": "python -m pytest tests\\test_controlled_lane_retrieval_gate.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -102,8 +102,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "SBI3_synthetic_parser_chunker",
-        "next_command": "python -m pytest tests\\test_synthetic_body_parser_chunker.py -q",
+        "next_leaf": "SBI4_controlled_lane_retrieval_gate",
+        "next_command": "python -m pytest tests\\test_controlled_lane_retrieval_gate.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (SBI2 완료, SBI3 시작)
+> 마지막 업데이트: 2026-07-05 (SBI3 완료, SBI4 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -52,11 +52,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Active Milestones
 
-<!-- harness:milestone id="SBI3" status="active" priority="P0" -->
-### SBI3 — Synthetic Body Parser And Chunker
-- DoD: synthetic body fixture를 public-safe chunks로 변환하고 protected source text는 commit하지 않는다.
-- Evidence: `docs/reports/2026-07-05-sbi3-synthetic-body-parser-chunker.md`; plan `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
-- Gap: SBI2 policy는 고정됐지만, synthetic parser/chunker dry-run이 아직 없다.
+<!-- harness:milestone id="SBI4" status="active" priority="P0" -->
+### SBI4 — Retrieval Gate For Controlled Lane
+- DoD: controlled chunks가 supporting interpretation evidence로 discoverable하고 K-IFRS primary evidence를 대체하지 않는다.
+- Evidence: `docs/reports/2026-07-05-sbi4-controlled-lane-retrieval-gate.md`; plan `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
+- Gap: SBI3 chunks는 생성됐지만 retrieval gate와 authority boundary가 아직 없다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -81,8 +81,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - RLP5 local parser prototype close gate — 완료 (`docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`)
 - SBI1 source class selection and authorization boundary — 완료 (`docs/reports/2026-07-05-sbi1-source-class-selection.md`)
 - SBI2 source body policy record — 완료 (`docs/reports/2026-07-05-sbi2-source-body-policy-record.md`)
-- SBI3 synthetic body parser and chunker — active
-- SBI4 retrieval gate for controlled lane
+- SBI3 synthetic body parser and chunker — 완료 (`docs/reports/2026-07-05-sbi3-synthetic-body-parser-chunker.md`)
+- SBI4 retrieval gate for controlled lane — active
 - SBI5 controlled lane close gate
 - RPG1 promotion evidence inventory
 - RPG2 regression and latency gate

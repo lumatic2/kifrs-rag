@@ -20,7 +20,9 @@
     {
       "step": 3,
       "name": "synthetic-body-parser-and-chunker",
-      "status": "pending"
+      "status": "completed",
+      "summary": "SBI3 added scripts/synthetic_body_parser_chunker.py, tests/test_synthetic_body_parser_chunker.py, and docs/reports/2026-07-05-sbi3-synthetic-body-parser-chunker.md. It converts a short synthetic interpretive fixture into 3 public-safe chunks with supporting_interpretation citation role and interpretive authority, without live fetch, OCR, embedding, body cache, or K-IFRS primary override.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,

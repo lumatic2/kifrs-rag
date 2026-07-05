@@ -26,12 +26,14 @@ Status: completed
 
 ### SBI3. Synthetic Body Parser And Chunker
 
-Status: active
+Status: completed
 
 - Deliverable: parser/chunker dry-run, tests, `docs/reports/2026-07-05-sbi3-synthetic-body-parser-chunker.md`
 - Acceptance: synthetic body becomes public-safe chunks with no protected source text committed.
 
 ### SBI4. Retrieval Gate For Controlled Lane
+
+Status: active
 
 - Deliverable: retrieval gate, tests, `docs/reports/2026-07-05-sbi4-controlled-lane-retrieval-gate.md`
 - Acceptance: controlled chunks can be discovered as supporting interpretation or legal boundary evidence without changing K-IFRS primary evidence.

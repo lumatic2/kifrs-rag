@@ -23,9 +23,9 @@ This horizon adds one controlled non-IFRS source-body ingestion lane with author
 
 ### SBI3 — Synthetic Body Parser And Chunker
 
-- [ ] SBI3.1 — Build synthetic body fixture.
-- [ ] SBI3.2 — Implement parser/chunker dry-run.
-- [ ] SBI3.3 — Add tests and report.
+- [x] SBI3.1 — Build synthetic body fixture.
+- [x] SBI3.2 — Implement parser/chunker dry-run.
+- [x] SBI3.3 — Add tests and report.
 
 ### SBI4 — Retrieval Gate For Controlled Lane
 
