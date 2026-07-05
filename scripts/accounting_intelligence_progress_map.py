@@ -50,19 +50,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Use K-IFRS, supporting interpretation, legal boundary, fact evidence, and client-private facts as separated runtime evidence.",
         "milestones": [
             {"id": "MAH1", "name": "runtime evidence boundary audit", "status": "completed"},
-            {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "active_next"},
-            {"id": "MAH3", "name": "review pack authority panel", "status": "pending"},
+            {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "completed"},
+            {"id": "MAH3", "name": "review pack authority panel", "status": "active_next"},
             {"id": "MAH4", "name": "statement draft and analytics fact hook", "status": "pending"},
             {"id": "MAH5", "name": "authority composer gate and runtime demo", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_MAH2_runtime_evidence_contract_hardening",
+            "id": "run_MAH3_review_pack_authority_panel",
             "status": "active",
-            "decide": "Add a shared runtime authority object that converts NIS source records without mixing primary, supporting, legal, fact, and private roles.",
+            "decide": "Attach the shared five-group runtime authority boundary to 1116, 1109, and 1115 review pack outputs.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_runtime_authority_boundary.py -q",
+            "command": "python -m pytest tests\\test_1116_review_pack.py tests\\test_1109_review_pack.py tests\\test_1115_review_pack.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "MAH2_runtime_evidence_contract_hardening",
-        "next_command": "python -m pytest tests\\test_runtime_authority_boundary.py -q",
+        "next_leaf": "MAH3_review_pack_authority_panel",
+        "next_command": "python -m pytest tests\\test_1116_review_pack.py tests\\test_1109_review_pack.py tests\\test_1115_review_pack.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

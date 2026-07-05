@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (MAH1 완료, MAH2 진행)
+> 마지막 업데이트: 2026-07-05 (MAH2 완료, MAH3 진행)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -45,18 +45,18 @@ evidence를 섞지 않고 표시하도록 runtime을 harden한다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="MAH2" status="active" priority="P0" -->
-### MAH2 — runtime evidence contract hardening
-- DoD: NIS source records와 기존 evidence manifest를 primary/supporting/legal/fact/client-private role이 분리된 runtime authority object로 변환한다.
-- Evidence: `docs/reports/2026-07-05-mah2-runtime-evidence-contract.md`; plan `docs/plans/2026-07-05-multi-authority-runtime-hardening.md`
-- Gap: MAH1 감사 결과, existing runtime은 primary/supporting/legal/fact까지만 구분하고 client-private placeholder와 source-record 공통 adapter가 없다.
+<!-- harness:milestone id="MAH3" status="active" priority="P0" -->
+### MAH3 — review pack authority panel
+- DoD: 1116/1109/1115 review pack markdown/json에 primary/supporting/legal/fact/client-private evidence panel을 같은 shape로 붙인다.
+- Evidence: `docs/reports/2026-07-05-mah3-review-pack-authority-panel.md`; plan `docs/plans/2026-07-05-multi-authority-runtime-hardening.md`
+- Gap: MAH2는 공통 runtime authority object를 만들었지만, review pack 산출물은 아직 five-group authority panel을 쓰지 않는다.
 - Status: [ ]
 
 ## Horizon Milestones
 
 - MAH1 runtime evidence boundary audit — 완료 (`docs/reports/2026-07-05-mah1-runtime-evidence-boundary-audit.md`)
-- MAH2 runtime evidence contract hardening — active
-- MAH3 review pack authority panel
+- MAH2 runtime evidence contract hardening — 완료 (`docs/reports/2026-07-05-mah2-runtime-evidence-contract.md`)
+- MAH3 review pack authority panel — active
 - MAH4 statement draft and analytics fact hook
 - MAH5 authority composer gate and runtime demo
 

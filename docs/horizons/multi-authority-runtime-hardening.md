@@ -46,7 +46,7 @@ Acceptance:
 
 ### MAH2. Runtime Evidence Contract Hardening
 
-Status: active
+Status: complete (`docs/reports/2026-07-05-mah2-runtime-evidence-contract.md`)
 
 NIS source records와 기존 evidence manifest를 runtime evidence object로 안전하게 변환하는 contract를 보강한다.
 
@@ -63,6 +63,8 @@ Acceptance:
 - forbidden/protected body field가 runtime reference에도 나타나지 않는다.
 
 ### MAH3. Review Pack Authority Panel
+
+Status: active
 
 1116/1109/1115 review pack markdown/json에 authority-separated evidence panel을 붙인다.
 

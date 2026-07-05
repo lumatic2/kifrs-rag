@@ -29,10 +29,10 @@ metadata는 supporting interpretation, 법령은 legal boundary, DART-style 수�
 
 ### MAH2 — Runtime Evidence Contract Hardening
 
-- [ ] MAH2.1 — Define authority role enum/helpers. (verify: `python -m pytest tests\test_runtime_authority_boundary.py -q`)
-- [ ] MAH2.2 — Add source-record to runtime-evidence adapter. (verify: adapter rejects protected body-like fields)
-- [ ] MAH2.3 — Preserve primary vs non-primary evidence split. (verify: tests assert primary K-IFRS evidence is separate from supporting/legal/fact/private)
-- [ ] MAH2.4 — Write MAH2 contract report. (verify: `docs/reports/2026-07-05-mah2-runtime-evidence-contract.md` exists)
+- [x] MAH2.1 — Define authority role enum/helpers. (verify: `python -m pytest tests\test_runtime_authority_boundary.py -q`)
+- [x] MAH2.2 — Add source-record to runtime-evidence adapter. (verify: adapter rejects protected body-like fields)
+- [x] MAH2.3 — Preserve primary vs non-primary evidence split. (verify: tests assert primary K-IFRS evidence is separate from supporting/legal/fact/private)
+- [x] MAH2.4 — Write MAH2 contract report. (verify: `docs/reports/2026-07-05-mah2-runtime-evidence-contract.md` exists)
 
 ### MAH3 — Review Pack Authority Panel
 
