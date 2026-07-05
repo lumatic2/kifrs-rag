@@ -1,6 +1,6 @@
 # Horizon: Workflow Coverage Expansion
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/source-body-ingestion-controlled-lane.md`
 
@@ -40,7 +40,7 @@ Status: completed
 
 ### WCE5. Workflow Coverage Close Gate
 
-Status: active
+Status: completed
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md`
 - Acceptance: new coverage evidence is connected to product trust, parser/runtime, and firm-facing demo surfaces.

@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "workflow-coverage-close-gate",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCE5 added scripts/workflow_coverage_close_gate.py, tests/test_workflow_coverage_close_gate.py, and docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md. It closes workflow-coverage-expansion by tying WCE1 ranking, WCE2 contract, WCE3 adapter, WCE4 metric, product trust, and controlled source lane evidence together; next horizon is runtime-retriever-promotion-gate.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

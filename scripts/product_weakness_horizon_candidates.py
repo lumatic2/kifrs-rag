@@ -47,7 +47,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="workflow-coverage-expansion",
             weakness="Automation proof is concentrated in a narrow set of standards and review-pack surfaces.",
             product_value="Expands the firm-service map into another testable accountant workflow and updates coverage evidence.",
-            status="active",
+            status="closed",
             plan="docs/plans/2026-07-05-workflow-coverage-expansion.md",
             first_milestone="WCE1 coverage gap ranking",
         ),
@@ -56,7 +56,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="runtime-retriever-promotion-gate",
             weakness="The strongest retriever remains opt-in and has not been converted into a reversible product-default decision.",
             product_value="Creates a promote/defer/rollback gate for runtime retrieval quality.",
-            status="planned",
+            status="active",
             plan="docs/plans/2026-07-05-runtime-retriever-promotion-gate.md",
             first_milestone="RPG1 promotion evidence inventory",
         ),
@@ -73,7 +73,7 @@ def build_candidates() -> dict[str, Any]:
     return {
         "title": "Product Weakness Horizon Candidates",
         "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
-        "active_horizon": "workflow-coverage-expansion",
+        "active_horizon": "runtime-retriever-promotion-gate",
         "candidates": [asdict(candidate) for candidate in candidates],
         "parked": [
             {
@@ -126,8 +126,9 @@ def render_markdown(result: dict[str, Any]) -> str:
             "",
             "- `real-local-parser-prototype` is closed.",
             "- `source-body-ingestion-controlled-lane` is closed.",
-            "- Keep `workflow-coverage-expansion` as the active horizon.",
-            "- Treat horizons 4 and 5 as the remaining product weakness queue after workflow coverage.",
+            "- `workflow-coverage-expansion` is closed.",
+            "- Keep `runtime-retriever-promotion-gate` as the active horizon.",
+            "- Treat horizon 5 as the remaining product weakness queue after retriever promotion.",
             "- Do not reopen actual outreach or feedback capture unless the user explicitly asks.",
             "",
             "## Machine Result",

@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is workflow-coverage-expansion: close the 1037 provisions coverage expansion with an integrated gate.
+The active horizon is runtime-retriever-promotion-gate: inventory evidence before deciding promote, defer, or block.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `workflow-coverage-expansion`
+- Horizon: `runtime-retriever-promotion-gate`
 - Status: active
-- Goal: Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.
+- Goal: Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.
 
 | Milestone | Name | Status |
 |---|---|---|
-| WCE1 | coverage gap ranking | completed |
-| WCE2 | first new workflow candidate contract | completed |
-| WCE3 | minimal review-pack adapter | completed |
-| WCE4 | coverage metric update | completed |
-| WCE5 | workflow coverage close gate | active_next |
+| RPG1 | promotion evidence inventory | active_next |
+| RPG2 | regression and latency gate | pending |
+| RPG3 | failure and rollback policy | pending |
+| RPG4 | operator promotion command | pending |
+| RPG5 | promotion gate close report | pending |
 
 ## Completed Capability Chain
 
@@ -37,6 +37,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | client-private-parser-runtime | Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload. | `docs/reports/2026-07-05-client-private-parser-runtime-close-report.md` |
 | real-local-parser-prototype | Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate. | `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md` |
 | source-body-ingestion-controlled-lane | Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate. | `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md` |
+| workflow-coverage-expansion | Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate. | `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md` |
 
 ## Automation Snapshot
 
@@ -49,7 +50,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_WCE5_workflow_coverage_close_gate | active | none | `python -m pytest tests\test_workflow_coverage_close_gate.py -q` |
+| run_RPG1_promotion_evidence_inventory | active | none | `python -m pytest tests\test_retriever_promotion_evidence_inventory.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -62,8 +63,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `WCE5_workflow_coverage_close_gate`
-- command: `python -m pytest tests\test_workflow_coverage_close_gate.py -q`
+- decision: `RPG1_promotion_evidence_inventory`
+- command: `python -m pytest tests\test_retriever_promotion_evidence_inventory.py -q`
 
 ## Machine Result
 
@@ -72,34 +73,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "workflow-coverage-expansion",
+    "id": "runtime-retriever-promotion-gate",
     "status": "active",
-    "goal": "Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.",
+    "goal": "Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.",
     "milestones": [
       {
-        "id": "WCE1",
-        "name": "coverage gap ranking",
-        "status": "completed"
-      },
-      {
-        "id": "WCE2",
-        "name": "first new workflow candidate contract",
-        "status": "completed"
-      },
-      {
-        "id": "WCE3",
-        "name": "minimal review-pack adapter",
-        "status": "completed"
-      },
-      {
-        "id": "WCE4",
-        "name": "coverage metric update",
-        "status": "completed"
-      },
-      {
-        "id": "WCE5",
-        "name": "workflow coverage close gate",
+        "id": "RPG1",
+        "name": "promotion evidence inventory",
         "status": "active_next"
+      },
+      {
+        "id": "RPG2",
+        "name": "regression and latency gate",
+        "status": "pending"
+      },
+      {
+        "id": "RPG3",
+        "name": "failure and rollback policy",
+        "status": "pending"
+      },
+      {
+        "id": "RPG4",
+        "name": "operator promotion command",
+        "status": "pending"
+      },
+      {
+        "id": "RPG5",
+        "name": "promotion gate close report",
+        "status": "pending"
       }
     ]
   },
@@ -148,15 +149,20 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "source-body-ingestion-controlled-lane",
       "result": "Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate.",
       "evidence": "docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md"
+    },
+    {
+      "id": "workflow-coverage-expansion",
+      "result": "Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate.",
+      "evidence": "docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": "run_WCE5_workflow_coverage_close_gate",
+      "id": "run_RPG1_promotion_evidence_inventory",
       "status": "active",
-      "decide": "Close the workflow coverage expansion horizon by tying WCE1-WCE4 evidence to product trust, parser/runtime, and next horizon routing.",
+      "decide": "Inventory current retriever evaluation, default guard, quality, failure-boundary, and product trust evidence for promotion decisioning.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_workflow_coverage_close_gate.py -q"
+      "command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -179,8 +185,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "WCE5_workflow_coverage_close_gate",
-  "next_command": "python -m pytest tests\\test_workflow_coverage_close_gate.py -q",
+  "next_leaf": "RPG1_promotion_evidence_inventory",
+  "next_command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

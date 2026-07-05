@@ -102,11 +102,11 @@
     },
     {
       "dir": "workflow-coverage-expansion",
-      "status": "active"
+      "status": "completed"
     },
     {
       "dir": "runtime-retriever-promotion-gate",
-      "status": "planned"
+      "status": "active"
     },
     {
       "dir": "real-accountant-session",

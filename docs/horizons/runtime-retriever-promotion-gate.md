@@ -1,6 +1,6 @@
 # Horizon: Runtime Retriever Promotion Gate
 
-> Status: planned
+> Status: active
 > Created: 2026-07-05
 > Previous: `docs/horizons/workflow-coverage-expansion.md`
 
@@ -20,11 +20,15 @@ decision.
 
 ### RPG1. Promotion Evidence Inventory
 
+Status: active
+
 - Deliverable: `docs/reports/2026-07-05-rpg1-promotion-evidence-inventory.md`
 - Acceptance: current eval gates, default guard, quality reports, failure boundaries, and product trust
   evidence are inventoried.
 
 ### RPG2. Regression And Latency Gate
+
+Status: pending
 
 - Deliverable: regression/latency gate, tests, `docs/reports/2026-07-05-rpg2-regression-latency-gate.md`
 - Acceptance: promotion cannot pass unless recall/citation regressions and basic runtime cost limits are
@@ -32,15 +36,21 @@ decision.
 
 ### RPG3. Failure And Rollback Policy
 
+Status: pending
+
 - Deliverable: rollback policy validator, tests, `docs/reports/2026-07-05-rpg3-failure-rollback-policy.md`
 - Acceptance: failed promotion has a clear fallback to the current default retriever and operator remediation.
 
 ### RPG4. Operator Promotion Command
 
+Status: pending
+
 - Deliverable: promotion command dry-run, tests, `docs/reports/2026-07-05-rpg4-operator-promotion-command.md`
 - Acceptance: operator can see promote/defer status and required evidence without editing runtime code by hand.
 
 ### RPG5. Promotion Gate Close Report
+
+Status: pending
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-runtime-retriever-promotion-gate-close-report.md`
 - Acceptance: the horizon closes with an explicit `promote`, `defer`, or `block` result and rollback evidence.

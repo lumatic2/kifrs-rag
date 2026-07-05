@@ -35,9 +35,9 @@ This horizon expands accountant-work coverage using the service map, but only th
 
 ### WCE5 — Workflow Coverage Close Gate
 
-- [ ] WCE5.1 — Implement close gate.
-- [ ] WCE5.2 — Run carried trust/runtime regressions.
-- [ ] WCE5.3 — Close horizon.
+- [x] WCE5.1 — Implement close gate.
+- [x] WCE5.2 — Run carried trust/runtime regressions.
+- [x] WCE5.3 — Close horizon.
 
 ## Decision Log
 

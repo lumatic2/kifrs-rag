@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "runtime-retriever-promotion-gate",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "promotion-evidence-inventory",
+      "status": "active"
+    },
+    {
+      "step": 2,
+      "name": "regression-and-latency-gate",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "failure-and-rollback-policy",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "operator-promotion-command",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "promotion-gate-close-report",
+      "status": "pending"
+    }
+  ]
+}

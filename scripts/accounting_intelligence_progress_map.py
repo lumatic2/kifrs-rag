@@ -63,26 +63,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate.",
             "evidence": "docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md",
         },
+        {
+            "id": "workflow-coverage-expansion",
+            "result": "Expanded firm-service coverage with a 1037 provisions decision-prep workflow ranking, contract, adapter, metric update, and close gate.",
+            "evidence": "docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "workflow-coverage-expansion",
+        "id": "runtime-retriever-promotion-gate",
         "status": "active",
-        "goal": "Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.",
+        "goal": "Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.",
         "milestones": [
-            {"id": "WCE1", "name": "coverage gap ranking", "status": "completed"},
-            {"id": "WCE2", "name": "first new workflow candidate contract", "status": "completed"},
-            {"id": "WCE3", "name": "minimal review-pack adapter", "status": "completed"},
-            {"id": "WCE4", "name": "coverage metric update", "status": "completed"},
-            {"id": "WCE5", "name": "workflow coverage close gate", "status": "active_next"},
+            {"id": "RPG1", "name": "promotion evidence inventory", "status": "active_next"},
+            {"id": "RPG2", "name": "regression and latency gate", "status": "pending"},
+            {"id": "RPG3", "name": "failure and rollback policy", "status": "pending"},
+            {"id": "RPG4", "name": "operator promotion command", "status": "pending"},
+            {"id": "RPG5", "name": "promotion gate close report", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_WCE5_workflow_coverage_close_gate",
+            "id": "run_RPG1_promotion_evidence_inventory",
             "status": "active",
-            "decide": "Close the workflow coverage expansion horizon by tying WCE1-WCE4 evidence to product trust, parser/runtime, and next horizon routing.",
+            "decide": "Inventory current retriever evaluation, default guard, quality, failure-boundary, and product trust evidence for promotion decisioning.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_workflow_coverage_close_gate.py -q",
+            "command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -107,8 +112,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "WCE5_workflow_coverage_close_gate",
-        "next_command": "python -m pytest tests\\test_workflow_coverage_close_gate.py -q",
+        "next_leaf": "RPG1_promotion_evidence_inventory",
+        "next_command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -123,7 +128,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is workflow-coverage-expansion: close the 1037 provisions coverage expansion with an integrated gate.",
+        "The active horizon is runtime-retriever-promotion-gate: inventory evidence before deciding promote, defer, or block.",
         "",
         "## Objective",
         "",
