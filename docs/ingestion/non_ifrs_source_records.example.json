@@ -3,11 +3,11 @@
   "policy": {
     "public_safe": true,
     "protected_material_committed": false,
-    "contract": "kifrs.ingestion.source_record"
+    "record_contract": "kifrs/ingestion/source_record.py"
   },
   "records": [
     {
-      "record_id": "kasb-interpretive-metadata-001",
+      "record_id": "kasb-interpretation-metadata-001",
       "record_type": "document_metadata",
       "source_id": "kasb-interpretation-material",
       "source_class": "interpretive_accounting_material",
@@ -20,8 +20,8 @@
         "url": "https://www.kasb.or.kr/"
       },
       "provenance": {
-        "produced_by": "nis3-public-fixture",
-        "note": "Metadata-only seed; source material is not committed."
+        "produced_by": "manual-public-metadata-fixture",
+        "note": "Metadata seed only."
       },
       "public_safe": true,
       "title": "KASB interpretation material metadata seed",
@@ -29,8 +29,7 @@
       "document_type": "interpretive_material",
       "topics": [
         "interpretation",
-        "implementation",
-        "education"
+        "implementation"
       ],
       "chunk_strategy": "metadata_only"
     },
@@ -46,14 +45,14 @@
       "locator": {
         "type": "official_registry",
         "url": "https://www.law.go.kr/",
-        "label": "capital-transactions"
+        "label": "capital transaction locator"
       },
       "provenance": {
-        "produced_by": "nis3-public-fixture",
-        "note": "Locator-only seed; legal material is not committed."
+        "produced_by": "manual-public-locator-fixture",
+        "note": "Locator seed only."
       },
       "public_safe": true,
-      "law_name": "Commercial Act",
+      "law_name": "Korean Commercial Act",
       "article_locator": "capital-transactions",
       "official_registry": "law.go.kr",
       "topics": [
@@ -76,8 +75,8 @@
         "filing_id": "synthetic-dart-2025-annual-001"
       },
       "provenance": {
-        "produced_by": "nis3-public-fixture",
-        "note": "Synthetic value; no real filing payload is committed."
+        "produced_by": "synthetic-fixture",
+        "note": "Synthetic structured fact only."
       },
       "public_safe": true,
       "company_id": "SYNTH-DART-001",
@@ -107,15 +106,15 @@
       "retrieval_lane": "local_private_fact",
       "locator": {
         "type": "local_private_placeholder",
-        "label": "client-case-placeholder"
+        "label": "client case fact placeholder"
       },
       "provenance": {
-        "produced_by": "nis3-public-fixture",
-        "note": "Placeholder only; private material stays local."
+        "produced_by": "placeholder-fixture",
+        "note": "Local-only placeholder; no client material."
       },
       "public_safe": true,
       "case_scope": "lease_contract",
-      "fact_label": "payment_schedule_placeholder",
+      "fact_label": "payment schedule placeholder",
       "fact_kind": "contract_term",
       "private_storage_boundary": "local_only",
       "deletion_policy": "operator_attested_delete"

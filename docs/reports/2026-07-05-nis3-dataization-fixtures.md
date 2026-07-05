@@ -1,17 +1,17 @@
 # NIS3 Dataization Fixtures
 
-> Scope: public-safe non-IFRS source record fixture and validator.
+> Scope: validate public-safe non-IFRS source record fixtures.
 
 ## One-Line Conclusion
 
-The four source lanes now have a single public-safe fixture validated by the NIS2 source record contract.
+The non-IFRS source record fixture covers all planned source lanes and is public-safe.
 
 ## Fixture
 
 - Records path: `docs/ingestion/non_ifrs_source_records.example.json`
 - Total records: 4
 
-## Record Type Coverage
+## Coverage
 
 | Record Type | Count |
 |---|---:|
@@ -30,7 +30,6 @@ NIS4_chunking_and_embedding_policy
 {
   "ok": true,
   "title": "NIS3 Dataization Fixtures",
-  "milestone": "NIS3",
   "records_path": "docs/ingestion/non_ifrs_source_records.example.json",
   "total": 4,
   "by_type": {
@@ -39,8 +38,14 @@ NIS4_chunking_and_embedding_policy
     "law_locator": 1,
     "structured_fact": 1
   },
-  "errors": [],
+  "required_types": [
+    "client_private_fact",
+    "document_metadata",
+    "law_locator",
+    "structured_fact"
+  ],
   "next_leaf": "NIS4_chunking_and_embedding_policy",
+  "errors": [],
   "report_path": "docs/reports/2026-07-05-nis3-dataization-fixtures.md"
 }
 ```
