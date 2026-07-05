@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from kifrs.workflows.kifrs1109.fixtures import FIXTURES
 from kifrs.runtime.evidence import load_runtime_evidence
+from kifrs.runtime.authority_boundary import build_runtime_authority_boundary
 from kifrs.workflows.kifrs1109.review_pack import (
     generate_review_pack,
     render_review_pack_markdown,
@@ -88,3 +89,22 @@ def test_1109_review_pack_renders_external_evidence_panel_without_body_text():
     assert "### 수치 사실 근거" in rendered
     assert "synthetic-dart-2025-annual-001-revenue" in rendered
     assert "copied source" not in rendered
+
+
+def test_1109_review_pack_renders_five_group_authority_panel():
+    authority_boundary = build_runtime_authority_boundary(primary_citations=["[1109-4.1.2]"])
+    pack = generate_review_pack(
+        _fixture("scenario_01_corporate_bond_ac"),
+        authority_boundary=authority_boundary,
+    )
+
+    rendered = render_review_pack_markdown(pack)
+
+    assert "## Runtime Authority Boundary" in rendered
+    assert "### Primary K-IFRS evidence" in rendered
+    assert "### Supporting interpretation" in rendered
+    assert "### Legal boundary" in rendered
+    assert "### Fact evidence" in rendered
+    assert "### Client-private fact" in rendered
+    assert pack.authority_boundary["fact_evidence"][0]["authority_role"] == "fact_evidence"
+    assert "source_body" not in rendered

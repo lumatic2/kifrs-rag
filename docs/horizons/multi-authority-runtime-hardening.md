@@ -64,7 +64,7 @@ Acceptance:
 
 ### MAH3. Review Pack Authority Panel
 
-Status: active
+Status: complete (`docs/reports/2026-07-05-mah3-review-pack-authority-panel.md`)
 
 1116/1109/1115 review pack markdown/json에 authority-separated evidence panel을 붙인다.
 
@@ -82,6 +82,8 @@ Acceptance:
 
 ### MAH4. Statement Draft and Analytics Fact Hook
 
+Status: complete (`docs/reports/2026-07-05-mah4-structured-fact-runtime-hook.md`)
+
 statement draft와 audit analytics 쪽에서 structured fact evidence를 참조할 수 있게 한다.
 
 Deliverable:
@@ -97,6 +99,8 @@ Acceptance:
 - synthetic fixture만 사용하며 raw filing payload는 필요 없다.
 
 ### MAH5. Authority Composer Gate and Runtime Demo
+
+Status: active
 
 authority-separated runtime을 하나의 demo와 gate로 닫는다.
 

@@ -51,18 +51,18 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "MAH1", "name": "runtime evidence boundary audit", "status": "completed"},
             {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "completed"},
-            {"id": "MAH3", "name": "review pack authority panel", "status": "active_next"},
-            {"id": "MAH4", "name": "statement draft and analytics fact hook", "status": "pending"},
-            {"id": "MAH5", "name": "authority composer gate and runtime demo", "status": "pending"},
+            {"id": "MAH3", "name": "review pack authority panel", "status": "completed"},
+            {"id": "MAH4", "name": "statement draft and analytics fact hook", "status": "completed"},
+            {"id": "MAH5", "name": "authority composer gate and runtime demo", "status": "active_next"},
         ],
     }
     decisions = [
         {
-            "id": "run_MAH3_review_pack_authority_panel",
+            "id": "run_MAH5_authority_composer_gate_and_runtime_demo",
             "status": "active",
-            "decide": "Attach the shared five-group runtime authority boundary to 1116, 1109, and 1115 review pack outputs.",
+            "decide": "Close the multi-authority runtime horizon with one gate and demo covering all five evidence groups.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_1116_review_pack.py tests\\test_1109_review_pack.py tests\\test_1115_review_pack.py -q",
+            "command": "python scripts\\multi_authority_runtime_gate.py --format text",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "MAH3_review_pack_authority_panel",
-        "next_command": "python -m pytest tests\\test_1116_review_pack.py tests\\test_1109_review_pack.py tests\\test_1115_review_pack.py -q",
+        "next_leaf": "MAH5_authority_composer_gate_and_runtime_demo",
+        "next_command": "python scripts\\multi_authority_runtime_gate.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 

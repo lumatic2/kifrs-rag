@@ -36,18 +36,18 @@ metadata는 supporting interpretation, 법령은 legal boundary, DART-style 수�
 
 ### MAH3 — Review Pack Authority Panel
 
-- [ ] MAH3.1 — Define shared authority panel payload. (verify: panel tests cover 5 authority groups)
-- [ ] MAH3.2 — Attach panel to 1116 review pack fixture output. (verify: `python -m pytest tests\test_1116_review_pack.py -q`)
-- [ ] MAH3.3 — Attach panel to 1109 review pack fixture output. (verify: `python -m pytest tests\test_1109_review_pack.py -q`)
-- [ ] MAH3.4 — Attach panel to 1115 review pack fixture output. (verify: `python -m pytest tests\test_1115_review_pack.py -q`)
-- [ ] MAH3.5 — Write MAH3 report. (verify: report includes boundary text: external evidence does not replace K-IFRS primary evidence)
+- [x] MAH3.1 — Define shared authority panel payload. (verify: panel tests cover 5 authority groups)
+- [x] MAH3.2 — Attach panel to 1116 review pack fixture output. (verify: `python -m pytest tests\test_1116_review_pack.py -q`)
+- [x] MAH3.3 — Attach panel to 1109 review pack fixture output. (verify: `python -m pytest tests\test_1109_review_pack.py -q`)
+- [x] MAH3.4 — Attach panel to 1115 review pack fixture output. (verify: `python -m pytest tests\test_1115_review_pack.py -q`)
+- [x] MAH3.5 — Write MAH3 report. (verify: report includes boundary text: external evidence does not replace K-IFRS primary evidence)
 
 ### MAH4 — Statement Draft and Analytics Fact Hook
 
-- [ ] MAH4.1 — Add structured fact reference shape for statement draft. (verify: `python -m pytest tests\test_statement_draft.py -q`)
-- [ ] MAH4.2 — Add structured fact hook to audit analytics fixture. (verify: focused audit analytics test passes)
-- [ ] MAH4.3 — Ensure structured facts cannot become primary authority. (verify: negative test rejects primary promotion)
-- [ ] MAH4.4 — Write MAH4 report. (verify: report shows synthetic fact linkage only)
+- [x] MAH4.1 — Add structured fact reference shape for statement draft. (verify: `python -m pytest tests\test_statement_draft.py -q`)
+- [x] MAH4.2 — Add structured fact hook to audit analytics fixture. (verify: focused audit analytics test passes)
+- [x] MAH4.3 — Ensure structured facts cannot become primary authority. (verify: negative test rejects primary promotion)
+- [x] MAH4.4 — Write MAH4 report. (verify: report shows synthetic fact linkage only)
 
 ### MAH5 — Authority Composer Gate and Runtime Demo
 

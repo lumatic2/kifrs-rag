@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from kifrs.workflows.kifrs1116.fixtures import FIXTURES
 from kifrs.runtime.evidence import load_runtime_evidence
+from kifrs.runtime.authority_boundary import build_runtime_authority_boundary
 from kifrs.workflows.kifrs1116.review_pack import (
     generate_review_pack,
     render_review_pack_markdown,
@@ -80,3 +81,22 @@ def test_1116_review_pack_renders_external_evidence_panel_without_body_text():
     assert "### 수치 사실 근거" in rendered
     assert "ev-kasb-interpretation-catalog-seed" in {item["evidence_id"] for item in pack.external_evidence}
     assert "copied source" not in rendered
+
+
+def test_1116_review_pack_renders_five_group_authority_panel():
+    authority_boundary = build_runtime_authority_boundary(primary_citations=["[1116-53]"])
+    pack = generate_review_pack(
+        _fixture("scenario_01_simple_office_lease").txn,
+        authority_boundary=authority_boundary,
+    )
+
+    rendered = render_review_pack_markdown(pack)
+
+    assert "## Runtime Authority Boundary" in rendered
+    assert "### Primary K-IFRS evidence" in rendered
+    assert "### Supporting interpretation" in rendered
+    assert "### Legal boundary" in rendered
+    assert "### Fact evidence" in rendered
+    assert "### Client-private fact" in rendered
+    assert pack.authority_boundary["primary_kifrs_evidence"][0]["source_id"] == "kifrs-primary"
+    assert "source_body" not in rendered

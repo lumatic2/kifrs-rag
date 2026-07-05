@@ -9,6 +9,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import re
 
+from kifrs.runtime.authority_boundary import (
+    RuntimeAuthorityBoundary,
+    authority_boundary_references,
+    render_runtime_authority_boundary_data,
+)
 from kifrs.runtime.evidence import EvidenceBundle
 from kifrs.runtime.evidence_panel import evidence_references, render_external_evidence_panel
 
@@ -47,6 +52,7 @@ class ReviewPack:
     needs_human_review: list[HumanReviewAction] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
     external_evidence: list[dict[str, object]] = field(default_factory=list)
+    authority_boundary: dict[str, list[dict[str, object]]] = field(default_factory=dict)
 
 
 def _extract_citations(*texts: str | None) -> list[str]:
@@ -188,7 +194,11 @@ def _checklist(
     return items
 
 
-def generate_review_pack(lease: Lease1116, evidence_bundle: EvidenceBundle | None = None) -> ReviewPack:
+def generate_review_pack(
+    lease: Lease1116,
+    evidence_bundle: EvidenceBundle | None = None,
+    authority_boundary: RuntimeAuthorityBoundary | None = None,
+) -> ReviewPack:
     """Run the 1116 pipeline and compose a F-ACC workpaper pack."""
     outcome = run_lease(lease)
 
@@ -211,6 +221,7 @@ def generate_review_pack(lease: Lease1116, evidence_bundle: EvidenceBundle | Non
         needs_human_review=needs_review,
         citations=citations,
         external_evidence=evidence_references(evidence_bundle),
+        authority_boundary=authority_boundary_references(authority_boundary),
     )
 
 
@@ -250,6 +261,8 @@ def render_review_pack_markdown(pack: ReviewPack) -> str:
             md.append("- 기준서 처리 방향:")
             md.extend(f"  - {item}" for item in action.candidate_guidance)
     md.extend(["", *render_external_evidence_panel(pack.external_evidence)])
+    if pack.authority_boundary:
+        md.extend(["", render_runtime_authority_boundary_data(pack.authority_boundary)])
     md.extend(["", "## 6. 인용"])
     for citation in pack.citations:
         md.append(f"- {citation}")

@@ -20,8 +20,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 |---|---|---|
 | MAH1 | runtime evidence boundary audit | completed |
 | MAH2 | runtime evidence contract hardening | completed |
-| MAH3 | review pack authority panel | active_next |
-| MAH4 | statement draft and analytics fact hook | pending |
+| MAH3 | review pack authority panel | completed |
+| MAH4 | statement draft and analytics fact hook | active_next |
 | MAH5 | authority composer gate and runtime demo | pending |
 
 ## Completed Capability Chain
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_MAH3_review_pack_authority_panel | active | none | `python -m pytest tests\test_1116_review_pack.py tests\test_1109_review_pack.py tests\test_1115_review_pack.py -q` |
+| run_MAH4_statement_draft_and_analytics_fact_hook | active | none | `python -m pytest tests\test_statement_draft.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,8 +58,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `MAH3_review_pack_authority_panel`
-- command: `python -m pytest tests\test_1116_review_pack.py tests\test_1109_review_pack.py tests\test_1115_review_pack.py -q`
+- decision: `MAH4_statement_draft_and_analytics_fact_hook`
+- command: `python -m pytest tests\test_statement_draft.py -q`
 
 ## Machine Result
 
@@ -85,12 +85,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "MAH3",
         "name": "review pack authority panel",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "MAH4",
         "name": "statement draft and analytics fact hook",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "MAH5",
@@ -128,11 +128,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_MAH3_review_pack_authority_panel",
+      "id": "run_MAH4_statement_draft_and_analytics_fact_hook",
       "status": "active",
-      "decide": "Attach the shared five-group runtime authority boundary to 1116, 1109, and 1115 review pack outputs.",
+      "decide": "Connect structured fact references to statement draft and analytics outputs without promoting them to primary accounting authority.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_1116_review_pack.py tests\\test_1109_review_pack.py tests\\test_1115_review_pack.py -q"
+      "command": "python -m pytest tests\\test_statement_draft.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -155,8 +155,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "MAH3_review_pack_authority_panel",
-  "next_command": "python -m pytest tests\\test_1116_review_pack.py tests\\test_1109_review_pack.py tests\\test_1115_review_pack.py -q",
+  "next_leaf": "MAH4_statement_draft_and_analytics_fact_hook",
+  "next_command": "python -m pytest tests\\test_statement_draft.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

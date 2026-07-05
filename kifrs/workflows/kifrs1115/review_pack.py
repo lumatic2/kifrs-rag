@@ -2,6 +2,11 @@
 
 from dataclasses import dataclass, field
 
+from kifrs.runtime.authority_boundary import (
+    RuntimeAuthorityBoundary,
+    authority_boundary_references,
+    render_runtime_authority_boundary_data,
+)
 from kifrs.runtime.evidence import EvidenceBundle
 from kifrs.runtime.evidence_panel import evidence_references, render_external_evidence_panel
 
@@ -43,14 +48,17 @@ class ReviewPack:
     needs_human_review: list[HumanReviewAction] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
     external_evidence: list[dict[str, object]] = field(default_factory=list)
+    authority_boundary: dict[str, list[dict[str, object]]] = field(default_factory=dict)
 
 
 def generate_review_pack(
     source: ScenarioFixture | Revenue1115,
     evidence_bundle: EvidenceBundle | None = None,
+    authority_boundary: RuntimeAuthorityBoundary | None = None,
 ) -> ReviewPack:
     txn = source.txn if isinstance(source, ScenarioFixture) else source
     external_evidence = evidence_references(evidence_bundle)
+    authority_boundary_data = authority_boundary_references(authority_boundary)
     try:
         decision = evaluate_revenue(txn)
         measurement = measure_revenue(txn, decision)
@@ -67,6 +75,7 @@ def generate_review_pack(
             review_checklist=_needs_review_checklist(actions),
             needs_human_review=actions,
             external_evidence=external_evidence,
+            authority_boundary=authority_boundary_data,
         )
 
     actions = _automated_human_review_actions(txn, decision)
@@ -83,6 +92,7 @@ def generate_review_pack(
         needs_human_review=actions,
         citations=_collect_citations(decision),
         external_evidence=external_evidence,
+        authority_boundary=authority_boundary_data,
     )
 
 
@@ -125,6 +135,8 @@ def render_review_pack_markdown(pack: ReviewPack) -> str:
             md.extend(f"  - {item}" for item in action.candidate_guidance)
 
     md.extend(["", *render_external_evidence_panel(pack.external_evidence)])
+    if pack.authority_boundary:
+        md.extend(["", render_runtime_authority_boundary_data(pack.authority_boundary)])
     md.extend(["", "## 5. 인용"])
     for citation in pack.citations:
         md.append(f"- {citation}")

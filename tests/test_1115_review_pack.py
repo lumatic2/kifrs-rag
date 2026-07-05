@@ -2,6 +2,7 @@
 
 from kifrs.workflows.kifrs1115.fixtures import FIXTURES
 from kifrs.runtime.evidence import load_runtime_evidence
+from kifrs.runtime.authority_boundary import build_runtime_authority_boundary
 from kifrs.workflows.kifrs1115.review_pack import (
     generate_review_pack,
     render_review_pack_markdown,
@@ -72,3 +73,19 @@ def test_1115_review_pack_renders_external_evidence_panel_without_body_text():
     assert "### 해석 보조 근거" in rendered
     assert "kasb-interpretation-material" in rendered
     assert "copied source" not in rendered
+
+
+def test_1115_review_pack_renders_five_group_authority_panel():
+    authority_boundary = build_runtime_authority_boundary(primary_citations=["[1115-B39~B43]"])
+    pack = generate_review_pack(FIXTURES[0], authority_boundary=authority_boundary)
+
+    rendered = render_review_pack_markdown(pack)
+
+    assert "## Runtime Authority Boundary" in rendered
+    assert "### Primary K-IFRS evidence" in rendered
+    assert "### Supporting interpretation" in rendered
+    assert "### Legal boundary" in rendered
+    assert "### Fact evidence" in rendered
+    assert "### Client-private fact" in rendered
+    assert pack.authority_boundary["supporting_interpretation"][0]["authority_role"] == "supporting_interpretation"
+    assert "source_body" not in rendered
