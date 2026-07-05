@@ -12,6 +12,7 @@
 - [ ] `python scripts\real_accountant_scheduled_session_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_capture_readiness_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_operator_execution_brief.py --format text --write`
+- [ ] `python scripts\real_accountant_pre_send_final_gate.py --format text --write`
 - [ ] Open one-page brief.
 - [ ] Open demo manifest.
 - [ ] Open real-transaction PoC index.
