@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is workflow-coverage-expansion: turn the 1037 provisions contract into a minimal review-pack adapter.
+The active horizon is workflow-coverage-expansion: reflect the new 1037 provisions adapter in objective coverage metrics.
 
 ## Objective
 
@@ -20,8 +20,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 |---|---|---|
 | WCE1 | coverage gap ranking | completed |
 | WCE2 | first new workflow candidate contract | completed |
-| WCE3 | minimal review-pack adapter | active_next |
-| WCE4 | coverage metric update | pending |
+| WCE3 | minimal review-pack adapter | completed |
+| WCE4 | coverage metric update | active_next |
 | WCE5 | workflow coverage close gate | pending |
 
 ## Completed Capability Chain
@@ -49,7 +49,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_WCE3_minimal_review_pack_adapter | active | none | `python -m pytest tests\test_minimal_workflow_review_pack_adapter.py -q` |
+| run_WCE4_coverage_metric_update | active | none | `python -m pytest tests\test_workflow_coverage_metric_update.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -62,8 +62,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `WCE3_minimal_review_pack_adapter`
-- command: `python -m pytest tests\test_minimal_workflow_review_pack_adapter.py -q`
+- decision: `WCE4_coverage_metric_update`
+- command: `python -m pytest tests\test_workflow_coverage_metric_update.py -q`
 
 ## Machine Result
 
@@ -89,12 +89,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "WCE3",
         "name": "minimal review-pack adapter",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "WCE4",
         "name": "coverage metric update",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "WCE5",
@@ -152,11 +152,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_WCE3_minimal_review_pack_adapter",
+      "id": "run_WCE4_coverage_metric_update",
       "status": "active",
-      "decide": "Build a minimal 1037 provisions review-pack adapter that emits a structured summary and human-review checklist.",
+      "decide": "Update the objective coverage map to include the new 1037 provisions workflow candidate and its limits.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_minimal_workflow_review_pack_adapter.py -q"
+      "command": "python -m pytest tests\\test_workflow_coverage_metric_update.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -179,8 +179,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "WCE3_minimal_review_pack_adapter",
-  "next_command": "python -m pytest tests\\test_minimal_workflow_review_pack_adapter.py -q",
+  "next_leaf": "WCE4_coverage_metric_update",
+  "next_command": "python -m pytest tests\\test_workflow_coverage_metric_update.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -23,9 +23,9 @@ This horizon expands accountant-work coverage using the service map, but only th
 
 ### WCE3 — Minimal Review-Pack Adapter
 
-- [ ] WCE3.1 — Implement minimal structured summary.
-- [ ] WCE3.2 — Add human-review checklist.
-- [ ] WCE3.3 — Add tests/report.
+- [x] WCE3.1 — Implement minimal structured summary.
+- [x] WCE3.2 — Add human-review checklist.
+- [x] WCE3.3 — Add tests/report.
 
 ### WCE4 — Coverage Metric Update
 

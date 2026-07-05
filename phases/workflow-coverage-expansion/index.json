@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "minimal-review-pack-adapter",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCE3 added scripts/minimal_workflow_review_pack_adapter.py, tests/test_minimal_workflow_review_pack_adapter.py, and docs/reports/2026-07-05-wce3-minimal-review-pack-adapter.md. It emits a structured 1037 provisions review-pack draft from structured local facts, including recognition assessment, measurement summary, journal entry cue, missing facts, authority panel, confidence, limitations, and human-review checklist.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "coverage-metric-update",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,

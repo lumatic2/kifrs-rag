@@ -26,14 +26,14 @@ Status: completed
 
 ### WCE3. Minimal Review-Pack Adapter
 
-Status: active
+Status: completed
 
 - Deliverable: adapter code, tests, `docs/reports/2026-07-05-wce3-minimal-review-pack-adapter.md`
 - Acceptance: selected workflow can produce at least a structured summary and human-review checklist.
 
 ### WCE4. Coverage Metric Update
 
-Status: pending
+Status: active
 
 - Deliverable: coverage metric script/report, tests, `docs/reports/2026-07-05-wce4-coverage-metric-update.md`
 - Acceptance: objective coverage map reflects the new workflow candidate and its limits.

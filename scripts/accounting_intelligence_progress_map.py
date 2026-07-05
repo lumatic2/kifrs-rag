@@ -71,18 +71,18 @@ def build_progress_map() -> dict[str, Any]:
         "milestones": [
             {"id": "WCE1", "name": "coverage gap ranking", "status": "completed"},
             {"id": "WCE2", "name": "first new workflow candidate contract", "status": "completed"},
-            {"id": "WCE3", "name": "minimal review-pack adapter", "status": "active_next"},
-            {"id": "WCE4", "name": "coverage metric update", "status": "pending"},
+            {"id": "WCE3", "name": "minimal review-pack adapter", "status": "completed"},
+            {"id": "WCE4", "name": "coverage metric update", "status": "active_next"},
             {"id": "WCE5", "name": "workflow coverage close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_WCE3_minimal_review_pack_adapter",
+            "id": "run_WCE4_coverage_metric_update",
             "status": "active",
-            "decide": "Build a minimal 1037 provisions review-pack adapter that emits a structured summary and human-review checklist.",
+            "decide": "Update the objective coverage map to include the new 1037 provisions workflow candidate and its limits.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_minimal_workflow_review_pack_adapter.py -q",
+            "command": "python -m pytest tests\\test_workflow_coverage_metric_update.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -107,8 +107,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "WCE3_minimal_review_pack_adapter",
-        "next_command": "python -m pytest tests\\test_minimal_workflow_review_pack_adapter.py -q",
+        "next_leaf": "WCE4_coverage_metric_update",
+        "next_command": "python -m pytest tests\\test_workflow_coverage_metric_update.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -123,7 +123,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is workflow-coverage-expansion: turn the 1037 provisions contract into a minimal review-pack adapter.",
+        "The active horizon is workflow-coverage-expansion: reflect the new 1037 provisions adapter in objective coverage metrics.",
         "",
         "## Objective",
         "",
