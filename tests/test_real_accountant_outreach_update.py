@@ -80,3 +80,16 @@ def test_upsert_outreach_not_sent_keeps_invite_false(tmp_path) -> None:
     )
 
     assert row["invite_sent"] is False
+
+
+def test_upsert_outreach_declined_keeps_invite_sent_true(tmp_path) -> None:
+    row = upsert_outreach(
+        tmp_path / "outreach.jsonl",
+        reviewer_alias="reviewer-001",
+        status="declined",
+        channel="manual",
+        contacted_at="2026-07-05",
+        follow_up_by="2026-07-08",
+    )
+
+    assert row["invite_sent"] is True

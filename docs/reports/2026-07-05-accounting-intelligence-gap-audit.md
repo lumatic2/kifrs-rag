@@ -23,6 +23,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | opt_in_retriever_demo_validation | `docs/reports/2026-07-05-odv1-opt-in-retriever-demo-validation.md` | present |
 | opt_in_retriever_promotion_decision_gate | `docs/reports/2026-07-05-orpd1-opt-in-retriever-promotion-decision-gate.md` | present |
 | real_accountant_invite_dispatch_gate | `docs/reports/real-accountant-session/2026-07-05-invite-dispatch-gate.md` | present |
+| real_accountant_response_handling_gate | `docs/reports/real-accountant-session/2026-07-05-response-handling-gate.md` | present |
 | client_private_upload_storage_policy | `docs/reports/2026-07-05-cpu1-client-private-upload-storage-policy.md` | present |
 | private_parser_dry_run_fixture | `docs/reports/2026-07-05-pdf1-private-parser-dry-run-fixture.md` | present |
 | local_deletion_attestation_gate | `docs/reports/2026-07-05-lda1-local-deletion-attestation-gate.md` | present |
@@ -78,7 +79,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 ## Remaining Gaps
 
-- actual accountant session evidence is still external/user-owned; invite dispatch gate is ready but the reviewer invite has not been sent
+- actual accountant session evidence is still external/user-owned; invite and response handling gates are ready but the reviewer invite has not been sent
 - local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented
 - opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization
@@ -103,7 +104,7 @@ real-accountant-session RS2/RS3 evidence capture, then explicit authorization be
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
   "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change",
   "remaining_gaps": [
-    "actual accountant session evidence is still external/user-owned; invite dispatch gate is ready but the reviewer invite has not been sent",
+    "actual accountant session evidence is still external/user-owned; invite and response handling gates are ready but the reviewer invite has not been sent",
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted, but source-body connector is still not implemented",
     "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization"

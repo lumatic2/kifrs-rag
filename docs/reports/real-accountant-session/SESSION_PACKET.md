@@ -15,6 +15,7 @@
 | `2026-07-05-session-invite.md` | reviewer에게 보낼 초대/설명 문구 |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
 | `2026-07-05-invite-dispatch-gate.md` | 초대 발송 전 public-safe packet과 발송 후 ledger update 경로 검증 |
+| `2026-07-05-response-handling-gate.md` | 초대 후 follow-up/schedule/decline 응답 처리와 ledger update 경로 검증 |
 | `session_manifest.json` | 세션 준비 상태와 실제 evidence 여부 |
 
 ## Files to Open During Session
@@ -147,6 +148,12 @@ python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-acco
 python scripts\real_accountant_response_packet.py --response follow_up
 python scripts\real_accountant_response_packet.py --response schedule
 python scripts\real_accountant_response_packet.py --response decline
+```
+
+아래 gate로 follow-up/schedule/decline 세 경로가 copied ledger에서 유효한 상태 전이를 만드는지 확인한다.
+
+```powershell
+python scripts\real_accountant_response_handling_gate.py --format text --write
 ```
 
 실제 ledger도 reviewer 실명, 회사명, 고객명, 계약 정보 없이 alias와 상태만 기록한다.

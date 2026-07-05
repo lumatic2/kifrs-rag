@@ -11,7 +11,7 @@ except ModuleNotFoundError:
     from real_accountant_outreach_check import ALLOWED_STATUS, check_outreach, load_outreach
 
 
-INVITE_SENT_STATUSES = {"sent", "responded", "scheduled", "completed"}
+INVITE_SENT_STATUSES = {"sent", "responded", "scheduled", "declined", "completed"}
 
 
 def upsert_outreach(
