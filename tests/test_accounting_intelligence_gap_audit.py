@@ -18,8 +18,8 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert "actual accountant session" in joined_gaps
     assert "local parser real-adapter decision gate is present and deferred" in joined_gaps
     assert "parser/deletion automation" in joined_gaps
-    assert "external source synthetic parser/chunker dry-run is present" in joined_gaps
-    assert "body ingestion/chunking/embedding" in joined_gaps
+    assert "external source synthetic parser/chunker lane is closed" in joined_gaps
+    assert "connector-specific live source policy is not implemented" in joined_gaps
     assert "opt-in retriever demo validation is complete" in joined_gaps
 
 

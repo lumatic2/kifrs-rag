@@ -60,6 +60,10 @@ REQUIRED_REPORTS = {
     / "docs"
     / "reports"
     / "2026-07-05-essd1-external-source-synthetic-parser-chunker-dry-run.md",
+    "external_synthetic_parser_chunker_close_gate": ROOT
+    / "docs"
+    / "reports"
+    / "2026-07-05-essc1-external-source-synthetic-parser-chunker-close-gate.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -115,7 +119,7 @@ def build_gap_audit() -> GapAudit:
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
         "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-        "external source synthetic parser/chunker dry-run is present, but live body ingestion/chunking/embedding is not implemented",
+        "external source synthetic parser/chunker lane is closed, but connector-specific live source policy is not implemented",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]
 
@@ -132,7 +136,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source synthetic parser/chunker close gate",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or external source connector-specific policy record",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )
