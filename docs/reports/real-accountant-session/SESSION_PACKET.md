@@ -21,6 +21,7 @@
 | `2026-07-05-operator-execution-brief.md` | 초대→스케줄→세션→capture→close까지 실제 운영 순서 압축 브리프 |
 | `2026-07-05-pre-send-final-gate.md` | 실제 초대 발송 직전 repo-side readiness와 pre-send boundary 최종 검증 |
 | `2026-07-05-after-send-action-matrix.md` | 초대 발송 후 follow-up/schedule/decline 선택지별 ledger 전이와 다음 액션 검증 |
+| `2026-07-05-notes-quality-gate.md` | actual notes가 capture/queue/eval 후보로 충분한 품질인지 검증 |
 | `2026-07-05-close-state-matrix.md` | ready/actual manifest와 outreach 상태 조합별 close 가능 여부 matrix |
 | `session_manifest.json` | 세션 준비 상태와 실제 evidence 여부 |
 
@@ -115,10 +116,11 @@ actual notes를 capture pipeline에 넣기 전에는 아래 명령이 먼저 통
 
 ```powershell
 python scripts\real_accountant_notes_check.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md
+python scripts\real_accountant_notes_quality_gate.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md
 ```
 
-이 checker는 세션 템플릿의 빈칸, 미확인 boundary checkbox, 고객/회사 식별자 패턴, protected marker가
-남아 있으면 실패한다.
+이 checker들은 세션 템플릿의 빈칸, 미확인 boundary checkbox, 고객/회사 식별자 패턴, protected marker가
+남아 있거나 scores/positive/risk/missing input/review question/correction candidate가 부족하면 실패한다.
 
 checker가 통과한 actual notes는 아래 명령으로 capture pipeline에 넣는다. 이 명령은
 `capture-manifest.json`, `feedback-queue.jsonl`, `capture-report.md`, `feedback-queue-report.md`를 쓴다.

@@ -14,6 +14,7 @@
 - [ ] `python scripts\real_accountant_operator_execution_brief.py --format text --write`
 - [ ] `python scripts\real_accountant_pre_send_final_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_after_send_action_matrix.py --format text --write`
+- [ ] `python scripts\real_accountant_notes_quality_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_close_state_matrix.py --format text --write`
 - [ ] Open one-page brief.
 - [ ] Open demo manifest.
