@@ -28,14 +28,14 @@ Status: completed
 
 ### WCD3. Minimal Adapter Expansion
 
-Status: active
+Status: completed
 
 - Deliverable: minimal adapter script/report for the highest-ranked workflow.
 - Acceptance: at least one additional workflow produces decision-prep metadata without protected payload exposure.
 
 ### WCD4. Coverage Depth Metric Update
 
-Status: pending
+Status: active
 
 - Deliverable: coverage metric script/report.
 - Acceptance: automation coverage depth is updated with service-line and workflow-surface counts.

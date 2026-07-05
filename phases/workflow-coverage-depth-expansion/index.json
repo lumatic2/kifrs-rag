@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "minimal-adapter-expansion",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCD3 added scripts/workflow_depth_minimal_adapter.py, tests/test_workflow_depth_minimal_adapter.py, and docs/reports/2026-07-05-wcd3-minimal-adapter-expansion.md. It implements a minimal audit_disclosure_tie_out adapter that emits disclosure checklist statuses, partial tie-out status, missing evidence flags, draft-note labels, and human-review-required items without final audit conclusion.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "coverage-depth-metric-update",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,

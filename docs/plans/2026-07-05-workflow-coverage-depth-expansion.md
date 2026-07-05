@@ -23,9 +23,9 @@ This horizon addresses the Objective gap that automation evidence is still too c
 
 ### WCD3 — Minimal Adapter Expansion
 
-- [ ] WCD3.1 — Implement minimal adapter for the top workflow.
-- [ ] WCD3.2 — Add public-safe output checks.
-- [ ] WCD3.3 — Write adapter report.
+- [x] WCD3.1 — Implement minimal adapter for the top workflow.
+- [x] WCD3.2 — Add public-safe output checks.
+- [x] WCD3.3 — Write adapter report.
 
 ### WCD4 — Coverage Depth Metric Update
 

@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (WCD2 완료, WCD3 active)
+> 마지막 업데이트: 2026-07-05 (WCD3 완료, WCD4 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -48,7 +48,7 @@ Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-cand
 <!-- harness:goal id="workflow-coverage-depth-expansion" status="active" -->
 `docs/horizons/workflow-coverage-depth-expansion.md` — firm-service map 대비 자동화 workflow 표본을 더 깊고 넓게 확장한다.
 
-순서: WCD1 service-line coverage rerank ✅ → WCD2 workflow sample contract pack ✅ → WCD3 minimal adapter expansion → WCD4 coverage depth metric update → WCD5 close/handoff.
+순서: WCD1 service-line coverage rerank ✅ → WCD2 workflow sample contract pack ✅ → WCD3 minimal adapter expansion ✅ → WCD4 coverage depth metric update → WCD5 close/handoff.
 
 ## Active Milestones
 
@@ -66,18 +66,18 @@ Evidence: `docs/reports/2026-07-05-wcd2-workflow-sample-contract-pack.md`
 Gap: Closed by WCD2 workflow sample contract pack script/tests/report.
 Status: [x]
 
-<!-- harness:milestone id="WCD3" status="active" priority="P0" -->
+<!-- harness:milestone id="WCD3" status="completed" priority="P0" -->
 ### WCD3 — Minimal Adapter Expansion
 DoD: at least one additional workflow produces decision-prep metadata without protected payload exposure.
 Evidence: `docs/reports/2026-07-05-wcd3-minimal-adapter-expansion.md`
-Gap: Need minimal adapter expansion script/tests/report.
-Status: [ ]
+Gap: Closed by WCD3 minimal adapter script/tests/report.
+Status: [x]
 
-<!-- harness:milestone id="WCD4" status="pending" priority="P0" -->
+<!-- harness:milestone id="WCD4" status="active" priority="P0" -->
 ### WCD4 — Coverage Depth Metric Update
 DoD: automation coverage depth is updated with service-line and workflow-surface counts.
 Evidence: `docs/reports/2026-07-05-wcd4-coverage-depth-metric.md`
-Gap: Pending WCD3.
+Gap: Need coverage depth metric update script/tests/report.
 Status: [ ]
 
 <!-- harness:milestone id="WCD5" status="pending" priority="P0" -->
@@ -257,7 +257,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `workflow-coverage-depth-expansion` / WCD3 — minimal adapter expansion.
+**[현재 active]** `workflow-coverage-depth-expansion` / WCD4 — coverage depth metric update.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
