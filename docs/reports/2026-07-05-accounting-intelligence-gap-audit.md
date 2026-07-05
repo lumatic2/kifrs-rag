@@ -27,6 +27,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | client_private_local_parser_close_gate | `docs/reports/2026-07-05-cpl1-client-private-local-parser-close-gate.md` | present |
 | local_parser_prototype_spike | `docs/reports/2026-07-05-lpp1-local-parser-prototype-spike.md` | present |
 | local_parser_prototype_close_gate | `docs/reports/2026-07-05-lpc1-local-parser-prototype-close-gate.md` | present |
+| local_parser_adapter_contract | `docs/reports/2026-07-05-lpa1-local-parser-adapter-contract.md` | present |
 
 ## Demo Outputs
 
@@ -53,13 +54,13 @@ technical demo package is ready for review, but final PoC proof requires an actu
 ## Remaining Gaps
 
 - actual accountant session evidence is still external/user-owned
-- synthetic local parser prototype is closed, but real upload/OCR/parser/deletion automation are not implemented
+- local parser adapter contract is defined, but real upload/OCR/parser/deletion automation are not implemented
 - external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or local parser adapter contract
+real-accountant-session RS2/RS3 evidence capture, or local parser adapter dry-run gate
 
 ## Machine Result
 
@@ -75,10 +76,10 @@ real-accountant-session RS2/RS3 evidence capture, or local parser adapter contra
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or local parser adapter contract",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or local parser adapter dry-run gate",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
-    "synthetic local parser prototype is closed, but real upload/OCR/parser/deletion automation are not implemented",
+    "local parser adapter contract is defined, but real upload/OCR/parser/deletion automation are not implemented",
     "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],

@@ -13,8 +13,10 @@ from .case_intake import (
     ClientPrivateDeletionAttestation,
     ClientPrivateParserDryRunFixture,
     ClientPrivateUploadStoragePolicy,
+    LOCAL_PRIVATE_DOCUMENT_TYPES,
     RedactedClientPrivateSummary,
     RoutingCandidate,
+    SUPPORTED_DOMAINS,
     ValidationIssue,
     _public_safe_issues,
     redact_local_private_case_for_public,
@@ -23,6 +25,45 @@ from .case_intake import (
     validate_client_private_parser_dry_run_fixture,
     validate_client_private_upload_storage_policy,
 )
+
+
+LOCAL_PARSER_ADAPTER_SOURCE_KINDS = {"synthetic_fixture"}
+LOCAL_PARSER_ADAPTER_OUTPUT_MODES = {"structured_facts_only"}
+LOCAL_PARSER_ADAPTER_HANDOFF_TARGETS = {"local_parser_prototype_input"}
+LOCAL_PARSER_ADAPTER_FORBIDDEN_OUTPUTS = {
+    "raw private file",
+    "parsed private body",
+    "OCR text",
+    "private embedding",
+    "source document excerpt",
+}
+LOCAL_PARSER_ADAPTER_REQUIRED_CHECKS = {
+    "verify local-only paths are gitignored before receiving any file",
+    "delete quarantined raw files before close",
+    "record deletion attestation without source body text",
+    "run public-safe gate before committing any derived artifact",
+}
+
+
+@dataclass(frozen=True)
+class LocalPrivateParserAdapterContract:
+    adapter_id: str
+    source_kind: str
+    output_mode: str
+    handoff_target: str
+    allowed_document_types: list[str] = field(default_factory=list)
+    allowed_domains: list[str] = field(default_factory=list)
+    required_extracted_fields: list[str] = field(default_factory=list)
+    forbidden_outputs: list[str] = field(default_factory=list)
+    required_operator_checks: list[str] = field(default_factory=list)
+    reads_real_files: bool = False
+    runs_ocr: bool = False
+    stores_source_body: bool = False
+    stores_private_embedding: bool = False
+    deletion_automation: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
 
 
 @dataclass(frozen=True)
@@ -91,6 +132,105 @@ def validate_local_private_parser_prototype_input(
         issues.append(ValidationIssue("embedding_present", "private embedding must not be present"))
     issues.extend(_public_safe_issues(parser_input.to_dict()))
     return issues
+
+
+def validate_local_private_parser_adapter_contract(
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    policy_issues = validate_client_private_upload_storage_policy(policy)
+    issues.extend(ValidationIssue(f"policy.{issue.path}", issue.message) for issue in policy_issues)
+
+    if not contract.adapter_id:
+        issues.append(ValidationIssue("adapter_id", "adapter_id is required"))
+    if contract.source_kind not in LOCAL_PARSER_ADAPTER_SOURCE_KINDS:
+        issues.append(ValidationIssue("source_kind", f"unsupported source_kind: {contract.source_kind}"))
+    if contract.output_mode not in LOCAL_PARSER_ADAPTER_OUTPUT_MODES:
+        issues.append(ValidationIssue("output_mode", f"unsupported output_mode: {contract.output_mode}"))
+    if contract.output_mode != policy.parser_mode:
+        issues.append(ValidationIssue("output_mode", "output mode must match upload/storage policy parser_mode"))
+    if contract.handoff_target not in LOCAL_PARSER_ADAPTER_HANDOFF_TARGETS:
+        issues.append(ValidationIssue("handoff_target", f"unsupported handoff_target: {contract.handoff_target}"))
+    if not contract.allowed_document_types:
+        issues.append(ValidationIssue("allowed_document_types", "at least one allowed document type is required"))
+    for document_type in contract.allowed_document_types:
+        if document_type not in LOCAL_PRIVATE_DOCUMENT_TYPES:
+            issues.append(ValidationIssue("allowed_document_types", f"unsupported document_type: {document_type}"))
+    if not contract.allowed_domains:
+        issues.append(ValidationIssue("allowed_domains", "at least one allowed domain is required"))
+    for domain in contract.allowed_domains:
+        if domain not in SUPPORTED_DOMAINS:
+            issues.append(ValidationIssue("allowed_domains", f"unsupported domain: {domain}"))
+    if not contract.required_extracted_fields:
+        issues.append(ValidationIssue("required_extracted_fields", "required_extracted_fields are required"))
+    if "KIFRS1116" in contract.allowed_domains:
+        required = {"party", "lease_term", "payment_schedule"}
+        missing = sorted(required.difference(contract.required_extracted_fields))
+        if missing:
+            issues.append(
+                ValidationIssue(
+                    "required_extracted_fields",
+                    f"KIFRS1116 adapter contract is missing required fields: {missing}",
+                )
+            )
+    missing_forbidden = sorted(LOCAL_PARSER_ADAPTER_FORBIDDEN_OUTPUTS.difference(contract.forbidden_outputs))
+    if missing_forbidden:
+        issues.append(ValidationIssue("forbidden_outputs", f"missing forbidden outputs: {missing_forbidden}"))
+    missing_checks = sorted(LOCAL_PARSER_ADAPTER_REQUIRED_CHECKS.difference(contract.required_operator_checks))
+    if missing_checks:
+        issues.append(ValidationIssue("required_operator_checks", f"missing required checks: {missing_checks}"))
+    if contract.reads_real_files:
+        issues.append(ValidationIssue("reads_real_files", "adapter contract must not read real files yet"))
+    if contract.runs_ocr:
+        issues.append(ValidationIssue("runs_ocr", "adapter contract must not run OCR yet"))
+    if contract.stores_source_body:
+        issues.append(ValidationIssue("stores_source_body", "adapter contract must not store source bodies"))
+    if contract.stores_private_embedding:
+        issues.append(ValidationIssue("stores_private_embedding", "adapter contract must not store private embeddings"))
+    if contract.deletion_automation:
+        issues.append(ValidationIssue("deletion_automation", "adapter contract must not claim deletion automation yet"))
+    issues.extend(_public_safe_issues(contract.to_dict()))
+    return issues
+
+
+def contract_to_local_private_parser_prototype_input(
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+    *,
+    parser_run_id: str,
+    source_stub: str,
+    document_type: str,
+    expected_domain: str,
+    extracted_fields: dict[str, Any],
+) -> LocalPrivateParserPrototypeInput:
+    contract_issues = validate_local_private_parser_adapter_contract(contract, policy)
+    if contract_issues:
+        joined = "; ".join(f"{issue.path}: {issue.message}" for issue in contract_issues)
+        raise ValueError(f"cannot hand off invalid local parser adapter contract: {joined}")
+    if document_type not in contract.allowed_document_types:
+        raise ValueError(f"document_type is outside adapter contract: {document_type}")
+    if expected_domain not in contract.allowed_domains:
+        raise ValueError(f"expected_domain is outside adapter contract: {expected_domain}")
+    missing_fields = sorted(set(contract.required_extracted_fields).difference(extracted_fields))
+    if missing_fields:
+        raise ValueError(f"extracted_fields missing adapter-required fields: {missing_fields}")
+
+    return LocalPrivateParserPrototypeInput(
+        parser_run_id=parser_run_id,
+        source_stub=source_stub,
+        document_type=document_type,
+        expected_domain=expected_domain,
+        extracted_fields=dict(extracted_fields),
+        parser_mode=contract.output_mode,
+        allowed_output_level="review_pack_summary",
+        redaction_status="reviewed_public_safe",
+        reviewer_original_document_check=True,
+        raw_file_present=False,
+        parsed_body_present=False,
+        ocr_text_present=False,
+        embedding_present=False,
+    )
 
 
 def run_local_private_parser_prototype(
@@ -172,4 +312,53 @@ def render_local_private_parser_prototype_result(result: LocalPrivateParserProto
         "- It only converts synthetic parser-shaped input into redacted structured facts and a review-pack route candidate.",
         "- Real private file handling remains outside this repo until a separate local-only implementation gate exists.",
     ])
+    return "\n".join(lines) + "\n"
+
+
+def render_local_private_parser_adapter_contract(
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> str:
+    issues = validate_local_private_parser_adapter_contract(contract, policy)
+    lines = [
+        f"# Local Parser Adapter Contract - {contract.adapter_id}",
+        "",
+        f"- Source kind: {contract.source_kind}",
+        f"- Output mode: {contract.output_mode}",
+        f"- Handoff target: {contract.handoff_target}",
+        f"- Allowed document types: {', '.join(contract.allowed_document_types)}",
+        f"- Allowed domains: {', '.join(contract.allowed_domains)}",
+        f"- Validation issues: {len(issues)}",
+        "",
+        "## Required Extracted Fields",
+        "",
+    ]
+    lines.extend(f"- {field_name}" for field_name in contract.required_extracted_fields)
+    lines.extend([
+        "",
+        "## Forbidden Public Outputs",
+        "",
+    ])
+    lines.extend(f"- {output}" for output in contract.forbidden_outputs)
+    lines.extend([
+        "",
+        "## Required Operator Checks",
+        "",
+    ])
+    lines.extend(f"- {check}" for check in contract.required_operator_checks)
+    lines.extend([
+        "",
+        "## Boundary",
+        "",
+        "- This contract does not read files, run OCR, store source bodies, create embeddings, or automate deletion.",
+        "- It only defines the public-safe adapter output shape before a real local-only parser exists.",
+        "- The handoff target is LocalPrivateParserPrototypeInput for review-pack routing validation.",
+    ])
+    if issues:
+        lines.extend([
+            "",
+            "## Validation Issues",
+            "",
+        ])
+        lines.extend(f"- {issue.path}: {issue.message}" for issue in issues)
     return "\n".join(lines) + "\n"
