@@ -17,27 +17,27 @@ This horizon addresses the Objective gap that private parser evidence is still f
 
 ### PPR2 — Realistic Local Fixture Adapter Contract
 
-- [ ] PPR2.1 — Define file classes and structured output contract. `(next)`
-- [ ] PPR2.2 — Define parser failure and redaction states.
-- [ ] PPR2.3 — Write adapter contract report.
+- [x] PPR2.1 — Define file classes and structured output contract.
+- [x] PPR2.2 — Define parser failure and redaction states.
+- [x] PPR2.3 — Write adapter contract report.
 
 ### PPR3 — Deletion And Retention Rehearsal
 
-- [ ] PPR3.1 — Define local artifact lifecycle.
-- [ ] PPR3.2 — Simulate retained/deleted evidence states.
-- [ ] PPR3.3 — Write deletion rehearsal report.
+- [x] PPR3.1 — Define local artifact lifecycle.
+- [x] PPR3.2 — Simulate retained/deleted evidence states.
+- [x] PPR3.3 — Write deletion rehearsal report.
 
 ### PPR4 — Parser Leak And Public Report Gate
 
-- [ ] PPR4.1 — Define public report leak checks.
-- [ ] PPR4.2 — Add synthetic negative cases.
-- [ ] PPR4.3 — Write leak gate report.
+- [x] PPR4.1 — Define public report leak checks.
+- [x] PPR4.2 — Add synthetic negative cases.
+- [x] PPR4.3 — Write leak gate report.
 
 ### PPR5 — Horizon Close And Source Connector Handoff
 
-- [ ] PPR5.1 — Combine PPR1~PPR4 evidence.
-- [ ] PPR5.2 — Close horizon and name next objective-gap horizon.
-- [ ] PPR5.3 — Sync ROADMAP/OBJECTIVE/progress map.
+- [x] PPR5.1 — Combine PPR1~PPR4 evidence.
+- [x] PPR5.2 — Close horizon and name next objective-gap horizon.
+- [x] PPR5.3 — Sync ROADMAP/OBJECTIVE/progress map.
 
 ## Decision Log
 

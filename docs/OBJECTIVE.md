@@ -18,7 +18,7 @@
 
 기준서 원문·파싱 DB·임베딩은 재배포 불가(KASB·IFRS Foundation). 따라서 프로덕트는 어떤 형태든
 **"파이프라인은 공유, 데이터는 사용자가 직접 인덱싱"** 구조가 고정 전제다. 1차 형태는
-**로컬 도구킷**(Claude Code + kifrs MCP + /accounting 스킬 + 결정 엔진 패키지 — 설치 후
+**로컬 도구킷**(Claude Code + kifrs MCP + /accounting 스킬 + 결정 엔진 모듈 — 설치 후
 사용자가 자기 기준서 PDF를 인덱싱)으로 확정(2026-07-04 결정). 독립 앱/웹 서비스는 도구킷이
 검증된 뒤 별도 판단.
 
@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon은 `private-parser-realism-hardening`이다. `rag-quality-fresh-validation`은 `defer`로 완료됐고 default retriever 변경은 금지 상태로 유지한다. 이제 fixture-heavy private parser proof를 authorization-safe local adapter realism evidence로 강화한다.
+현재 active horizon은 `external-source-body-connector-expansion`이다. `rag-quality-fresh-validation`은 `defer`로 완료됐고 default retriever 변경은 금지 상태로 유지한다. `private-parser-realism-hardening`은 `realism_contract_ready`로 닫혔으며, 이제 K-IFRS만으로 부족한 회계 실무 근거를 source-body connector 단위로 확장한다.
 
 남은 horizon 순서:
 
@@ -96,8 +96,8 @@
 완료된 통합 데모 horizon: `docs/horizons/end-to-end-demo-scenario.md`
 현재 objective gap queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
 최근 완료 RAG 품질 horizon: `docs/horizons/rag-quality-fresh-validation.md`
-현재 active horizon: `docs/horizons/private-parser-realism-hardening.md`
-현재 active milestone plan: `docs/plans/2026-07-05-private-parser-realism-hardening.md`
+현재 active horizon: `docs/horizons/external-source-body-connector-expansion.md`
+현재 active milestone plan: `docs/plans/2026-07-05-external-source-body-connector-expansion.md`
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
 최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
@@ -119,13 +119,11 @@
 현재 active milestone plan: `docs/plans/2026-07-05-end-to-end-demo-scenario.md`
 최근 완료 demo packet: `docs/reports/end-to-end-demo/INDEX.md`
 최근 완료 close report: `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`
-주의: 패키징은 현재 계획에서 제외한다. 필요하면 사용자가 별도로 지시할 때 새 horizon으로 계획한다.
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`
 최근 완료 horizon 상세: `docs/horizons/real-anonymized-transaction-poc.md`
 최근 완료 horizon 상세: `docs/horizons/firm-facing-poc-brief.md`
-최근 완료 horizon 상세: `docs/horizons/toolkit-packaging-readiness.md`
 최근 완료 horizon 상세: `docs/horizons/feedback-eval-backlog-integration.md`
 최근 완료 horizon 상세: `docs/horizons/real-case-feedback-loop.md`
 최근 완료 horizon 상세: `docs/horizons/workflow-rebuild-on-richer-knowledge.md`

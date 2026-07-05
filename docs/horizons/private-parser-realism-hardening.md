@@ -1,6 +1,6 @@
 # Horizon: Private Parser Realism Hardening
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/rag-quality-fresh-validation.md`
 
@@ -21,28 +21,28 @@ Status: completed
 
 ### PPR2. Realistic Local Fixture Adapter Contract
 
-Status: active
+Status: completed
 
 - Deliverable: adapter contract script/report.
 - Acceptance: supported file classes, parser outputs, redaction fields, and failure modes are explicit.
 
 ### PPR3. Deletion And Retention Rehearsal
 
-Status: pending
+Status: completed
 
 - Deliverable: deletion rehearsal script/report.
 - Acceptance: local artifact lifecycle is simulated with clear retained/deleted evidence states.
 
 ### PPR4. Parser Leak And Public Report Gate
 
-Status: pending
+Status: completed
 
 - Deliverable: leak gate script/tests/report.
 - Acceptance: public reports contain structured facts and statuses only, not protected payload contents.
 
 ### PPR5. Horizon Close And Source Connector Handoff
 
-Status: pending
+Status: completed
 
 - Deliverable: close report.
 - Acceptance: private parser realism status is closed and next objective-gap horizon is named.
@@ -52,3 +52,10 @@ Status: pending
 - No real protected file ingestion without explicit user authorization.
 - Public reports may mention file classes and structured-facts-only schemas, not raw private content.
 - Packaging and external accountant feedback are outside this horizon.
+
+## Close Result
+
+- Result: `realism_contract_ready`
+- Evidence: `docs/reports/2026-07-05-private-parser-realism-hardening-close-report.md`
+- Real protected payload ingestion: not claimed
+- Next horizon: `external-source-body-connector-expansion`

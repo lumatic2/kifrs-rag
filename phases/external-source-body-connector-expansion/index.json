@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "external-source-body-connector-expansion",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "source-body-connector-selection-and-policy-gate",
+      "status": "pending"
+    },
+    {
+      "step": 2,
+      "name": "synthetic-source-body-fixture-contract",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "chunking-and-retrieval-dry-run",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "connector-leak-and-policy-gate",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "horizon-close-and-workflow-coverage-handoff",
+      "status": "pending"
+    }
+  ]
+}

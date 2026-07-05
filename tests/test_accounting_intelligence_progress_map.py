@@ -6,15 +6,15 @@ from scripts.accounting_intelligence_progress_map import build_progress_map, ren
 def test_progress_map_explains_current_position_and_results() -> None:
     progress = build_progress_map()
 
-    assert progress["current_horizon"]["id"] == "private-parser-realism-hardening"
+    assert progress["current_horizon"]["id"] == "external-source-body-connector-expansion"
     assert progress["current_horizon"]["status"] == "active"
-    assert progress["current_horizon"]["milestones"][0]["id"] == "PPR1"
-    assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][1]["status"] == "active"
+    assert progress["current_horizon"]["milestones"][0]["id"] == "ESB1"
+    assert progress["current_horizon"]["milestones"][0]["status"] == "active"
+    assert progress["current_horizon"]["milestones"][1]["status"] == "pending"
     assert progress["current_horizon"]["milestones"][2]["status"] == "pending"
     assert progress["current_horizon"]["milestones"][3]["status"] == "pending"
     assert progress["current_horizon"]["milestones"][4]["status"] == "pending"
-    assert progress["next_leaf"] == "PPR2_realistic_local_fixture_adapter_contract"
+    assert progress["next_leaf"] == "ESB1_source_connector_body_selection_and_policy_gate"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -36,8 +36,8 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Current Horizon" in rendered
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
-    assert "private-parser-realism-hardening" in rendered
-    assert "PPR2_realistic_local_fixture_adapter_contract" in rendered
+    assert "external-source-body-connector-expansion" in rendered
+    assert "ESB1_source_connector_body_selection_and_policy_gate" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

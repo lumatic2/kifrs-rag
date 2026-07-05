@@ -6,7 +6,7 @@ from scripts.objective_gap_horizon_candidates import build_candidates, render_ma
 def test_objective_gap_horizons_are_ordered_and_exclude_parked_work() -> None:
     result = build_candidates()
 
-    assert result["active_horizon"] == "private-parser-realism-hardening"
+    assert result["active_horizon"] == "external-source-body-connector-expansion"
     assert [candidate["order"] for candidate in result["candidates"]] == [1, 2, 3, 4, 5]
     assert [candidate["horizon_id"] for candidate in result["candidates"]] == [
         "rag-quality-fresh-validation",
@@ -16,11 +16,12 @@ def test_objective_gap_horizons_are_ordered_and_exclude_parked_work() -> None:
         "demo-rehearsal-quality-loop",
     ]
     assert result["candidates"][0]["status"] == "closed"
-    assert result["candidates"][1]["status"] == "active"
+    assert result["candidates"][1]["status"] == "closed"
+    assert result["candidates"][2]["status"] == "active"
     assert all(candidate["evidence_target"].startswith("docs/reports/") for candidate in result["candidates"])
     excluded = " ".join(result["excluded_from_plan"])
     assert "external accountant feedback" in excluded
-    assert "packaging" in excluded
+    assert "packaging" not in excluded
 
 
 def test_objective_gap_horizon_markdown_is_public_safe() -> None:

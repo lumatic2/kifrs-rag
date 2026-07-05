@@ -13,22 +13,30 @@
     {
       "step": 2,
       "name": "realistic-local-fixture-adapter-contract",
-      "status": "active"
+      "status": "completed",
+      "summary": "PPR2 added scripts/private_parser_fixture_adapter_contract.py, tests/test_private_parser_fixture_adapter_contract.py, and docs/reports/2026-07-05-ppr2-fixture-adapter-contract.md. It defines synthetic local fixture file classes, structured-facts-only output schema, redaction fields, and parser failure states without claiming real protected file ingestion.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,
       "name": "deletion-and-retention-rehearsal",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PPR3 added scripts/private_parser_deletion_retention_rehearsal.py, tests/test_private_parser_deletion_retention_rehearsal.py, and docs/reports/2026-07-05-ppr3-deletion-retention-rehearsal.md. It rehearses local artifact lifecycle states where raw local fixtures end deleted and structured fact/redaction reports may be retained as public-safe evidence.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "parser-leak-and-public-report-gate",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PPR4 added scripts/private_parser_public_report_leak_gate.py, tests/test_private_parser_public_report_leak_gate.py, and docs/reports/2026-07-05-ppr4-public-report-leak-gate.md. It scans PPR public reports for blocked markers, uses synthetic negative cases only, and avoids printing marker contents in public machine output.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "horizon-close-and-source-connector-handoff",
-      "status": "pending"
+      "status": "completed",
+      "summary": "PPR5 added scripts/private_parser_realism_close_gate.py, tests/test_private_parser_realism_close_gate.py, and docs/reports/2026-07-05-private-parser-realism-hardening-close-report.md. The horizon closes as realism_contract_ready: no real protected payload ingestion is claimed, explicit authorization remains required, and next horizon is external-source-body-connector-expansion.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

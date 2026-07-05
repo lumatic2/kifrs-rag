@@ -8,7 +8,7 @@
 
 The product is no longer weak because it lacks isolated scripts. Its weak points are now product-shaped:
 realistic local inputs, non-IFRS evidence, broader accountant workflow coverage, runtime promotion safety,
-and operator usability. The next horizons should close those gaps in dependency order.
+  and operator usability. The next horizons close those gaps in dependency order.
 
 ## Candidate Horizon Queue
 
