@@ -4,6 +4,12 @@
 
 ## Completed
 
+### 2026-07-05 — Multi-Authority Runtime Hardening
+- Completed: 2026-07-05
+- Result: K-IFRS primary, supporting interpretation, legal boundary, structured fact evidence, and client-private placeholder를 runtime authority boundary로 분리. 1116/1109/1115 review pack, statement draft, audit analytics, runtime demo gate에 연결하고 carried NIS/RAG regressions까지 통과.
+- Evidence: `docs/reports/2026-07-05-mah1-runtime-evidence-boundary-audit.md`; `docs/reports/2026-07-05-mah2-runtime-evidence-contract.md`; `docs/reports/2026-07-05-mah3-review-pack-authority-panel.md`; `docs/reports/2026-07-05-mah4-structured-fact-runtime-hook.md`; `docs/reports/2026-07-05-mah5-runtime-demo-gate.md`; `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md`.
+- Verification: `python scripts\multi_authority_runtime_gate.py --format text`; NIS gate/source records/chunking/default guard/quality preflight/RAG final gate 모두 통과.
+
 ### 2026-07-05 — Accounting Intelligence feedback/PoC recent closed horizons
 - Completed: 2026-07-05
 - Result: ROADMAP 150-line cap 유지를 위해 최근 Accounting Intelligence Expansion closed horizon 일부를 압축 보관. 포함: `field-feedback-ready-demo`(FF1~FF4), `workflow-rebuild-on-richer-knowledge`(WR1~WR4), `real-case-feedback-loop`(RC1~RC4), `feedback-eval-backlog-integration`(FI1~FI4).

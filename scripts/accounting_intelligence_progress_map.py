@@ -43,26 +43,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Defined local-only private intake, redaction, parser dry-run, deletion attestation, and adapter plan boundaries.",
             "evidence": "docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md",
         },
+        {
+            "id": "multi-authority-runtime-hardening",
+            "result": "Connected K-IFRS primary, supporting, legal, fact, and client-private placeholder evidence across runtime, review packs, statement draft, analytics, and close gate.",
+            "evidence": "docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "multi-authority-runtime-hardening",
+        "id": "client-private-parser-runtime",
         "status": "active",
-        "goal": "Use K-IFRS, supporting interpretation, legal boundary, fact evidence, and client-private facts as separated runtime evidence.",
+        "goal": "Connect local private files to runtime through structured-facts-only parser, client-private evidence adapter, and deletion gate.",
         "milestones": [
-            {"id": "MAH1", "name": "runtime evidence boundary audit", "status": "completed"},
-            {"id": "MAH2", "name": "runtime evidence contract hardening", "status": "completed"},
-            {"id": "MAH3", "name": "review pack authority panel", "status": "completed"},
-            {"id": "MAH4", "name": "statement draft and analytics fact hook", "status": "completed"},
-            {"id": "MAH5", "name": "authority composer gate and runtime demo", "status": "active_next"},
+            {"id": "CP1", "name": "private parser boundary audit", "status": "active_next"},
+            {"id": "CP2", "name": "local parser runtime contract", "status": "pending"},
+            {"id": "CP3", "name": "client-private evidence adapter", "status": "pending"},
+            {"id": "CP4", "name": "deletion and retention gate", "status": "pending"},
+            {"id": "CP5", "name": "private runtime close demo", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_MAH5_authority_composer_gate_and_runtime_demo",
+            "id": "run_CP1_private_parser_boundary_audit",
             "status": "active",
-            "decide": "Close the multi-authority runtime horizon with one gate and demo covering all five evidence groups.",
+            "decide": "Audit existing local parser, redaction, storage, adapter, and deletion scaffolds before implementing the private runtime path.",
             "blocker": "none",
-            "command": "python scripts\\multi_authority_runtime_gate.py --format text",
+            "command": "python -m pytest tests\\test_client_private_parser_dry_run_fixture.py tests\\test_client_private_local_parser_adapter_contract.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +92,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "MAH5_authority_composer_gate_and_runtime_demo",
-        "next_command": "python scripts\\multi_authority_runtime_gate.py --format text",
+        "next_leaf": "CP1_private_parser_boundary_audit",
+        "next_command": "python -m pytest tests\\test_client_private_parser_dry_run_fixture.py tests\\test_client_private_local_parser_adapter_contract.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -103,7 +108,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is multi-authority runtime hardening: make workflow outputs keep primary, supporting, legal, fact, and private evidence separate.",
+        "The active horizon is client-private parser runtime: connect local private files to runtime through structured facts, client-private evidence, and deletion gates.",
         "",
         "## Objective",
         "",

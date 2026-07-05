@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (MAH4 완료, MAH5 진행)
+> 마지막 업데이트: 2026-07-05 (Multi-Authority Runtime Hardening 완료, Client-Private Parser Runtime 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -30,26 +30,25 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 1. `rag-reliability-revalidation` — 완료. K-IFRS RAG 품질 재검증과 default promotion 기준.
 2. `non-ifrs-source-dataization` — 완료. KASB/FSS/법령/DART/client-private source lane을 실제 RAG 데이터화 단위로 확장.
-3. `multi-authority-runtime-hardening` — 현재. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
-4. `client-private-parser-runtime` — 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
+3. `multi-authority-runtime-hardening` — 완료. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
+4. `client-private-parser-runtime` — 현재. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 
-## Current Horizon — multi-authority-runtime-hardening
+## Current Horizon — client-private-parser-runtime
 
-<!-- harness:goal id="multi-authority-runtime-hardening" status="active" -->
-`docs/horizons/multi-authority-runtime-hardening.md` — K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 workflow runtime에 쓴다.
+<!-- harness:goal id="client-private-parser-runtime" status="active" -->
+`docs/horizons/client-private-parser-runtime.md` — 계약서/TB/회계정책서 같은 로컬 private 파일을 public-safe parser boundary와 deletion/runtime gate로 연결한다.
 
-직전 horizon에서 non-IFRS source lane을 public-safe record, fixture, chunk/index policy로 닫았다.
-이제 review pack, statement draft, answer composer가 K-IFRS primary evidence와 supporting/legal/fact/private
-evidence를 섞지 않고 표시하도록 runtime을 harden한다.
+직전 horizon에서 five-group authority boundary를 review pack, statement draft, analytics, answer demo에 연결했다.
+이제 client-private placeholder lane을 실제 local-only parser runtime으로 연결한다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="MAH5" status="active" priority="P0" -->
-### MAH5 — authority composer gate and runtime demo
-- DoD: 하나의 gate/demo가 primary/supporting/legal/fact/client-private evidence를 분리 표시하고 NIS/RAG carried regressions를 통과한다.
-- Evidence: `docs/reports/2026-07-05-mah5-runtime-demo-gate.md`; close report `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md`
-- Gap: MAH4까지 각 surface는 연결됐지만, horizon 전체를 닫는 gate와 demo 산출물이 아직 없다.
+<!-- harness:milestone id="CP1" status="active" priority="P0" -->
+### CP1 — private parser boundary audit
+- DoD: 기존 local parser, dry-run fixture, redaction, upload/storage, adapter, deletion gate scaffold를 감사하고 CP2~CP5 gap을 확정한다.
+- Evidence: `docs/reports/2026-07-05-cp1-private-parser-boundary-audit.md`; plan `docs/plans/2026-07-05-client-private-parser-runtime.md`
+- Gap: `client_private_fact` runtime lane은 생겼지만 실제 private parser/runtime/deletion path는 아직 하나의 closeable horizon으로 연결되지 않았다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -57,12 +56,15 @@ evidence를 섞지 않고 표시하도록 runtime을 harden한다.
 - MAH1 runtime evidence boundary audit — 완료 (`docs/reports/2026-07-05-mah1-runtime-evidence-boundary-audit.md`)
 - MAH2 runtime evidence contract hardening — 완료 (`docs/reports/2026-07-05-mah2-runtime-evidence-contract.md`)
 - MAH3 review pack authority panel — 완료 (`docs/reports/2026-07-05-mah3-review-pack-authority-panel.md`)
-- MAH4 statement draft and analytics fact hook — 완료 (`docs/reports/2026-07-05-mah4-structured-fact-runtime-hook.md`)
-- MAH5 authority composer gate and runtime demo — active
+- CP1 private parser boundary audit — active
+- CP2 local parser runtime contract
+- CP3 client-private evidence adapter
+- CP4 deletion and retention gate
+- CP5 private runtime close demo
 
 ## Closed Horizons
 
-Recent closed horizons are archived in `BACKLOG.md`: non-ifrs-source-dataization, rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
+Recent closed horizons are archived in `BACKLOG.md`: multi-authority-runtime-hardening, non-ifrs-source-dataization, rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
 accountant-feedback-incorporation, real-anonymized-transaction-poc, firm-facing-poc-brief,
 toolkit-packaging-readiness, workflow-rebuild, real-case feedback, feedback eval/backlog,
 multi-authority runtime, multi-source ingestion, authority source map, rag quality refresh,

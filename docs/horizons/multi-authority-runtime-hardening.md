@@ -1,6 +1,6 @@
 # Horizon: Multi-Authority Runtime Hardening
 
-> Status: active
+> Status: complete
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 > Previous: `docs/horizons/non-ifrs-source-dataization.md`
@@ -100,7 +100,7 @@ Acceptance:
 
 ### MAH5. Authority Composer Gate and Runtime Demo
 
-Status: active
+Status: complete (`docs/reports/2026-07-05-mah5-runtime-demo-gate.md`; `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md`)
 
 authority-separated runtime을 하나의 demo와 gate로 닫는다.
 

@@ -51,11 +51,11 @@ metadata는 supporting interpretation, 법령은 legal boundary, DART-style 수�
 
 ### MAH5 — Authority Composer Gate and Runtime Demo
 
-- [ ] MAH5.1 — Implement authority composer helper. (verify: `python -m pytest tests\test_answer_boundary.py -q`)
-- [ ] MAH5.2 — Build runtime demo fixture with five evidence groups. (verify: demo report renders all groups)
-- [ ] MAH5.3 — Implement `scripts\multi_authority_runtime_gate.py`. (verify: `python scripts\multi_authority_runtime_gate.py --format text`)
-- [ ] MAH5.4 — Run carried regressions from NIS/RR. (verify: NIS gate, source record validator, chunking policy, default guard, quality preflight)
-- [ ] MAH5.5 — Close horizon. (verify: `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md` exists)
+- [x] MAH5.1 — Implement authority composer helper. (verify: `python -m pytest tests\test_answer_boundary.py -q`)
+- [x] MAH5.2 — Build runtime demo fixture with five evidence groups. (verify: demo report renders all groups)
+- [x] MAH5.3 — Implement `scripts\multi_authority_runtime_gate.py`. (verify: `python scripts\multi_authority_runtime_gate.py --format text`)
+- [x] MAH5.4 — Run carried regressions from NIS/RR. (verify: NIS gate, source record validator, chunking policy, default guard, quality preflight)
+- [x] MAH5.5 — Close horizon. (verify: `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md` exists)
 
 ## 결정 로그
 
