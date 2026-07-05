@@ -16,7 +16,7 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert audit.human_review_packs <= 4
     joined_gaps = " ".join(audit.remaining_gaps)
     assert "actual accountant session" in joined_gaps
-    assert "readiness index, invite, response handling, after-send action matrix, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready" in joined_gaps
+    assert "readiness index, external-action boundary, invite, response handling, after-send action matrix, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready" in joined_gaps
     assert "reviewer invite has not been sent" in joined_gaps
     assert "local parser real-adapter implementation plan is present" in joined_gaps
     assert "explicit authorization" in joined_gaps

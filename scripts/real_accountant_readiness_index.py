@@ -36,10 +36,14 @@ READINESS_ITEMS = {
 def build_readiness_index() -> dict[str, Any]:
     status = summarize_status(root=ROOT, manifest=DEFAULT_MANIFEST, outreach_ledger=DEFAULT_LEDGER)
     gap_audit = build_gap_audit()
+    self_referential_gap_keys = (
+        "real_accountant_readiness_index",
+        "real_accountant_external_action_boundary_gate",
+    )
     gap_errors = [
         error
         for error in gap_audit.errors
-        if "real_accountant_readiness_index" not in error
+        if not any(key in error for key in self_referential_gap_keys)
     ]
     items = [
         {
