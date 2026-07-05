@@ -34,6 +34,15 @@ def test_verify_transition_rejects_default_pre_send_ledger() -> None:
     assert "expected at least one sent outreach row" in result["errors"]
 
 
+def test_verify_transition_accepts_default_pre_send_ledger() -> None:
+    result = verify_transition()
+
+    assert result["ok"], result["errors"]
+    assert result["outreach_counts"]["not_sent"] >= 1
+    assert result["next_action_status"] == "needs_user_action"
+    assert "real_accountant_invite_packet.py" in result["next_action_command"]
+
+
 def test_verify_transition_markdown_is_public_safe(tmp_path) -> None:
     copied_ledger = tmp_path / "outreach.jsonl"
     shutil.copyfile(DEFAULT_LEDGER, copied_ledger)

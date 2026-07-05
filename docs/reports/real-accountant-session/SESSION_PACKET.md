@@ -26,6 +26,7 @@
 | `2026-07-05-operator-execution-brief.md` | 초대→스케줄→세션→capture→close까지 실제 운영 순서 압축 브리프 |
 | `2026-07-05-pre-send-final-gate.md` | 실제 초대 발송 직전 repo-side readiness와 pre-send boundary 최종 검증 |
 | `2026-07-05-after-send-action-matrix.md` | 초대 발송 후 follow-up/schedule/decline 선택지별 ledger 전이와 다음 액션 검증 |
+| `2026-07-05-outreach-transition-verify.md` | 현재/발송후 outreach ledger 상태가 올바른 next action으로 라우팅되는지 검증 |
 | `2026-07-05-notes-quality-gate.md` | actual notes가 capture/queue/eval 후보로 충분한 품질인지 검증 |
 | `2026-07-05-post-session-final-gate.md` | notes safety/quality→capture→actual manifest→completed copied ledger close까지 최종 검증 |
 | `2026-07-05-close-state-matrix.md` | ready/actual manifest와 outreach 상태 조합별 close 가능 여부 matrix |
@@ -92,6 +93,7 @@ python scripts\real_accountant_operator_execution_brief.py --format text --write
 
 ```powershell
 python scripts\real_accountant_pre_send_final_gate.py --format text --write
+python scripts\real_accountant_outreach_transition_verify.py --format text --write
 ```
 
 상태 전이별 close 판단은 아래 matrix로 확인한다. actual-feedback manifest와 completed outreach가 모두
@@ -187,6 +189,13 @@ python scripts\real_accountant_outreach_check.py --ledger docs\reports\real-acco
 
 ```powershell
 python scripts\real_accountant_after_send_action_matrix.py --format text --write
+```
+
+초대 발송 후 ledger가 `sent`로 바뀌었는지는 아래 명령으로 확인한다. 실제 발송 전 기본 sample ledger는
+`not_sent` 상태여야 하므로, 발송 후 갱신 ledger 경로를 `--ledger`로 넣는다.
+
+```powershell
+python scripts\real_accountant_outreach_transition_verify.py --ledger docs\reports\real-accountant-session\outreach-log.sample.jsonl --expected-status sent --format text
 ```
 
 초대 후 응답 상황별 follow-up/schedule/decline 문구와 ledger 갱신 명령은 아래 명령으로 출력한다.

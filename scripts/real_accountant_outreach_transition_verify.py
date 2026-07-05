@@ -20,6 +20,7 @@ DEFAULT_MANIFEST = ROOT / "docs" / "reports" / "real-accountant-session" / "sess
 DEFAULT_LEDGER = ROOT / "docs" / "reports" / "real-accountant-session" / "outreach-log.sample.jsonl"
 REPORT_PATH = ROOT / "docs" / "reports" / "real-accountant-session" / "2026-07-05-outreach-transition-verify.md"
 EXPECTED_NEXT_ACTION_STATUS = {
+    "not_sent": "needs_user_action",
     "sent": "waiting_on_reviewer_reply",
     "responded": "waiting_on_reviewer_reply",
     "scheduled": "session_scheduled",
@@ -32,7 +33,7 @@ def verify_transition(
     *,
     ledger: Path = DEFAULT_LEDGER,
     manifest: Path = DEFAULT_MANIFEST,
-    expected_status: str = "sent",
+    expected_status: str = "not_sent",
 ) -> dict[str, Any]:
     ok, outreach_errors, counts = check_outreach(ledger)
     status = summarize_status(root=ROOT, manifest=manifest, outreach_ledger=ledger)
@@ -47,6 +48,8 @@ def verify_transition(
     expected_action_status = EXPECTED_NEXT_ACTION_STATUS.get(expected_status)
     if expected_action_status and action["status"] != expected_action_status:
         errors.append(f"expected next-action status {expected_action_status}, got {action['status']}")
+    if expected_status == "not_sent" and "real_accountant_invite_packet.py" not in action["next_command"]:
+        errors.append("not_sent state should route to real_accountant_invite_packet.py")
     if expected_status in {"sent", "responded"} and "real_accountant_response_packet.py" not in action["next_command"]:
         errors.append("sent/responded state should route to real_accountant_response_packet.py")
     if expected_status == "scheduled" and "real_accountant_run_sheet.py" not in action["next_command"]:
@@ -109,7 +112,7 @@ def write_report(
     *,
     ledger: Path = DEFAULT_LEDGER,
     manifest: Path = DEFAULT_MANIFEST,
-    expected_status: str = "sent",
+    expected_status: str = "not_sent",
     out: Path = REPORT_PATH,
 ) -> dict[str, Any]:
     result = verify_transition(ledger=ledger, manifest=manifest, expected_status=expected_status)
@@ -135,7 +138,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Verify real accountant outreach state transition routing.")
     parser.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
-    parser.add_argument("--expected-status", choices=sorted(EXPECTED_NEXT_ACTION_STATUS), default="sent")
+    parser.add_argument("--expected-status", choices=sorted(EXPECTED_NEXT_ACTION_STATUS), default="not_sent")
     parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--out", type=Path, default=REPORT_PATH)

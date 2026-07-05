@@ -34,6 +34,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | real_accountant_operator_execution_brief | `docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md` | present |
 | real_accountant_pre_send_final_gate | `docs/reports/real-accountant-session/2026-07-05-pre-send-final-gate.md` | present |
 | real_accountant_after_send_action_matrix | `docs/reports/real-accountant-session/2026-07-05-after-send-action-matrix.md` | present |
+| real_accountant_outreach_transition_verify | `docs/reports/real-accountant-session/2026-07-05-outreach-transition-verify.md` | present |
 | real_accountant_notes_quality_gate | `docs/reports/real-accountant-session/2026-07-05-notes-quality-gate.md` | present |
 | real_accountant_post_session_final_gate | `docs/reports/real-accountant-session/2026-07-05-post-session-final-gate.md` | present |
 | real_accountant_close_state_matrix | `docs/reports/real-accountant-session/2026-07-05-close-state-matrix.md` | present |
@@ -93,7 +94,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 ## Remaining Gaps
 
-- actual accountant session evidence is still external/user-owned; decision queue, next-action summary, reviewer invite action packet, readiness index, external-action boundary, invite, response handling, after-send action matrix, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent
+- actual accountant session evidence is still external/user-owned; decision queue, next-action summary, reviewer invite action packet, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent
 - local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented
 - opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization
@@ -118,7 +119,7 @@ real-accountant-session RS2/RS3 evidence capture, then explicit authorization be
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
   "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change",
   "remaining_gaps": [
-    "actual accountant session evidence is still external/user-owned; decision queue, next-action summary, reviewer invite action packet, readiness index, external-action boundary, invite, response handling, after-send action matrix, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
+    "actual accountant session evidence is still external/user-owned; decision queue, next-action summary, reviewer invite action packet, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
     "opt-in retriever promotion decision gate is present, but default retriever change remains deferred until actual accountant evidence and explicit authorization"
