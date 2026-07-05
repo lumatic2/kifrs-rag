@@ -39,6 +39,7 @@ REQUIRED_REPORTS = {
     "local_parser_adapter_contract": ROOT / "docs" / "reports" / "2026-07-05-lpa1-local-parser-adapter-contract.md",
     "local_parser_adapter_dry_run_gate": ROOT / "docs" / "reports" / "2026-07-05-lpad1-local-parser-adapter-dry-run-gate.md",
     "local_parser_adapter_scaffold": ROOT / "docs" / "reports" / "2026-07-05-lpas1-local-parser-adapter-scaffold.md",
+    "local_parser_operator_runbook": ROOT / "docs" / "reports" / "2026-07-05-lpor1-local-parser-operator-runbook.md",
 }
 
 REQUIRED_DEMO_OUTPUTS = {
@@ -93,7 +94,7 @@ def build_gap_audit() -> GapAudit:
 
     remaining_gaps = [
         "actual accountant session evidence is still external/user-owned",
-        "local parser adapter scaffold is present, but real upload/OCR/parser/deletion automation are not implemented",
+        "local parser operator runbook is present, but real upload/OCR/parser/deletion automation are not implemented",
         "external source landing surfaces are live-checked, but body ingestion/chunking/embedding is not implemented",
         "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence",
     ]
@@ -111,7 +112,7 @@ def build_gap_audit() -> GapAudit:
         objective_ready_claim=(
             "technical demo package is ready for review, but final PoC proof requires an actual accountant session"
         ),
-        next_leaf="real-accountant-session RS2/RS3 evidence capture, or local parser operator runbook",
+        next_leaf="real-accountant-session RS2/RS3 evidence capture, or local parser real-adapter decision gate",
         remaining_gaps=remaining_gaps,
         errors=errors,
     )
