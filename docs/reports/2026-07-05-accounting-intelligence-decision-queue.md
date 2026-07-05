@@ -36,7 +36,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 - current blocker: reviewer invite has not been sent
 - next command: python scripts\real_accountant_invite_packet.py --format text --write
 - receipt command: python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write
-- after command: python scripts\real_accountant_outreach_update.py --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes "invite sent"
+- after command: python scripts\real_accountant_apply_invite_receipt.py --receipt docs\reports\real-accountant-session\invite-send-receipt.template.json --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --format text
 - verify command: python scripts\real_accountant_outreach_transition_verify.py --expected-status sent --format text
 - evidence: `docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md`
 
@@ -108,7 +108,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
       "current_blocker": "reviewer invite has not been sent",
       "next_command": "python scripts\\real_accountant_invite_packet.py --format text --write",
       "receipt_command": "python scripts\\real_accountant_invite_send_receipt.py --write-template --format text --write",
-      "after_command": "python scripts\\real_accountant_outreach_update.py --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --reviewer-alias reviewer-001 --status sent --channel manual --contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes \"invite sent\"",
+      "after_command": "python scripts\\real_accountant_apply_invite_receipt.py --receipt docs\\reports\\real-accountant-session\\invite-send-receipt.template.json --ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl --format text",
       "verify_command": "python scripts\\real_accountant_outreach_transition_verify.py --expected-status sent --format text",
       "evidence": "docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md"
     },

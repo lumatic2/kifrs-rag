@@ -280,10 +280,10 @@ def _reviewer_next_command(stage: str) -> str:
 def _reviewer_after_command(stage: str) -> str:
     return {
         "not_sent": (
-            "python scripts\\real_accountant_outreach_update.py "
+            "python scripts\\real_accountant_apply_invite_receipt.py "
+            "--receipt docs\\reports\\real-accountant-session\\invite-send-receipt.template.json "
             "--ledger docs/reports/real-accountant-session/outreach-log.sample.jsonl "
-            "--reviewer-alias reviewer-001 --status sent --channel manual "
-            "--contacted-at 2026-07-05 --follow-up-by 2026-07-08 --notes \"invite sent\""
+            "--format text"
         ),
         "sent": "python scripts\\real_accountant_response_packet.py --response schedule",
         "scheduled": "python scripts\\real_accountant_notes_scaffold.py --out docs\\reports\\real-accountant-session\\actual-feedback-notes.md --date 2026-07-05 --reviewer-role \"CPA reviewer\" --reviewer-service-line \"F-ACC\" --reviewer-experience-context \"reviewed accounting advisory workpapers\" --session-mode \"async review\"",

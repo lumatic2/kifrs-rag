@@ -27,8 +27,8 @@ def test_decision_queue_prioritizes_reviewer_invite() -> None:
     assert "reviewer invite" in decisions["send_reviewer_invite"]["current_blocker"]
     assert "real_accountant_invite_send_receipt.py" in decisions["send_reviewer_invite"]["receipt_command"]
     assert "--write-template" in decisions["send_reviewer_invite"]["receipt_command"]
-    assert "real_accountant_outreach_update.py" in decisions["send_reviewer_invite"]["after_command"]
-    assert "--status sent" in decisions["send_reviewer_invite"]["after_command"]
+    assert "real_accountant_apply_invite_receipt.py" in decisions["send_reviewer_invite"]["after_command"]
+    assert "--receipt" in decisions["send_reviewer_invite"]["after_command"]
     assert "real_accountant_outreach_transition_verify.py" in decisions["send_reviewer_invite"]["verify_command"]
     assert "--expected-status sent" in decisions["send_reviewer_invite"]["verify_command"]
     assert decisions["approve_external_body_authorization_record"]["status"] == "needs_user_action"

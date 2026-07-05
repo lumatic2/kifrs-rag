@@ -21,8 +21,8 @@ def test_next_action_uses_cached_decision_queue_and_recommends_invite() -> None:
     assert "real_accountant_invite_packet.py" in action["next_command"]
     assert "real_accountant_invite_send_receipt.py" in action["receipt_command"]
     assert "--write-template" in action["receipt_command"]
-    assert "real_accountant_outreach_update.py" in action["after_command"]
-    assert "--status sent" in action["after_command"]
+    assert "real_accountant_apply_invite_receipt.py" in action["after_command"]
+    assert "--receipt" in action["after_command"]
     assert "real_accountant_outreach_transition_verify.py" in action["verify_command"]
     assert "--expected-status sent" in action["verify_command"]
     assert action["open_decision_count"] == 4
@@ -36,7 +36,7 @@ def test_next_action_markdown_is_public_safe_and_actionable() -> None:
     assert "Which reviewer" in rendered
     assert "real_accountant_invite_packet.py" in rendered
     assert "real_accountant_invite_send_receipt.py" in rendered
-    assert "real_accountant_outreach_update.py" in rendered
+    assert "real_accountant_apply_invite_receipt.py" in rendered
     assert "real_accountant_outreach_transition_verify.py" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered

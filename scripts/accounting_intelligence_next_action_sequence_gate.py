@@ -34,10 +34,10 @@ def check_next_action_sequence() -> dict[str, Any]:
         errors.append("receipt command should render the invite send receipt template")
     if "--write-template" not in action["receipt_command"]:
         errors.append("receipt command should write the invite send receipt template")
-    if "real_accountant_outreach_update.py" not in action["after_command"]:
-        errors.append("after command should update the outreach ledger")
-    if "--status sent" not in action["after_command"]:
-        errors.append("after command should set outreach status sent")
+    if "real_accountant_apply_invite_receipt.py" not in action["after_command"]:
+        errors.append("after command should validate receipt before updating the outreach ledger")
+    if "--receipt" not in action["after_command"]:
+        errors.append("after command should require a filled receipt path")
     if "real_accountant_outreach_transition_verify.py" not in action["verify_command"]:
         errors.append("verify command should use the outreach transition verifier")
     if "--expected-status sent" not in action["verify_command"]:
