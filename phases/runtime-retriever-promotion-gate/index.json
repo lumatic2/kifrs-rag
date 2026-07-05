@@ -6,12 +6,14 @@
     {
       "step": 1,
       "name": "promotion-evidence-inventory",
-      "status": "active"
+      "status": "completed",
+      "summary": "RPG1 added scripts/retriever_promotion_evidence_inventory.py, tests/test_retriever_promotion_evidence_inventory.py, and docs/reports/2026-07-05-rpg1-promotion-evidence-inventory.md. It inventories opt-in repair retriever promotion evidence into supporting, blocking, and advisory buckets: recall evidence supports promotion, but default guard, MCP non-exposure, broad-runtime proof gaps, and missing regression/latency/rollback/operator evidence keep the current decision at defer.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 2,
       "name": "regression-and-latency-gate",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 3,

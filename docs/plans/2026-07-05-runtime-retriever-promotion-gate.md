@@ -12,9 +12,9 @@ failure-boundary, operator-command, and rollback evidence.
 
 ### RPG1 — Promotion Evidence Inventory
 
-- [ ] RPG1.1 — Inventory current retriever eval, default guard, and product trust evidence.
-- [ ] RPG1.2 — Classify evidence as promotion-supporting, promotion-blocking, or advisory.
-- [ ] RPG1.3 — Write RPG1 report.
+- [x] RPG1.1 — Inventory current retriever eval, default guard, and product trust evidence.
+- [x] RPG1.2 — Classify evidence as promotion-supporting, promotion-blocking, or advisory.
+- [x] RPG1.3 — Write RPG1 report.
 
 ### RPG2 — Regression And Latency Gate
 

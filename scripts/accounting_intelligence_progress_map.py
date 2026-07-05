@@ -74,8 +74,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.",
         "milestones": [
-            {"id": "RPG1", "name": "promotion evidence inventory", "status": "active_next"},
-            {"id": "RPG2", "name": "regression and latency gate", "status": "pending"},
+            {"id": "RPG1", "name": "promotion evidence inventory", "status": "completed"},
+            {"id": "RPG2", "name": "regression and latency gate", "status": "active_next"},
             {"id": "RPG3", "name": "failure and rollback policy", "status": "pending"},
             {"id": "RPG4", "name": "operator promotion command", "status": "pending"},
             {"id": "RPG5", "name": "promotion gate close report", "status": "pending"},
@@ -83,11 +83,11 @@ def build_progress_map() -> dict[str, Any]:
     }
     decisions = [
         {
-            "id": "run_RPG1_promotion_evidence_inventory",
+            "id": "run_RPG2_regression_latency_gate",
             "status": "active",
-            "decide": "Inventory current retriever evaluation, default guard, quality, failure-boundary, and product trust evidence for promotion decisioning.",
+            "decide": "Combine recall/citation regression and basic runtime cost checks before any promotion decision can pass.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q",
+            "command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -112,8 +112,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RPG1_promotion_evidence_inventory",
-        "next_command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q",
+        "next_leaf": "RPG2_regression_latency_gate",
+        "next_command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -128,7 +128,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is runtime-retriever-promotion-gate: inventory evidence before deciding promote, defer, or block.",
+        "The active horizon is runtime-retriever-promotion-gate: verify regression and runtime-cost gates before any promotion decision.",
         "",
         "## Objective",
         "",

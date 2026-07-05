@@ -20,7 +20,7 @@ decision.
 
 ### RPG1. Promotion Evidence Inventory
 
-Status: active
+Status: completed
 
 - Deliverable: `docs/reports/2026-07-05-rpg1-promotion-evidence-inventory.md`
 - Acceptance: current eval gates, default guard, quality reports, failure boundaries, and product trust
@@ -28,7 +28,7 @@ Status: active
 
 ### RPG2. Regression And Latency Gate
 
-Status: pending
+Status: active
 
 - Deliverable: regression/latency gate, tests, `docs/reports/2026-07-05-rpg2-regression-latency-gate.md`
 - Acceptance: promotion cannot pass unless recall/citation regressions and basic runtime cost limits are

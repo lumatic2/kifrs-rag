@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is runtime-retriever-promotion-gate: inventory evidence before deciding promote, defer, or block.
+The active horizon is runtime-retriever-promotion-gate: verify regression and runtime-cost gates before any promotion decision.
 
 ## Objective
 
@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Milestone | Name | Status |
 |---|---|---|
-| RPG1 | promotion evidence inventory | active_next |
-| RPG2 | regression and latency gate | pending |
+| RPG1 | promotion evidence inventory | completed |
+| RPG2 | regression and latency gate | active_next |
 | RPG3 | failure and rollback policy | pending |
 | RPG4 | operator promotion command | pending |
 | RPG5 | promotion gate close report | pending |
@@ -50,7 +50,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RPG1_promotion_evidence_inventory | active | none | `python -m pytest tests\test_retriever_promotion_evidence_inventory.py -q` |
+| run_RPG2_regression_latency_gate | active | none | `python -m pytest tests\test_retriever_regression_latency_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -63,8 +63,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RPG1_promotion_evidence_inventory`
-- command: `python -m pytest tests\test_retriever_promotion_evidence_inventory.py -q`
+- decision: `RPG2_regression_latency_gate`
+- command: `python -m pytest tests\test_retriever_regression_latency_gate.py -q`
 
 ## Machine Result
 
@@ -80,12 +80,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RPG1",
         "name": "promotion evidence inventory",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "RPG2",
         "name": "regression and latency gate",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "RPG3",
@@ -158,11 +158,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_RPG1_promotion_evidence_inventory",
+      "id": "run_RPG2_regression_latency_gate",
       "status": "active",
-      "decide": "Inventory current retriever evaluation, default guard, quality, failure-boundary, and product trust evidence for promotion decisioning.",
+      "decide": "Combine recall/citation regression and basic runtime cost checks before any promotion decision can pass.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q"
+      "command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -185,8 +185,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RPG1_promotion_evidence_inventory",
-  "next_command": "python -m pytest tests\\test_retriever_promotion_evidence_inventory.py -q",
+  "next_leaf": "RPG2_regression_latency_gate",
+  "next_command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
