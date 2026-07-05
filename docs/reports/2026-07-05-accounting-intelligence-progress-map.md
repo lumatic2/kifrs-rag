@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Milestone | Name | Status |
 |---|---|---|
-| SBI1 | source class selection and authorization boundary | active_next |
-| SBI2 | source body policy record | pending |
+| SBI1 | source class selection and authorization boundary | completed |
+| SBI2 | source body policy record | active_next |
 | SBI3 | synthetic body parser and chunker | pending |
 | SBI4 | retrieval gate for controlled lane | pending |
 | SBI5 | controlled lane close gate | pending |
@@ -48,7 +48,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_SBI1_source_class_selection | active | none | `python -m pytest tests\test_source_class_selection.py -q` |
+| run_SBI2_source_policy_record | active | none | `python -m pytest tests\test_source_policy_record.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -61,8 +61,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `SBI1_source_class_selection`
-- command: `python -m pytest tests\test_source_class_selection.py -q`
+- decision: `SBI2_source_policy_record`
+- command: `python -m pytest tests\test_source_policy_record.py -q`
 
 ## Machine Result
 
@@ -78,12 +78,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "SBI1",
         "name": "source class selection and authorization boundary",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "SBI2",
         "name": "source body policy record",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "SBI3",
@@ -146,11 +146,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_SBI1_source_class_selection",
+      "id": "run_SBI2_source_policy_record",
       "status": "active",
-      "decide": "Select one controlled non-IFRS source class and document authorization boundary, allowed fields, forbidden fields, and fallback plan.",
+      "decide": "Create a machine-readable policy record for the selected interpretive source lane.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_source_class_selection.py -q"
+      "command": "python -m pytest tests\\test_source_policy_record.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -173,8 +173,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "SBI1_source_class_selection",
-  "next_command": "python -m pytest tests\\test_source_class_selection.py -q",
+  "next_leaf": "SBI2_source_policy_record",
+  "next_command": "python -m pytest tests\\test_source_policy_record.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

@@ -64,8 +64,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.",
         "milestones": [
-            {"id": "SBI1", "name": "source class selection and authorization boundary", "status": "active_next"},
-            {"id": "SBI2", "name": "source body policy record", "status": "pending"},
+            {"id": "SBI1", "name": "source class selection and authorization boundary", "status": "completed"},
+            {"id": "SBI2", "name": "source body policy record", "status": "active_next"},
             {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "pending"},
             {"id": "SBI4", "name": "retrieval gate for controlled lane", "status": "pending"},
             {"id": "SBI5", "name": "controlled lane close gate", "status": "pending"},
@@ -73,11 +73,11 @@ def build_progress_map() -> dict[str, Any]:
     }
     decisions = [
         {
-            "id": "run_SBI1_source_class_selection",
+            "id": "run_SBI2_source_policy_record",
             "status": "active",
-            "decide": "Select one controlled non-IFRS source class and document authorization boundary, allowed fields, forbidden fields, and fallback plan.",
+            "decide": "Create a machine-readable policy record for the selected interpretive source lane.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_source_class_selection.py -q",
+            "command": "python -m pytest tests\\test_source_policy_record.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -102,8 +102,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "SBI1_source_class_selection",
-        "next_command": "python -m pytest tests\\test_source_class_selection.py -q",
+        "next_leaf": "SBI2_source_policy_record",
+        "next_command": "python -m pytest tests\\test_source_policy_record.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

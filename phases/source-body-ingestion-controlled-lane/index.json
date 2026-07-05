@@ -6,7 +6,9 @@
     {
       "step": 1,
       "name": "source-class-selection-and-authorization-boundary",
-      "status": "pending"
+      "status": "completed",
+      "summary": "SBI1 added scripts/source_class_selection.py, tests/test_source_class_selection.py, and docs/reports/2026-07-05-sbi1-source-class-selection.md. It selects interpretive_accounting_material using kasb-interpretation-material and fss-accounting-inquiry as the first controlled source-body lane, with authorization not present and implementation limited to synthetic_body_only.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 2,

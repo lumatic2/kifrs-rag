@@ -11,9 +11,9 @@ This horizon adds one controlled non-IFRS source-body ingestion lane with author
 
 ### SBI1 — Source Class Selection And Authorization Boundary
 
-- [ ] SBI1.1 — Compare candidate source classes.
-- [ ] SBI1.2 — Select one lane and document authorization boundary.
-- [ ] SBI1.3 — Write SBI1 report.
+- [x] SBI1.1 — Compare candidate source classes.
+- [x] SBI1.2 — Select one lane and document authorization boundary.
+- [x] SBI1.3 — Write SBI1 report.
 
 ### SBI2 — Source Body Policy Record
 

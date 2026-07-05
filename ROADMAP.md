@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (real-local-parser-prototype 완료, source-body-ingestion-controlled-lane 시작)
+> 마지막 업데이트: 2026-07-05 (SBI1 완료, SBI2 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -52,11 +52,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Active Milestones
 
-<!-- harness:milestone id="SBI1" status="active" priority="P0" -->
-### SBI1 — Source Class Selection And Authorization Boundary
-- DoD: candidate source classes를 비교하고 하나의 controlled lane을 authorization status, allowed fields, forbidden fields, fallback plan과 함께 선택한다.
-- Evidence: `docs/reports/2026-07-05-sbi1-source-class-selection.md`; plan `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
-- Gap: K-IFRS 외 source-body lane 후보는 있으나, 지금 구현할 source class와 authorization boundary가 확정되지 않았다.
+<!-- harness:milestone id="SBI2" status="active" priority="P0" -->
+### SBI2 — Source Body Policy Record
+- DoD: 선택된 controlled lane의 storage, citation role, chunking, retention policy를 machine-readable record로 검증한다.
+- Evidence: `docs/reports/2026-07-05-sbi2-source-body-policy-record.md`; plan `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
+- Gap: SBI1에서 interpretive_accounting_material lane은 선택했지만, policy record와 validator가 아직 없다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -79,8 +79,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - RLP3 deletion automation simulation — 완료 (`docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md`)
 - RLP4 private payload leak tests — 완료 (`docs/reports/2026-07-05-rlp4-private-payload-leak-tests.md`)
 - RLP5 local parser prototype close gate — 완료 (`docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`)
-- SBI1 source class selection and authorization boundary — active
-- SBI2 source body policy record
+- SBI1 source class selection and authorization boundary — 완료 (`docs/reports/2026-07-05-sbi1-source-class-selection.md`)
+- SBI2 source body policy record — active
 - SBI3 synthetic body parser and chunker
 - SBI4 retrieval gate for controlled lane
 - SBI5 controlled lane close gate

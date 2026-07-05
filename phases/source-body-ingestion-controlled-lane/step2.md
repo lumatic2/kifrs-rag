@@ -12,8 +12,8 @@
 ## Acceptance Criteria
 
 ```powershell
-python -m pytest tests\test_source_body_policy_record.py -q
-python scripts\source_body_policy_record.py --format text --write
+python -m pytest tests\test_source_policy_record.py -q
+python scripts\source_policy_record.py --format text --write
 ```
 
 ## 검증 절차

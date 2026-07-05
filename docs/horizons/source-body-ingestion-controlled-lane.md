@@ -12,12 +12,14 @@ Implement one controlled non-IFRS source-body ingestion lane with explicit autho
 
 ### SBI1. Source Class Selection And Authorization Boundary
 
-Status: active
+Status: completed
 
 - Deliverable: `docs/reports/2026-07-05-sbi1-source-class-selection.md`
 - Acceptance: one source class is selected with authorization status, allowed fields, forbidden fields, and fallback plan.
 
 ### SBI2. Source Body Policy Record
+
+Status: active
 
 - Deliverable: policy record, validator, tests, `docs/reports/2026-07-05-sbi2-source-body-policy-record.md`
 - Acceptance: storage, citation role, chunking, and retention policy are machine-validated.
