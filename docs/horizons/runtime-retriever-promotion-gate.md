@@ -28,7 +28,7 @@ Status: completed
 
 ### RPG2. Regression And Latency Gate
 
-Status: active
+Status: completed
 
 - Deliverable: regression/latency gate, tests, `docs/reports/2026-07-05-rpg2-regression-latency-gate.md`
 - Acceptance: promotion cannot pass unless recall/citation regressions and basic runtime cost limits are
@@ -36,7 +36,7 @@ Status: active
 
 ### RPG3. Failure And Rollback Policy
 
-Status: pending
+Status: active
 
 - Deliverable: rollback policy validator, tests, `docs/reports/2026-07-05-rpg3-failure-rollback-policy.md`
 - Acceptance: failed promotion has a clear fallback to the current default retriever and operator remediation.

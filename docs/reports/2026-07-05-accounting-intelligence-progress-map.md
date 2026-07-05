@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is runtime-retriever-promotion-gate: verify regression and runtime-cost gates before any promotion decision.
+The active horizon is runtime-retriever-promotion-gate: define rollback policy before any operator promotion surface.
 
 ## Objective
 
@@ -19,8 +19,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | Milestone | Name | Status |
 |---|---|---|
 | RPG1 | promotion evidence inventory | completed |
-| RPG2 | regression and latency gate | active_next |
-| RPG3 | failure and rollback policy | pending |
+| RPG2 | regression and latency gate | completed |
+| RPG3 | failure and rollback policy | active_next |
 | RPG4 | operator promotion command | pending |
 | RPG5 | promotion gate close report | pending |
 
@@ -50,7 +50,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RPG2_regression_latency_gate | active | none | `python -m pytest tests\test_retriever_regression_latency_gate.py -q` |
+| run_RPG3_failure_rollback_policy | active | none | `python -m pytest tests\test_retriever_failure_rollback_policy.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -63,8 +63,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RPG2_regression_latency_gate`
-- command: `python -m pytest tests\test_retriever_regression_latency_gate.py -q`
+- decision: `RPG3_failure_rollback_policy`
+- command: `python -m pytest tests\test_retriever_failure_rollback_policy.py -q`
 
 ## Machine Result
 
@@ -85,12 +85,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "RPG2",
         "name": "regression and latency gate",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "RPG3",
         "name": "failure and rollback policy",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "RPG4",
@@ -158,11 +158,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_RPG2_regression_latency_gate",
+      "id": "run_RPG3_failure_rollback_policy",
       "status": "active",
-      "decide": "Combine recall/citation regression and basic runtime cost checks before any promotion decision can pass.",
+      "decide": "Define rollback states and operator remediation for any failed or deferred retriever promotion.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q"
+      "command": "python -m pytest tests\\test_retriever_failure_rollback_policy.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -185,8 +185,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RPG2_regression_latency_gate",
-  "next_command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q",
+  "next_leaf": "RPG3_failure_rollback_policy",
+  "next_command": "python -m pytest tests\\test_retriever_failure_rollback_policy.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

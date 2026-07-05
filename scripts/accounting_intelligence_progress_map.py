@@ -75,19 +75,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Decide whether the opt-in repair retriever should become a runtime default through evidence, regression/latency, rollback, and operator gates.",
         "milestones": [
             {"id": "RPG1", "name": "promotion evidence inventory", "status": "completed"},
-            {"id": "RPG2", "name": "regression and latency gate", "status": "active_next"},
-            {"id": "RPG3", "name": "failure and rollback policy", "status": "pending"},
+            {"id": "RPG2", "name": "regression and latency gate", "status": "completed"},
+            {"id": "RPG3", "name": "failure and rollback policy", "status": "active_next"},
             {"id": "RPG4", "name": "operator promotion command", "status": "pending"},
             {"id": "RPG5", "name": "promotion gate close report", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_RPG2_regression_latency_gate",
+            "id": "run_RPG3_failure_rollback_policy",
             "status": "active",
-            "decide": "Combine recall/citation regression and basic runtime cost checks before any promotion decision can pass.",
+            "decide": "Define rollback states and operator remediation for any failed or deferred retriever promotion.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q",
+            "command": "python -m pytest tests\\test_retriever_failure_rollback_policy.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -112,8 +112,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RPG2_regression_latency_gate",
-        "next_command": "python -m pytest tests\\test_retriever_regression_latency_gate.py -q",
+        "next_leaf": "RPG3_failure_rollback_policy",
+        "next_command": "python -m pytest tests\\test_retriever_failure_rollback_policy.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -128,7 +128,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is runtime-retriever-promotion-gate: verify regression and runtime-cost gates before any promotion decision.",
+        "The active horizon is runtime-retriever-promotion-gate: define rollback policy before any operator promotion surface.",
         "",
         "## Objective",
         "",

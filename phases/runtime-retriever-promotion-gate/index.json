@@ -13,12 +13,14 @@
     {
       "step": 2,
       "name": "regression-and-latency-gate",
-      "status": "active"
+      "status": "completed",
+      "summary": "RPG2 added scripts/retriever_regression_latency_gate.py, tests/test_retriever_regression_latency_gate.py, and docs/reports/2026-07-05-rpg2-regression-latency-gate.md. It confirms recall and citation support are present and default guard blocks accidental promotion, but keeps promotion_gate_result at defer because latency/cost measurement and rollback policy are not yet present.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,
       "name": "failure-and-rollback-policy",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 4,

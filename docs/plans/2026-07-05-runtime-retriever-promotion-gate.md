@@ -18,9 +18,9 @@ failure-boundary, operator-command, and rollback evidence.
 
 ### RPG2 — Regression And Latency Gate
 
-- [ ] RPG2.1 — Define minimum recall/citation and runtime cost checks.
-- [ ] RPG2.2 — Implement promotion regression/latency gate.
-- [ ] RPG2.3 — Add tests and report.
+- [x] RPG2.1 — Define minimum recall/citation and runtime cost checks.
+- [x] RPG2.2 — Implement promotion regression/latency gate.
+- [x] RPG2.3 — Add tests and report.
 
 ### RPG3 — Failure And Rollback Policy
 
