@@ -45,6 +45,7 @@ technical demo package is ready for review, but final PoC proof requires an actu
 | external_connector_live_metadata_close_gate | `docs/reports/2026-07-05-eslc1-external-source-connector-live-metadata-close-gate.md` | present |
 | external_connector_live_metadata_report_fixture | `docs/reports/2026-07-05-eslr1-external-source-connector-live-metadata-report-fixture.md` | present |
 | external_connector_live_metadata_report_close_gate | `docs/reports/2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md` | present |
+| external_connector_demo_index_bridge | `docs/reports/2026-07-05-esdib1-external-source-connector-demo-index-bridge.md` | present |
 
 ## Demo Outputs
 
@@ -72,12 +73,12 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 - actual accountant session evidence is still external/user-owned
 - local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented
-- external source connector live-metadata report lane is closed, but demo index bridge is not implemented
+- external source connector demo-index bridge is present, but bridge close gate is not implemented
 - opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, or external source connector demo-index bridge
+real-accountant-session RS2/RS3 evidence capture, or external source connector demo-index close gate
 
 ## Machine Result
 
@@ -93,11 +94,11 @@ real-accountant-session RS2/RS3 evidence capture, or external source connector d
   "human_review_packs": 4,
   "automation_rate": 0.8333,
   "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source connector demo-index bridge",
+  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, or external source connector demo-index close gate",
   "remaining_gaps": [
     "actual accountant session evidence is still external/user-owned",
     "local parser real-adapter decision gate is present and deferred, so real upload/OCR/parser/deletion automation are not implemented",
-    "external source connector live-metadata report lane is closed, but demo index bridge is not implemented",
+    "external source connector demo-index bridge is present, but bridge close gate is not implemented",
     "opt-in retriever demo validation is complete, but default promotion remains deferred until actual accountant evidence"
   ],
   "errors": []

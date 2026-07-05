@@ -26,6 +26,7 @@
 6. `docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md`
 7. `docs/reports/field-feedback/2026-07-05-incorporated-review-questions.md`
 8. `docs/reports/2026-07-05-accounting-intelligence-gap-audit.md`
+9. `docs/reports/2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`
 
 ## Before Sending
 

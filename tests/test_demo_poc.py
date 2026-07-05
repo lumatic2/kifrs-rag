@@ -22,6 +22,9 @@ def test_generate_demo_writes_expected_markdown_files(tmp_path):
     links = (tmp_path / "audit-facc-links.md").read_text(encoding="utf-8")
 
     assert "기준서 원문, DB, embedding, dogfood 자료는 포함하지 않는다" in index
+    assert "External Connector Evidence" in index
+    assert "2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md" in index
+    assert "does not fetch, store, chunk, embed, or answer from external source body text" in index
     assert "금융부채" in statement
     assert "synthetic-dart-2025-annual-001-revenue" in statement
     assert "Primary K-IFRS evidence" in evidence
