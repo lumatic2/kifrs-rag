@@ -25,7 +25,7 @@ review pack, source map, parser plan이 많이 생겼지만, default retriever�
 - [x] RR1 — Baseline inventory. (verify: `python scripts\quality_preflight.py --format text` + report exists)
 - [x] RR2 — Eval matrix and seed coverage. (verify: report lists buckets without protected source body)
 - [x] RR3 — Retrieval and citation diagnostics. (verify: `python scripts\eval_quality_gate.py --runner local-rag --only Q019 Q020 Q021 Q022 Q023 --min-composite 0.6 --min-cite 0.45 --format text`)
-- [ ] RR4 — Repair policy candidate. (verify: `python scripts\default_retriever_guard.py --format text`)
+- [x] RR4 — Repair policy candidate. (verify: `python scripts\default_retriever_guard.py --format text`)
 - [ ] RR5 — Promotion gate and handoff. (verify: `python scripts\rag_quality_final_gate.py --format text` and `python scripts\quality_preflight.py --format text`)
 
 ## 결정 로그

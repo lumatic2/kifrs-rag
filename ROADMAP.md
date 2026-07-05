@@ -45,11 +45,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Active Milestones
 
-<!-- harness:milestone id="RR4" status="active" priority="P0" -->
-### RR4 — repair policy candidate
-- DoD: default retriever 변경 없이 적용 가능한 repair 정책 후보와 보류할 정책을 정리하고, default retriever guard가 계속 통과한다.
-- Evidence: `docs/reports/2026-07-05-rr4-repair-policy-candidate.md`; plan `docs/plans/2026-07-05-rag-reliability-revalidation.md`
-- Gap: RR3는 retrieval/citation 성능을 진단했지만, 어떤 repair policy를 product runtime에 적용하거나 보류할지 아직 결정하지 않았다.
+<!-- harness:milestone id="RR5" status="active" priority="P0" -->
+### RR5 — promotion gate and next-horizon handoff
+- DoD: RR1~RR4 증거를 묶어 default promotion 여부를 판정하고, 다음 horizon 진입 조건과 검증 명령을 한 장으로 닫는다.
+- Evidence: `docs/reports/2026-07-05-rr5-rag-promotion-gate.md`; plan `docs/plans/2026-07-05-rag-reliability-revalidation.md`
+- Gap: RR4는 opt-in repair 정책 후보를 만들었지만, horizon close 기준인 promotion gate와 다음 horizon handoff가 아직 없다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -57,8 +57,8 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - RR1 baseline inventory — 완료 (`docs/reports/2026-07-05-rr1-rag-baseline-inventory.md`)
 - RR2 eval matrix and seed coverage — 완료 (`docs/reports/2026-07-05-rr2-eval-matrix.md`)
 - RR3 retrieval and citation diagnostics — 완료 (`docs/reports/2026-07-05-rr3-retrieval-citation-diagnostics.md`)
-- RR4 repair policy candidate — active
-- RR5 promotion gate and next-horizon handoff
+- RR4 repair policy candidate — 완료 (`docs/reports/2026-07-05-rr4-repair-policy-candidate.md`)
+- RR5 promotion gate and next-horizon handoff — active
 
 Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 외부 검증 실행은 사용자가 다시
 요청하기 전까지 현재 계획과 다음 액션에서 제외한다.
