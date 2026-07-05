@@ -12,6 +12,7 @@
 - [ ] `python scripts\accounting_intelligence_decision_queue.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_packet.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write`
+- [ ] `python scripts\real_accountant_post_send_rehearsal_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_readiness_index.py --format text --write`
 - [ ] `python scripts\real_accountant_external_action_boundary_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_dispatch_gate.py --format text --write`
