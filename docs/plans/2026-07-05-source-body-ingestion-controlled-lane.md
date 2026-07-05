@@ -35,9 +35,9 @@ This horizon adds one controlled non-IFRS source-body ingestion lane with author
 
 ### SBI5 — Controlled Lane Close Gate
 
-- [ ] SBI5.1 — Implement close gate.
-- [ ] SBI5.2 — Run public-safe and RAG regressions.
-- [ ] SBI5.3 — Close horizon.
+- [x] SBI5.1 — Implement close gate.
+- [x] SBI5.2 — Run public-safe and RAG regressions.
+- [x] SBI5.3 — Close horizon.
 
 ## Decision Log
 

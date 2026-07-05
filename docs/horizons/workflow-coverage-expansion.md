@@ -1,6 +1,6 @@
 # Horizon: Workflow Coverage Expansion
 
-> Status: planned
+> Status: active
 > Created: 2026-07-05
 > Previous: `docs/horizons/source-body-ingestion-controlled-lane.md`
 
@@ -12,25 +12,35 @@ Expand accountant-work automation coverage beyond the existing 1109/1115/1116 re
 
 ### WCE1. Coverage Gap Ranking
 
+Status: active
+
 - Deliverable: `docs/reports/2026-07-05-wce1-coverage-gap-ranking.md`
 - Acceptance: candidate domains are ranked by firm-service value, data availability, determinism, and verification cost.
 
 ### WCE2. First New Workflow Candidate Contract
+
+Status: pending
 
 - Deliverable: workflow contract, tests, `docs/reports/2026-07-05-wce2-first-workflow-contract.md`
 - Acceptance: one domain is selected and scoped to decision-prep draft output.
 
 ### WCE3. Minimal Review-Pack Adapter
 
+Status: pending
+
 - Deliverable: adapter code, tests, `docs/reports/2026-07-05-wce3-minimal-review-pack-adapter.md`
 - Acceptance: selected workflow can produce at least a structured summary and human-review checklist.
 
 ### WCE4. Coverage Metric Update
 
+Status: pending
+
 - Deliverable: coverage metric script/report, tests, `docs/reports/2026-07-05-wce4-coverage-metric-update.md`
 - Acceptance: objective coverage map reflects the new workflow candidate and its limits.
 
 ### WCE5. Workflow Coverage Close Gate
+
+Status: pending
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-workflow-coverage-expansion-close-report.md`
 - Acceptance: new coverage evidence is connected to product trust, parser/runtime, and firm-facing demo surfaces.

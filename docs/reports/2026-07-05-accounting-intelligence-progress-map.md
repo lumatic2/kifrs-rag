@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is real-local-parser-prototype: move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.
+The active horizon is workflow-coverage-expansion: choose the next accountant workflow to automate and make the choice evidence-based.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `source-body-ingestion-controlled-lane`
+- Horizon: `workflow-coverage-expansion`
 - Status: active
-- Goal: Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.
+- Goal: Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.
 
 | Milestone | Name | Status |
 |---|---|---|
-| SBI1 | source class selection and authorization boundary | completed |
-| SBI2 | source body policy record | completed |
-| SBI3 | synthetic body parser and chunker | completed |
-| SBI4 | retrieval gate for controlled lane | completed |
-| SBI5 | controlled lane close gate | active_next |
+| WCE1 | coverage gap ranking | active_next |
+| WCE2 | first new workflow candidate contract | pending |
+| WCE3 | minimal review-pack adapter | pending |
+| WCE4 | coverage metric update | pending |
+| WCE5 | workflow coverage close gate | pending |
 
 ## Completed Capability Chain
 
@@ -36,6 +36,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | multi-authority-runtime-hardening | Connected K-IFRS primary, supporting, legal, fact, and client-private placeholder evidence across runtime, review packs, statement draft, analytics, and close gate. | `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md` |
 | client-private-parser-runtime | Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload. | `docs/reports/2026-07-05-client-private-parser-runtime-close-report.md` |
 | real-local-parser-prototype | Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate. | `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md` |
+| source-body-ingestion-controlled-lane | Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate. | `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md` |
 
 ## Automation Snapshot
 
@@ -48,7 +49,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_SBI5_controlled_lane_close_gate | active | none | `python -m pytest tests\test_controlled_lane_close_gate.py -q` |
+| run_WCE1_coverage_gap_ranking | active | none | `python -m pytest tests\test_workflow_coverage_gap_ranking.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -61,8 +62,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `SBI5_controlled_lane_close_gate`
-- command: `python -m pytest tests\test_controlled_lane_close_gate.py -q`
+- decision: `WCE1_coverage_gap_ranking`
+- command: `python -m pytest tests\test_workflow_coverage_gap_ranking.py -q`
 
 ## Machine Result
 
@@ -71,34 +72,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "source-body-ingestion-controlled-lane",
+    "id": "workflow-coverage-expansion",
     "status": "active",
-    "goal": "Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.",
+    "goal": "Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.",
     "milestones": [
       {
-        "id": "SBI1",
-        "name": "source class selection and authorization boundary",
-        "status": "completed"
-      },
-      {
-        "id": "SBI2",
-        "name": "source body policy record",
-        "status": "completed"
-      },
-      {
-        "id": "SBI3",
-        "name": "synthetic body parser and chunker",
-        "status": "completed"
-      },
-      {
-        "id": "SBI4",
-        "name": "retrieval gate for controlled lane",
-        "status": "completed"
-      },
-      {
-        "id": "SBI5",
-        "name": "controlled lane close gate",
+        "id": "WCE1",
+        "name": "coverage gap ranking",
         "status": "active_next"
+      },
+      {
+        "id": "WCE2",
+        "name": "first new workflow candidate contract",
+        "status": "pending"
+      },
+      {
+        "id": "WCE3",
+        "name": "minimal review-pack adapter",
+        "status": "pending"
+      },
+      {
+        "id": "WCE4",
+        "name": "coverage metric update",
+        "status": "pending"
+      },
+      {
+        "id": "WCE5",
+        "name": "workflow coverage close gate",
+        "status": "pending"
       }
     ]
   },
@@ -142,15 +143,20 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "real-local-parser-prototype",
       "result": "Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate.",
       "evidence": "docs/reports/2026-07-05-real-local-parser-prototype-close-report.md"
+    },
+    {
+      "id": "source-body-ingestion-controlled-lane",
+      "result": "Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate.",
+      "evidence": "docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": "run_SBI5_controlled_lane_close_gate",
+      "id": "run_WCE1_coverage_gap_ranking",
       "status": "active",
-      "decide": "Close the controlled source lane by tying authorization, policy, parser/chunker, retrieval, and carried RAG gates.",
+      "decide": "Rank the next accountant workflow candidates by firm-service value, data availability, determinism, and verification cost.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_controlled_lane_close_gate.py -q"
+      "command": "python -m pytest tests\\test_workflow_coverage_gap_ranking.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -173,8 +179,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "SBI5_controlled_lane_close_gate",
-  "next_command": "python -m pytest tests\\test_controlled_lane_close_gate.py -q",
+  "next_leaf": "WCE1_coverage_gap_ranking",
+  "next_command": "python -m pytest tests\\test_workflow_coverage_gap_ranking.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

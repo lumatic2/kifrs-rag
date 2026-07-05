@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "controlled-lane-close-gate",
-      "status": "pending"
+      "status": "completed",
+      "summary": "SBI5 added scripts/controlled_lane_close_gate.py, tests/test_controlled_lane_close_gate.py, and docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md. It closes the controlled non-IFRS lane by tying source selection, policy, synthetic chunking, retrieval gate, product trust evidence, public-safe checks, and required reports together; next horizon is workflow-coverage-expansion.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

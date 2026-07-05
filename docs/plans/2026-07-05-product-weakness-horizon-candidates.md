@@ -2,7 +2,7 @@
 
 > Objective: `docs/OBJECTIVE.md`
 > Queue owner: Accounting Intelligence Expansion
-> Status: candidate sequence, with `real-local-parser-prototype` active
+> Status: candidate sequence, with `workflow-coverage-expansion` active
 
 ## Summary
 
@@ -31,7 +31,7 @@ and operator usability. The next horizons should close those gaps in dependency 
   explicit authority/storage policy.
 - Milestones: SBI1 source selection, SBI2 policy record, SBI3 synthetic parser/chunker, SBI4 retrieval gate,
   SBI5 close gate.
-- Status: active.
+- Status: closed.
 - Plan: `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`.
 
 ### 3. `workflow-coverage-expansion`
@@ -42,7 +42,7 @@ and operator usability. The next horizons should close those gaps in dependency 
   decision-prep output.
 - Milestones: WCE1 coverage ranking, WCE2 workflow contract, WCE3 minimal adapter, WCE4 coverage metric,
   WCE5 close gate.
-- Status: planned.
+- Status: active.
 - Plan: `docs/plans/2026-07-05-workflow-coverage-expansion.md`.
 
 ### 4. `runtime-retriever-promotion-gate`
@@ -77,7 +77,7 @@ and operator usability. The next horizons should close those gaps in dependency 
 
 ## Decision Log
 
-- The active next horizon is now `source-body-ingestion-controlled-lane`.
+- The active next horizon is now `workflow-coverage-expansion`.
 - `real-accountant-session` stays parked until the user explicitly reopens actual outreach or feedback capture.
 - No protected K-IFRS text, private client payload, source body, parsed database, embedding dump, dogfood
   material, or secret is introduced by this queue.

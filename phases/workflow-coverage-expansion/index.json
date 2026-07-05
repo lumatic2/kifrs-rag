@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "workflow-coverage-expansion",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "coverage-gap-ranking",
+      "status": "active"
+    },
+    {
+      "step": 2,
+      "name": "first-new-workflow-candidate-contract",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "minimal-review-pack-adapter",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "coverage-metric-update",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "workflow-coverage-close-gate",
+      "status": "pending"
+    }
+  ]
+}

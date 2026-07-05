@@ -98,6 +98,10 @@
     },
     {
       "dir": "source-body-ingestion-controlled-lane",
+      "status": "completed"
+    },
+    {
+      "dir": "workflow-coverage-expansion",
       "status": "active"
     },
     {

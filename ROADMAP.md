@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (SBI4 완료, SBI5 시작)
+> 마지막 업데이트: 2026-07-05 (SBI5 완료, WCE1 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -35,28 +35,30 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 6. `product-trust-and-quality-evidence` — 완료. 데모 출력의 품질·근거·실패경계·retriever 승격 판단을 제품 표면에 붙인다.
 7. `real-local-parser-prototype` — 완료. synthetic/parser contract를 실제 로컬 parser prototype에 가깝게 확장했다.
-8. `source-body-ingestion-controlled-lane` — 현재. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
-9. `workflow-coverage-expansion` — 계획됨. firm-service map 기준으로 자동화 coverage를 새 업무 영역으로 확장한다.
+8. `source-body-ingestion-controlled-lane` — 완료. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현했다.
+9. `workflow-coverage-expansion` — 현재. firm-service map 기준으로 자동화 coverage를 새 업무 영역으로 확장한다.
 10. `runtime-retriever-promotion-gate` — 계획됨. opt-in repair retriever를 default로 승격할지 promote/defer/rollback gate로 판단한다.
 11. `operator-experience-hardening` — 계획됨. operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 
-## Current Horizon — source-body-ingestion-controlled-lane
+## Current Horizon — workflow-coverage-expansion
 
-<!-- harness:goal id="source-body-ingestion-controlled-lane" status="active" -->
-`docs/horizons/source-body-ingestion-controlled-lane.md` — 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
+<!-- harness:goal id="workflow-coverage-expansion" status="active" -->
+`docs/horizons/workflow-coverage-expansion.md` — firm-service map 기준으로 자동화 coverage를 새 업무 영역으로 확장한다.
 
-직전 horizon에서 local-safe fixture parser path, deletion simulation, leak tests, close gate를 닫았다.
-이제 K-IFRS 외 정보원 1개를 policy-bound synthetic ingestion lane으로 만든다.
+직전 horizon에서 synthetic-only controlled non-IFRS interpretive lane을 source selection, policy, parser/chunker,
+retrieval gate, public-safe close gate까지 닫았다.
+이제 "회계법인의 어떤 업무를 다음으로 자동화할 것인가"를 firm-service value, data availability,
+determinism, verification cost로 점수화한 뒤 하나의 decision-prep workflow로 구현한다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="SBI5" status="active" priority="P0" -->
-### SBI5 — Controlled Lane Close Gate
-- DoD: authorization, policy, parser/chunker, retrieval, public-safe, and carried RAG regressions를 묶어 horizon close 여부를 판정한다.
-- Evidence: `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md`; plan `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
-- Gap: SBI1~SBI4는 개별 통과했지만 controlled lane close gate가 아직 없다.
+<!-- harness:milestone id="WCE1" status="active" priority="P0" -->
+### WCE1 — Coverage Gap Ranking
+- DoD: candidate domains are ranked by firm-service value, data availability, determinism, and verification cost.
+- Evidence: `docs/reports/2026-07-05-wce1-coverage-gap-ranking.md`; plan `docs/plans/2026-07-05-workflow-coverage-expansion.md`
+- Gap: 다음 자동화 workflow를 감으로 고르면 제품 coverage 설명이 약해지므로 firm-service-map 기반 ranking이 필요하다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -83,7 +85,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - SBI2 source body policy record — 완료 (`docs/reports/2026-07-05-sbi2-source-body-policy-record.md`)
 - SBI3 synthetic body parser and chunker — 완료 (`docs/reports/2026-07-05-sbi3-synthetic-body-parser-chunker.md`)
 - SBI4 retrieval gate for controlled lane — 완료 (`docs/reports/2026-07-05-sbi4-controlled-lane-retrieval-gate.md`)
-- SBI5 controlled lane close gate — active
+- SBI5 controlled lane close gate — 완료 (`docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md`)
+- WCE1 coverage gap ranking — active
+- WCE2 first new workflow candidate contract
+- WCE3 minimal review-pack adapter
+- WCE4 coverage metric update
+- WCE5 workflow coverage close gate
 - RPG1 promotion evidence inventory
 - RPG2 regression and latency gate
 - RPG3 failure and rollback policy
@@ -119,9 +126,10 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `source-body-ingestion-controlled-lane` — 비IFRS source-body lane 1개를 controlled RAG 단위로 구현하는 단계.
-계획: `docs/horizons/source-body-ingestion-controlled-lane.md` →
-`docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`.
+**[현재 active]** `workflow-coverage-expansion` — firm-service map 기준으로 다음 자동화 업무를 고르고,
+하나의 decision-prep workflow로 구현하는 단계.
+계획: `docs/horizons/workflow-coverage-expansion.md` →
+`docs/plans/2026-07-05-workflow-coverage-expansion.md`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

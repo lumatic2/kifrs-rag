@@ -58,26 +58,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate.",
             "evidence": "docs/reports/2026-07-05-real-local-parser-prototype-close-report.md",
         },
+        {
+            "id": "source-body-ingestion-controlled-lane",
+            "result": "Closed one synthetic-only controlled non-IFRS interpretive lane with source selection, policy, chunking, retrieval, and public-safe close gate.",
+            "evidence": "docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "source-body-ingestion-controlled-lane",
+        "id": "workflow-coverage-expansion",
         "status": "active",
-        "goal": "Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.",
+        "goal": "Expand accountant-work automation coverage beyond existing review-pack surfaces using the firm-service map and testable decision-prep outputs.",
         "milestones": [
-            {"id": "SBI1", "name": "source class selection and authorization boundary", "status": "completed"},
-            {"id": "SBI2", "name": "source body policy record", "status": "completed"},
-            {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "completed"},
-            {"id": "SBI4", "name": "retrieval gate for controlled lane", "status": "completed"},
-            {"id": "SBI5", "name": "controlled lane close gate", "status": "active_next"},
+            {"id": "WCE1", "name": "coverage gap ranking", "status": "active_next"},
+            {"id": "WCE2", "name": "first new workflow candidate contract", "status": "pending"},
+            {"id": "WCE3", "name": "minimal review-pack adapter", "status": "pending"},
+            {"id": "WCE4", "name": "coverage metric update", "status": "pending"},
+            {"id": "WCE5", "name": "workflow coverage close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_SBI5_controlled_lane_close_gate",
+            "id": "run_WCE1_coverage_gap_ranking",
             "status": "active",
-            "decide": "Close the controlled source lane by tying authorization, policy, parser/chunker, retrieval, and carried RAG gates.",
+            "decide": "Rank the next accountant workflow candidates by firm-service value, data availability, determinism, and verification cost.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_controlled_lane_close_gate.py -q",
+            "command": "python -m pytest tests\\test_workflow_coverage_gap_ranking.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -102,8 +107,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "SBI5_controlled_lane_close_gate",
-        "next_command": "python -m pytest tests\\test_controlled_lane_close_gate.py -q",
+        "next_leaf": "WCE1_coverage_gap_ranking",
+        "next_command": "python -m pytest tests\\test_workflow_coverage_gap_ranking.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -118,7 +123,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is real-local-parser-prototype: move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
+        "The active horizon is workflow-coverage-expansion: choose the next accountant workflow to automate and make the choice evidence-based.",
         "",
         "## Objective",
         "",

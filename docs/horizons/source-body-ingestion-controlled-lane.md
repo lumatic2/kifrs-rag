@@ -1,6 +1,6 @@
 # Horizon: Source Body Ingestion Controlled Lane
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/real-local-parser-prototype.md`
 
@@ -40,7 +40,7 @@ Status: completed
 
 ### SBI5. Controlled Lane Close Gate
 
-Status: active
+Status: completed
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-source-body-ingestion-controlled-lane-close-report.md`
 - Acceptance: authorization, parser/chunker, retrieval, public-safe, and RAG regression gates pass.
