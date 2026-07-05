@@ -23,9 +23,9 @@ This horizon addresses the Objective gap that the demo packet exists but has not
 
 ### DRQ3 — Rehearsal Evidence Capture
 
-- [ ] DRQ3.1 — Create public-safe rehearsal run fixture.
-- [ ] DRQ3.2 — Capture stage results and timing metadata.
-- [ ] DRQ3.3 — Write rehearsal evidence report.
+- [x] DRQ3.1 — Create public-safe rehearsal run fixture.
+- [x] DRQ3.2 — Capture stage results and timing metadata.
+- [x] DRQ3.3 — Write rehearsal evidence report.
 
 ### DRQ4 — Demo Improvement Backlog
 

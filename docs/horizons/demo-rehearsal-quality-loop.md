@@ -28,14 +28,14 @@ Status: completed
 
 ### DRQ3. Rehearsal Evidence Capture
 
-Status: active
+Status: completed
 
 - Deliverable: rehearsal evidence script/report.
 - Acceptance: one local rehearsal run is represented as public-safe stage results and timing metadata.
 
 ### DRQ4. Demo Improvement Backlog
 
-Status: pending
+Status: active
 
 - Deliverable: improvement backlog script/report.
 - Acceptance: rehearsal findings are translated into prioritized product fixes without adding external feedback work.

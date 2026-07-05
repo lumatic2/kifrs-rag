@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "rehearsal-evidence-capture",
-      "status": "active"
+      "status": "completed",
+      "summary": "DRQ3 added scripts/demo_rehearsal_evidence_capture.py, tests/test_demo_rehearsal_evidence_capture.py, and docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md. It captures a public-safe local rehearsal run fixture with eight stage results, timing metadata, and one timing warning for improvement backlog input.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "demo-improvement-backlog",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,
