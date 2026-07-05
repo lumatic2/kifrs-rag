@@ -26,14 +26,14 @@ Status: completed
 
 ### OEH3. Report Manifest And Navigation Surface
 
-Status: active
+Status: completed
 
 - Deliverable: manifest script/report, tests, `docs/reports/2026-07-05-oeh3-report-manifest.md`
 - Acceptance: operator can open the right reports in sequence without reading ROADMAP internals.
 
 ### OEH4. Error Recovery Playbook
 
-Status: pending
+Status: active
 
 - Deliverable: recovery playbook/checker, tests, `docs/reports/2026-07-05-oeh4-error-recovery-playbook.md`
 - Acceptance: common failures point to specific rerun/remediation commands.

@@ -23,9 +23,9 @@ This horizon makes the local toolkit easier for an operator to run, diagnose, na
 
 ### OEH3 — Report Manifest And Navigation Surface
 
-- [ ] OEH3.1 — Define report order/manifest.
-- [ ] OEH3.2 — Implement manifest generator.
-- [ ] OEH3.3 — Add tests/report.
+- [x] OEH3.1 — Define report order/manifest.
+- [x] OEH3.2 — Implement manifest generator.
+- [x] OEH3.3 — Add tests/report.
 
 ### OEH4 — Error Recovery Playbook
 

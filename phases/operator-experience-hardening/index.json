@@ -20,12 +20,14 @@
     {
       "step": 3,
       "name": "report-manifest-and-navigation-surface",
-      "status": "active"
+      "status": "completed",
+      "summary": "OEH3 added scripts/operator_report_manifest.py, tests/test_operator_report_manifest.py, and docs/reports/2026-07-05-oeh3-report-manifest.md. It creates an ordered public report navigation surface from progress and horizon queue through command inventory, run doctor, retriever close, workflow close, and source lane close reports without protected data paths.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 4,
       "name": "error-recovery-playbook",
-      "status": "pending"
+      "status": "active"
     },
     {
       "step": 5,

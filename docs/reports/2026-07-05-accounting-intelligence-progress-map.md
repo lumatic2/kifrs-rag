@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is operator-experience-hardening: add report navigation after run diagnostics.
+The active horizon is operator-experience-hardening: add recovery commands after report navigation.
 
 ## Objective
 
@@ -20,8 +20,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 |---|---|---|
 | OEH1 | operator command inventory | completed |
 | OEH2 | run doctor and environment checks | completed |
-| OEH3 | report manifest and navigation surface | active_next |
-| OEH4 | error recovery playbook | pending |
+| OEH3 | report manifest and navigation surface | completed |
+| OEH4 | error recovery playbook | active_next |
 | OEH5 | operator experience close gate | pending |
 
 ## Completed Capability Chain
@@ -51,7 +51,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_OEH3_report_manifest | active | none | `python -m pytest tests\test_operator_report_manifest.py -q` |
+| run_OEH4_error_recovery | active | none | `python -m pytest tests\test_operator_error_recovery.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -64,8 +64,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `OEH3_report_manifest`
-- command: `python -m pytest tests\test_operator_report_manifest.py -q`
+- decision: `OEH4_error_recovery`
+- command: `python -m pytest tests\test_operator_error_recovery.py -q`
 
 ## Machine Result
 
@@ -91,12 +91,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "OEH3",
         "name": "report manifest and navigation surface",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "OEH4",
         "name": "error recovery playbook",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "OEH5",
@@ -164,11 +164,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_OEH3_report_manifest",
+      "id": "run_OEH4_error_recovery",
       "status": "active",
-      "decide": "Create an ordered report manifest so the operator can navigate evidence without reading ROADMAP internals.",
+      "decide": "Map common operator failures to specific rerun or remediation commands.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_operator_report_manifest.py -q"
+      "command": "python -m pytest tests\\test_operator_error_recovery.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -191,8 +191,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "OEH3_report_manifest",
-  "next_command": "python -m pytest tests\\test_operator_report_manifest.py -q",
+  "next_leaf": "OEH4_error_recovery",
+  "next_command": "python -m pytest tests\\test_operator_error_recovery.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
