@@ -1,0 +1,42 @@
+{
+  "project": "kifrs-rag",
+  "phase": "rag-quality-fresh-validation",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "validation-corpus-and-acceptance-contract",
+      "status": "completed",
+      "summary": "RQF1 added scripts/rag_quality_validation_contract.py, tests/test_rag_quality_validation_contract.py, and docs/reports/2026-07-05-rqf1-validation-contract.md. It defines public-safe RAG validation commands, metrics, promotion blockers, and boundaries while keeping default retriever changes forbidden.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "current-retriever-baseline-snapshot",
+      "status": "completed",
+      "summary": "RQF2 added scripts/rag_quality_baseline_snapshot.py, tests/test_rag_quality_baseline_snapshot.py, and docs/reports/2026-07-05-rqf2-baseline-snapshot.md. It records that the current default retriever baseline contract is ready but fresh numeric local eval evidence is missing from public reports, so default changes remain forbidden.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "opt-in-retriever-regression-matrix",
+      "status": "completed",
+      "summary": "RQF3 added scripts/rag_quality_regression_matrix.py, tests/test_rag_quality_regression_matrix.py, and docs/reports/2026-07-05-rqf3-regression-matrix.md. The matrix defers promotion because fresh numeric eval, regression count, and latency comparison are not recomputed, while rollback evidence remains documented.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 4,
+      "name": "promotion-decision-gate",
+      "status": "completed",
+      "summary": "RQF4 added scripts/rag_quality_promotion_decision_gate.py, tests/test_rag_quality_promotion_decision_gate.py, and docs/reports/2026-07-05-rqf4-promotion-decision.md. The decision is defer: default retriever changes remain forbidden because fresh numeric evidence and explicit authorization are missing.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 5,
+      "name": "horizon-close-and-next-gap-handoff",
+      "status": "completed",
+      "summary": "RQF5 added scripts/rag_quality_fresh_validation_close_gate.py, tests/test_rag_quality_fresh_validation_close_gate.py, and docs/reports/2026-07-05-rag-quality-fresh-validation-close-report.md. The horizon closes as defer: default retriever changes remain forbidden, and the next objective-gap horizon is private-parser-realism-hardening.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    }
+  ]
+}

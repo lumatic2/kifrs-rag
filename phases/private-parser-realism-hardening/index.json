@@ -1,0 +1,34 @@
+{
+  "project": "kifrs-rag",
+  "phase": "private-parser-realism-hardening",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "authorization-safe-adapter-proof-plan",
+      "status": "completed",
+      "summary": "PPR1 added scripts/private_parser_authorization_safe_adapter_proof.py, tests/test_private_parser_authorization_safe_adapter_proof.py, and docs/reports/2026-07-05-ppr1-authorization-safe-adapter-proof.md. It confirms realistic private parser work remains explicit-authorization-gated, local-only, deletion-aware, and structured-facts-only for public reporting.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "realistic-local-fixture-adapter-contract",
+      "status": "active"
+    },
+    {
+      "step": 3,
+      "name": "deletion-and-retention-rehearsal",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "parser-leak-and-public-report-gate",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "horizon-close-and-source-connector-handoff",
+      "status": "pending"
+    }
+  ]
+}

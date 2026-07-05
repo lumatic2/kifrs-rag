@@ -76,7 +76,7 @@
 
 ## Active horizon
 
-현재 active horizon은 없다. `end-to-end-demo-scenario`는 `demo_ready`로 완료됐고, 제품 약점 5-horizon chain을 회계법인에 설명 가능한 public-safe end-to-end demo packet으로 묶었다.
+현재 active horizon은 `private-parser-realism-hardening`이다. `rag-quality-fresh-validation`은 `defer`로 완료됐고 default retriever 변경은 금지 상태로 유지한다. 이제 fixture-heavy private parser proof를 authorization-safe local adapter realism evidence로 강화한다.
 
 남은 horizon 순서:
 
@@ -94,6 +94,10 @@
 
 제품 약점 기준 1~5 horizon queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 완료된 통합 데모 horizon: `docs/horizons/end-to-end-demo-scenario.md`
+현재 objective gap queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
+최근 완료 RAG 품질 horizon: `docs/horizons/rag-quality-fresh-validation.md`
+현재 active horizon: `docs/horizons/private-parser-realism-hardening.md`
+현재 active milestone plan: `docs/plans/2026-07-05-private-parser-realism-hardening.md`
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
 최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`

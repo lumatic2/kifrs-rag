@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (end-to-end-demo-scenario 완료, demo_ready)
+> 마지막 업데이트: 2026-07-05 (PPR1 완료, PPR2 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -41,17 +41,90 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 11. `operator-experience-hardening` — 완료. operator command discovery, run doctor, report manifest, recovery path를 다듬었다.
 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
+Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
 
-## Current Horizon — end-to-end-demo-scenario closed
+## Current Horizon — private-parser-realism-hardening
 
-<!-- harness:goal id="end-to-end-demo-scenario" status="closed" -->
-`docs/horizons/end-to-end-demo-scenario.md` — 닫힌 제품 약점 chain을 회계법인에 설명 가능한 한 번의 public-safe end-to-end demo 흐름으로 묶었다.
+<!-- harness:goal id="private-parser-realism-hardening" status="active" -->
+`docs/horizons/private-parser-realism-hardening.md` — fixture-heavy private parser proof를 authorization-safe, deletion-aware, public-safe local adapter realism evidence로 강화한다.
 
-결과: `demo_ready`. Demo packet은 `docs/reports/end-to-end-demo/INDEX.md`, close report는 `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`.
+순서: PPR1 authorization-safe proof plan → PPR2 fixture adapter contract → PPR3 deletion/retention rehearsal → PPR4 leak gate → PPR5 close/handoff.
 
 ## Active Milestones
 
-No active milestone. `end-to-end-demo-scenario` is closed.
+<!-- harness:milestone id="PPR1" status="completed" priority="P0" -->
+### PPR1 — Authorization-Safe Adapter Proof Plan
+DoD: actual protected payload handling is gated, local-only, deletion-aware, and public-safe before any real adapter work.
+Evidence: `docs/reports/2026-07-05-ppr1-authorization-safe-adapter-proof.md`
+Gap: Closed by PPR1 proof plan script/tests/report.
+Status: [x]
+
+<!-- harness:milestone id="PPR2" status="active" priority="P0" -->
+### PPR2 — Realistic Local Fixture Adapter Contract
+DoD: supported file classes, parser outputs, redaction fields, and failure modes are explicit.
+Evidence: `docs/reports/2026-07-05-ppr2-fixture-adapter-contract.md`
+Gap: Need fixture adapter contract script/tests/report.
+Status: [ ]
+
+<!-- harness:milestone id="PPR3" status="pending" priority="P0" -->
+### PPR3 — Deletion And Retention Rehearsal
+DoD: local artifact lifecycle is simulated with clear retained/deleted evidence states.
+Evidence: `docs/reports/2026-07-05-ppr3-deletion-retention-rehearsal.md`
+Gap: Pending PPR2 adapter contract.
+Status: [ ]
+
+<!-- harness:milestone id="PPR4" status="pending" priority="P0" -->
+### PPR4 — Parser Leak And Public Report Gate
+DoD: public reports contain structured facts and statuses only, not protected payload contents.
+Evidence: `docs/reports/2026-07-05-ppr4-public-report-leak-gate.md`
+Gap: Pending PPR3 deletion rehearsal.
+Status: [ ]
+
+<!-- harness:milestone id="PPR5" status="pending" priority="P0" -->
+### PPR5 — Horizon Close And Source Connector Handoff
+DoD: private parser realism status is closed and next objective-gap horizon is named.
+Evidence: `docs/reports/2026-07-05-private-parser-realism-hardening-close-report.md`
+Gap: Pending PPR4 leak gate.
+Status: [ ]
+
+## Recently Closed RAG Quality Horizon
+
+<!-- harness:milestone id="RQF1" status="completed" priority="P0" -->
+### RQF1 — Validation Corpus And Acceptance Contract
+DoD: RAG quality commands, dataset boundaries, metrics, promotion blockers, and public-safety rules are explicit.
+Evidence: `docs/reports/2026-07-05-rqf1-validation-contract.md`
+Gap: Closed by RQF1 validation contract script/tests/report.
+Status: [x]
+
+<!-- harness:milestone id="RQF2" status="completed" priority="P0" -->
+### RQF2 — Current Retriever Baseline Snapshot
+DoD: current default retriever quality is measured against available public-safe eval metadata or documented as blocked by missing local private assets.
+Evidence: `docs/reports/2026-07-05-rqf2-baseline-snapshot.md`
+Gap: Closed by RQF2 baseline snapshot script/tests/report.
+Status: [x]
+
+<!-- harness:milestone id="RQF3" status="completed" priority="P0" -->
+### RQF3 — Opt-In Retriever Regression Matrix
+DoD: opt-in repair retriever is compared against baseline with pass/fail and rollback evidence.
+Evidence: `docs/reports/2026-07-05-rqf3-regression-matrix.md`
+Gap: Closed by RQF3 regression matrix script/tests/report.
+Status: [x]
+
+<!-- harness:milestone id="RQF4" status="completed" priority="P0" -->
+### RQF4 — Promotion Decision Gate
+DoD: result is explicit, reversible, and does not promote defaults without stronger evidence and authorization.
+Evidence: `docs/reports/2026-07-05-rqf4-promotion-decision.md`
+Gap: Closed by RQF4 promotion decision gate script/tests/report.
+Status: [x]
+
+<!-- harness:milestone id="RQF5" status="completed" priority="P0" -->
+### RQF5 — Horizon Close And Next Gap Handoff
+DoD: RAG quality status is closed as promote/defer/blocked and the next objective-gap horizon is named.
+Evidence: `docs/reports/2026-07-05-rag-quality-fresh-validation-close-report.md`
+Gap: Closed by RQF5 close gate script/tests/report.
+Status: [x]
+
+## Recent Closed Demo Horizon
 
 <!-- harness:milestone id="E2E1" status="completed" priority="P0" -->
 ### E2E1 — Demo Asset Inventory And Storyboard
@@ -133,6 +206,13 @@ Status: [x]
 - E2E3 demo packet builder — 완료 (`docs/reports/end-to-end-demo/INDEX.md`)
 - E2E4 demo smoke and navigation gate — 완료 (`docs/reports/2026-07-05-e2e4-demo-smoke-gate.md`)
 - E2E5 end-to-end demo scenario close gate — 완료 (`docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`)
+- OGH1 objective gap horizon candidates — 완료 (`docs/reports/2026-07-05-objective-gap-horizon-candidates.md`)
+- RQF1 validation corpus and acceptance contract — 완료 (`docs/reports/2026-07-05-rqf1-validation-contract.md`)
+- RQF2 current retriever baseline snapshot — 완료 (`docs/reports/2026-07-05-rqf2-baseline-snapshot.md`)
+- RQF3 opt-in retriever regression matrix — 완료 (`docs/reports/2026-07-05-rqf3-regression-matrix.md`)
+- RQF4 promotion decision gate — 완료 (`docs/reports/2026-07-05-rqf4-promotion-decision.md`)
+- RQF5 RAG quality fresh validation close gate — 완료 (`docs/reports/2026-07-05-rag-quality-fresh-validation-close-report.md`)
+- PPR1 authorization-safe adapter proof plan — 완료 (`docs/reports/2026-07-05-ppr1-authorization-safe-adapter-proof.md`)
 
 ## Closed Horizons
 
@@ -163,13 +243,14 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음 — `end-to-end-demo-scenario` 완료. 다음 후보는 `objective-gap-audit-or-demo-rehearsal`.
+**[현재 active]** `private-parser-realism-hardening` / PPR2 — realistic local fixture adapter contract.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
 
 **[paused horizon 후보]** RO2(멀티 쿼리 분해), RGA2/RGA3(`rag-agent-integration`).
 **[완료된 integration]** `end-to-end-demo-scenario` — 위 5개 제품 약점 horizon을 통합 데모 packet으로 묶음.
+**[active objective-gap queue]** `rag-quality-fresh-validation` → `private-parser-realism-hardening` → `external-source-body-connector-expansion` → `workflow-coverage-depth-expansion` → `demo-rehearsal-quality-loop`.
 
 **[콘텐츠 축]** 1116 리스 10/10 완료, 1113(공정가치)·1019(확정급여) entry 완료.
 

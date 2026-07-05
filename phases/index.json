@@ -117,6 +117,14 @@
       "status": "completed"
     },
     {
+      "dir": "rag-quality-fresh-validation",
+      "status": "completed"
+    },
+    {
+      "dir": "private-parser-realism-hardening",
+      "status": "active"
+    },
+    {
       "dir": "real-accountant-session",
       "status": "parked"
     }

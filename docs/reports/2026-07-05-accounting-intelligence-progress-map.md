@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The end-to-end-demo-scenario horizon is closed as demo_ready; the next move is a new post-demo horizon decision.
+Objective gaps are grouped into horizons; PPR1 is complete and the next move is PPR2 realistic local fixture adapter contract.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Current Horizon
 
-- Horizon: `end-to-end-demo-scenario`
-- Status: closed
-- Goal: The completed product weakness chain has been turned into one public-safe firm-facing demo packet.
+- Horizon: `private-parser-realism-hardening`
+- Status: active
+- Goal: Harden private parser realism with authorization-safe, deletion-aware, public-safe local adapter evidence.
 
 | Milestone | Name | Status |
 |---|---|---|
-| E2E1 | demo asset inventory and storyboard | completed |
-| E2E2 | scenario contract | completed |
-| E2E3 | demo packet builder | completed |
-| E2E4 | demo smoke and navigation gate | completed |
-| E2E5 | horizon close gate | completed |
+| PPR1 | authorization-safe adapter proof plan | completed |
+| PPR2 | realistic local fixture adapter contract | active |
+| PPR3 | deletion and retention rehearsal | pending |
+| PPR4 | parser leak and public report gate | pending |
+| PPR5 | horizon close and source connector handoff | pending |
 
 ## Completed Capability Chain
 
@@ -52,7 +52,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| select_next_post_demo_horizon | pending_next_plan | none | `python scripts\e2e_demo_close_gate.py --format text` |
+| select_next_post_demo_horizon | closed_by_objective_gap_queue | none | `python scripts\objective_gap_horizon_candidates.py --format text` |
+| run_rag_quality_fresh_validation | closed_defer | none | `python scripts\rag_quality_fresh_validation_close_gate.py --format text` |
+| run_private_parser_realism_hardening | active_horizon | none | `python scripts\private_parser_authorization_safe_adapter_proof.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -65,8 +67,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Next Leaf
 
-- decision: `none_end_to_end_demo_scenario_closed`
-- command: `python scripts\e2e_demo_close_gate.py --format text`
+- decision: `PPR2_realistic_local_fixture_adapter_contract`
+- command: `python scripts\private_parser_fixture_adapter_contract.py --format text --write`
 
 ## Machine Result
 
@@ -75,34 +77,34 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then turn that proof into firm-facing local toolkit evidence.",
   "current_horizon": {
-    "id": "end-to-end-demo-scenario",
-    "status": "closed",
-    "goal": "The completed product weakness chain has been turned into one public-safe firm-facing demo packet.",
+    "id": "private-parser-realism-hardening",
+    "status": "active",
+    "goal": "Harden private parser realism with authorization-safe, deletion-aware, public-safe local adapter evidence.",
     "milestones": [
       {
-        "id": "E2E1",
-        "name": "demo asset inventory and storyboard",
+        "id": "PPR1",
+        "name": "authorization-safe adapter proof plan",
         "status": "completed"
       },
       {
-        "id": "E2E2",
-        "name": "scenario contract",
-        "status": "completed"
+        "id": "PPR2",
+        "name": "realistic local fixture adapter contract",
+        "status": "active"
       },
       {
-        "id": "E2E3",
-        "name": "demo packet builder",
-        "status": "completed"
+        "id": "PPR3",
+        "name": "deletion and retention rehearsal",
+        "status": "pending"
       },
       {
-        "id": "E2E4",
-        "name": "demo smoke and navigation gate",
-        "status": "completed"
+        "id": "PPR4",
+        "name": "parser leak and public report gate",
+        "status": "pending"
       },
       {
-        "id": "E2E5",
-        "name": "horizon close gate",
-        "status": "completed"
+        "id": "PPR5",
+        "name": "horizon close and source connector handoff",
+        "status": "pending"
       }
     ]
   },
@@ -171,10 +173,24 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
   "open_decisions": [
     {
       "id": "select_next_post_demo_horizon",
-      "status": "pending_next_plan",
-      "decide": "Choose whether to audit remaining objective gaps or rehearse the demo path.",
+      "status": "closed_by_objective_gap_queue",
+      "decide": "Objective gaps are grouped into a new horizon queue; run RAG quality fresh validation first.",
       "blocker": "none",
-      "command": "python scripts\\e2e_demo_close_gate.py --format text"
+      "command": "python scripts\\objective_gap_horizon_candidates.py --format text"
+    },
+    {
+      "id": "run_rag_quality_fresh_validation",
+      "status": "closed_defer",
+      "decide": "RAG quality fresh validation closed as defer; default retriever remains unchanged.",
+      "blocker": "none",
+      "command": "python scripts\\rag_quality_fresh_validation_close_gate.py --format text"
+    },
+    {
+      "id": "run_private_parser_realism_hardening",
+      "status": "active_horizon",
+      "decide": "Build authorization-safe adapter proof, fixture adapter contract, deletion rehearsal, leak gate, and close handoff.",
+      "blocker": "none",
+      "command": "python scripts\\private_parser_authorization_safe_adapter_proof.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -197,8 +213,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
-  "next_leaf": "none_end_to_end_demo_scenario_closed",
-  "next_command": "python scripts\\e2e_demo_close_gate.py --format text",
+  "next_leaf": "PPR2_realistic_local_fixture_adapter_contract",
+  "next_command": "python scripts\\private_parser_fixture_adapter_contract.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
