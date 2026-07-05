@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The firm-facing product surface horizon is closed; the next implementation should start from a new horizon plan.
+The active horizon is product-trust-and-quality-evidence: turn the runnable demo into a trustable PoC surface with quality evidence, confidence labels, failure boundaries, and retriever promotion decisions.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `firm-facing-product-surface`
-- Status: closed
-- Goal: Turned the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.
+- Horizon: `product-trust-and-quality-evidence`
+- Status: active
+- Goal: Connect quality evidence, confidence labels, failure boundaries, and retriever promotion decisions to the firm-facing product surface.
 
 | Milestone | Name | Status |
 |---|---|---|
-| FPS1 | product surface inventory and demo flow | completed |
-| FPS2 | operator demo command | completed |
-| FPS3 | readiness checklist and local install path | completed |
-| FPS4 | product narrative README surface | completed |
-| FPS5 | firm-facing surface close gate | completed |
+| PTQ1 | trust evidence inventory | completed |
+| PTQ2 | review pack confidence contract | active_next |
+| PTQ3 | failure boundary matrix | pending |
+| PTQ4 | promotion decision evidence pack | pending |
+| PTQ5 | trust and quality close gate | pending |
 
 ## Completed Capability Chain
 
@@ -47,7 +47,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| plan_next_horizon | ready_for_planning | none | `python scripts\accounting_intelligence_progress_map.py --format text` |
+| run_PTQ2_review_pack_confidence_contract | active | none | `python -m pytest tests\test_review_pack_confidence_contract.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -60,8 +60,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `plan_next_horizon`
-- command: `define the next horizon in ROADMAP/docs/horizons before new implementation`
+- decision: `PTQ2_review_pack_confidence_contract`
+- command: `python -m pytest tests\test_review_pack_confidence_contract.py -q`
 
 ## Machine Result
 
@@ -70,34 +70,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "firm-facing-product-surface",
-    "status": "closed",
-    "goal": "Turned the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
+    "id": "product-trust-and-quality-evidence",
+    "status": "active",
+    "goal": "Connect quality evidence, confidence labels, failure boundaries, and retriever promotion decisions to the firm-facing product surface.",
     "milestones": [
       {
-        "id": "FPS1",
-        "name": "product surface inventory and demo flow",
+        "id": "PTQ1",
+        "name": "trust evidence inventory",
         "status": "completed"
       },
       {
-        "id": "FPS2",
-        "name": "operator demo command",
-        "status": "completed"
+        "id": "PTQ2",
+        "name": "review pack confidence contract",
+        "status": "active_next"
       },
       {
-        "id": "FPS3",
-        "name": "readiness checklist and local install path",
-        "status": "completed"
+        "id": "PTQ3",
+        "name": "failure boundary matrix",
+        "status": "pending"
       },
       {
-        "id": "FPS4",
-        "name": "product narrative README surface",
-        "status": "completed"
+        "id": "PTQ4",
+        "name": "promotion decision evidence pack",
+        "status": "pending"
       },
       {
-        "id": "FPS5",
-        "name": "firm-facing surface close gate",
-        "status": "completed"
+        "id": "PTQ5",
+        "name": "trust and quality close gate",
+        "status": "pending"
       }
     ]
   },
@@ -140,11 +140,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "plan_next_horizon",
-      "status": "ready_for_planning",
-      "decide": "Select the next internal capability horizon after firm-facing product surface close.",
+      "id": "run_PTQ2_review_pack_confidence_contract",
+      "status": "active",
+      "decide": "Add confidence labels for review-pack sections using existing status, citation, authority, and human-review signals.",
       "blocker": "none",
-      "command": "python scripts\\accounting_intelligence_progress_map.py --format text"
+      "command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -167,8 +167,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "plan_next_horizon",
-  "next_command": "define the next horizon in ROADMAP/docs/horizons before new implementation",
+  "next_leaf": "PTQ2_review_pack_confidence_contract",
+  "next_command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

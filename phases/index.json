@@ -89,6 +89,10 @@
       "status": "completed"
     },
     {
+      "dir": "product-trust-and-quality-evidence",
+      "status": "active"
+    },
+    {
       "dir": "real-accountant-session",
       "status": "active"
     }

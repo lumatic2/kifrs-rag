@@ -1,0 +1,34 @@
+{
+  "project": "kifrs-rag",
+  "phase": "product-trust-and-quality-evidence",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "trust-evidence-inventory",
+      "status": "completed",
+      "summary": "PTQ1 added scripts/product_trust_evidence_inventory.py, tests/test_product_trust_evidence_inventory.py, and docs/reports/2026-07-05-ptq1-trust-evidence-inventory.md. It classifies 8 trust evidence sources by product role, speed, public safety, protected-data dependency, and next gaps for PTQ2~PTQ5.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "review-pack-confidence-contract",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "failure-boundary-matrix",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "promotion-decision-evidence-pack",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "trust-quality-close-gate",
+      "status": "pending"
+    }
+  ]
+}

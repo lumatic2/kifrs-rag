@@ -55,24 +55,24 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "firm-facing-product-surface",
-        "status": "closed",
-        "goal": "Turned the runtime proof into an operator-facing local demo, readiness checklist, and product narrative.",
+        "id": "product-trust-and-quality-evidence",
+        "status": "active",
+        "goal": "Connect quality evidence, confidence labels, failure boundaries, and retriever promotion decisions to the firm-facing product surface.",
         "milestones": [
-            {"id": "FPS1", "name": "product surface inventory and demo flow", "status": "completed"},
-            {"id": "FPS2", "name": "operator demo command", "status": "completed"},
-            {"id": "FPS3", "name": "readiness checklist and local install path", "status": "completed"},
-            {"id": "FPS4", "name": "product narrative README surface", "status": "completed"},
-            {"id": "FPS5", "name": "firm-facing surface close gate", "status": "completed"},
+            {"id": "PTQ1", "name": "trust evidence inventory", "status": "completed"},
+            {"id": "PTQ2", "name": "review pack confidence contract", "status": "active_next"},
+            {"id": "PTQ3", "name": "failure boundary matrix", "status": "pending"},
+            {"id": "PTQ4", "name": "promotion decision evidence pack", "status": "pending"},
+            {"id": "PTQ5", "name": "trust and quality close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "plan_next_horizon",
-            "status": "ready_for_planning",
-            "decide": "Select the next internal capability horizon after firm-facing product surface close.",
+            "id": "run_PTQ2_review_pack_confidence_contract",
+            "status": "active",
+            "decide": "Add confidence labels for review-pack sections using existing status, citation, authority, and human-review signals.",
             "blocker": "none",
-            "command": "python scripts\\accounting_intelligence_progress_map.py --format text",
+            "command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "plan_next_horizon",
-        "next_command": "define the next horizon in ROADMAP/docs/horizons before new implementation",
+        "next_leaf": "PTQ2_review_pack_confidence_contract",
+        "next_command": "python -m pytest tests\\test_review_pack_confidence_contract.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -113,7 +113,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The firm-facing product surface horizon is closed; the next implementation should start from a new horizon plan.",
+        "The active horizon is product-trust-and-quality-evidence: turn the runnable demo into a trustable PoC surface with quality evidence, confidence labels, failure boundaries, and retriever promotion decisions.",
         "",
         "## Objective",
         "",

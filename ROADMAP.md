@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (firm-facing-product-surface 완료)
+> 마지막 업데이트: 2026-07-05 (product-trust-and-quality-evidence 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -33,18 +33,28 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 3. `multi-authority-runtime-hardening` — 완료. K-IFRS, 법령, 질의회신, 공시, private facts를 권위별로 분리해 답변에 쓴다.
 4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
+6. `product-trust-and-quality-evidence` — 현재. 데모 출력의 품질·근거·실패경계·retriever 승격 판단을 제품 표면에 붙인다.
+7. `real-local-parser-prototype` — 계획됨. synthetic/parser contract를 실제 로컬 parser prototype에 가깝게 확장한다.
+8. `source-body-ingestion-controlled-lane` — 계획됨. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
+9. `workflow-coverage-expansion` — 계획됨. firm-service map 기준으로 자동화 coverage를 새 업무 영역으로 확장한다.
+10. `operator-experience-hardening` — 계획됨. operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
 
-## Current Horizon — firm-facing-product-surface
+## Current Horizon — product-trust-and-quality-evidence
 
-<!-- harness:goal id="firm-facing-product-surface" status="closed" -->
-`docs/horizons/firm-facing-product-surface.md` — 지금까지 만든 RAG/runtime/private-parser proof를 operator-facing local demo/readiness surface로 연결한다.
+<!-- harness:goal id="product-trust-and-quality-evidence" status="active" -->
+`docs/horizons/product-trust-and-quality-evidence.md` — firm-facing demo가 믿을 수 있는지 판단할 수 있도록 품질 증거, confidence label, failure boundary, retriever promotion decision을 제품 표면에 연결한다.
 
-직전 horizon에서 client-private placeholder lane을 structured-facts-only, deletion-gated local runtime으로 연결했다.
-회계법인에 보여줄 수 있는 demo flow, operator command, readiness checklist, product narrative, close gate를 만들었다.
+직전 horizon에서 demo command/readiness/README/close gate를 만들었다.
+이제 회계법인 검토자가 물을 "정확도와 근거를 어떻게 믿나", "언제 사람이 멈춰야 하나", "default retriever를 바꿔도 되나"에 답한다.
 
 ## Active Milestones
 
-없음. `firm-facing-product-surface` horizon은 닫혔다. 다음 작업은 새 horizon planning cascade에서 정한다.
+<!-- harness:milestone id="PTQ2" status="active" priority="P0" -->
+### PTQ2 — Review Pack Confidence Contract
+- DoD: review-pack section을 ready/caution/human-review-required confidence label로 표시하는 public-safe contract를 만든다.
+- Evidence: `docs/reports/2026-07-05-ptq2-review-pack-confidence-contract.md`; plan `docs/plans/2026-07-05-product-trust-and-quality-evidence.md`
+- Gap: PTQ1에서 trust evidence source는 분류했지만, 실제 review-pack 출력 섹션별 confidence contract는 아직 없다.
+- Status: [ ]
 
 ## Horizon Milestones
 
@@ -56,6 +66,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - FPS3 readiness checklist and local install path — 완료 (`docs/reports/2026-07-05-fps3-readiness-checklist.md`)
 - FPS4 product narrative README surface — 완료 (`docs/reports/2026-07-05-fps4-product-narrative.md`)
 - FPS5 firm-facing surface close gate — 완료 (`docs/reports/2026-07-05-firm-facing-product-surface-close-report.md`)
+- PTQ1 trust evidence inventory — 완료 (`docs/reports/2026-07-05-ptq1-trust-evidence-inventory.md`)
+- PTQ2 review pack confidence contract — active
+- PTQ3 failure boundary matrix
+- PTQ4 promotion decision evidence pack
+- PTQ5 trust and quality close gate
 
 ## Closed Horizons
 
@@ -86,9 +101,9 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음. `firm-facing-product-surface`는 완료됨.
-계획: `docs/horizons/firm-facing-product-surface.md` →
-`docs/plans/2026-07-05-firm-facing-product-surface.md`.
+**[현재 active]** `product-trust-and-quality-evidence` — 품질 증거·confidence·실패경계·retriever promotion 판단을 제품 표면에 붙이는 단계.
+계획: `docs/horizons/product-trust-and-quality-evidence.md` →
+`docs/plans/2026-07-05-product-trust-and-quality-evidence.md`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
