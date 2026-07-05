@@ -23,6 +23,7 @@ except ModuleNotFoundError:
 DEFAULT_PACKET = Path("docs/reports/real-accountant-session/SESSION_PACKET.md")
 DEFAULT_RUNBOOK = Path("docs/reports/field-feedback-runbook/2026-07-05-30min-session-runbook.md")
 DEFAULT_CHECKLIST = Path("docs/reports/field-feedback-runbook/2026-07-05-operator-checklist.md")
+DEFAULT_DECISION_QUEUE = Path("docs/reports/2026-07-05-accounting-intelligence-decision-queue.md")
 
 
 def build_run_sheet(
@@ -30,11 +31,13 @@ def build_run_sheet(
     packet_path: Path = DEFAULT_PACKET,
     runbook_path: Path = DEFAULT_RUNBOOK,
     checklist_path: Path = DEFAULT_CHECKLIST,
+    decision_queue_path: Path = DEFAULT_DECISION_QUEUE,
 ) -> dict[str, Any]:
     packet = packet_path.read_text(encoding="utf-8")
     runbook = runbook_path.read_text(encoding="utf-8")
     checklist = checklist_path.read_text(encoding="utf-8")
     gap_audit = build_gap_audit()
+    decision_queue = _decision_queue_snapshot(decision_queue_path)
     return {
         "title": "Real Accountant 30-Minute Run Sheet",
         "status_command": "python scripts\\real_accountant_status.py",
@@ -47,6 +50,11 @@ def build_run_sheet(
             "human_review_packs": gap_audit.human_review_packs,
             "next_leaf": gap_audit.next_leaf,
             "remaining_gaps": gap_audit.remaining_gaps,
+        },
+        "decision_queue": {
+            "open_decisions": decision_queue["open_decisions"],
+            "operator_action_required": decision_queue["operator_action_required"],
+            "recommended_next_decision": decision_queue["recommended_next_decision"],
         },
         "open_files": _numbered_items_after(packet, "## Files to Open During Session"),
         "preflight_commands": _checklist_commands(checklist),
@@ -80,6 +88,7 @@ def render_text(sheet: dict[str, Any]) -> str:
     ]
     lines.extend(f"- {item}" for item in sheet["preflight_commands"])
     snapshot = sheet["proof_snapshot"]
+    decision_queue = sheet["decision_queue"]
     lines.extend(
         [
             "",
@@ -89,6 +98,11 @@ def render_text(sheet: dict[str, Any]) -> str:
             f"- Needs human review: {snapshot['human_review_packs']}",
             f"- Automation rate: {snapshot['automation_rate']:.2%}",
             f"- Next leaf: {snapshot['next_leaf']}",
+            "",
+            "Decision Queue:",
+            f"- Open decisions: {decision_queue['open_decisions']}",
+            f"- Operator action required: {decision_queue['operator_action_required']}",
+            f"- Recommended next decision: {decision_queue['recommended_next_decision']}",
         ]
     )
     lines.extend(["", "Open Files:"])
@@ -146,15 +160,50 @@ def _checklist_items_after(text: str, heading: str) -> list[str]:
     return items
 
 
+def _decision_queue_snapshot(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {
+            "open_decisions": 0,
+            "operator_action_required": 0,
+            "recommended_next_decision": "unknown",
+        }
+    text = path.read_text(encoding="utf-8")
+    return {
+        "open_decisions": _summary_int(text, "open decisions"),
+        "operator_action_required": _summary_int(text, "operator action required"),
+        "recommended_next_decision": _summary_value(text, "recommended next decision"),
+    }
+
+
+def _summary_int(text: str, key: str) -> int:
+    value = _summary_value(text, key)
+    try:
+        return int(value)
+    except ValueError:
+        return 0
+
+
+def _summary_value(text: str, key: str) -> str:
+    pattern = re.compile(rf"^- {re.escape(key)}:\s+(.+)$", re.MULTILINE)
+    match = pattern.search(text)
+    return match.group(1).strip() if match else "unknown"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Render a public-safe operator run sheet for the real accountant session.")
     parser.add_argument("--packet", type=Path, default=DEFAULT_PACKET)
     parser.add_argument("--runbook", type=Path, default=DEFAULT_RUNBOOK)
     parser.add_argument("--checklist", type=Path, default=DEFAULT_CHECKLIST)
+    parser.add_argument("--decision-queue", type=Path, default=DEFAULT_DECISION_QUEUE)
     parser.add_argument("--format", choices=["text", "json"], default="text")
     args = parser.parse_args()
 
-    sheet = build_run_sheet(packet_path=args.packet, runbook_path=args.runbook, checklist_path=args.checklist)
+    sheet = build_run_sheet(
+        packet_path=args.packet,
+        runbook_path=args.runbook,
+        checklist_path=args.checklist,
+        decision_queue_path=args.decision_queue,
+    )
     if args.format == "json":
         print(json.dumps(sheet, ensure_ascii=False, indent=2, sort_keys=True))
     else:

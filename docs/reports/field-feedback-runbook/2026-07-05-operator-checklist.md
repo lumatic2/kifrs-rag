@@ -7,6 +7,7 @@
 - [ ] `python scripts\demo_poc.py --scenario revenue-financing --out docs\reports\demo-poc`
 - [ ] `python scripts\real_transaction_poc.py --out docs\reports\real-transaction-poc`
 - [ ] `python scripts\feedback_incorporation_report.py --queue docs\reports\real-transaction-poc\feedback-queue.jsonl --out docs\reports\2026-07-05-af3-feedback-incorporation-report.md --questions-out docs\reports\field-feedback\2026-07-05-incorporated-review-questions.md`
+- [ ] `python scripts\accounting_intelligence_decision_queue.py --format text --write`
 - [ ] `python scripts\real_accountant_readiness_index.py --format text --write`
 - [ ] `python scripts\real_accountant_external_action_boundary_gate.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_dispatch_gate.py --format text --write`

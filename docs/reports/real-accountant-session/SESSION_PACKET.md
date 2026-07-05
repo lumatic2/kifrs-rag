@@ -14,6 +14,7 @@
 |---|---|
 | `2026-07-05-session-invite.md` | reviewer에게 보낼 초대/설명 문구 |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
+| `../2026-07-05-accounting-intelligence-decision-queue.md` | 지금 사용자가 결정해야 할 항목과 추천 다음 결정 |
 | `2026-07-05-readiness-index.md` | 전체 RS1~RS4 readiness와 실제 외부 open item 요약 |
 | `2026-07-05-external-action-boundary-gate.md` | 내부 readiness 완료 후 다음 repo 작업이 아니라 실제 reviewer 초대 발송이 필요함을 고정 |
 | `2026-07-05-invite-dispatch-gate.md` | 초대 발송 전 public-safe packet과 발송 후 ledger update 경로 검증 |
@@ -38,8 +39,9 @@
 6. `docs/reports/field-feedback/2026-07-05-feedback-questionnaire.md`
 7. `docs/reports/field-feedback/2026-07-05-incorporated-review-questions.md`
 8. `docs/reports/2026-07-05-accounting-intelligence-gap-audit.md`
-9. `docs/reports/2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md`
-10. `docs/reports/2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`
+9. `docs/reports/2026-07-05-accounting-intelligence-decision-queue.md`
+10. `docs/reports/2026-07-05-espdn1-external-source-connector-post-close-demo-packet-note.md`
+11. `docs/reports/2026-07-05-eslrc1-external-source-connector-live-metadata-report-close-gate.md`
 
 ## Before Sending
 
@@ -64,6 +66,7 @@
 
 ```powershell
 python scripts\real_accountant_status.py
+python scripts\accounting_intelligence_decision_queue.py --format text --write
 python scripts\real_accountant_readiness_index.py --format text --write
 python scripts\real_accountant_external_action_boundary_gate.py --format text --write
 ```
