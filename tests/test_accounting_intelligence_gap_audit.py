@@ -16,7 +16,7 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert audit.human_review_packs <= 4
     joined_gaps = " ".join(audit.remaining_gaps)
     assert "actual accountant session" in joined_gaps
-    assert "synthetic local parser prototype exists" in joined_gaps
+    assert "synthetic local parser prototype is closed" in joined_gaps
     assert "parser/deletion automation" in joined_gaps
     assert "body ingestion/chunking/embedding" in joined_gaps
     assert "opt-in retriever demo validation is complete" in joined_gaps
