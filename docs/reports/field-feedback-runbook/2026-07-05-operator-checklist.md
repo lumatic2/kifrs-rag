@@ -10,6 +10,7 @@
 - [ ] `python scripts\accounting_intelligence_next_action.py --format text --write`
 - [ ] `python scripts\accounting_intelligence_next_action_sequence_gate.py --format text --write`
 - [ ] `python scripts\accounting_intelligence_decision_queue.py --format text --write`
+- [ ] `python scripts\default_retriever_guard.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_packet.py --format text --write`
 - [ ] `python scripts\real_accountant_invite_send_receipt.py --write-template --format text --write`
 - [ ] `python scripts\real_accountant_filled_receipt_guide.py --format text --write`
