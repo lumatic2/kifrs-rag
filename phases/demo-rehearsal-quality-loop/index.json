@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "demo-improvement-backlog",
-      "status": "active"
+      "status": "completed",
+      "summary": "DRQ4 added scripts/demo_improvement_backlog.py, tests/test_demo_improvement_backlog.py, and docs/reports/2026-07-05-drq4-demo-improvement-backlog.md. It converts rehearsal findings into three prioritized internal fixes without external dependency.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "horizon-close-and-objective-gap-audit",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }

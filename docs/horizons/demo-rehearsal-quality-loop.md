@@ -35,14 +35,14 @@ Status: completed
 
 ### DRQ4. Demo Improvement Backlog
 
-Status: active
+Status: completed
 
 - Deliverable: improvement backlog script/report.
 - Acceptance: rehearsal findings are translated into prioritized product fixes without adding external feedback work.
 
 ### DRQ5. Horizon Close And Objective Gap Audit
 
-Status: pending
+Status: active
 
 - Deliverable: close report.
 - Acceptance: demo rehearsal quality loop is closed and objective-gap queue status is audited.

@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "completed"},
             {"id": "DRQ2", "name": "demo run quality checklist", "status": "completed"},
             {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "completed"},
-            {"id": "DRQ4", "name": "demo improvement backlog", "status": "active"},
-            {"id": "DRQ5", "name": "close and objective gap audit", "status": "pending"},
+            {"id": "DRQ4", "name": "demo improvement backlog", "status": "completed"},
+            {"id": "DRQ5", "name": "close and objective gap audit", "status": "active"},
         ],
     }
     decisions = [
@@ -130,9 +130,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_demo_rehearsal_quality_loop",
             "status": "active_horizon",
-            "decide": "DRQ1 to DRQ3 are complete; convert rehearsal findings into a prioritized internal improvement backlog.",
+            "decide": "DRQ1 to DRQ4 are complete; close the demo rehearsal quality loop and audit remaining objective gaps.",
             "blocker": "none",
-            "command": "python scripts\\demo_improvement_backlog.py --format text --write",
+            "command": "python scripts\\demo_rehearsal_quality_close_gate.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -157,8 +157,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "DRQ4_demo_improvement_backlog",
-        "next_command": "python scripts\\demo_improvement_backlog.py --format text --write",
+        "next_leaf": "DRQ5_horizon_close_and_objective_gap_audit",
+        "next_command": "python scripts\\demo_rehearsal_quality_close_gate.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -173,7 +173,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; DRQ1 to DRQ3 are complete and DRQ4 demo improvement backlog is now active.",
+        "Objective gaps are grouped into horizons; DRQ1 to DRQ4 are complete and DRQ5 close/audit is now active.",
         "",
         "## Objective",
         "",

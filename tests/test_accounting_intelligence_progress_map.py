@@ -12,9 +12,9 @@ def test_progress_map_explains_current_position_and_results() -> None:
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][2]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][3]["status"] == "active"
-    assert progress["current_horizon"]["milestones"][4]["status"] == "pending"
-    assert progress["next_leaf"] == "DRQ4_demo_improvement_backlog"
+    assert progress["current_horizon"]["milestones"][3]["status"] == "completed"
+    assert progress["current_horizon"]["milestones"][4]["status"] == "active"
+    assert progress["next_leaf"] == "DRQ5_horizon_close_and_objective_gap_audit"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -37,7 +37,7 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "demo-rehearsal-quality-loop" in rendered
-    assert "DRQ4_demo_improvement_backlog" in rendered
+    assert "DRQ5_horizon_close_and_objective_gap_audit" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

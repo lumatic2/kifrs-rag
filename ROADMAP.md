@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (DRQ3 완료, DRQ4 active)
+> 마지막 업데이트: 2026-07-05 (DRQ4 완료, DRQ5 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -48,7 +48,7 @@ Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-cand
 <!-- harness:goal id="demo-rehearsal-quality-loop" status="active" -->
 `docs/horizons/demo-rehearsal-quality-loop.md` — 기존 demo packet을 반복 가능한 리허설·품질 증거로 전환한다.
 
-순서: DRQ1 demo rehearsal script/timing gate ✅ → DRQ2 quality checklist ✅ → DRQ3 rehearsal evidence capture ✅ → DRQ4 improvement backlog → DRQ5 close/objective-gap audit.
+순서: DRQ1 demo rehearsal script/timing gate ✅ → DRQ2 quality checklist ✅ → DRQ3 rehearsal evidence capture ✅ → DRQ4 improvement backlog ✅ → DRQ5 close/objective-gap audit.
 
 ## Active Milestones
 
@@ -73,18 +73,18 @@ Evidence: `docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md`
 Gap: Closed by DRQ3 rehearsal evidence capture script/tests/report.
 Status: [x]
 
-<!-- harness:milestone id="DRQ4" status="active" priority="P0" -->
+<!-- harness:milestone id="DRQ4" status="completed" priority="P0" -->
 ### DRQ4 — Demo Improvement Backlog
 DoD: rehearsal findings are translated into prioritized product fixes without adding external feedback work.
 Evidence: `docs/reports/2026-07-05-drq4-demo-improvement-backlog.md`
-Gap: Need demo improvement backlog script/tests/report.
-Status: [ ]
+Gap: Closed by DRQ4 improvement backlog script/tests/report.
+Status: [x]
 
-<!-- harness:milestone id="DRQ5" status="pending" priority="P0" -->
+<!-- harness:milestone id="DRQ5" status="active" priority="P0" -->
 ### DRQ5 — Horizon Close And Objective Gap Audit
 DoD: demo rehearsal quality loop is closed and objective-gap queue status is audited.
 Evidence: `docs/reports/2026-07-05-demo-rehearsal-quality-loop-close-report.md`
-Gap: Pending DRQ4.
+Gap: Need close gate and objective-gap audit script/tests/report.
 Status: [ ]
 
 ## Recently Closed Workflow Coverage Depth Horizon
@@ -265,7 +265,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `demo-rehearsal-quality-loop` / DRQ4 — demo improvement backlog.
+**[현재 active]** `demo-rehearsal-quality-loop` / DRQ5 — horizon close and objective-gap audit.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

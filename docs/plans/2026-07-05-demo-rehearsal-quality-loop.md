@@ -29,9 +29,9 @@ This horizon addresses the Objective gap that the demo packet exists but has not
 
 ### DRQ4 — Demo Improvement Backlog
 
-- [ ] DRQ4.1 — Convert rehearsal findings into backlog items.
-- [ ] DRQ4.2 — Prioritize fixes by product impact and implementation cost.
-- [ ] DRQ4.3 — Write improvement backlog report.
+- [x] DRQ4.1 — Convert rehearsal findings into backlog items.
+- [x] DRQ4.2 — Prioritize fixes by product impact and implementation cost.
+- [x] DRQ4.3 — Write improvement backlog report.
 
 ### DRQ5 — Horizon Close And Objective Gap Audit
 
