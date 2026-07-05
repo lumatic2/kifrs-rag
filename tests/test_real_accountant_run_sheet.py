@@ -13,6 +13,7 @@ def test_build_run_sheet_extracts_packet_and_runbook_items() -> None:
     assert "docs/reports/2026-07-05-accounting-intelligence-gap-audit.md" in sheet["open_files"]
     assert "이 도구가 가장 가까운 팀은 어디인가?" in sheet["required_questions"][0]
     assert any("demo_poc.py" in command for command in sheet["preflight_commands"])
+    assert any("real_accountant_invite_dispatch_gate.py" in command for command in sheet["preflight_commands"])
 
 
 def test_render_text_includes_session_sequence() -> None:

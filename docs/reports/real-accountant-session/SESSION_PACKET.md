@@ -14,6 +14,7 @@
 |---|---|
 | `2026-07-05-session-invite.md` | reviewer에게 보낼 초대/설명 문구 |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
+| `2026-07-05-invite-dispatch-gate.md` | 초대 발송 전 public-safe packet과 발송 후 ledger update 경로 검증 |
 | `session_manifest.json` | 세션 준비 상태와 실제 evidence 여부 |
 
 ## Files to Open During Session
@@ -125,6 +126,13 @@ python scripts\real_accountant_close_check.py --manifest docs\reports\real-accou
 
 ```powershell
 python scripts\real_accountant_invite_packet.py
+```
+
+실제 발송 전에는 아래 gate로 현재 ledger가 아직 `not_sent` 상태인지, 발송 후 update command가 안전하게
+`sent` 상태를 만들 수 있는지 확인한다.
+
+```powershell
+python scripts\real_accountant_invite_dispatch_gate.py --format text --write
 ```
 
 초대 발송 후에는 alias 기반 ledger를 아래 명령으로 확인한다.
