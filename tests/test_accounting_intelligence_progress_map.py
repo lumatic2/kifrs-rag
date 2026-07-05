@@ -6,15 +6,16 @@ from scripts.accounting_intelligence_progress_map import build_progress_map, ren
 def test_progress_map_explains_current_position_and_results() -> None:
     progress = build_progress_map()
 
-    assert progress["current_horizon"]["id"] == "objective-gap-queue"
+    assert progress["current_horizon"]["id"] == "demo-rehearsal-improvement-hardening"
     assert progress["current_horizon"]["status"] == "closed"
-    assert progress["current_horizon"]["milestones"][0]["id"] == "DRQ1"
+    assert progress["operator_summary"]["status"] == "demo_rehearsal_improvements_hardened"
+    assert "next_operator_action" in progress["operator_summary"]
+    assert progress["current_horizon"]["milestones"][0]["id"] == "DRI1"
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][2]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][3]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][4]["status"] == "completed"
-    assert progress["next_leaf"] == "objective_gap_queue_complete"
+    assert progress["next_leaf"] == "demo_rehearsal_improvement_hardening_complete"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -27,6 +28,7 @@ def test_progress_map_explains_current_position_and_results() -> None:
     assert "workflow-coverage-expansion" in horizon_ids
     assert "runtime-retriever-promotion-gate" in horizon_ids
     assert "operator-experience-hardening" in horizon_ids
+    assert "demo-rehearsal-improvement-hardening" in horizon_ids
 
 
 def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
@@ -34,10 +36,11 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
 
     assert "Accounting Intelligence Progress Map" in rendered
     assert "Current Horizon" in rendered
+    assert "Operator Summary" in rendered
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
-    assert "objective-gap-queue" in rendered
-    assert "objective_gap_queue_complete" in rendered
+    assert "demo-rehearsal-improvement-hardening" in rendered
+    assert "demo_rehearsal_improvement_hardening_complete" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

@@ -43,16 +43,20 @@ def build_quality_checklist() -> dict[str, Any]:
 
 
 def _checks_for_stage(stage: dict[str, Any]) -> dict[str, Any]:
+    timing_variance_threshold_seconds = 15 if stage["stage_id"] == "retriever-decision" else 0
     return {
         "stage_id": stage["stage_id"],
         "target_seconds": stage["target_seconds"],
+        "timing_variance_threshold_seconds": timing_variance_threshold_seconds,
         "pass_checks": [
             "command_exits_zero_or_existing_report_is_present",
             "expected_output_path_exists",
             "public_safe_boundary_still_visible",
-            "timing_within_stage_budget_or_variance_recorded",
+            "timing_within_stage_budget_or_within_variance_threshold",
         ],
-        "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+        "failure_note": (
+            "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing"
+        ),
         "recovery_route": stage["recovery_route"],
     }
 
@@ -69,14 +73,15 @@ def render_markdown(result: dict[str, Any]) -> str:
         "",
         "## Stage Checks",
         "",
-        "| Stage | Target Seconds | Pass Checks | Failure Note | Recovery |",
-        "|---|---:|---|---|---|",
+        "| Stage | Target Seconds | Variance Threshold | Pass Checks | Failure Note | Recovery |",
+        "|---|---:|---:|---|---|---|",
     ]
     for item in result["stage_checks"]:
         lines.append(
-            "| {stage_id} | {target_seconds} | {pass_checks} | {failure_note} | {recovery_route} |".format(
+            "| {stage_id} | {target_seconds} | {timing_variance_threshold_seconds} | {pass_checks} | {failure_note} | {recovery_route} |".format(
                 stage_id=item["stage_id"],
                 target_seconds=item["target_seconds"],
+                timing_variance_threshold_seconds=item["timing_variance_threshold_seconds"],
                 pass_checks=", ".join(item["pass_checks"]),
                 failure_note=item["failure_note"],
                 recovery_route=item["recovery_route"],

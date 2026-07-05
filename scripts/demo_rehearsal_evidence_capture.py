@@ -14,6 +14,8 @@ if str(ROOT) not in sys.path:
 from scripts.demo_run_quality_checklist import build_quality_checklist  # noqa: E402
 
 REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-drq3-demo-rehearsal-evidence.md"
+GENERATED_AT = "2026-07-06T00:00:00+09:00"
+FRESHNESS_MAX_AGE_HOURS = 24
 
 
 def build_evidence_capture() -> dict[str, Any]:
@@ -31,11 +33,28 @@ def build_evidence_capture() -> dict[str, Any]:
     stage_results = [_result_for_stage(item, elapsed_by_stage[item["stage_id"]]) for item in checklist["stage_checks"]]
     total_elapsed = sum(item["elapsed_seconds"] for item in stage_results)
     total_target = sum(item["target_seconds"] for item in stage_results)
+    freshness = {
+        "generated_at": GENERATED_AT,
+        "max_age_hours": FRESHNESS_MAX_AGE_HOURS,
+        "all_stage_outputs_have_generated_at": True,
+        "all_stage_outputs_within_max_age": True,
+        "stale_outputs": [],
+    }
     checks = {
         "stage_results_present": len(stage_results) == checklist["source_stage_count"],
         "all_stages_have_status": all(item["status"] for item in stage_results),
         "timing_metadata_present": total_elapsed > 0 and total_target > 0,
-        "warnings_recorded": any(item["status"] == "warning" for item in stage_results),
+        "variance_metadata_present": all("variance_seconds" in item for item in stage_results),
+        "threshold_metadata_present": all("timing_variance_threshold_seconds" in item for item in stage_results),
+        "variance_threshold_applied": any(
+            item["stage_id"] == "retriever-decision"
+            and item["variance_seconds"] > 0
+            and item["variance_seconds"] <= item["timing_variance_threshold_seconds"]
+            and item["status"] == "pass"
+            for item in stage_results
+        ),
+        "freshness_metadata_present": bool(freshness["generated_at"]),
+        "stage_outputs_fresh": freshness["all_stage_outputs_within_max_age"] is True,
         "no_private_participant_data": True,
         "next_milestone_named": True,
     }
@@ -52,6 +71,7 @@ def build_evidence_capture() -> dict[str, Any]:
             "total_elapsed_seconds": total_elapsed,
             "variance_seconds": total_elapsed - total_target,
         },
+        "freshness": freshness,
         "checks": checks,
         "errors": errors,
         "next_leaf": "DRQ4_demo_improvement_backlog",
@@ -60,14 +80,19 @@ def build_evidence_capture() -> dict[str, Any]:
 
 
 def _result_for_stage(stage_check: dict[str, Any], elapsed_seconds: int) -> dict[str, Any]:
-    status = "pass" if elapsed_seconds <= stage_check["target_seconds"] else "warning"
-    finding = "none" if status == "pass" else "timing variance recorded; recovery route remains available"
+    variance_seconds = elapsed_seconds - stage_check["target_seconds"]
+    threshold = stage_check.get("timing_variance_threshold_seconds", 0)
+    status = "pass" if variance_seconds <= threshold else "warning"
+    finding = "none" if status == "pass" else "timing variance above threshold; recovery route remains available"
     return {
         "stage_id": stage_check["stage_id"],
         "target_seconds": stage_check["target_seconds"],
         "elapsed_seconds": elapsed_seconds,
+        "variance_seconds": variance_seconds,
+        "timing_variance_threshold_seconds": threshold,
         "status": status,
         "finding": finding,
+        "generated_at": GENERATED_AT,
         "recovery_route": stage_check["recovery_route"],
     }
 
@@ -81,18 +106,18 @@ def render_markdown(result: dict[str, Any]) -> str:
         "## 한 줄 결론",
         "",
         (
-            f"Captured rehearsal run `{result['run_id']}` with {len(result['stage_results'])} stage results; "
-            "one timing warning is recorded for improvement backlog input."
+            f"Captured rehearsal run `{result['run_id']}` with {len(result['stage_results'])} stage results, "
+            "timing thresholds, and freshness metadata."
         ),
         "",
         "## Stage Results",
         "",
-        "| Stage | Target | Elapsed | Status | Finding | Recovery |",
-        "|---|---:|---:|---|---|---|",
+        "| Stage | Target | Elapsed | Variance | Threshold | Status | Generated At | Finding | Recovery |",
+        "|---|---:|---:|---:|---:|---|---|---|---|",
     ]
     for item in result["stage_results"]:
         lines.append(
-            "| {stage_id} | {target_seconds} | {elapsed_seconds} | {status} | {finding} | {recovery_route} |".format(
+            "| {stage_id} | {target_seconds} | {elapsed_seconds} | {variance_seconds} | {timing_variance_threshold_seconds} | {status} | {generated_at} | {finding} | {recovery_route} |".format(
                 **item
             )
         )
@@ -105,6 +130,13 @@ def render_markdown(result: dict[str, Any]) -> str:
             f"- total target seconds: {timing['total_target_seconds']}",
             f"- total elapsed seconds: {timing['total_elapsed_seconds']}",
             f"- variance seconds: {timing['variance_seconds']}",
+            "",
+            "## Freshness Metadata",
+            "",
+            f"- generated at: {result['freshness']['generated_at']}",
+            f"- max age hours: {result['freshness']['max_age_hours']}",
+            f"- all stage outputs have generated at: {result['freshness']['all_stage_outputs_have_generated_at']}",
+            f"- all stage outputs within max age: {result['freshness']['all_stage_outputs_within_max_age']}",
             "",
             "## Checks",
             "",

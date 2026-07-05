@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-06 (DRQ5 완료, objective-gap queue closed)
+> 마지막 업데이트: 2026-07-06 (DRQ4 backlog internal improvements closed)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 실행형 회계 AI (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -43,14 +43,44 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-candidates.md`
 
-## Current Horizon — objective-gap queue closed
+## Current Horizon — demo-rehearsal-improvement-hardening closed
 
-<!-- harness:goal id="objective-gap-queue" status="completed" -->
-`docs/horizons/demo-rehearsal-quality-loop.md` — 기존 demo packet을 반복 가능한 리허설·품질 증거로 전환했고, objective-gap queue를 닫았다.
+<!-- harness:goal id="demo-rehearsal-improvement-hardening" status="completed" -->
+`docs/horizons/demo-rehearsal-improvement-hardening.md` — DRQ4 backlog의 내부 개선 3개를 구현했다.
 
-순서: DRQ1 demo rehearsal script/timing gate ✅ → DRQ2 quality checklist ✅ → DRQ3 rehearsal evidence capture ✅ → DRQ4 improvement backlog ✅ → DRQ5 close/objective-gap audit ✅.
+순서: DRI1 retriever timing threshold ✅ → DRI2 freshness metadata ✅ → DRI3 operator summary ✅ → DRI4 close gate ✅.
 
 ## Active Milestones
+
+<!-- harness:milestone id="DRI1" status="completed" priority="P0" -->
+### DRI1 — Retriever Timing Threshold
+DoD: retriever-decision rehearsal stage has an explicit expected timing variance threshold.
+Evidence: `docs/reports/2026-07-05-drq2-demo-run-quality-checklist.md`
+Gap: Closed by DRI1 checklist/test/report update.
+Status: [x]
+
+<!-- harness:milestone id="DRI2" status="completed" priority="P0" -->
+### DRI2 — Rehearsal Freshness Metadata
+DoD: rehearsal evidence exposes generated-at freshness metadata and stale-output checks.
+Evidence: `docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md`
+Gap: Closed by DRI2 evidence/test/report update.
+Status: [x]
+
+<!-- harness:milestone id="DRI3" status="completed" priority="P0" -->
+### DRI3 — Operator Summary Surface
+DoD: progress map starts with a compact one-screen operator summary.
+Evidence: `docs/reports/2026-07-05-accounting-intelligence-progress-map.md`
+Gap: Closed by DRI3 progress map/test/report update.
+Status: [x]
+
+<!-- harness:milestone id="DRI4" status="completed" priority="P0" -->
+### DRI4 — Horizon Close Gate
+DoD: DRI1~DRI3 evidence is verified and the horizon is closed.
+Evidence: `docs/reports/2026-07-06-demo-rehearsal-improvement-hardening-close-report.md`
+Gap: Closed by DRI4 close gate script/tests/report.
+Status: [x]
+
+## Recently Closed Demo Rehearsal Quality Loop
 
 <!-- harness:milestone id="DRQ1" status="completed" priority="P0" -->
 ### DRQ1 — Demo Rehearsal Script And Timing Gate
@@ -265,7 +295,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음 — objective-gap queue closed.
+**[현재 active]** 없음 — `demo-rehearsal-improvement-hardening` closed.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

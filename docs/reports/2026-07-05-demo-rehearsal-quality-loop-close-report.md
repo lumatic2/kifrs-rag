@@ -81,7 +81,7 @@ Close result: `demo_rehearsal_quality_loop_closed`. DRQ1~DRQ4 evidence is presen
       "id": "DRQ3",
       "name": "rehearsal evidence capture",
       "path": "docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md",
-      "required_phrase": "timing warning",
+      "required_phrase": "Timing Metadata",
       "exists": true,
       "required_phrase_present": true
     },

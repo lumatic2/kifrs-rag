@@ -78,17 +78,21 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Closed operator UX with command inventory, run doctor, report manifest, recovery playbook, and close gate.",
             "evidence": "docs/reports/2026-07-05-operator-experience-hardening-close-report.md",
         },
+        {
+            "id": "demo-rehearsal-improvement-hardening",
+            "result": "Implemented DRQ4 internal fixes: timing threshold, freshness metadata, and operator summary surface.",
+            "evidence": "docs/reports/2026-07-06-demo-rehearsal-improvement-hardening-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "objective-gap-queue",
+        "id": "demo-rehearsal-improvement-hardening",
         "status": "closed",
-        "goal": "The grouped objective-gap horizons have been implemented and audited through the demo rehearsal quality close gate.",
+        "goal": "The three DRQ4 internal rehearsal improvements have been implemented and verified.",
         "milestones": [
-            {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "completed"},
-            {"id": "DRQ2", "name": "demo run quality checklist", "status": "completed"},
-            {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "completed"},
-            {"id": "DRQ4", "name": "demo improvement backlog", "status": "completed"},
-            {"id": "DRQ5", "name": "close and objective gap audit", "status": "completed"},
+            {"id": "DRI1", "name": "retriever timing threshold", "status": "completed"},
+            {"id": "DRI2", "name": "rehearsal freshness metadata", "status": "completed"},
+            {"id": "DRI3", "name": "operator summary surface", "status": "completed"},
+            {"id": "DRI4", "name": "close gate", "status": "completed"},
         ],
     }
     decisions = [
@@ -142,9 +146,18 @@ def build_progress_map() -> dict[str, Any]:
             "command": "python scripts\\default_retriever_guard.py --format text",
         },
     ]
+    operator_summary = {
+        "status": "demo_rehearsal_improvements_hardened",
+        "current_horizon": current_horizon["id"],
+        "next_operator_action": "open a new objective audit horizon when the next product weakness is selected",
+        "automation_rate": gap.automation_rate,
+        "main_residual_risk": "default retriever promotion remains deferred by guard",
+        "primary_evidence": "docs/reports/2026-07-06-demo-rehearsal-improvement-hardening-close-report.md",
+    }
     return {
         "title": "Accounting Intelligence Progress Map",
         "objective": "Prove how far accountant work can be automated, then turn that proof into firm-facing local toolkit evidence.",
+        "operator_summary": operator_summary,
         "current_horizon": current_horizon,
         "completed_horizons": completed_horizons,
         "open_decisions": decisions,
@@ -155,11 +168,11 @@ def build_progress_map() -> dict[str, Any]:
             "automation_rate": gap.automation_rate,
         },
         "remaining_gaps": [
-            "No active objective-gap horizon remains in the current queue.",
-            "Residual risks are tracked in close reports and should become a new horizon only after an explicit next objective decision.",
+            "No active rehearsal-improvement horizon remains.",
+            "Residual risks should become a new horizon only after an explicit next objective decision.",
         ],
-        "next_leaf": "objective_gap_queue_complete",
-        "next_command": "python scripts\\objective_gap_horizon_candidates.py --format text",
+        "next_leaf": "demo_rehearsal_improvement_hardening_complete",
+        "next_command": "python scripts\\demo_rehearsal_improvement_close_gate.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -174,7 +187,16 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; DRQ1 to DRQ5 are complete and the objective-gap queue is closed.",
+        "DRQ4 internal fixes are implemented: timing threshold, freshness metadata, and operator summary are closed.",
+        "",
+        "## Operator Summary",
+        "",
+        f"- status: {progress['operator_summary']['status']}",
+        f"- current horizon: `{progress['operator_summary']['current_horizon']}`",
+        f"- next operator action: {progress['operator_summary']['next_operator_action']}",
+        f"- automation rate: {progress['operator_summary']['automation_rate']:.2%}",
+        f"- main residual risk: {progress['operator_summary']['main_residual_risk']}",
+        f"- primary evidence: `{progress['operator_summary']['primary_evidence']}`",
         "",
         "## Objective",
         "",

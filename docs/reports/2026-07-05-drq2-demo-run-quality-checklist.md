@@ -8,16 +8,16 @@ Every rehearsal stage has pass checks, a failure note, a recovery route, and a t
 
 ## Stage Checks
 
-| Stage | Target Seconds | Pass Checks | Failure Note | Recovery |
-|---|---:|---|---|---|
-| position | 60 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| storyboard | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| scenario-contract | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| local-parser-boundary | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| source-lane-boundary | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| workflow-depth | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| retriever-decision | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
-| operator-surface | 90 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_variance_recorded | record missing report, timeout, unclear boundary, or stale output before continuing | rerun stage command and inspect the expected report path |
+| Stage | Target Seconds | Variance Threshold | Pass Checks | Failure Note | Recovery |
+|---|---:|---:|---|---|---|
+| position | 60 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| storyboard | 90 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| scenario-contract | 90 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| local-parser-boundary | 90 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| source-lane-boundary | 90 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| workflow-depth | 90 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| retriever-decision | 90 | 15 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
+| operator-surface | 90 | 0 | command_exits_zero_or_existing_report_is_present, expected_output_path_exists, public_safe_boundary_still_visible, timing_within_stage_budget_or_within_variance_threshold | record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing | rerun stage command and inspect the expected report path |
 
 ## Checks
 
@@ -51,97 +51,105 @@ Every rehearsal stage has pass checks, a failure note, a recovery route, and a t
     {
       "stage_id": "position",
       "target_seconds": 60,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "storyboard",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "scenario-contract",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "local-parser-boundary",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "source-lane-boundary",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "workflow-depth",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "retriever-decision",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 15,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     },
     {
       "stage_id": "operator-surface",
       "target_seconds": 90,
+      "timing_variance_threshold_seconds": 0,
       "pass_checks": [
         "command_exits_zero_or_existing_report_is_present",
         "expected_output_path_exists",
         "public_safe_boundary_still_visible",
-        "timing_within_stage_budget_or_variance_recorded"
+        "timing_within_stage_budget_or_within_variance_threshold"
       ],
-      "failure_note": "record missing report, timeout, unclear boundary, or stale output before continuing",
+      "failure_note": "record missing report, timeout, unclear boundary, stale output, or timing variance above threshold before continuing",
       "recovery_route": "rerun stage command and inspect the expected report path"
     }
   ],

@@ -13,6 +13,8 @@ def test_demo_run_quality_checklist_has_failure_and_recovery_per_stage() -> None
     assert all(item["pass_checks"] for item in result["stage_checks"])
     assert all(item["failure_note"] for item in result["stage_checks"])
     assert all(item["recovery_route"] for item in result["stage_checks"])
+    retriever_stage = next(item for item in result["stage_checks"] if item["stage_id"] == "retriever-decision")
+    assert retriever_stage["timing_variance_threshold_seconds"] == 15
     assert result["checks"]["has_timing_check"] is True
     assert result["next_leaf"] == "DRQ3_rehearsal_evidence_capture"
 
@@ -22,6 +24,7 @@ def test_demo_run_quality_checklist_markdown_is_public_safe() -> None:
 
     assert "DRQ2 Demo Run Quality Checklist" in rendered
     assert "failure note" in rendered.lower()
+    assert "variance threshold" in rendered.lower()
     assert "api_key" not in rendered
     assert "secret" not in rendered
     assert "source_body" not in rendered

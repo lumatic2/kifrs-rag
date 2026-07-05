@@ -137,6 +137,10 @@
       "status": "completed"
     },
     {
+      "dir": "demo-rehearsal-improvement-hardening",
+      "status": "completed"
+    },
+    {
       "dir": "real-accountant-session",
       "status": "parked"
     }

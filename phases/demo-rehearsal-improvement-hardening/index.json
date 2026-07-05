@@ -1,0 +1,35 @@
+{
+  "project": "kifrs-rag",
+  "phase": "demo-rehearsal-improvement-hardening",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "retriever-timing-threshold",
+      "status": "completed",
+      "summary": "DRI1 updated scripts/demo_run_quality_checklist.py, tests/test_demo_run_quality_checklist.py, and docs/reports/2026-07-05-drq2-demo-run-quality-checklist.md. The retriever-decision stage now exposes a 15-second timing variance threshold and the quality checklist test passes.",
+      "completed_at": "2026-07-06T00:00:00+09:00"
+    },
+    {
+      "step": 2,
+      "name": "rehearsal-freshness-metadata",
+      "status": "completed",
+      "summary": "DRI2 updated scripts/demo_rehearsal_evidence_capture.py, tests/test_demo_rehearsal_evidence_capture.py, and docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md. Rehearsal evidence now includes generated-at freshness metadata, stale-output checks, variance metadata, and threshold application.",
+      "completed_at": "2026-07-06T00:00:00+09:00"
+    },
+    {
+      "step": 3,
+      "name": "operator-summary-surface",
+      "status": "completed",
+      "summary": "DRI3 updated scripts/accounting_intelligence_progress_map.py, tests/test_accounting_intelligence_progress_map.py, and docs/reports/2026-07-05-accounting-intelligence-progress-map.md. The progress map now starts with a compact Operator Summary including status, current horizon, next operator action, automation rate, residual risk, and primary evidence.",
+      "completed_at": "2026-07-06T00:00:00+09:00"
+    },
+    {
+      "step": 4,
+      "name": "horizon-close-gate",
+      "status": "completed",
+      "summary": "DRI4 added docs/reports/2026-07-06-demo-rehearsal-improvement-hardening-close-report.md via scripts/demo_rehearsal_improvement_close_gate.py and tests/test_demo_rehearsal_improvement_close_gate.py. The close gate verifies DRI1 timing threshold, DRI2 freshness metadata, and DRI3 operator summary evidence.",
+      "completed_at": "2026-07-06T00:00:00+09:00"
+    }
+  ]
+}

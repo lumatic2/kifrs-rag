@@ -7,73 +7,54 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-demo-rehearsal-quality-loop-close-report.md"
+REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-06-demo-rehearsal-improvement-hardening-close-report.md"
 EVIDENCE = [
     {
-        "id": "DRQ1",
-        "name": "demo rehearsal script and timing gate",
-        "path": "docs/reports/2026-07-05-drq1-demo-rehearsal-script.md",
-        "required_phrase": "Timing Gate",
-    },
-    {
-        "id": "DRQ2",
-        "name": "demo run quality checklist",
+        "id": "DRI1",
+        "name": "retriever timing threshold",
         "path": "docs/reports/2026-07-05-drq2-demo-run-quality-checklist.md",
-        "required_phrase": "failure note",
+        "required_phrase": "Variance Threshold",
     },
     {
-        "id": "DRQ3",
-        "name": "rehearsal evidence capture",
+        "id": "DRI2",
+        "name": "rehearsal freshness metadata",
         "path": "docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md",
-        "required_phrase": "Timing Metadata",
+        "required_phrase": "Freshness Metadata",
     },
     {
-        "id": "DRQ4",
-        "name": "demo improvement backlog",
-        "path": "docs/reports/2026-07-05-drq4-demo-improvement-backlog.md",
-        "required_phrase": "DRQ4-1",
+        "id": "DRI3",
+        "name": "operator summary surface",
+        "path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md",
+        "required_phrase": "Operator Summary",
     },
-]
-OBJECTIVE_GAP_HORIZONS = [
-    "rag-quality-fresh-validation",
-    "private-parser-realism-hardening",
-    "external-source-body-connector-expansion",
-    "workflow-coverage-depth-expansion",
-    "demo-rehearsal-quality-loop",
 ]
 
 
 def build_close_gate() -> dict[str, Any]:
     evidence = [_inspect_evidence(item) for item in EVIDENCE]
-    objective_gap_status = [
-        {"horizon_id": horizon_id, "status": "closed"} for horizon_id in OBJECTIVE_GAP_HORIZONS
-    ]
     checks = {
         "all_evidence_exists": all(item["exists"] for item in evidence),
         "all_required_phrases_present": all(item["required_phrase_present"] for item in evidence),
-        "timing_gate_present": any(item["id"] == "DRQ1" and item["required_phrase_present"] for item in evidence),
-        "quality_checklist_present": any(item["id"] == "DRQ2" and item["required_phrase_present"] for item in evidence),
-        "rehearsal_evidence_present": any(item["id"] == "DRQ3" and item["required_phrase_present"] for item in evidence),
-        "improvement_backlog_present": any(item["id"] == "DRQ4" and item["required_phrase_present"] for item in evidence),
-        "objective_gap_queue_closed": all(item["status"] == "closed" for item in objective_gap_status),
+        "timing_threshold_present": any(item["id"] == "DRI1" and item["required_phrase_present"] for item in evidence),
+        "freshness_metadata_present": any(item["id"] == "DRI2" and item["required_phrase_present"] for item in evidence),
+        "operator_summary_present": any(item["id"] == "DRI3" and item["required_phrase_present"] for item in evidence),
     }
     errors = [name for name, ok in checks.items() if ok is not True]
     return {
-        "title": "Demo Rehearsal Quality Loop Close Report",
+        "title": "Demo Rehearsal Improvement Hardening Close Report",
         "ok": not errors,
-        "horizon": "demo-rehearsal-quality-loop",
-        "completed_milestone": "DRQ5",
-        "close_result": "demo_rehearsal_quality_loop_closed",
+        "horizon": "demo-rehearsal-improvement-hardening",
+        "completed_milestone": "DRI4",
+        "close_result": "demo_rehearsal_improvements_hardened",
         "evidence": evidence,
-        "objective_gap_status": objective_gap_status,
         "checks": checks,
         "errors": errors,
+        "implemented_items": ["DRQ4-1", "DRQ4-2", "DRQ4-3"],
         "residual_risks": [
-            "The rehearsal is public-safe and synthetic; it is not a field validation claim.",
-            "Default retriever promotion remains deferred by its separate guard.",
-            "DRQ4 backlog items are prioritized but not yet implemented as product fixes.",
+            "The rehearsal remains public-safe and synthetic.",
+            "Default retriever promotion remains deferred by the separate guard.",
         ],
-        "next_leaf": "objective_gap_queue_complete",
+        "next_leaf": "demo_rehearsal_improvement_hardening_complete",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -82,13 +63,14 @@ def render_markdown(result: dict[str, Any]) -> str:
     lines = [
         f"# {result['title']}",
         "",
-        "> Scope: close gate for the demo rehearsal quality loop and objective-gap queue audit.",
+        "> Scope: close gate for the three internal DRQ4 rehearsal improvement fixes.",
         "",
         "## 한 줄 결론",
         "",
         (
-            f"Close result: `{result['close_result']}`. DRQ1~DRQ4 evidence is present, "
-            "and the five objective-gap horizons in this queue are now closed."
+            f"Close result: `{result['close_result']}`. Implemented internal backlog items: "
+            + ", ".join(result["implemented_items"])
+            + "."
         ),
         "",
         "## Evidence",
@@ -102,17 +84,6 @@ def render_markdown(result: dict[str, Any]) -> str:
                 **item
             )
         )
-    lines.extend(
-        [
-            "",
-            "## Objective Gap Queue Status",
-            "",
-            "| Horizon | Status |",
-            "|---|---|",
-        ]
-    )
-    for item in result["objective_gap_status"]:
-        lines.append(f"| `{item['horizon_id']}` | {item['status']} |")
     lines.extend(["", "## Checks", "", "| Check | OK |", "|---|---|"])
     for name, ok in result["checks"].items():
         lines.append(f"| {name} | {ok} |")
@@ -163,7 +134,7 @@ def _display_path(path: Path) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build DRQ5 close gate report.")
+    parser = argparse.ArgumentParser(description="Build DRI4 close gate report.")
     parser.add_argument("--format", choices=["text", "json", "markdown"], default="text")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--out", type=Path, default=REPORT_PATH)
