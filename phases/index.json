@@ -97,8 +97,12 @@
       "status": "active"
     },
     {
+      "dir": "runtime-retriever-promotion-gate",
+      "status": "planned"
+    },
+    {
       "dir": "real-accountant-session",
-      "status": "active"
+      "status": "parked"
     }
   ]
 }

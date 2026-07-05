@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "real-local-parser-prototype",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "parser-prototype-asset-inventory",
+      "status": "pending"
+    },
+    {
+      "step": 2,
+      "name": "local-fixture-parser-adapter",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "deletion-automation-simulation",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "private-payload-leak-tests",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "local-parser-prototype-close-gate",
+      "status": "pending"
+    }
+  ]
+}

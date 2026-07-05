@@ -37,7 +37,10 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 7. `real-local-parser-prototype` — 현재. synthetic/parser contract를 실제 로컬 parser prototype에 가깝게 확장한다.
 8. `source-body-ingestion-controlled-lane` — 계획됨. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
 9. `workflow-coverage-expansion` — 계획됨. firm-service map 기준으로 자동화 coverage를 새 업무 영역으로 확장한다.
-10. `operator-experience-hardening` — 계획됨. operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
+10. `runtime-retriever-promotion-gate` — 계획됨. opt-in repair retriever를 default로 승격할지 promote/defer/rollback gate로 판단한다.
+11. `operator-experience-hardening` — 계획됨. operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
+
+제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 
 ## Current Horizon — real-local-parser-prototype
 
@@ -76,6 +79,11 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - RLP3 deletion automation simulation
 - RLP4 private payload leak tests
 - RLP5 local parser prototype close gate
+- RPG1 promotion evidence inventory
+- RPG2 regression and latency gate
+- RPG3 failure and rollback policy
+- RPG4 operator promotion command
+- RPG5 promotion gate close report
 
 ## Closed Horizons
 
@@ -114,6 +122,7 @@ automation-expansion, practice-map, workflow-automation.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
 
 **[paused horizon 후보]** RO2(멀티 쿼리 분해), RGA2/RGA3(`rag-agent-integration`).
+**[parked integration 후보]** `end-to-end-demo-scenario` — 위 5개 제품 약점 horizon을 닫은 뒤 통합 데모로 판단.
 
 **[콘텐츠 축]** 1116 리스 10/10 완료, 1113(공정가치)·1019(확정급여) entry 완료.
 

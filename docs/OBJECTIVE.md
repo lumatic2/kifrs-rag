@@ -90,7 +90,11 @@
 7. `real-local-parser-prototype` — 현재. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
 8. `source-body-ingestion-controlled-lane` — 계획됨. controlled non-IFRS source-body ingestion lane.
 9. `workflow-coverage-expansion` — 계획됨. service map 기반 업무 coverage 확장.
-10. `operator-experience-hardening` — 계획됨. local operator UX, run doctor, manifest, recovery.
+10. `runtime-retriever-promotion-gate` — 계획됨. opt-in repair retriever의 default 승격 여부를 promote/defer/rollback gate로 판단.
+11. `operator-experience-hardening` — 계획됨. local operator UX, run doctor, manifest, recovery.
+
+제품 약점 기준 1~5 horizon queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
+통합 데모 후보 `end-to-end-demo-scenario`는 위 5개 horizon 이후로 보류한다.
 
 큰 실행 순서: `docs/horizons/accounting-intelligence-expansion.md`
 최근 완료 horizon 상세: `docs/horizons/rag-reliability-revalidation.md`
@@ -103,6 +107,7 @@
 최근 완료 horizon 상세: `docs/horizons/product-trust-and-quality-evidence.md`
 현재 horizon 상세: `docs/horizons/real-local-parser-prototype.md`
 현재 milestone plan: `docs/plans/2026-07-05-real-local-parser-prototype.md`
+제품 약점 후보 queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
 최근 완료 horizon 상세: `docs/horizons/accountant-feedback-incorporation.md`
