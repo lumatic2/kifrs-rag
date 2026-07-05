@@ -21,14 +21,14 @@ Status: completed
 
 ### DRQ2. Demo Run Quality Checklist
 
-Status: active
+Status: completed
 
 - Deliverable: quality checklist script/report.
 - Acceptance: each demo stage has pass/fail checks, failure notes, and recovery route.
 
 ### DRQ3. Rehearsal Evidence Capture
 
-Status: pending
+Status: active
 
 - Deliverable: rehearsal evidence script/report.
 - Acceptance: one local rehearsal run is represented as public-safe stage results and timing metadata.

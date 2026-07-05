@@ -17,9 +17,9 @@ This horizon addresses the Objective gap that the demo packet exists but has not
 
 ### DRQ2 — Demo Run Quality Checklist
 
-- [ ] DRQ2.1 — Define pass/fail checks for each demo stage.
-- [ ] DRQ2.2 — Define failure notes and recovery route.
-- [ ] DRQ2.3 — Write quality checklist report.
+- [x] DRQ2.1 — Define pass/fail checks for each demo stage.
+- [x] DRQ2.2 — Define failure notes and recovery route.
+- [x] DRQ2.3 — Write quality checklist report.
 
 ### DRQ3 — Rehearsal Evidence Capture
 

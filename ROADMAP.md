@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (DRQ1 완료, DRQ2 active)
+> 마지막 업데이트: 2026-07-05 (DRQ2 완료, DRQ3 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -48,7 +48,7 @@ Objective gap horizon queue: `docs/reports/2026-07-05-objective-gap-horizon-cand
 <!-- harness:goal id="demo-rehearsal-quality-loop" status="active" -->
 `docs/horizons/demo-rehearsal-quality-loop.md` — 기존 demo packet을 반복 가능한 리허설·품질 증거로 전환한다.
 
-순서: DRQ1 demo rehearsal script/timing gate ✅ → DRQ2 quality checklist → DRQ3 rehearsal evidence capture → DRQ4 improvement backlog → DRQ5 close/objective-gap audit.
+순서: DRQ1 demo rehearsal script/timing gate ✅ → DRQ2 quality checklist ✅ → DRQ3 rehearsal evidence capture → DRQ4 improvement backlog → DRQ5 close/objective-gap audit.
 
 ## Active Milestones
 
@@ -59,18 +59,18 @@ Evidence: `docs/reports/2026-07-05-drq1-demo-rehearsal-script.md`
 Gap: Closed by DRQ1 rehearsal script/timing gate script/tests/report.
 Status: [x]
 
-<!-- harness:milestone id="DRQ2" status="active" priority="P0" -->
+<!-- harness:milestone id="DRQ2" status="completed" priority="P0" -->
 ### DRQ2 — Demo Run Quality Checklist
 DoD: each demo stage has pass/fail checks, failure notes, and recovery route.
 Evidence: `docs/reports/2026-07-05-drq2-demo-run-quality-checklist.md`
-Gap: Need demo run quality checklist script/tests/report.
-Status: [ ]
+Gap: Closed by DRQ2 quality checklist script/tests/report.
+Status: [x]
 
-<!-- harness:milestone id="DRQ3" status="pending" priority="P0" -->
+<!-- harness:milestone id="DRQ3" status="active" priority="P0" -->
 ### DRQ3 — Rehearsal Evidence Capture
 DoD: one local rehearsal run is represented as public-safe stage results and timing metadata.
 Evidence: `docs/reports/2026-07-05-drq3-demo-rehearsal-evidence.md`
-Gap: Pending DRQ2.
+Gap: Need rehearsal evidence capture script/tests/report.
 Status: [ ]
 
 <!-- harness:milestone id="DRQ4" status="pending" priority="P0" -->
@@ -265,7 +265,7 @@ Recent closed horizons are archived in `BACKLOG.md`. This section is history onl
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `demo-rehearsal-quality-loop` / DRQ2 — demo run quality checklist.
+**[현재 active]** `demo-rehearsal-quality-loop` / DRQ3 — rehearsal evidence capture.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

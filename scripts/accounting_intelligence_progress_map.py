@@ -85,8 +85,8 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Turn the existing demo packet into repeatable, timed, public-safe operator rehearsal evidence.",
         "milestones": [
             {"id": "DRQ1", "name": "demo rehearsal script and timing gate", "status": "completed"},
-            {"id": "DRQ2", "name": "demo run quality checklist", "status": "active"},
-            {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "pending"},
+            {"id": "DRQ2", "name": "demo run quality checklist", "status": "completed"},
+            {"id": "DRQ3", "name": "rehearsal evidence capture", "status": "active"},
             {"id": "DRQ4", "name": "demo improvement backlog", "status": "pending"},
             {"id": "DRQ5", "name": "close and objective gap audit", "status": "pending"},
         ],
@@ -130,9 +130,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_demo_rehearsal_quality_loop",
             "status": "active_horizon",
-            "decide": "DRQ1 defined demo rehearsal stages and timing; continue with pass/fail quality checklist.",
+            "decide": "DRQ1 defined demo stages/timing and DRQ2 defined quality checks; continue with public-safe rehearsal evidence capture.",
             "blocker": "none",
-            "command": "python scripts\\demo_run_quality_checklist.py --format text --write",
+            "command": "python scripts\\demo_rehearsal_evidence_capture.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -157,8 +157,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "DRQ2_demo_run_quality_checklist",
-        "next_command": "python scripts\\demo_run_quality_checklist.py --format text --write",
+        "next_leaf": "DRQ3_rehearsal_evidence_capture",
+        "next_command": "python scripts\\demo_rehearsal_evidence_capture.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -173,7 +173,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; DRQ1 is complete and DRQ2 demo run quality checklist is now active.",
+        "Objective gaps are grouped into horizons; DRQ1 and DRQ2 are complete and DRQ3 rehearsal evidence capture is now active.",
         "",
         "## Objective",
         "",
