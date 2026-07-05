@@ -49,8 +49,8 @@ def build_progress_map() -> dict[str, Any]:
         "status": "active",
         "goal": "Turn KASB/FSS, law, DART, and client-private source lanes into public-safe RAG dataization units.",
         "milestones": [
-            {"id": "NIS1", "name": "existing source asset inventory", "status": "active_next"},
-            {"id": "NIS2", "name": "source record contract", "status": "pending"},
+            {"id": "NIS1", "name": "existing source asset inventory", "status": "completed"},
+            {"id": "NIS2", "name": "source record contract", "status": "active_next"},
             {"id": "NIS3", "name": "dataization fixtures and validators", "status": "pending"},
             {"id": "NIS4", "name": "chunking and embedding policy", "status": "pending"},
             {"id": "NIS5", "name": "dataization gate and runtime handoff", "status": "pending"},
@@ -58,11 +58,11 @@ def build_progress_map() -> dict[str, Any]:
     }
     decisions = [
         {
-            "id": "run_NIS1_source_asset_inventory",
+            "id": "run_NIS2_source_record_contract",
             "status": "active",
-            "decide": "Build the first inventory report for non-IFRS source dataization.",
+            "decide": "Define and test the source record contract for non-IFRS dataization.",
             "blocker": "none",
-            "command": "python scripts\\quality_preflight.py --format text",
+            "command": "python -m pytest tests\\test_source_record_contract.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "NIS1_existing_source_asset_inventory",
-        "next_command": "python scripts\\quality_preflight.py --format text",
+        "next_leaf": "NIS2_source_record_contract",
+        "next_command": "python -m pytest tests\\test_source_record_contract.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

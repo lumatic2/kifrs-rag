@@ -20,7 +20,7 @@ public-safe fixture, chunk/index policy, close gate 순서로 진행한다.
 
 ## Step Tree
 
-- [ ] NIS1 — Existing source asset inventory. (verify: report exists and classifies reusable vs superseded source assets)
+- [x] NIS1 — Existing source asset inventory. (verify: report exists and classifies reusable vs superseded source assets)
 - [ ] NIS2 — Source record contract. (verify: `python -m pytest tests\test_source_record_contract.py -q`)
 - [ ] NIS3 — Dataization fixtures and validators. (verify: `python scripts\validate_non_ifrs_source_records.py --format text`)
 - [ ] NIS4 — Chunking and embedding policy. (verify: `python scripts\validate_non_ifrs_chunking_policy.py --format text`)

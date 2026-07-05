@@ -18,8 +18,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Milestone | Name | Status |
 |---|---|---|
-| NIS1 | existing source asset inventory | active_next |
-| NIS2 | source record contract | pending |
+| NIS1 | existing source asset inventory | completed |
+| NIS2 | source record contract | active_next |
 | NIS3 | dataization fixtures and validators | pending |
 | NIS4 | chunking and embedding policy | pending |
 | NIS5 | dataization gate and runtime handoff | pending |
@@ -45,7 +45,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_NIS1_source_asset_inventory | active | none | `python scripts\quality_preflight.py --format text` |
+| run_NIS2_source_record_contract | active | none | `python -m pytest tests\test_source_record_contract.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -58,8 +58,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `NIS1_existing_source_asset_inventory`
-- command: `python scripts\quality_preflight.py --format text`
+- decision: `NIS2_source_record_contract`
+- command: `python -m pytest tests\test_source_record_contract.py -q`
 
 ## Machine Result
 
@@ -75,12 +75,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "NIS1",
         "name": "existing source asset inventory",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "NIS2",
         "name": "source record contract",
-        "status": "pending"
+        "status": "active_next"
       },
       {
         "id": "NIS3",
@@ -128,11 +128,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_NIS1_source_asset_inventory",
+      "id": "run_NIS2_source_record_contract",
       "status": "active",
-      "decide": "Build the first inventory report for non-IFRS source dataization.",
+      "decide": "Define and test the source record contract for non-IFRS dataization.",
       "blocker": "none",
-      "command": "python scripts\\quality_preflight.py --format text"
+      "command": "python -m pytest tests\\test_source_record_contract.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -155,8 +155,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "NIS1_existing_source_asset_inventory",
-  "next_command": "python scripts\\quality_preflight.py --format text",
+  "next_leaf": "NIS2_source_record_contract",
+  "next_command": "python -m pytest tests\\test_source_record_contract.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
