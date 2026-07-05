@@ -82,17 +82,17 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "OEH1", "name": "operator command inventory", "status": "completed"},
             {"id": "OEH2", "name": "run doctor and environment checks", "status": "completed"},
             {"id": "OEH3", "name": "report manifest and navigation surface", "status": "completed"},
-            {"id": "OEH4", "name": "error recovery playbook", "status": "active_next"},
-            {"id": "OEH5", "name": "operator experience close gate", "status": "pending"},
+            {"id": "OEH4", "name": "error recovery playbook", "status": "completed"},
+            {"id": "OEH5", "name": "operator experience close gate", "status": "active_next"},
         ],
     }
     decisions = [
         {
-            "id": "run_OEH4_error_recovery",
+            "id": "run_OEH5_operator_experience_close_gate",
             "status": "active",
-            "decide": "Map common operator failures to specific rerun or remediation commands.",
+            "decide": "Close operator experience hardening by tying discovery, doctor, manifest, and recovery evidence together.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_operator_error_recovery.py -q",
+            "command": "python -m pytest tests\\test_operator_experience_close_gate.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -117,8 +117,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "OEH4_error_recovery",
-        "next_command": "python -m pytest tests\\test_operator_error_recovery.py -q",
+        "next_leaf": "OEH5_operator_experience_close_gate",
+        "next_command": "python -m pytest tests\\test_operator_experience_close_gate.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -133,7 +133,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active horizon is operator-experience-hardening: add recovery commands after report navigation.",
+        "The active horizon is operator-experience-hardening: close the operator surface with one integrated gate.",
         "",
         "## Objective",
         "",

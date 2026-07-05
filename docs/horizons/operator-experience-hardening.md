@@ -33,14 +33,14 @@ Status: completed
 
 ### OEH4. Error Recovery Playbook
 
-Status: active
+Status: completed
 
 - Deliverable: recovery playbook/checker, tests, `docs/reports/2026-07-05-oeh4-error-recovery-playbook.md`
 - Acceptance: common failures point to specific rerun/remediation commands.
 
 ### OEH5. Operator Experience Close Gate
 
-Status: pending
+Status: active
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-operator-experience-hardening-close-report.md`
 - Acceptance: local operator can discover, run, verify, and recover the demo path through one documented surface.

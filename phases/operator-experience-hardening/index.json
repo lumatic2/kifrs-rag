@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "error-recovery-playbook",
-      "status": "active"
+      "status": "completed",
+      "summary": "OEH4 added scripts/operator_error_recovery.py, tests/test_operator_error_recovery.py, and docs/reports/2026-07-05-oeh4-error-recovery-playbook.md. It maps pytest failure, missing report, default retriever guard failure, protected data warning, and navigation drift to specific rerun/remediation commands without destructive cleanup.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "operator-experience-close-gate",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }

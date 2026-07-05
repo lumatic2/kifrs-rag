@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active horizon is operator-experience-hardening: add recovery commands after report navigation.
+The active horizon is operator-experience-hardening: close the operator surface with one integrated gate.
 
 ## Objective
 
@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | OEH1 | operator command inventory | completed |
 | OEH2 | run doctor and environment checks | completed |
 | OEH3 | report manifest and navigation surface | completed |
-| OEH4 | error recovery playbook | active_next |
-| OEH5 | operator experience close gate | pending |
+| OEH4 | error recovery playbook | completed |
+| OEH5 | operator experience close gate | active_next |
 
 ## Completed Capability Chain
 
@@ -51,7 +51,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_OEH4_error_recovery | active | none | `python -m pytest tests\test_operator_error_recovery.py -q` |
+| run_OEH5_operator_experience_close_gate | active | none | `python -m pytest tests\test_operator_experience_close_gate.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -64,8 +64,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `OEH4_error_recovery`
-- command: `python -m pytest tests\test_operator_error_recovery.py -q`
+- decision: `OEH5_operator_experience_close_gate`
+- command: `python -m pytest tests\test_operator_experience_close_gate.py -q`
 
 ## Machine Result
 
@@ -96,12 +96,12 @@ Prove how far accountant work can be automated, then package that proof as a loc
       {
         "id": "OEH4",
         "name": "error recovery playbook",
-        "status": "active_next"
+        "status": "completed"
       },
       {
         "id": "OEH5",
         "name": "operator experience close gate",
-        "status": "pending"
+        "status": "active_next"
       }
     ]
   },
@@ -164,11 +164,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "run_OEH4_error_recovery",
+      "id": "run_OEH5_operator_experience_close_gate",
       "status": "active",
-      "decide": "Map common operator failures to specific rerun or remediation commands.",
+      "decide": "Close operator experience hardening by tying discovery, doctor, manifest, and recovery evidence together.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_operator_error_recovery.py -q"
+      "command": "python -m pytest tests\\test_operator_experience_close_gate.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -191,8 +191,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "OEH4_error_recovery",
-  "next_command": "python -m pytest tests\\test_operator_error_recovery.py -q",
+  "next_leaf": "OEH5_operator_experience_close_gate",
+  "next_command": "python -m pytest tests\\test_operator_experience_close_gate.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

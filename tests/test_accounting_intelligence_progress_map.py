@@ -11,9 +11,9 @@ def test_progress_map_explains_current_position_and_results() -> None:
     assert progress["current_horizon"]["milestones"][0]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][1]["status"] == "completed"
     assert progress["current_horizon"]["milestones"][2]["status"] == "completed"
-    assert progress["current_horizon"]["milestones"][3]["status"] == "active_next"
-    assert progress["current_horizon"]["milestones"][4]["status"] == "pending"
-    assert progress["next_leaf"] == "OEH4_error_recovery"
+    assert progress["current_horizon"]["milestones"][3]["status"] == "completed"
+    assert progress["current_horizon"]["milestones"][4]["status"] == "active_next"
+    assert progress["next_leaf"] == "OEH5_operator_experience_close_gate"
     assert progress["automation_snapshot"]["review_packs"] == 24
     assert progress["automation_snapshot"]["automated_packs"] >= 20
     horizon_ids = {horizon["id"] for horizon in progress["completed_horizons"]}
@@ -35,7 +35,7 @@ def test_progress_map_markdown_is_public_safe_and_decision_oriented() -> None:
     assert "Completed Capability Chain" in rendered
     assert "Open Decisions" in rendered
     assert "operator-experience-hardening" in rendered
-    assert "OEH4_error_recovery" in rendered
+    assert "OEH5_operator_experience_close_gate" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

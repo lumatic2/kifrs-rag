@@ -29,9 +29,9 @@ This horizon makes the local toolkit easier for an operator to run, diagnose, na
 
 ### OEH4 — Error Recovery Playbook
 
-- [ ] OEH4.1 — Define common failure cases.
-- [ ] OEH4.2 — Link failures to remediation commands.
-- [ ] OEH4.3 — Add tests/report.
+- [x] OEH4.1 — Define common failure cases.
+- [x] OEH4.2 — Link failures to remediation commands.
+- [x] OEH4.3 — Add tests/report.
 
 ### OEH5 — Operator Experience Close Gate
 
