@@ -16,6 +16,7 @@
 | `2026-07-05-reviewer-invite-action-packet.md` | 복사할 invite 문구와 실제 발송 후 ledger update 명령 |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
 | `../2026-07-05-accounting-intelligence-next-action.md` | 가장 먼저 할 사용자 결정과 실행 명령만 요약 |
+| `../2026-07-05-accounting-intelligence-next-action-sequence-gate.md` | next-action command/after/verify 순서 일관성 검증 |
 | `../2026-07-05-accounting-intelligence-decision-queue.md` | 지금 사용자가 결정해야 할 항목과 추천 다음 결정 |
 | `2026-07-05-readiness-index.md` | 전체 RS1~RS4 readiness와 실제 외부 open item 요약 |
 | `2026-07-05-external-action-boundary-gate.md` | 내부 readiness 완료 후 다음 repo 작업이 아니라 실제 reviewer 초대 발송이 필요함을 고정 |
@@ -70,6 +71,7 @@
 ```powershell
 python scripts\real_accountant_status.py
 python scripts\accounting_intelligence_next_action.py --format text --write
+python scripts\accounting_intelligence_next_action_sequence_gate.py --format text --write
 python scripts\accounting_intelligence_decision_queue.py --format text --write
 python scripts\real_accountant_invite_packet.py --format text --write
 python scripts\real_accountant_readiness_index.py --format text --write

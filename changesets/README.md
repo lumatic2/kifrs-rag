@@ -23,3 +23,4 @@
 | 19 | `20260705-outreach-transition-verify-wiring` | 2026-07-05 | wire outreach transition verifier into session packet/gap audit | 4/4 | completed |
 | 20 | `20260705-next-action-verify-command` | 2026-07-05 | show verification command in decision queue and next-action | 4/4 | completed |
 | 21 | `20260705-next-action-after-command` | 2026-07-05 | show post-action command in decision queue and next-action | 4/4 | completed |
+| 22 | `20260705-next-action-sequence-gate` | 2026-07-05 | gate command-after-verify next-action sequence | 4/4 | completed |
