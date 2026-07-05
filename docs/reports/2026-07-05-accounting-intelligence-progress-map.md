@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The technical toolkit is broad enough for a demo, but the current proof is still waiting on one real accountant invite/session before RS2-RS4 can close.
+The research and workflow toolkit is broad enough for an internal demo; the active plan now continues through internal RAG, source, parser, and product hardening.
 
 ## Objective
 
@@ -12,16 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `real-accountant-session`
+- Horizon: `internal-capability-hardening`
 - Status: active
-- Goal: Run one real accountant review session and convert public-safe notes into capture/queue evidence.
+- Goal: Harden the local accounting-intelligence toolkit without requiring external accountant outreach.
 
 | Milestone | Name | Status |
 |---|---|---|
-| RS1 | session packet prep | completed |
-| RS2 | run actual accountant session | waiting_on_reviewer_invite |
-| RS3 | capture and queue conversion | pending_actual_notes |
-| RS4 | close gate | pending_actual_evidence |
+| IH1 | plain progress map and decision queue | completed |
+| IH2 | RAG quality re-validation and promotion criteria | candidate_next |
+| IH3 | non-IFRS source data lanes and metadata connectors | candidate_next |
+| IH4 | client-private parser/runtime hardening | candidate_next |
+| IH5 | product demo surface and operator UX | candidate_next |
 
 ## Completed Capability Chain
 
@@ -45,20 +46,22 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| send_reviewer_invite | needs_user_action | reviewer invite has not been sent | `python scripts\real_accountant_invite_packet.py --format text --write` |
-| approve_default_retriever_promotion | deferred_until_actual_evidence_and_authorization | actual accountant evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
+| None | none | none | `none` |
+| approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
 
-- actual accountant session evidence is still external/user-owned; progress map, decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, filled receipt guide, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent
+- external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced
+- RAG quality needs a fresh internal validation horizon before any default retriever promotion
 - local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented
-- opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until actual accountant evidence and explicit authorization
+- opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization
+- firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product
 
 ## Next Leaf
 
-- decision: `send_reviewer_invite`
-- command: `python scripts\real_accountant_invite_packet.py --format text --write`
+- decision: `select_internal_capability_horizon`
+- command: `python scripts\accounting_intelligence_gap_audit.py --format text`
 
 ## Machine Result
 
@@ -67,29 +70,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "real-accountant-session",
+    "id": "internal-capability-hardening",
     "status": "active",
-    "goal": "Run one real accountant review session and convert public-safe notes into capture/queue evidence.",
+    "goal": "Harden the local accounting-intelligence toolkit without requiring external accountant outreach.",
     "milestones": [
       {
-        "id": "RS1",
-        "name": "session packet prep",
+        "id": "IH1",
+        "name": "plain progress map and decision queue",
         "status": "completed"
       },
       {
-        "id": "RS2",
-        "name": "run actual accountant session",
-        "status": "waiting_on_reviewer_invite"
+        "id": "IH2",
+        "name": "RAG quality re-validation and promotion criteria",
+        "status": "candidate_next"
       },
       {
-        "id": "RS3",
-        "name": "capture and queue conversion",
-        "status": "pending_actual_notes"
+        "id": "IH3",
+        "name": "non-IFRS source data lanes and metadata connectors",
+        "status": "candidate_next"
       },
       {
-        "id": "RS4",
-        "name": "close gate",
-        "status": "pending_actual_evidence"
+        "id": "IH4",
+        "name": "client-private parser/runtime hardening",
+        "status": "candidate_next"
+      },
+      {
+        "id": "IH5",
+        "name": "product demo surface and operator UX",
+        "status": "candidate_next"
       }
     ]
   },
@@ -127,17 +135,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "send_reviewer_invite",
-      "status": "needs_user_action",
-      "decide": "Which reviewer should receive the invite, and should the invite be sent now?",
-      "blocker": "reviewer invite has not been sent",
-      "command": "python scripts\\real_accountant_invite_packet.py --format text --write"
+      "id": null,
+      "status": "none",
+      "decide": "No user-owned decision is currently required.",
+      "blocker": "none",
+      "command": "none"
     },
     {
       "id": "approve_default_retriever_promotion",
-      "status": "deferred_until_actual_evidence_and_authorization",
-      "decide": "Promote the opt-in repair retriever to default only after actual accountant evidence and explicit authorization.",
-      "blocker": "actual accountant evidence and explicit authorization are missing",
+      "status": "deferred_until_eval_evidence_and_authorization",
+      "decide": "Promote the opt-in repair retriever to default only after stronger evaluation evidence and explicit authorization.",
+      "blocker": "stronger evaluation evidence and explicit authorization are missing",
       "command": "python scripts\\default_retriever_guard.py --format text"
     }
   ],
@@ -148,13 +156,15 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "automation_rate": 0.8333
   },
   "remaining_gaps": [
-    "actual accountant session evidence is still external/user-owned; progress map, decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, filled receipt guide, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
+    "external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced",
+    "RAG quality needs a fresh internal validation horizon before any default retriever promotion",
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
-    "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until actual accountant evidence and explicit authorization"
+    "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
+    "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "send_reviewer_invite",
-  "next_command": "python scripts\\real_accountant_invite_packet.py --format text --write",
+  "next_leaf": "select_internal_capability_horizon",
+  "next_command": "python scripts\\accounting_intelligence_gap_audit.py --format text",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

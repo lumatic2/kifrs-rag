@@ -7,24 +7,18 @@ def test_next_action_sequence_gate_checks_command_after_verify() -> None:
     result = check_next_action_sequence()
 
     assert result["ok"], result["errors"]
-    assert result["next_action"]["decision"] == "send_reviewer_invite"
-    assert "real_accountant_invite_packet.py" in result["next_action"]["command"]
-    assert "real_accountant_invite_send_receipt.py" in result["next_action"]["receipt"]
-    assert "--write-template" in result["next_action"]["receipt"]
-    assert "real_accountant_apply_invite_receipt.py" in result["next_action"]["after"]
-    assert "--receipt" in result["next_action"]["after"]
-    assert "real_accountant_outreach_transition_verify.py" in result["next_action"]["verify"]
-    assert "--expected-status sent" in result["next_action"]["verify"]
-    assert result["post_send_simulation"]["ok"] is True
-    assert result["post_send_simulation"]["next_action_status"] == "waiting_on_reviewer_reply"
+    assert result["next_action"]["decision"] is None
+    assert result["next_action"]["command"] == "none"
+    assert result["sequence_check"]["ok"] is True
+    assert result["sequence_check"]["mode"] == "no_active_user_action"
 
 
 def test_next_action_sequence_gate_markdown_is_public_safe() -> None:
     rendered = render_markdown(check_next_action_sequence())
 
     assert "Accounting Intelligence Next Action Sequence Gate" in rendered
-    assert "real_accountant_invite_send_receipt.py" in rendered
-    assert "post-send ledger update" in rendered
+    assert "no_active_user_action" in rendered
+    assert "internal technical work can continue" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered

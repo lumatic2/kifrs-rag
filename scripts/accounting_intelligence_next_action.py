@@ -136,7 +136,7 @@ def _one_line_conclusion(action: dict[str, Any]) -> str:
         return "Next: send the real accountant reviewer invite; implementation expansion should wait for actual feedback evidence."
     if action["recommended_next_decision"]:
         return f"Next: decide `{action['recommended_next_decision']}`."
-    return "No tracked operator action is currently required."
+    return "No user-owned action is required now; continue with internal product, RAG, data-source, or parser hardening."
 
 
 def _display_path(path: Path) -> str:

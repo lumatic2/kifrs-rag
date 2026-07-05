@@ -8,36 +8,30 @@ from scripts.accounting_intelligence_next_action import build_next_action, build
 from scripts.real_accountant_outreach_update import upsert_outreach
 
 
-def test_next_action_uses_cached_decision_queue_and_recommends_invite() -> None:
+def test_next_action_uses_cached_decision_queue_without_user_action() -> None:
     action = build_next_action()
 
     assert action["ok"], action["errors"]
     assert action["mode"] == "cached_reports"
-    assert action["recommended_next_decision"] == "send_reviewer_invite"
-    assert action["status"] == "needs_user_action"
-    assert action["operator_action_required"] is True
-    assert "Which reviewer" in action["user_decision"]
-    assert "reviewer invite" in action["current_blocker"]
-    assert "real_accountant_invite_packet.py" in action["next_command"]
-    assert "real_accountant_invite_send_receipt.py" in action["receipt_command"]
-    assert "--write-template" in action["receipt_command"]
-    assert "real_accountant_apply_invite_receipt.py" in action["after_command"]
-    assert "--receipt" in action["after_command"]
-    assert "real_accountant_outreach_transition_verify.py" in action["verify_command"]
-    assert "--expected-status sent" in action["verify_command"]
+    assert action["recommended_next_decision"] is None
+    assert action["status"] == "none"
+    assert action["operator_action_required"] is False
+    assert action["user_decision"] == "No user-owned decision is currently required."
+    assert action["current_blocker"] == "none"
+    assert action["next_command"] == "none"
+    assert action["receipt_command"] == "none"
+    assert action["after_command"] == "none"
+    assert action["verify_command"] == "none"
     assert action["open_decision_count"] == 4
-    assert action["operator_action_required_count"] == 2
+    assert action["operator_action_required_count"] == 0
 
 
 def test_next_action_markdown_is_public_safe_and_actionable() -> None:
     rendered = render_markdown(build_next_action())
 
     assert "Accounting Intelligence Next Action" in rendered
-    assert "Which reviewer" in rendered
-    assert "real_accountant_invite_packet.py" in rendered
-    assert "real_accountant_invite_send_receipt.py" in rendered
-    assert "real_accountant_apply_invite_receipt.py" in rendered
-    assert "real_accountant_outreach_transition_verify.py" in rendered
+    assert "No user-owned decision is currently required." in rendered
+    assert "decision: `None`" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
@@ -84,12 +78,9 @@ def test_next_action_accepts_explicit_outreach_ledger(tmp_path) -> None:
         outreach_ledger=copied_ledger,
     )
 
-    assert action["recommended_next_decision"] == "send_reviewer_invite"
-    assert action["status"] == "waiting_on_reviewer_reply"
-    assert "real_accountant_response_packet.py" in action["next_command"]
-    assert "--require-sent" in action["receipt_command"]
-    assert "real_accountant_response_packet.py" in action["after_command"]
-    assert "--expected-status sent" in action["verify_command"]
+    assert action["recommended_next_decision"] is None
+    assert action["status"] == "none"
+    assert action["next_command"] == "none"
 
 
 def test_next_action_tracks_scheduled_state() -> None:

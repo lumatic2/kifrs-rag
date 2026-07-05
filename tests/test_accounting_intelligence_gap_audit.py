@@ -15,9 +15,8 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert audit.automated_packs >= 20
     assert audit.human_review_packs <= 4
     joined_gaps = " ".join(audit.remaining_gaps)
-    assert "actual accountant session" in joined_gaps
-    assert "progress map, decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, filled receipt guide, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready" in joined_gaps
-    assert "reviewer invite has not been sent" in joined_gaps
+    assert "external accountant feedback is parked by user request" in joined_gaps
+    assert "RAG quality needs a fresh internal validation horizon" in joined_gaps
     assert "local parser real-adapter implementation plan is present" in joined_gaps
     assert "explicit authorization" in joined_gaps
     assert "parser/deletion automation" in joined_gaps
@@ -27,6 +26,7 @@ def test_gap_audit_covers_current_expansion_evidence() -> None:
     assert "source-body connector is still not implemented" in joined_gaps
     assert "opt-in retriever promotion decision gate and default retriever guard are present" in joined_gaps
     assert "default retriever change remains deferred" in joined_gaps
+    assert "internal toolkit than a finished user-facing product" in joined_gaps
 
 
 def test_gap_audit_markdown_is_public_safe_summary() -> None:

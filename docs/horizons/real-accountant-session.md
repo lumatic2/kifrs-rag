@@ -1,6 +1,6 @@
 # Horizon: Real Accountant Session
 
-> Status: active
+> Status: paused by user request (2026-07-05)
 > Created: 2026-07-05
 > Sequence: `docs/horizons/accounting-intelligence-expansion.md`
 > Previous: `docs/horizons/field-feedback-capture.md`
@@ -8,13 +8,13 @@
 ## Goal
 
 실제 회계사 1명과 `field-feedback-runbook`으로 세션을 운영하고, public-safe notes를 capture pipeline에
-넣어 queue record로 변환한다.
+넣어 queue record로 변환한다. 이 horizon은 도구와 산출물만 보관하며, 실제 outreach/mail/invite는
+사용자가 명시적으로 다시 요청하기 전까지 active plan에서 제외한다.
 
 ## Why next
 
-`field-feedback-capture`까지는 sample notes였다. 제품 objective의 중간 관문은 "현업 회계사 1명 이상이
-실제 업무 사례를 이 도구로 처리해보고 피드백을 남겼다"이므로, 이제 외부 reviewer와 실제 세션 증거가
-필요하다.
+`field-feedback-capture`까지는 sample notes였다. 외부 검증은 미래의 유효한 검증 수단이지만, 현재
+Objective 진행은 내부 RAG 품질, 데이터 소스 확장, parser/runtime hardening, product UX 쪽을 우선한다.
 
 ## Milestones
 
@@ -49,7 +49,7 @@ Acceptance:
 - reviewer가 실제 회계사 또는 회계 실무 검토 가능한 사람임이 metadata로 표시된다.
 - outreach ledger가 실명/고객명 없이 invite/schedule 상태를 보여준다.
 
-Status: pending external reviewer
+Status: paused; not an active next action
 
 ### RS3. Capture and Queue Conversion
 

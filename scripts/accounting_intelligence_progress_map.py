@@ -54,14 +54,15 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "real-accountant-session",
+        "id": "internal-capability-hardening",
         "status": "active",
-        "goal": "Run one real accountant review session and convert public-safe notes into capture/queue evidence.",
+        "goal": "Harden the local accounting-intelligence toolkit without requiring external accountant outreach.",
         "milestones": [
-            {"id": "RS1", "name": "session packet prep", "status": "completed"},
-            {"id": "RS2", "name": "run actual accountant session", "status": "waiting_on_reviewer_invite"},
-            {"id": "RS3", "name": "capture and queue conversion", "status": "pending_actual_notes"},
-            {"id": "RS4", "name": "close gate", "status": "pending_actual_evidence"},
+            {"id": "IH1", "name": "plain progress map and decision queue", "status": "completed"},
+            {"id": "IH2", "name": "RAG quality re-validation and promotion criteria", "status": "candidate_next"},
+            {"id": "IH3", "name": "non-IFRS source data lanes and metadata connectors", "status": "candidate_next"},
+            {"id": "IH4", "name": "client-private parser/runtime hardening", "status": "candidate_next"},
+            {"id": "IH5", "name": "product demo surface and operator UX", "status": "candidate_next"},
         ],
     }
     decisions = [
@@ -74,9 +75,9 @@ def build_progress_map() -> dict[str, Any]:
         },
         {
             "id": "approve_default_retriever_promotion",
-            "status": "deferred_until_actual_evidence_and_authorization",
-            "decide": "Promote the opt-in repair retriever to default only after actual accountant evidence and explicit authorization.",
-            "blocker": "actual accountant evidence and explicit authorization are missing",
+            "status": "deferred_until_eval_evidence_and_authorization",
+            "decide": "Promote the opt-in repair retriever to default only after stronger evaluation evidence and explicit authorization.",
+            "blocker": "stronger evaluation evidence and explicit authorization are missing",
             "command": "python scripts\\default_retriever_guard.py --format text",
         },
     ]
@@ -93,8 +94,10 @@ def build_progress_map() -> dict[str, Any]:
             "automation_rate": gap.automation_rate,
         },
         "remaining_gaps": gap.remaining_gaps,
-        "next_leaf": next_action["recommended_next_decision"],
-        "next_command": next_action["next_command"],
+        "next_leaf": next_action["recommended_next_decision"] or "select_internal_capability_horizon",
+        "next_command": next_action["next_command"]
+        if next_action["next_command"] != "none"
+        else "python scripts\\accounting_intelligence_gap_audit.py --format text",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -109,7 +112,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The technical toolkit is broad enough for a demo, but the current proof is still waiting on one real accountant invite/session before RS2-RS4 can close.",
+        "The research and workflow toolkit is broad enough for an internal demo; the active plan now continues through internal RAG, source, parser, and product hardening.",
         "",
         "## Objective",
         "",

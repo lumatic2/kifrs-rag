@@ -5,7 +5,7 @@
 
 ## 한 줄 결론
 
-technical demo package is ready for review, but final PoC proof requires an actual accountant session
+technical proof is substantial, but product depth, broader sources, parser/runtime hardening, and RAG re-validation remain before a firm-ready PoC
 
 ## Evidence Coverage
 
@@ -101,14 +101,16 @@ technical demo package is ready for review, but final PoC proof requires an actu
 
 ## Remaining Gaps
 
-- actual accountant session evidence is still external/user-owned; progress map, decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, filled receipt guide, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent
+- external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced
+- RAG quality needs a fresh internal validation horizon before any default retriever promotion
 - local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation
 - external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented
-- opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until actual accountant evidence and explicit authorization
+- opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization
+- firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product
 
 ## Next Leaf
 
-real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change
+select the next internal capability horizon: RAG quality, external source data, client-private parser, or product UX
 
 ## Machine Result
 
@@ -123,13 +125,15 @@ real-accountant-session RS2/RS3 evidence capture, then explicit authorization be
   "automated_packs": 20,
   "human_review_packs": 4,
   "automation_rate": 0.8333,
-  "objective_ready_claim": "technical demo package is ready for review, but final PoC proof requires an actual accountant session",
-  "next_leaf": "real-accountant-session RS2/RS3 evidence capture, then explicit authorization before default retriever change",
+  "objective_ready_claim": "technical proof is substantial, but product depth, broader sources, parser/runtime hardening, and RAG re-validation remain before a firm-ready PoC",
+  "next_leaf": "select the next internal capability horizon: RAG quality, external source data, client-private parser, or product UX",
   "remaining_gaps": [
-    "actual accountant session evidence is still external/user-owned; progress map, decision queue, next-action summary, next-action sequence gate, reviewer invite action packet, invite send receipt, filled receipt guide, invite receipt apply, post-send rehearsal, readiness index, external-action boundary, invite, response handling, after-send action matrix, outreach transition verifier, scheduled-session, RS3 notes-quality/capture-readiness/post-session final gate, operator execution brief, pre-send final gate, and close-state matrix are ready but the reviewer invite has not been sent",
+    "external accountant feedback is parked by user request and excluded from the active plan until explicitly reintroduced",
+    "RAG quality needs a fresh internal validation horizon before any default retriever promotion",
     "local parser real-adapter implementation plan is present, but actual evidence and explicit authorization are still required before real upload/OCR/parser/deletion automation",
     "external source connector metadata-only lane is closed and demo-noted; authorization record scaffold is present, but source-body connector is still not implemented",
-    "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until actual accountant evidence and explicit authorization"
+    "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
+    "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
   "errors": []
 }

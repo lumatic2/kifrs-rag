@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (Real Accountant Session 진행 중)
+> 마지막 업데이트: 2026-07-05 (Internal Capability Hardening 진행 중)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -26,20 +26,21 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ---
 
-## Current Horizon — real-accountant-session
+## Current Horizon — internal-capability-hardening
 
-`real-accountant-session` 진행 중. feedback notes를 public-safe 구조로 기록하고 safe correction만
-queue record로 변환하는 pipeline이 생겼으므로, 다음 proof는 실제 회계사 세션을 runbook으로 운영하고
-safe notes를 capture하는 것이다.
+외부 회계사 outreach는 사용자 요청에 따라 active plan에서 제외한다. 현재 proof는 이미 만든
+회계법인 업무 지도, F-ACC review-pack 자동화, RAG 품질 개선, 데이터 소스 경계, client-private
+parser 계획을 바탕으로 내부 제품 완성도를 높이는 방향으로 진행한다.
 
 Active milestones:
-- RS1 session packet prep — 완료
-- RS2 actual accountant session — external reviewer 필요
-- RS3 actual notes capture + queue conversion
-- RS4 close gate
+- IH1 plain progress map + decision queue — 완료
+- IH2 K-IFRS RAG quality re-validation + retriever promotion criteria
+- IH3 K-IFRS 외 회계 업무 데이터 소스 lane 확장
+- IH4 client-private parser/runtime hardening
+- IH5 firm-facing demo surface/operator UX 정리
 
-병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
-질문지 답변을 받는다.
+Parked: `real-accountant-session` 도구와 산출물은 보관하지만, 실제 회계사에게 메일/초대하는
+계획은 사용자가 다시 요청하기 전까지 현재 계획과 다음 액션에서 제외한다.
 
 ## Closed Horizons
 
@@ -80,6 +81,7 @@ firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 ## Paused Horizons
 
+<!-- harness:goal id="real-accountant-session" status="paused" --> `docs/horizons/real-accountant-session.md` — 외부 회계사 outreach는 사용자 요청 시에만 재개.
 <!-- harness:goal id="rag-optimization-resume" status="paused" --> `docs/horizons/rag-optimization-resume.md` — RO2 DoD 미확정.
 <!-- harness:goal id="rag-agent-integration" status="paused" --> `docs/horizons/rag-agent-integration.md` — RGA2/RGA3 DoD 미확정.
 
@@ -98,11 +100,9 @@ firm-service-map, automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `real-accountant-session` — RS1 완료 후 RS2는 실제 reviewer/schedule 필요.
-현재 작업: session invite, evidence template, session packet 준비.
-
-병행 사용자 액션: 회계사 1명에게 `docs/reports/field-feedback/INDEX.md` 기준으로 demo를 보여주고
-질문지 답변을 받는다.
+**[현재 active]** `internal-capability-hardening` — 외부 outreach 없이 내부 제품 완성도와 근거 품질을 올린다.
+현재 작업: `docs/reports/2026-07-05-accounting-intelligence-progress-map.md`와
+`docs/reports/2026-07-05-accounting-intelligence-gap-audit.md` 기준으로 다음 내부 horizon을 이어간다.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

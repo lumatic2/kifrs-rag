@@ -18,7 +18,6 @@ from scripts.external_source_body_ingestion_authorization_gate import (  # noqa:
     check_authorization_gate,
     load_authorization_record,
 )
-from scripts.real_accountant_status import summarize_status  # noqa: E402
 
 
 REPORT_PATH = ROOT / "docs" / "reports" / "2026-07-05-accounting-intelligence-decision-queue.md"
@@ -37,17 +36,12 @@ def build_decision_queue(
     outreach_ledger: Path = DEFAULT_OUTREACH_LEDGER,
     refresh_gates: bool = False,
 ) -> dict[str, Any]:
-    session = summarize_status(
-        root=ROOT,
-        manifest=manifest,
-        outreach_ledger=outreach_ledger,
-    )
     external_authorization = _check_external_authorization(external_authorization_record)
     local_parser = check_real_adapter_decision_gate()
     retriever_promotion = _check_retriever_promotion(refresh_gates=refresh_gates)
 
     decisions = [
-        _reviewer_invite_decision(session),
+        _external_accountant_feedback_parking_decision(),
         _external_body_authorization_decision(external_authorization, external_authorization_record),
         _local_parser_real_adapter_decision(local_parser),
         _retriever_promotion_decision(retriever_promotion),
@@ -219,6 +213,26 @@ def _reviewer_invite_decision(session: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _external_accountant_feedback_parking_decision() -> dict[str, Any]:
+    return {
+        "id": "external_accountant_feedback",
+        "title": "Park external accountant feedback loop",
+        "priority": 1,
+        "status": "parked_by_user_request",
+        "gate_ok": True,
+        "errors": [],
+        "operator_action_required": False,
+        "user_decision": "No active decision. External accountant outreach is excluded until the user explicitly asks for it.",
+        "unblocks": "future external validation only; not part of the current active plan",
+        "current_blocker": "parked by user request",
+        "next_command": "none",
+        "receipt_command": "none",
+        "after_command": "none",
+        "verify_command": "none",
+        "evidence": "ROADMAP.md",
+    }
+
+
 def _reviewer_stage(session: dict[str, Any]) -> str:
     counts = session["outreach_counts"]
     if session["close_ready"] is True and counts.get("completed", 0) > 0:
@@ -322,11 +336,11 @@ def _external_body_authorization_decision(result: dict[str, Any], record_path: P
         "id": "approve_external_body_authorization_record",
         "title": "Approve source-specific external body authorization record",
         "priority": 2,
-        "status": "closed" if allowed else "needs_user_action",
+        "status": "closed" if allowed else "parked_until_explicit_authorization",
         "gate_ok": bool(result.get("ok")),
         "errors": list(result.get("errors", [])),
-        "operator_action_required": not allowed,
-        "user_decision": "Whether to fill a source-specific authorization record for live local-private body ingestion.",
+        "operator_action_required": False,
+        "user_decision": "No active decision. Fill a source-specific authorization record only when live local-private body ingestion becomes the chosen horizon.",
         "unblocks": "external source body connector implementation",
         "current_blocker": blockers[0] if blockers else "none",
         "next_command": f"Fill `{_display_path(record_path)}`, then run the external body authorization gate with that record.",
@@ -339,19 +353,18 @@ def _external_body_authorization_decision(result: dict[str, Any], record_path: P
 
 def _local_parser_real_adapter_decision(result: dict[str, Any]) -> dict[str, Any]:
     decision = result["decision"]
-    blockers = decision["blockers"]
     allowed = decision["allowed_to_implement"] is True
     return {
         "id": "approve_local_private_parser_adapter",
         "title": "Approve real local-private parser adapter",
         "priority": 3,
-        "status": "closed" if allowed else "waiting_on_accountant_evidence",
+        "status": "closed" if allowed else "waiting_on_eval_evidence",
         "gate_ok": bool(result["ok"]),
         "errors": list(result["errors"]),
         "operator_action_required": False,
-        "user_decision": "Whether to authorize real private-file parser work after actual accountant evidence exists.",
+        "user_decision": "Whether to authorize real private-file parser work after stronger internal evaluation evidence exists.",
         "unblocks": "real local file upload/OCR/parser/deletion automation",
-        "current_blocker": blockers[0] if blockers else "none",
+        "current_blocker": "stronger internal evaluation evidence and explicit authorization are required",
         "next_command": "python scripts\\client_private_local_parser_real_adapter_decision_gate.py --format text",
         "receipt_command": "none",
         "after_command": "none",
@@ -362,19 +375,18 @@ def _local_parser_real_adapter_decision(result: dict[str, Any]) -> dict[str, Any
 
 def _retriever_promotion_decision(result: dict[str, Any]) -> dict[str, Any]:
     decision = result["decision"]
-    blockers = decision["blockers"]
     allowed = decision["promote_to_default"] is True
     return {
         "id": "approve_default_retriever_promotion",
         "title": "Approve opt-in retriever default promotion",
         "priority": 4,
-        "status": "closed" if allowed else "waiting_on_accountant_evidence",
+        "status": "closed" if allowed else "waiting_on_eval_evidence",
         "gate_ok": bool(result["ok"]),
         "errors": list(result["errors"]),
         "operator_action_required": False,
-        "user_decision": "Whether to promote the opt-in repair retriever to default after actual accountant evidence exists.",
+        "user_decision": "Whether to promote the opt-in repair retriever to default after stronger internal evaluation evidence exists.",
         "unblocks": "default retriever change from hybrid to ifrs1109_classification_hybrid stack",
-        "current_blocker": blockers[0] if blockers else "none",
+        "current_blocker": "stronger internal evaluation evidence and explicit authorization are required",
         "next_command": "python scripts\\opt_in_retriever_promotion_decision_gate.py --format text",
         "receipt_command": "none",
         "after_command": "none",

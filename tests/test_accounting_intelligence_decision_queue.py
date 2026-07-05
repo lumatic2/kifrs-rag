@@ -12,38 +12,33 @@ from scripts.accounting_intelligence_decision_queue import (
 from scripts.real_accountant_outreach_update import upsert_outreach
 
 
-def test_decision_queue_prioritizes_reviewer_invite() -> None:
+def test_decision_queue_parks_external_feedback_by_default() -> None:
     queue = build_decision_queue()
 
     assert queue["ok"], queue["errors"]
     assert queue["mode"] == "cached_reports"
     assert queue["open_decision_count"] == 4
-    assert queue["operator_action_required_count"] == 2
-    assert queue["recommended_next_decision"] == "send_reviewer_invite"
+    assert queue["operator_action_required_count"] == 0
+    assert queue["recommended_next_decision"] is None
 
     decisions = {decision["id"]: decision for decision in queue["decisions"]}
-    assert decisions["send_reviewer_invite"]["priority"] == 1
-    assert decisions["send_reviewer_invite"]["status"] == "needs_user_action"
-    assert "reviewer invite" in decisions["send_reviewer_invite"]["current_blocker"]
-    assert "real_accountant_invite_send_receipt.py" in decisions["send_reviewer_invite"]["receipt_command"]
-    assert "--write-template" in decisions["send_reviewer_invite"]["receipt_command"]
-    assert "real_accountant_apply_invite_receipt.py" in decisions["send_reviewer_invite"]["after_command"]
-    assert "--receipt" in decisions["send_reviewer_invite"]["after_command"]
-    assert "real_accountant_outreach_transition_verify.py" in decisions["send_reviewer_invite"]["verify_command"]
-    assert "--expected-status sent" in decisions["send_reviewer_invite"]["verify_command"]
-    assert decisions["approve_external_body_authorization_record"]["status"] == "needs_user_action"
+    assert decisions["external_accountant_feedback"]["priority"] == 1
+    assert decisions["external_accountant_feedback"]["status"] == "parked_by_user_request"
+    assert decisions["external_accountant_feedback"]["operator_action_required"] is False
+    assert "excluded until the user explicitly asks" in decisions["external_accountant_feedback"]["user_decision"]
+    assert decisions["approve_external_body_authorization_record"]["status"] == "parked_until_explicit_authorization"
     assert decisions["approve_external_body_authorization_record"]["current_blocker"] == "authorized_by is required"
-    assert decisions["approve_local_private_parser_adapter"]["status"] == "waiting_on_accountant_evidence"
-    assert decisions["approve_default_retriever_promotion"]["status"] == "waiting_on_accountant_evidence"
+    assert decisions["approve_local_private_parser_adapter"]["status"] == "waiting_on_eval_evidence"
+    assert decisions["approve_default_retriever_promotion"]["status"] == "waiting_on_eval_evidence"
 
 
 def test_decision_queue_markdown_is_action_oriented_and_public_safe() -> None:
     rendered = render_markdown(build_decision_queue())
 
     assert "What User Decides" in rendered
-    assert "send_reviewer_invite" in rendered
+    assert "external_accountant_feedback" in rendered
     assert "approve_external_body_authorization_record" in rendered
-    assert "reviewer invite" in rendered
+    assert "parked_by_user_request" in rendered
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
@@ -92,12 +87,9 @@ def test_decision_queue_accepts_explicit_outreach_ledger(tmp_path) -> None:
     )
 
     decisions = {decision["id"]: decision for decision in queue["decisions"]}
-    assert queue["recommended_next_decision"] == "send_reviewer_invite"
-    assert decisions["send_reviewer_invite"]["status"] == "waiting_on_reviewer_reply"
-    assert "real_accountant_response_packet.py" in decisions["send_reviewer_invite"]["next_command"]
-    assert "--require-sent" in decisions["send_reviewer_invite"]["receipt_command"]
-    assert "real_accountant_response_packet.py" in decisions["send_reviewer_invite"]["after_command"]
-    assert "--expected-status sent" in decisions["send_reviewer_invite"]["verify_command"]
+    assert queue["recommended_next_decision"] is None
+    assert decisions["external_accountant_feedback"]["status"] == "parked_by_user_request"
+    assert decisions["external_accountant_feedback"]["next_command"] == "none"
 
 
 def test_reviewer_decision_transitions_after_session_is_scheduled() -> None:
