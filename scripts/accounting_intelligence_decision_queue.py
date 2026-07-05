@@ -180,25 +180,82 @@ def _check_retriever_promotion(*, refresh_gates: bool) -> dict[str, Any]:
 
 
 def _reviewer_invite_decision(session: dict[str, Any]) -> dict[str, Any]:
-    counts = session["outreach_counts"]
-    not_sent = counts.get("not_sent", 0)
-    completed = counts.get("completed", 0)
-    closed = session["close_ready"] is True and completed > 0
-    action_required = not closed and not_sent > 0 and counts.get("sent", 0) == 0
+    session["outreach_counts"]
+    stage = _reviewer_stage(session)
+    closed = stage == "closed"
+    action_required = stage in {"not_sent", "sent", "scheduled", "completed"}
     return {
         "id": "send_reviewer_invite",
-        "title": "Send real accountant reviewer invite",
+        "title": _reviewer_title(stage),
         "priority": 1,
-        "status": "closed" if closed else "needs_user_action",
+        "status": "closed" if closed else _reviewer_status(stage),
         "gate_ok": True,
         "errors": [],
         "operator_action_required": action_required,
-        "user_decision": "Which reviewer should receive the invite, and should the invite be sent now?",
+        "user_decision": _reviewer_user_decision(stage),
         "unblocks": "RS2 actual accountant session, RS3 actual notes capture, RS4 close gate",
         "current_blocker": session["blocked_by"][0] if session["blocked_by"] else "none",
-        "next_command": "python scripts\\real_accountant_invite_packet.py",
+        "next_command": _reviewer_next_command(stage),
         "evidence": "docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md",
     }
+
+
+def _reviewer_stage(session: dict[str, Any]) -> str:
+    counts = session["outreach_counts"]
+    if session["close_ready"] is True and counts.get("completed", 0) > 0:
+        return "closed"
+    if counts.get("completed", 0) > 0:
+        return "completed"
+    if counts.get("scheduled", 0) > 0:
+        return "scheduled"
+    if counts.get("sent", 0) > 0 or counts.get("responded", 0) > 0:
+        return "sent"
+    if counts.get("declined", 0) > 0:
+        return "declined"
+    return "not_sent"
+
+
+def _reviewer_status(stage: str) -> str:
+    return {
+        "not_sent": "needs_user_action",
+        "sent": "waiting_on_reviewer_reply",
+        "scheduled": "session_scheduled",
+        "completed": "needs_notes_capture",
+        "declined": "needs_reviewer_replacement",
+    }.get(stage, "needs_user_action")
+
+
+def _reviewer_title(stage: str) -> str:
+    return {
+        "not_sent": "Send real accountant reviewer invite",
+        "sent": "Handle reviewer reply or follow-up",
+        "scheduled": "Run scheduled accountant session",
+        "completed": "Capture actual feedback notes",
+        "declined": "Invite replacement reviewer or pause RS2",
+        "closed": "Real accountant session closed",
+    }.get(stage, "Send real accountant reviewer invite")
+
+
+def _reviewer_user_decision(stage: str) -> str:
+    return {
+        "not_sent": "Which reviewer should receive the invite, and should the invite be sent now?",
+        "sent": "Whether to follow up, schedule the session, or record a decline after reviewer response.",
+        "scheduled": "Whether to run the scheduled session now and write public-safe notes.",
+        "completed": "Whether to convert actual public-safe notes into capture artifacts and queue records.",
+        "declined": "Whether to invite another reviewer or pause RS2.",
+        "closed": "No reviewer-session decision remains.",
+    }.get(stage, "Which reviewer should receive the invite, and should the invite be sent now?")
+
+
+def _reviewer_next_command(stage: str) -> str:
+    return {
+        "not_sent": "python scripts\\real_accountant_invite_packet.py --format text --write",
+        "sent": "python scripts\\real_accountant_response_packet.py --response schedule",
+        "scheduled": "python scripts\\real_accountant_run_sheet.py",
+        "completed": "python scripts\\real_accountant_post_session_final_gate.py --notes docs\\reports\\real-accountant-session\\actual-feedback-notes.md",
+        "declined": "python scripts\\real_accountant_response_packet.py --response decline",
+        "closed": "python scripts\\real_accountant_close_check.py --run-quality-preflight",
+    }.get(stage, "python scripts\\real_accountant_invite_packet.py --format text --write")
 
 
 def _external_body_authorization_decision(result: dict[str, Any], record_path: Path) -> dict[str, Any]:

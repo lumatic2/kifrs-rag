@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from scripts.accounting_intelligence_decision_queue import build_decision_queue, render_markdown
+from scripts.accounting_intelligence_decision_queue import (
+    _reviewer_invite_decision,
+    build_decision_queue,
+    render_markdown,
+)
 
 
 def test_decision_queue_prioritizes_reviewer_invite() -> None:
@@ -32,3 +36,71 @@ def test_decision_queue_markdown_is_action_oriented_and_public_safe() -> None:
     assert "api_key" not in rendered
     assert "token" not in rendered
     assert "source_body" not in rendered
+
+
+def test_reviewer_decision_transitions_after_invite_is_sent() -> None:
+    decision = _reviewer_invite_decision(
+        _session_with_counts(
+            {
+                "not_sent": 0,
+                "sent": 1,
+                "responded": 0,
+                "scheduled": 0,
+                "declined": 0,
+                "completed": 0,
+            }
+        )
+    )
+
+    assert decision["status"] == "waiting_on_reviewer_reply"
+    assert decision["operator_action_required"] is True
+    assert "follow up, schedule" in decision["user_decision"]
+    assert "real_accountant_response_packet.py" in decision["next_command"]
+
+
+def test_reviewer_decision_transitions_after_session_is_scheduled() -> None:
+    decision = _reviewer_invite_decision(
+        _session_with_counts(
+            {
+                "not_sent": 0,
+                "sent": 0,
+                "responded": 0,
+                "scheduled": 1,
+                "declined": 0,
+                "completed": 0,
+            }
+        )
+    )
+
+    assert decision["status"] == "session_scheduled"
+    assert decision["operator_action_required"] is True
+    assert "run the scheduled session" in decision["user_decision"]
+    assert "real_accountant_run_sheet.py" in decision["next_command"]
+
+
+def test_reviewer_decision_transitions_after_session_completed() -> None:
+    decision = _reviewer_invite_decision(
+        _session_with_counts(
+            {
+                "not_sent": 0,
+                "sent": 0,
+                "responded": 0,
+                "scheduled": 0,
+                "declined": 0,
+                "completed": 1,
+            }
+        )
+    )
+
+    assert decision["status"] == "needs_notes_capture"
+    assert decision["operator_action_required"] is True
+    assert "convert actual public-safe notes" in decision["user_decision"]
+    assert "real_accountant_post_session_final_gate.py" in decision["next_command"]
+
+
+def _session_with_counts(counts: dict[str, int]) -> dict[str, object]:
+    return {
+        "outreach_counts": counts,
+        "close_ready": False,
+        "blocked_by": ["test blocker"],
+    }

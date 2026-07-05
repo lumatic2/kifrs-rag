@@ -34,7 +34,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
 - user decision: Which reviewer should receive the invite, and should the invite be sent now?
 - unblocks: RS2 actual accountant session, RS3 actual notes capture, RS4 close gate
 - current blocker: reviewer invite has not been sent
-- next command: python scripts\real_accountant_invite_packet.py
+- next command: python scripts\real_accountant_invite_packet.py --format text --write
 - evidence: `docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md`
 
 ### 2. Approve source-specific external body authorization record
@@ -94,7 +94,7 @@ The next useful user-owned decision is sending the real accountant reviewer invi
       "user_decision": "Which reviewer should receive the invite, and should the invite be sent now?",
       "unblocks": "RS2 actual accountant session, RS3 actual notes capture, RS4 close gate",
       "current_blocker": "reviewer invite has not been sent",
-      "next_command": "python scripts\\real_accountant_invite_packet.py",
+      "next_command": "python scripts\\real_accountant_invite_packet.py --format text --write",
       "evidence": "docs/reports/real-accountant-session/2026-07-05-operator-execution-brief.md"
     },
     {
