@@ -29,9 +29,9 @@ This horizon addresses the Objective gap that automation evidence is still too c
 
 ### WCD4 — Coverage Depth Metric Update
 
-- [ ] WCD4.1 — Define coverage depth metric.
-- [ ] WCD4.2 — Compute updated service-line coverage.
-- [ ] WCD4.3 — Write metric update report.
+- [x] WCD4.1 — Define coverage depth metric.
+- [x] WCD4.2 — Compute updated service-line coverage.
+- [x] WCD4.3 — Write metric update report.
 
 ### WCD5 — Horizon Close And Demo Rehearsal Handoff
 

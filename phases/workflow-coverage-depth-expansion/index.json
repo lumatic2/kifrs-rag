@@ -27,12 +27,14 @@
     {
       "step": 4,
       "name": "coverage-depth-metric-update",
-      "status": "active"
+      "status": "completed",
+      "summary": "WCD4 added scripts/workflow_coverage_depth_metric.py, tests/test_workflow_coverage_depth_metric.py, and docs/reports/2026-07-05-wcd4-coverage-depth-metric.md. It records audit_disclosure_tie_out as one additional public-safe minimal adapter surface, counts repo evidence coverage across F-ACC/F-AUD, and explicitly avoids field-validation or final-judgment automation claims.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 5,
       "name": "horizon-close-and-demo-rehearsal-handoff",
-      "status": "pending"
+      "status": "active"
     }
   ]
 }

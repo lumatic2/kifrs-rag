@@ -87,8 +87,8 @@ def build_progress_map() -> dict[str, Any]:
             {"id": "WCD1", "name": "service-line coverage rerank", "status": "completed"},
             {"id": "WCD2", "name": "workflow sample contract pack", "status": "completed"},
             {"id": "WCD3", "name": "minimal adapter expansion", "status": "completed"},
-            {"id": "WCD4", "name": "coverage depth metric update", "status": "active"},
-            {"id": "WCD5", "name": "close and demo rehearsal handoff", "status": "pending"},
+            {"id": "WCD4", "name": "coverage depth metric update", "status": "completed"},
+            {"id": "WCD5", "name": "close and demo rehearsal handoff", "status": "active"},
         ],
     }
     decisions = [
@@ -123,9 +123,9 @@ def build_progress_map() -> dict[str, Any]:
         {
             "id": "run_workflow_coverage_depth_expansion",
             "status": "active_horizon",
-            "decide": "WCD1 selected audit_disclosure_tie_out, WCD2 defined its contract, and WCD3 added the minimal adapter; continue with coverage depth metric update.",
+            "decide": "WCD1 to WCD4 are complete; close workflow coverage depth and hand off to demo rehearsal quality loop.",
             "blocker": "none",
-            "command": "python scripts\\workflow_coverage_depth_metric.py --format text --write",
+            "command": "python scripts\\workflow_coverage_depth_close_gate.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -150,8 +150,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "WCD4_coverage_depth_metric_update",
-        "next_command": "python scripts\\workflow_coverage_depth_metric.py --format text --write",
+        "next_leaf": "WCD5_horizon_close_and_demo_rehearsal_handoff",
+        "next_command": "python scripts\\workflow_coverage_depth_close_gate.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -166,7 +166,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "Objective gaps are grouped into horizons; WCD1 to WCD3 are complete and WCD4 coverage depth metric update is now active.",
+        "Objective gaps are grouped into horizons; WCD1 to WCD4 are complete and WCD5 close/handoff is now active.",
         "",
         "## Objective",
         "",

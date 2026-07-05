@@ -35,14 +35,14 @@ Status: completed
 
 ### WCD4. Coverage Depth Metric Update
 
-Status: active
+Status: completed
 
 - Deliverable: coverage metric script/report.
 - Acceptance: automation coverage depth is updated with service-line and workflow-surface counts.
 
 ### WCD5. Horizon Close And Demo Rehearsal Handoff
 
-Status: pending
+Status: active
 
 - Deliverable: close report.
 - Acceptance: workflow coverage depth status is closed and demo rehearsal quality loop is named.

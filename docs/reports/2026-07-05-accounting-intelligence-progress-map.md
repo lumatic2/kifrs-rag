@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-Objective gaps are grouped into horizons; WCD1 to WCD3 are complete and WCD4 coverage depth metric update is now active.
+Objective gaps are grouped into horizons; WCD1 to WCD4 are complete and WCD5 close/handoff is now active.
 
 ## Objective
 
@@ -21,8 +21,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | WCD1 | service-line coverage rerank | completed |
 | WCD2 | workflow sample contract pack | completed |
 | WCD3 | minimal adapter expansion | completed |
-| WCD4 | coverage depth metric update | active |
-| WCD5 | close and demo rehearsal handoff | pending |
+| WCD4 | coverage depth metric update | completed |
+| WCD5 | close and demo rehearsal handoff | active |
 
 ## Completed Capability Chain
 
@@ -56,7 +56,7 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 | run_rag_quality_fresh_validation | closed_defer | none | `python scripts\rag_quality_fresh_validation_close_gate.py --format text` |
 | run_private_parser_realism_hardening | closed_realism_contract_ready | none | `python scripts\private_parser_realism_close_gate.py --format text` |
 | run_external_connector_body_expansion | closed_connector_body_lane_ready | none | `python scripts\external_source_connector_body_close_gate.py --format text` |
-| run_workflow_coverage_depth_expansion | active_horizon | none | `python scripts\workflow_coverage_depth_metric.py --format text --write` |
+| run_workflow_coverage_depth_expansion | active_horizon | none | `python scripts\workflow_coverage_depth_close_gate.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -69,8 +69,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
 
 ## Next Leaf
 
-- decision: `WCD4_coverage_depth_metric_update`
-- command: `python scripts\workflow_coverage_depth_metric.py --format text --write`
+- decision: `WCD5_horizon_close_and_demo_rehearsal_handoff`
+- command: `python scripts\workflow_coverage_depth_close_gate.py --format text --write`
 
 ## Machine Result
 
@@ -101,12 +101,12 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
       {
         "id": "WCD4",
         "name": "coverage depth metric update",
-        "status": "active"
+        "status": "completed"
       },
       {
         "id": "WCD5",
         "name": "close and demo rehearsal handoff",
-        "status": "pending"
+        "status": "active"
       }
     ]
   },
@@ -204,9 +204,9 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     {
       "id": "run_workflow_coverage_depth_expansion",
       "status": "active_horizon",
-      "decide": "WCD1 selected audit_disclosure_tie_out, WCD2 defined its contract, and WCD3 added the minimal adapter; continue with coverage depth metric update.",
+      "decide": "WCD1 to WCD4 are complete; close workflow coverage depth and hand off to demo rehearsal quality loop.",
       "blocker": "none",
-      "command": "python scripts\\workflow_coverage_depth_metric.py --format text --write"
+      "command": "python scripts\\workflow_coverage_depth_close_gate.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -229,8 +229,8 @@ Prove how far accountant work can be automated, then turn that proof into firm-f
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and demo packet exist, but the repo is still closer to an internal toolkit than a field-proven product"
   ],
-  "next_leaf": "WCD4_coverage_depth_metric_update",
-  "next_command": "python scripts\\workflow_coverage_depth_metric.py --format text --write",
+  "next_leaf": "WCD5_horizon_close_and_demo_rehearsal_handoff",
+  "next_command": "python scripts\\workflow_coverage_depth_close_gate.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```
