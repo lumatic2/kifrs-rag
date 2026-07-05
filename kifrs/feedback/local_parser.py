@@ -187,6 +187,46 @@ class LocalPrivateParserAdapterScaffoldRun:
         }
 
 
+@dataclass(frozen=True)
+class LocalFixtureParserAdapterInput:
+    adapter_run_id: str
+    source_stub: str
+    document_type: str
+    expected_domain: str
+    structured_fact_candidates: dict[str, Any] = field(default_factory=dict)
+    operator_ack: str = ""
+    raw_fixture_text_present: bool = False
+    ocr_text_present: bool = False
+    source_excerpt_present: bool = False
+    embedding_present: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class LocalFixtureParserAdapterResult:
+    adapter_run_id: str
+    structured_facts: dict[str, Any]
+    review_questions: list[str]
+    prototype_result: LocalPrivateParserPrototypeResult
+    errors: list[str] = field(default_factory=list)
+
+    @property
+    def ok(self) -> bool:
+        return not self.errors and self.prototype_result.route.status == "candidate"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "adapter_run_id": self.adapter_run_id,
+            "structured_facts": dict(self.structured_facts),
+            "review_questions": list(self.review_questions),
+            "prototype_result": self.prototype_result.to_dict(),
+            "errors": list(self.errors),
+            "ok": self.ok,
+        }
+
+
 def validate_local_private_parser_prototype_input(
     parser_input: LocalPrivateParserPrototypeInput,
     policy: ClientPrivateUploadStoragePolicy,
@@ -317,6 +357,88 @@ def validate_local_private_parser_adapter_scaffold_request(
         issues.append(ValidationIssue("create_private_embedding", "scaffold must not create private embeddings"))
     issues.extend(_public_safe_issues(request.to_dict()))
     return issues
+
+
+def validate_local_fixture_parser_adapter_input(
+    adapter_input: LocalFixtureParserAdapterInput,
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    contract_issues = validate_local_private_parser_adapter_contract(contract, policy)
+    issues.extend(ValidationIssue(f"contract.{issue.path}", issue.message) for issue in contract_issues)
+
+    if not adapter_input.adapter_run_id:
+        issues.append(ValidationIssue("adapter_run_id", "adapter_run_id is required"))
+    if not adapter_input.source_stub.startswith("local-private://fixture/"):
+        issues.append(ValidationIssue("source_stub", "source_stub must use local-private://fixture/"))
+    if adapter_input.document_type not in contract.allowed_document_types:
+        issues.append(ValidationIssue("document_type", f"document_type is outside adapter contract: {adapter_input.document_type}"))
+    if adapter_input.expected_domain not in contract.allowed_domains:
+        issues.append(ValidationIssue("expected_domain", f"expected_domain is outside adapter contract: {adapter_input.expected_domain}"))
+    if not adapter_input.structured_fact_candidates:
+        issues.append(ValidationIssue("structured_fact_candidates", "structured_fact_candidates are required"))
+    missing_fields = sorted(set(contract.required_extracted_fields).difference(adapter_input.structured_fact_candidates))
+    if missing_fields:
+        issues.append(ValidationIssue("structured_fact_candidates", f"missing adapter-required fields: {missing_fields}"))
+    if adapter_input.operator_ack != "fixture-structured-facts-only-public-safe":
+        issues.append(ValidationIssue("operator_ack", "operator_ack must be fixture-structured-facts-only-public-safe"))
+    if adapter_input.raw_fixture_text_present:
+        issues.append(ValidationIssue("raw_fixture_text_present", "raw fixture text must not be present"))
+    if adapter_input.ocr_text_present:
+        issues.append(ValidationIssue("ocr_text_present", "OCR text must not be present"))
+    if adapter_input.source_excerpt_present:
+        issues.append(ValidationIssue("source_excerpt_present", "source excerpts must not be present"))
+    if adapter_input.embedding_present:
+        issues.append(ValidationIssue("embedding_present", "private embeddings must not be present"))
+    issues.extend(_public_safe_issues(adapter_input.to_dict()))
+    return issues
+
+
+def run_local_fixture_parser_adapter(
+    adapter_input: LocalFixtureParserAdapterInput,
+    contract: LocalPrivateParserAdapterContract,
+    policy: ClientPrivateUploadStoragePolicy,
+) -> LocalFixtureParserAdapterResult:
+    issues = validate_local_fixture_parser_adapter_input(adapter_input, contract, policy)
+    if issues:
+        placeholder_input = LocalPrivateParserPrototypeInput(
+            parser_run_id=adapter_input.adapter_run_id or "invalid-local-fixture-adapter",
+            source_stub="local-private://dry-run/invalid-local-fixture-adapter",
+            document_type=adapter_input.document_type or "contract",
+            expected_domain=adapter_input.expected_domain or "KIFRS1116",
+            extracted_fields={field_name: "missing" for field_name in contract.required_extracted_fields},
+        )
+        placeholder_result = run_local_private_parser_prototype(placeholder_input, policy)
+        return LocalFixtureParserAdapterResult(
+            adapter_run_id=adapter_input.adapter_run_id,
+            structured_facts={},
+            review_questions=[],
+            prototype_result=placeholder_result,
+            errors=[f"{issue.path}: {issue.message}" for issue in issues],
+        )
+
+    structured_facts = {
+        field_name: adapter_input.structured_fact_candidates[field_name]
+        for field_name in contract.required_extracted_fields
+    }
+    prototype_input = contract_to_local_private_parser_prototype_input(
+        contract,
+        policy,
+        parser_run_id=adapter_input.adapter_run_id,
+        source_stub=adapter_input.source_stub.replace("local-private://fixture/", "local-private://dry-run/"),
+        document_type=adapter_input.document_type,
+        expected_domain=adapter_input.expected_domain,
+        extracted_fields=structured_facts,
+    )
+    prototype_result = run_local_private_parser_prototype(prototype_input, policy)
+    return LocalFixtureParserAdapterResult(
+        adapter_run_id=adapter_input.adapter_run_id,
+        structured_facts=structured_facts,
+        review_questions=_local_fixture_review_questions(adapter_input, structured_facts),
+        prototype_result=prototype_result,
+        errors=[],
+    )
 
 
 def run_local_private_parser_adapter_scaffold(
@@ -551,6 +673,44 @@ def run_local_private_parser_prototype(
     )
 
 
+def render_local_fixture_parser_adapter_result(result: LocalFixtureParserAdapterResult) -> str:
+    lines = [
+        f"# Local Fixture Parser Adapter Result - {result.adapter_run_id}",
+        "",
+        f"- OK: {result.ok}",
+        f"- Route: {result.prototype_result.route.route}",
+        f"- Route status: {result.prototype_result.route.status}",
+        f"- Structured fact count: {len(result.structured_facts)}",
+        f"- Review question count: {len(result.review_questions)}",
+        "",
+        "## Structured Facts",
+        "",
+        "| Field | Value |",
+        "|---|---|",
+    ]
+    for key, value in sorted(result.structured_facts.items()):
+        lines.append(f"| {key} | {value} |")
+    lines.extend(["", "## Review Questions", ""])
+    if result.review_questions:
+        lines.extend(f"- {question}" for question in result.review_questions)
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
+            "## Boundary",
+            "",
+            "- This adapter accepts fixture-shaped structured facts only.",
+            "- It does not copy raw text, run OCR, include source excerpts, or create private embeddings.",
+            "- The reviewer must confirm the original local document outside this repo before relying on the review pack.",
+        ]
+    )
+    if result.errors:
+        lines.extend(["", "## Errors", ""])
+        lines.extend(f"- {error}" for error in result.errors)
+    return "\n".join(lines) + "\n"
+
+
 def render_local_private_parser_prototype_result(result: LocalPrivateParserPrototypeResult) -> str:
     lines = [
         f"# Local Parser Prototype Result - {result.parser_run_id}",
@@ -573,6 +733,27 @@ def render_local_private_parser_prototype_result(result: LocalPrivateParserProto
         "- Real private file handling remains outside this repo until a separate local-only implementation gate exists.",
     ])
     return "\n".join(lines) + "\n"
+
+
+def _local_fixture_review_questions(
+    adapter_input: LocalFixtureParserAdapterInput,
+    structured_facts: dict[str, Any],
+) -> list[str]:
+    questions = [
+        "Confirm the original local document matches each structured fact before final review.",
+        "Confirm no raw private text is needed to support the draft review-pack route.",
+    ]
+    if adapter_input.expected_domain == "KIFRS1116":
+        questions.extend(
+            [
+                f"Confirm the lease party is correctly identified as {structured_facts.get('party')}.",
+                f"Confirm the lease term evidence supports {structured_facts.get('lease_term')}.",
+                f"Confirm the payment schedule evidence supports {structured_facts.get('payment_schedule')}.",
+            ]
+        )
+    else:
+        questions.append(f"Confirm required facts are sufficient for {adapter_input.expected_domain}.")
+    return questions
 
 
 def render_local_private_parser_adapter_scaffold_run(run: LocalPrivateParserAdapterScaffoldRun) -> str:

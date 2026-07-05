@@ -60,19 +60,19 @@ def build_progress_map() -> dict[str, Any]:
         "goal": "Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
         "milestones": [
             {"id": "RLP1", "name": "parser prototype asset inventory", "status": "completed"},
-            {"id": "RLP2", "name": "local fixture parser adapter", "status": "active_next"},
-            {"id": "RLP3", "name": "deletion automation simulation", "status": "pending"},
+            {"id": "RLP2", "name": "local fixture parser adapter", "status": "completed"},
+            {"id": "RLP3", "name": "deletion automation simulation", "status": "active_next"},
             {"id": "RLP4", "name": "private payload leak tests", "status": "pending"},
             {"id": "RLP5", "name": "local parser prototype close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_RLP2_local_fixture_parser_adapter",
+            "id": "run_RLP3_deletion_automation_simulation",
             "status": "active",
-            "decide": "Implement a local-safe fixture adapter that converts fixture-like input into structured facts and review questions.",
+            "decide": "Implement a deletion/retention simulation gate so parser output cannot close without attestation.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_local_fixture_parser_adapter.py -q",
+            "command": "python -m pytest tests\\test_deletion_automation_simulation.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +97,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RLP2_local_fixture_parser_adapter",
-        "next_command": "python -m pytest tests\\test_local_fixture_parser_adapter.py -q",
+        "next_leaf": "RLP3_deletion_automation_simulation",
+        "next_command": "python -m pytest tests\\test_deletion_automation_simulation.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

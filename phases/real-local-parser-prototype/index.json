@@ -13,7 +13,9 @@
     {
       "step": 2,
       "name": "local-fixture-parser-adapter",
-      "status": "pending"
+      "status": "completed",
+      "summary": "RLP2 added LocalFixtureParserAdapterInput/Result plus run/validate/render helpers in kifrs/feedback/local_parser.py, exported them through kifrs.feedback, and added scripts/local_fixture_parser_adapter.py, tests/test_local_fixture_parser_adapter.py, and docs/reports/2026-07-05-rlp2-local-fixture-parser-adapter.md. The adapter converts fixture-like structured candidates into contract-required facts and 5 review questions, routes to kifrs1116_review_pack, and rejects raw text/OCR/source excerpts/private embeddings.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     },
     {
       "step": 3,

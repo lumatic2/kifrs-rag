@@ -17,9 +17,9 @@ This horizon makes the private parser path more realistic while staying local-on
 
 ### RLP2 — Local Fixture Parser Adapter
 
-- [ ] RLP2.1 — Define adapter input/output contract.
-- [ ] RLP2.2 — Implement structured-facts-only conversion.
-- [ ] RLP2.3 — Add tests and report.
+- [x] RLP2.1 — Define adapter input/output contract.
+- [x] RLP2.2 — Implement structured-facts-only conversion.
+- [x] RLP2.3 — Add tests and report.
 
 ### RLP3 — Deletion Automation Simulation
 

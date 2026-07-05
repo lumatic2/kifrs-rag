@@ -19,12 +19,14 @@ Status: completed
 
 ### RLP2. Local Fixture Parser Adapter
 
-Status: active
+Status: completed
 
 - Deliverable: parser adapter code, tests, `docs/reports/2026-07-05-rlp2-local-fixture-parser-adapter.md`
 - Acceptance: a local fixture-like input becomes structured facts and review questions without copying raw private text.
 
 ### RLP3. Deletion Automation Simulation
+
+Status: active
 
 - Deliverable: deletion simulation gate, tests, `docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md`
 - Acceptance: parser output cannot close until retention/deletion state is attested.
