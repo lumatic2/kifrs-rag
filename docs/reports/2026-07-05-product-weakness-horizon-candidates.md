@@ -10,8 +10,8 @@ Use the next five horizons to close the remaining product weaknesses before pack
 
 | # | Horizon | Weakness Closed | Product Value | Status | First Milestone |
 |---|---|---|---|---|---|
-| 1 | `real-local-parser-prototype` | Local private inputs are still mostly represented by contracts and synthetic parser dry-runs. | Moves the toolkit toward realistic local-file handling while preserving structured-facts-only public output. | active | RLP1 parser prototype asset inventory |
-| 2 | `source-body-ingestion-controlled-lane` | K-IFRS-only evidence is insufficient for real accounting work that also needs interpretive, regulatory, legal, filing, and private facts. | Proves one non-IFRS source lane can be policy-bound, parsed, chunked, retrieved, and reported safely. | planned | SBI1 source class selection and authorization boundary |
+| 1 | `real-local-parser-prototype` | Local private inputs are still mostly represented by contracts and synthetic parser dry-runs. | Moves the toolkit toward realistic local-file handling while preserving structured-facts-only public output. | closed | RLP1 parser prototype asset inventory |
+| 2 | `source-body-ingestion-controlled-lane` | K-IFRS-only evidence is insufficient for real accounting work that also needs interpretive, regulatory, legal, filing, and private facts. | Proves one non-IFRS source lane can be policy-bound, parsed, chunked, retrieved, and reported safely. | active | SBI1 source class selection and authorization boundary |
 | 3 | `workflow-coverage-expansion` | Automation proof is concentrated in a narrow set of standards and review-pack surfaces. | Expands the firm-service map into another testable accountant workflow and updates coverage evidence. | planned | WCE1 coverage gap ranking |
 | 4 | `runtime-retriever-promotion-gate` | The strongest retriever remains opt-in and has not been converted into a reversible product-default decision. | Creates a promote/defer/rollback gate for runtime retrieval quality. | planned | RPG1 promotion evidence inventory |
 | 5 | `operator-experience-hardening` | The toolkit has many scripts and reports, but the operator path is difficult to discover and recover. | Turns the local toolkit into a run, diagnose, navigate, and recover experience. | planned | OEH1 operator command inventory |
@@ -23,8 +23,9 @@ Use the next five horizons to close the remaining product weaknesses before pack
 
 ## Decision
 
-- Keep `real-local-parser-prototype` as the active horizon.
-- Treat horizons 2 through 5 as the next product weakness queue.
+- `real-local-parser-prototype` is closed.
+- Keep `source-body-ingestion-controlled-lane` as the active horizon.
+- Treat horizons 3 through 5 as the remaining product weakness queue.
 - Do not reopen actual outreach or feedback capture unless the user explicitly asks.
 
 ## Machine Result
@@ -33,14 +34,14 @@ Use the next five horizons to close the remaining product weaknesses before pack
 {
   "title": "Product Weakness Horizon Candidates",
   "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
-  "active_horizon": "real-local-parser-prototype",
+  "active_horizon": "source-body-ingestion-controlled-lane",
   "candidates": [
     {
       "order": 1,
       "horizon_id": "real-local-parser-prototype",
       "weakness": "Local private inputs are still mostly represented by contracts and synthetic parser dry-runs.",
       "product_value": "Moves the toolkit toward realistic local-file handling while preserving structured-facts-only public output.",
-      "status": "active",
+      "status": "closed",
       "plan": "docs/plans/2026-07-05-real-local-parser-prototype.md",
       "first_milestone": "RLP1 parser prototype asset inventory"
     },
@@ -49,7 +50,7 @@ Use the next five horizons to close the remaining product weaknesses before pack
       "horizon_id": "source-body-ingestion-controlled-lane",
       "weakness": "K-IFRS-only evidence is insufficient for real accounting work that also needs interpretive, regulatory, legal, filing, and private facts.",
       "product_value": "Proves one non-IFRS source lane can be policy-bound, parsed, chunked, retrieved, and reported safely.",
-      "status": "planned",
+      "status": "active",
       "plan": "docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md",
       "first_milestone": "SBI1 source class selection and authorization boundary"
     },

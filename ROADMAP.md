@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (RLP4 완료, RLP5 시작)
+> 마지막 업데이트: 2026-07-05 (real-local-parser-prototype 완료, source-body-ingestion-controlled-lane 시작)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -34,29 +34,29 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 6. `product-trust-and-quality-evidence` — 완료. 데모 출력의 품질·근거·실패경계·retriever 승격 판단을 제품 표면에 붙인다.
-7. `real-local-parser-prototype` — 현재. synthetic/parser contract를 실제 로컬 parser prototype에 가깝게 확장한다.
-8. `source-body-ingestion-controlled-lane` — 계획됨. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
+7. `real-local-parser-prototype` — 완료. synthetic/parser contract를 실제 로컬 parser prototype에 가깝게 확장했다.
+8. `source-body-ingestion-controlled-lane` — 현재. 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
 9. `workflow-coverage-expansion` — 계획됨. firm-service map 기준으로 자동화 coverage를 새 업무 영역으로 확장한다.
 10. `runtime-retriever-promotion-gate` — 계획됨. opt-in repair retriever를 default로 승격할지 promote/defer/rollback gate로 판단한다.
 11. `operator-experience-hardening` — 계획됨. operator command discovery, run doctor, report manifest, recovery path를 다듬는다.
 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 
-## Current Horizon — real-local-parser-prototype
+## Current Horizon — source-body-ingestion-controlled-lane
 
-<!-- harness:goal id="real-local-parser-prototype" status="active" -->
-`docs/horizons/real-local-parser-prototype.md` — synthetic/parser contract를 실제 로컬 parser prototype에 더 가깝게 확장하되, public repo에는 private payload를 남기지 않는다.
+<!-- harness:goal id="source-body-ingestion-controlled-lane" status="active" -->
+`docs/horizons/source-body-ingestion-controlled-lane.md` — 권한·정책이 있는 비IFRS source-body lane 1개를 controlled RAG 단위로 구현한다.
 
-직전 horizon에서 quality evidence, confidence labels, failure boundary, promotion decision을 닫았다.
-이제 실제 파일 처리에 더 가까운 local parser prototype path를 만든다.
+직전 horizon에서 local-safe fixture parser path, deletion simulation, leak tests, close gate를 닫았다.
+이제 K-IFRS 외 정보원 1개를 policy-bound synthetic ingestion lane으로 만든다.
 
 ## Active Milestones
 
-<!-- harness:milestone id="RLP5" status="active" priority="P0" -->
-### RLP5 — Local Parser Prototype Close Gate
-- DoD: RLP1~RLP4 evidence와 carried trust/runtime gates를 묶어 horizon close 여부를 판정한다.
-- Evidence: `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`; plan `docs/plans/2026-07-05-real-local-parser-prototype.md`
-- Gap: RLP1~RLP4는 개별 통과했지만 horizon close gate가 아직 없다.
+<!-- harness:milestone id="SBI1" status="active" priority="P0" -->
+### SBI1 — Source Class Selection And Authorization Boundary
+- DoD: candidate source classes를 비교하고 하나의 controlled lane을 authorization status, allowed fields, forbidden fields, fallback plan과 함께 선택한다.
+- Evidence: `docs/reports/2026-07-05-sbi1-source-class-selection.md`; plan `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
+- Gap: K-IFRS 외 source-body lane 후보는 있으나, 지금 구현할 source class와 authorization boundary가 확정되지 않았다.
 - Status: [ ]
 
 ## Horizon Milestones
@@ -78,7 +78,12 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 - RLP2 local fixture parser adapter — 완료 (`docs/reports/2026-07-05-rlp2-local-fixture-parser-adapter.md`)
 - RLP3 deletion automation simulation — 완료 (`docs/reports/2026-07-05-rlp3-deletion-automation-simulation.md`)
 - RLP4 private payload leak tests — 완료 (`docs/reports/2026-07-05-rlp4-private-payload-leak-tests.md`)
-- RLP5 local parser prototype close gate — active
+- RLP5 local parser prototype close gate — 완료 (`docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`)
+- SBI1 source class selection and authorization boundary — active
+- SBI2 source body policy record
+- SBI3 synthetic body parser and chunker
+- SBI4 retrieval gate for controlled lane
+- SBI5 controlled lane close gate
 - RPG1 promotion evidence inventory
 - RPG2 regression and latency gate
 - RPG3 failure and rollback policy
@@ -87,7 +92,7 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 ## Closed Horizons
 
-Recent closed horizons are archived in `BACKLOG.md`: firm-facing-product-surface, client-private-parser-runtime, multi-authority-runtime-hardening, non-ifrs-source-dataization, rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
+Recent closed horizons are archived in `BACKLOG.md`: real-local-parser-prototype, firm-facing-product-surface, client-private-parser-runtime, multi-authority-runtime-hardening, non-ifrs-source-dataization, rag-reliability-revalidation, field-feedback-capture, field-feedback-runbook,
 accountant-feedback-incorporation, real-anonymized-transaction-poc, firm-facing-poc-brief,
 toolkit-packaging-readiness, workflow-rebuild, real-case feedback, feedback eval/backlog,
 multi-authority runtime, multi-source ingestion, authority source map, rag quality refresh,
@@ -114,9 +119,9 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** `real-local-parser-prototype` — private parser contract를 실제 로컬 parser prototype 경로로 확장하는 단계.
-계획: `docs/horizons/real-local-parser-prototype.md` →
-`docs/plans/2026-07-05-real-local-parser-prototype.md`.
+**[현재 active]** `source-body-ingestion-controlled-lane` — 비IFRS source-body lane 1개를 controlled RAG 단위로 구현하는 단계.
+계획: `docs/horizons/source-body-ingestion-controlled-lane.md` →
+`docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.

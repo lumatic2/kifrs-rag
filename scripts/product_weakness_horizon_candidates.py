@@ -29,7 +29,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="real-local-parser-prototype",
             weakness="Local private inputs are still mostly represented by contracts and synthetic parser dry-runs.",
             product_value="Moves the toolkit toward realistic local-file handling while preserving structured-facts-only public output.",
-            status="active",
+            status="closed",
             plan="docs/plans/2026-07-05-real-local-parser-prototype.md",
             first_milestone="RLP1 parser prototype asset inventory",
         ),
@@ -38,7 +38,7 @@ def build_candidates() -> dict[str, Any]:
             horizon_id="source-body-ingestion-controlled-lane",
             weakness="K-IFRS-only evidence is insufficient for real accounting work that also needs interpretive, regulatory, legal, filing, and private facts.",
             product_value="Proves one non-IFRS source lane can be policy-bound, parsed, chunked, retrieved, and reported safely.",
-            status="planned",
+            status="active",
             plan="docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md",
             first_milestone="SBI1 source class selection and authorization boundary",
         ),
@@ -73,7 +73,7 @@ def build_candidates() -> dict[str, Any]:
     return {
         "title": "Product Weakness Horizon Candidates",
         "objective": "Use the next five horizons to close the remaining product weaknesses before packaging or external PoC.",
-        "active_horizon": "real-local-parser-prototype",
+        "active_horizon": "source-body-ingestion-controlled-lane",
         "candidates": [asdict(candidate) for candidate in candidates],
         "parked": [
             {
@@ -124,8 +124,9 @@ def render_markdown(result: dict[str, Any]) -> str:
             "",
             "## Decision",
             "",
-            "- Keep `real-local-parser-prototype` as the active horizon.",
-            "- Treat horizons 2 through 5 as the next product weakness queue.",
+            "- `real-local-parser-prototype` is closed.",
+            "- Keep `source-body-ingestion-controlled-lane` as the active horizon.",
+            "- Treat horizons 3 through 5 as the remaining product weakness queue.",
             "- Do not reopen actual outreach or feedback capture unless the user explicitly asks.",
             "",
             "## Machine Result",

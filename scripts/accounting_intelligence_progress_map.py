@@ -53,26 +53,31 @@ def build_progress_map() -> dict[str, Any]:
             "result": "Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload.",
             "evidence": "docs/reports/2026-07-05-client-private-parser-runtime-close-report.md",
         },
+        {
+            "id": "real-local-parser-prototype",
+            "result": "Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate.",
+            "evidence": "docs/reports/2026-07-05-real-local-parser-prototype-close-report.md",
+        },
     ]
     current_horizon = {
-        "id": "real-local-parser-prototype",
+        "id": "source-body-ingestion-controlled-lane",
         "status": "active",
-        "goal": "Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
+        "goal": "Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.",
         "milestones": [
-            {"id": "RLP1", "name": "parser prototype asset inventory", "status": "completed"},
-            {"id": "RLP2", "name": "local fixture parser adapter", "status": "completed"},
-            {"id": "RLP3", "name": "deletion automation simulation", "status": "completed"},
-            {"id": "RLP4", "name": "private payload leak tests", "status": "completed"},
-            {"id": "RLP5", "name": "local parser prototype close gate", "status": "active_next"},
+            {"id": "SBI1", "name": "source class selection and authorization boundary", "status": "active_next"},
+            {"id": "SBI2", "name": "source body policy record", "status": "pending"},
+            {"id": "SBI3", "name": "synthetic body parser and chunker", "status": "pending"},
+            {"id": "SBI4", "name": "retrieval gate for controlled lane", "status": "pending"},
+            {"id": "SBI5", "name": "controlled lane close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "run_RLP5_local_parser_prototype_close_gate",
+            "id": "run_SBI1_source_class_selection",
             "status": "active",
-            "decide": "Close the local parser prototype horizon by tying RLP1-RLP4 evidence to carried trust/runtime gates.",
+            "decide": "Select one controlled non-IFRS source class and document authorization boundary, allowed fields, forbidden fields, and fallback plan.",
             "blocker": "none",
-            "command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q",
+            "command": "python -m pytest tests\\test_source_class_selection.py -q",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -97,8 +102,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "RLP5_local_parser_prototype_close_gate",
-        "next_command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q",
+        "next_leaf": "SBI1_source_class_selection",
+        "next_command": "python -m pytest tests\\test_source_class_selection.py -q",
         "report_path": _display_path(REPORT_PATH),
     }
 

@@ -34,7 +34,9 @@
     {
       "step": 5,
       "name": "local-parser-prototype-close-gate",
-      "status": "pending"
+      "status": "completed",
+      "summary": "RLP5 added scripts/real_local_parser_prototype_close_gate.py, tests/test_real_local_parser_prototype_close_gate.py, and docs/reports/2026-07-05-real-local-parser-prototype-close-report.md. It closes the horizon by tying RLP1 asset inventory, RLP2 fixture adapter, RLP3 deletion simulation, RLP4 leak tests, product trust close, and client-private runtime close; next horizon is source-body-ingestion-controlled-lane.",
+      "completed_at": "2026-07-05T00:00:00+09:00"
     }
   ]
 }

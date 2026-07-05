@@ -20,7 +20,7 @@ and operator usability. The next horizons should close those gaps in dependency 
   private payload.
 - Milestones: RLP1 asset inventory, RLP2 local fixture adapter, RLP3 deletion simulation, RLP4 leak tests,
   RLP5 close gate.
-- Status: active.
+- Status: closed.
 - Plan: `docs/plans/2026-07-05-real-local-parser-prototype.md`.
 
 ### 2. `source-body-ingestion-controlled-lane`
@@ -31,7 +31,7 @@ and operator usability. The next horizons should close those gaps in dependency 
   explicit authority/storage policy.
 - Milestones: SBI1 source selection, SBI2 policy record, SBI3 synthetic parser/chunker, SBI4 retrieval gate,
   SBI5 close gate.
-- Status: planned.
+- Status: active.
 - Plan: `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`.
 
 ### 3. `workflow-coverage-expansion`
@@ -77,7 +77,7 @@ and operator usability. The next horizons should close those gaps in dependency 
 
 ## Decision Log
 
-- The active next horizon remains `real-local-parser-prototype`.
+- The active next horizon is now `source-body-ingestion-controlled-lane`.
 - `real-accountant-session` stays parked until the user explicitly reopens actual outreach or feedback capture.
 - No protected K-IFRS text, private client payload, source body, parsed database, embedding dump, dogfood
   material, or secret is introduced by this queue.

@@ -94,6 +94,10 @@
     },
     {
       "dir": "real-local-parser-prototype",
+      "status": "completed"
+    },
+    {
+      "dir": "source-body-ingestion-controlled-lane",
       "status": "active"
     },
     {

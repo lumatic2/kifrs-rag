@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `real-local-parser-prototype`
+- Horizon: `source-body-ingestion-controlled-lane`
 - Status: active
-- Goal: Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.
+- Goal: Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.
 
 | Milestone | Name | Status |
 |---|---|---|
-| RLP1 | parser prototype asset inventory | completed |
-| RLP2 | local fixture parser adapter | completed |
-| RLP3 | deletion automation simulation | completed |
-| RLP4 | private payload leak tests | completed |
-| RLP5 | local parser prototype close gate | active_next |
+| SBI1 | source class selection and authorization boundary | active_next |
+| SBI2 | source body policy record | pending |
+| SBI3 | synthetic body parser and chunker | pending |
+| SBI4 | retrieval gate for controlled lane | pending |
+| SBI5 | controlled lane close gate | pending |
 
 ## Completed Capability Chain
 
@@ -35,6 +35,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 | client-private intake/local parser | Defined local-only private intake, redaction, parser dry-run, deletion attestation, and adapter plan boundaries. | `docs/reports/2026-07-05-local-parser-real-adapter-implementation-plan.md` |
 | multi-authority-runtime-hardening | Connected K-IFRS primary, supporting, legal, fact, and client-private placeholder evidence across runtime, review packs, statement draft, analytics, and close gate. | `docs/reports/2026-07-05-multi-authority-runtime-hardening-close-report.md` |
 | client-private-parser-runtime | Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload. | `docs/reports/2026-07-05-client-private-parser-runtime-close-report.md` |
+| real-local-parser-prototype | Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate. | `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md` |
 
 ## Automation Snapshot
 
@@ -47,7 +48,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| run_RLP5_local_parser_prototype_close_gate | active | none | `python -m pytest tests\test_real_local_parser_prototype_close_gate.py -q` |
+| run_SBI1_source_class_selection | active | none | `python -m pytest tests\test_source_class_selection.py -q` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -60,8 +61,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `RLP5_local_parser_prototype_close_gate`
-- command: `python -m pytest tests\test_real_local_parser_prototype_close_gate.py -q`
+- decision: `SBI1_source_class_selection`
+- command: `python -m pytest tests\test_source_class_selection.py -q`
 
 ## Machine Result
 
@@ -70,34 +71,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "real-local-parser-prototype",
+    "id": "source-body-ingestion-controlled-lane",
     "status": "active",
-    "goal": "Move the private parser contract toward a realistic local parser prototype while preserving the no-public-private-payload boundary.",
+    "goal": "Implement one controlled non-IFRS source-body ingestion lane with authorization, policy, parser/chunker, retrieval, and public-safe close gates.",
     "milestones": [
       {
-        "id": "RLP1",
-        "name": "parser prototype asset inventory",
-        "status": "completed"
-      },
-      {
-        "id": "RLP2",
-        "name": "local fixture parser adapter",
-        "status": "completed"
-      },
-      {
-        "id": "RLP3",
-        "name": "deletion automation simulation",
-        "status": "completed"
-      },
-      {
-        "id": "RLP4",
-        "name": "private payload leak tests",
-        "status": "completed"
-      },
-      {
-        "id": "RLP5",
-        "name": "local parser prototype close gate",
+        "id": "SBI1",
+        "name": "source class selection and authorization boundary",
         "status": "active_next"
+      },
+      {
+        "id": "SBI2",
+        "name": "source body policy record",
+        "status": "pending"
+      },
+      {
+        "id": "SBI3",
+        "name": "synthetic body parser and chunker",
+        "status": "pending"
+      },
+      {
+        "id": "SBI4",
+        "name": "retrieval gate for controlled lane",
+        "status": "pending"
+      },
+      {
+        "id": "SBI5",
+        "name": "controlled lane close gate",
+        "status": "pending"
       }
     ]
   },
@@ -136,15 +137,20 @@ Prove how far accountant work can be automated, then package that proof as a loc
       "id": "client-private-parser-runtime",
       "result": "Added structured-facts-only private parser runtime contract, client_private_fact adapter, deletion close gate, and close demo without public private payload.",
       "evidence": "docs/reports/2026-07-05-client-private-parser-runtime-close-report.md"
+    },
+    {
+      "id": "real-local-parser-prototype",
+      "result": "Closed a local-safe fixture parser path with asset inventory, fixture adapter, deletion simulation, leak tests, and close gate.",
+      "evidence": "docs/reports/2026-07-05-real-local-parser-prototype-close-report.md"
     }
   ],
   "open_decisions": [
     {
-      "id": "run_RLP5_local_parser_prototype_close_gate",
+      "id": "run_SBI1_source_class_selection",
       "status": "active",
-      "decide": "Close the local parser prototype horizon by tying RLP1-RLP4 evidence to carried trust/runtime gates.",
+      "decide": "Select one controlled non-IFRS source class and document authorization boundary, allowed fields, forbidden fields, and fallback plan.",
       "blocker": "none",
-      "command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q"
+      "command": "python -m pytest tests\\test_source_class_selection.py -q"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -167,8 +173,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "RLP5_local_parser_prototype_close_gate",
-  "next_command": "python -m pytest tests\\test_real_local_parser_prototype_close_gate.py -q",
+  "next_leaf": "SBI1_source_class_selection",
+  "next_command": "python -m pytest tests\\test_source_class_selection.py -q",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

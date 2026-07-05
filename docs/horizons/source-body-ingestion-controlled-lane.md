@@ -1,6 +1,6 @@
 # Horizon: Source Body Ingestion Controlled Lane
 
-> Status: planned
+> Status: active
 > Created: 2026-07-05
 > Previous: `docs/horizons/real-local-parser-prototype.md`
 
@@ -11,6 +11,8 @@ Implement one controlled non-IFRS source-body ingestion lane with explicit autho
 ## Milestones
 
 ### SBI1. Source Class Selection And Authorization Boundary
+
+Status: active
 
 - Deliverable: `docs/reports/2026-07-05-sbi1-source-class-selection.md`
 - Acceptance: one source class is selected with authorization status, allowed fields, forbidden fields, and fallback plan.

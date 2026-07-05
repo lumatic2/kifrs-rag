@@ -1,6 +1,6 @@
 # Horizon: Real Local Parser Prototype
 
-> Status: active
+> Status: closed
 > Created: 2026-07-05
 > Previous: `docs/horizons/product-trust-and-quality-evidence.md`
 
@@ -40,10 +40,16 @@ Status: completed
 
 ### RLP5. Local Parser Prototype Close Gate
 
-Status: active
+Status: completed
 
 - Deliverable: close gate script, tests, `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`
 - Acceptance: prototype path is demonstrable with synthetic/local-safe fixtures and no public private payload.
+
+## Close Result
+
+- Closed: 2026-07-05
+- Close report: `docs/reports/2026-07-05-real-local-parser-prototype-close-report.md`
+- Next horizon: `source-body-ingestion-controlled-lane`
 
 ## Decision Log
 

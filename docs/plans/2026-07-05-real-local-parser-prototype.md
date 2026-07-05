@@ -35,9 +35,9 @@ This horizon makes the private parser path more realistic while staying local-on
 
 ### RLP5 — Local Parser Prototype Close Gate
 
-- [ ] RLP5.1 — Implement close gate.
-- [ ] RLP5.2 — Run carried trust/runtime regressions.
-- [ ] RLP5.3 — Close horizon.
+- [x] RLP5.1 — Implement close gate.
+- [x] RLP5.2 — Run carried trust/runtime regressions.
+- [x] RLP5.3 — Close horizon.
 
 ## Decision Log
 

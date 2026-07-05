@@ -1,0 +1,32 @@
+{
+  "project": "kifrs-rag",
+  "phase": "source-body-ingestion-controlled-lane",
+  "mode": "product",
+  "steps": [
+    {
+      "step": 1,
+      "name": "source-class-selection-and-authorization-boundary",
+      "status": "pending"
+    },
+    {
+      "step": 2,
+      "name": "source-body-policy-record",
+      "status": "pending"
+    },
+    {
+      "step": 3,
+      "name": "synthetic-body-parser-and-chunker",
+      "status": "pending"
+    },
+    {
+      "step": 4,
+      "name": "retrieval-gate-for-controlled-lane",
+      "status": "pending"
+    },
+    {
+      "step": 5,
+      "name": "controlled-lane-close-gate",
+      "status": "pending"
+    }
+  ]
+}

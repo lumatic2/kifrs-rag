@@ -87,8 +87,8 @@
 4. `client-private-parser-runtime` — 완료. 계약서/TB/회계정책서 같은 로컬 private 파일 parser와 deletion/runtime gate.
 5. `firm-facing-product-surface` — 완료. 회계법인에 보여줄 demo surface, operator UX, install/readiness 패키지.
 6. `product-trust-and-quality-evidence` — 완료. 품질 증거, confidence label, failure boundary, retriever promotion decision.
-7. `real-local-parser-prototype` — 현재. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
-8. `source-body-ingestion-controlled-lane` — 계획됨. controlled non-IFRS source-body ingestion lane.
+7. `real-local-parser-prototype` — 완료. 실제 로컬 parser prototype에 가까운 synthetic/local-safe 경로.
+8. `source-body-ingestion-controlled-lane` — 현재. controlled non-IFRS source-body ingestion lane.
 9. `workflow-coverage-expansion` — 계획됨. service map 기반 업무 coverage 확장.
 10. `runtime-retriever-promotion-gate` — 계획됨. opt-in repair retriever의 default 승격 여부를 promote/defer/rollback gate로 판단.
 11. `operator-experience-hardening` — 계획됨. local operator UX, run doctor, manifest, recovery.
@@ -105,8 +105,9 @@
 최근 완료 horizon 상세: `docs/horizons/firm-facing-product-surface.md`
 최근 완료 milestone plan: `docs/plans/2026-07-05-firm-facing-product-surface.md`
 최근 완료 horizon 상세: `docs/horizons/product-trust-and-quality-evidence.md`
-현재 horizon 상세: `docs/horizons/real-local-parser-prototype.md`
-현재 milestone plan: `docs/plans/2026-07-05-real-local-parser-prototype.md`
+최근 완료 horizon 상세: `docs/horizons/real-local-parser-prototype.md`
+현재 horizon 상세: `docs/horizons/source-body-ingestion-controlled-lane.md`
+현재 milestone plan: `docs/plans/2026-07-05-source-body-ingestion-controlled-lane.md`
 제품 약점 후보 queue: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-capture.md`
 최근 완료 horizon 상세: `docs/horizons/field-feedback-runbook.md`
