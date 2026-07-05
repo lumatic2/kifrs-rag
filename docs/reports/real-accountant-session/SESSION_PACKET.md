@@ -22,6 +22,7 @@
 | `2026-07-05-pre-send-final-gate.md` | 실제 초대 발송 직전 repo-side readiness와 pre-send boundary 최종 검증 |
 | `2026-07-05-after-send-action-matrix.md` | 초대 발송 후 follow-up/schedule/decline 선택지별 ledger 전이와 다음 액션 검증 |
 | `2026-07-05-notes-quality-gate.md` | actual notes가 capture/queue/eval 후보로 충분한 품질인지 검증 |
+| `2026-07-05-post-session-final-gate.md` | notes safety/quality→capture→actual manifest→completed copied ledger close까지 최종 검증 |
 | `2026-07-05-close-state-matrix.md` | ready/actual manifest와 outreach 상태 조합별 close 가능 여부 matrix |
 | `session_manifest.json` | 세션 준비 상태와 실제 evidence 여부 |
 
@@ -126,6 +127,7 @@ checker가 통과한 actual notes는 아래 명령으로 capture pipeline에 넣
 `capture-manifest.json`, `feedback-queue.jsonl`, `capture-report.md`, `feedback-queue-report.md`를 쓴다.
 
 ```powershell
+python scripts\real_accountant_post_session_final_gate.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md
 python scripts\real_accountant_capture.py --notes docs\reports\real-accountant-session\actual-feedback-notes.md --out docs\reports\real-accountant-session
 ```
 
