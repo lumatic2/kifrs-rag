@@ -4,7 +4,7 @@
 
 ## One-Line Position
 
-The active product weakness queue is closed; the next move should be a new integration horizon decision.
+The active horizon is end-to-end-demo-scenario; E2E1 is complete and the next move is E2E2 scenario contract.
 
 ## Objective
 
@@ -12,17 +12,17 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Current Horizon
 
-- Horizon: `product-weakness-queue-closed`
-- Status: closed
-- Goal: The five-horizon product weakness queue is complete; select the next objective or integration horizon explicitly.
+- Horizon: `end-to-end-demo-scenario`
+- Status: active
+- Goal: Turn the completed product weakness chain into one public-safe firm-facing demo scenario.
 
 | Milestone | Name | Status |
 |---|---|---|
-| RLP | real local parser prototype | completed |
-| SBI | controlled source lane | completed |
-| WCE | workflow coverage expansion | completed |
-| RPG | runtime retriever promotion gate | completed |
-| OEH | operator experience hardening | completed |
+| E2E1 | demo asset inventory and storyboard | completed |
+| E2E2 | scenario contract | active |
+| E2E3 | demo packet builder | pending |
+| E2E4 | demo smoke and navigation gate | pending |
+| E2E5 | horizon close gate | pending |
 
 ## Completed Capability Chain
 
@@ -52,7 +52,7 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 | Decision | Status | Blocker | Command |
 |---|---|---|---|
-| select_next_integration_horizon | pending_user_or_next_plan | none | `python scripts\product_weakness_horizon_candidates.py --format text` |
+| run_end_to_end_demo_scenario | active_horizon | none | `python scripts\e2e_demo_asset_inventory.py --format text --write` |
 | approve_default_retriever_promotion | deferred_until_eval_evidence_and_authorization | stronger evaluation evidence and explicit authorization are missing | `python scripts\default_retriever_guard.py --format text` |
 
 ## Remaining Gaps
@@ -65,8 +65,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
 
 ## Next Leaf
 
-- decision: `none_product_weakness_queue_closed`
-- command: `python scripts\product_weakness_horizon_candidates.py --format text`
+- decision: `E2E2_scenario_contract`
+- command: `python scripts\e2e_scenario_contract.py --format text --write`
 
 ## Machine Result
 
@@ -75,34 +75,34 @@ Prove how far accountant work can be automated, then package that proof as a loc
   "title": "Accounting Intelligence Progress Map",
   "objective": "Prove how far accountant work can be automated, then package that proof as a local toolkit for firm PoC.",
   "current_horizon": {
-    "id": "product-weakness-queue-closed",
-    "status": "closed",
-    "goal": "The five-horizon product weakness queue is complete; select the next objective or integration horizon explicitly.",
+    "id": "end-to-end-demo-scenario",
+    "status": "active",
+    "goal": "Turn the completed product weakness chain into one public-safe firm-facing demo scenario.",
     "milestones": [
       {
-        "id": "RLP",
-        "name": "real local parser prototype",
+        "id": "E2E1",
+        "name": "demo asset inventory and storyboard",
         "status": "completed"
       },
       {
-        "id": "SBI",
-        "name": "controlled source lane",
-        "status": "completed"
+        "id": "E2E2",
+        "name": "scenario contract",
+        "status": "active"
       },
       {
-        "id": "WCE",
-        "name": "workflow coverage expansion",
-        "status": "completed"
+        "id": "E2E3",
+        "name": "demo packet builder",
+        "status": "pending"
       },
       {
-        "id": "RPG",
-        "name": "runtime retriever promotion gate",
-        "status": "completed"
+        "id": "E2E4",
+        "name": "demo smoke and navigation gate",
+        "status": "pending"
       },
       {
-        "id": "OEH",
-        "name": "operator experience hardening",
-        "status": "completed"
+        "id": "E2E5",
+        "name": "horizon close gate",
+        "status": "pending"
       }
     ]
   },
@@ -170,11 +170,11 @@ Prove how far accountant work can be automated, then package that proof as a loc
   ],
   "open_decisions": [
     {
-      "id": "select_next_integration_horizon",
-      "status": "pending_user_or_next_plan",
-      "decide": "Choose the next integration horizon, likely end-to-end demo scenario or packaging readiness, after reviewing the closed product weakness queue.",
+      "id": "run_end_to_end_demo_scenario",
+      "status": "active_horizon",
+      "decide": "Build the public-safe demo inventory, contract, packet, smoke gate, and close report.",
       "blocker": "none",
-      "command": "python scripts\\product_weakness_horizon_candidates.py --format text"
+      "command": "python scripts\\e2e_demo_asset_inventory.py --format text --write"
     },
     {
       "id": "approve_default_retriever_promotion",
@@ -197,8 +197,8 @@ Prove how far accountant work can be automated, then package that proof as a loc
     "opt-in retriever promotion decision gate and default retriever guard are present, but default retriever change remains deferred until stronger evaluation evidence and explicit authorization",
     "firm-facing brief and toolkit packaging docs exist, but the repo is still closer to an internal toolkit than a finished user-facing product"
   ],
-  "next_leaf": "none_product_weakness_queue_closed",
-  "next_command": "python scripts\\product_weakness_horizon_candidates.py --format text",
+  "next_leaf": "E2E2_scenario_contract",
+  "next_command": "python scripts\\e2e_scenario_contract.py --format text --write",
   "report_path": "docs/reports/2026-07-05-accounting-intelligence-progress-map.md"
 }
 ```

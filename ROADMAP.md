@@ -1,6 +1,6 @@
 # kifrs-rag ROADMAP
 
-> 마지막 업데이트: 2026-07-05 (OEH5 완료, 제품 약점 5-horizon queue 종료)
+> 마지막 업데이트: 2026-07-05 (E2E1 완료, E2E2 active)
 > "회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하는 로컬 도구킷 프로덕트 (`docs/OBJECTIVE.md`). 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관.
 > 완료 이력(Phase 1~4 + M1~M5) → **`BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
@@ -42,18 +42,49 @@ K-IFRS 기준서를 프로그램적으로 조회할 공식 API/MCP 부재. 빅4 
 
 제품 약점 기준 재정렬: `docs/plans/2026-07-05-product-weakness-horizon-candidates.md`
 
-## Current Horizon — product weakness queue closed
+## Current Horizon — end-to-end-demo-scenario
 
-<!-- harness:goal id="product-weakness-queue" status="closed" -->
-`docs/plans/2026-07-05-product-weakness-horizon-candidates.md` — 제품 약점 5-horizon queue가 완료됐다.
+<!-- harness:goal id="end-to-end-demo-scenario" status="active" -->
+`docs/horizons/end-to-end-demo-scenario.md` — 닫힌 제품 약점 chain을 회계법인에 설명 가능한 한 번의 public-safe end-to-end demo 흐름으로 묶는다.
 
-닫힌 queue: real-local-parser-prototype → source-body-ingestion-controlled-lane →
-workflow-coverage-expansion → runtime-retriever-promotion-gate → operator-experience-hardening.
-다음 작업은 별도 integration/demo/packaging horizon으로 새로 정해야 한다.
+범위: parser → controlled source lane → workflow adapter → retriever promotion/defer → operator run/recover를 하나의 demo storyboard, contract, packet, smoke gate로 연결한다.
 
 ## Active Milestones
 
-No active milestone. The current five-horizon product weakness queue is closed.
+<!-- harness:milestone id="E2E1" status="completed" priority="P0" -->
+### E2E1 — Demo Asset Inventory And Storyboard
+DoD: required public-safe reports are inventoried, ordered into one demo story, and checked for protected-data boundaries.
+Evidence: `docs/reports/2026-07-05-e2e1-demo-asset-inventory.md`
+Gap: Closed by E2E1 inventory script/tests/report.
+Status: [x]
+
+<!-- harness:milestone id="E2E2" status="active" priority="P0" -->
+### E2E2 — Scenario Contract
+DoD: demo stages have input, evidence, output, review checkpoint, operator command, and failure boundary.
+Evidence: `docs/reports/2026-07-05-e2e2-scenario-contract.md`
+Gap: Need script/tests/report for stage-level contract.
+Status: [ ]
+
+<!-- harness:milestone id="E2E3" status="pending" priority="P0" -->
+### E2E3 — Demo Packet Builder
+DoD: one ordered packet/index lets an operator follow the demo without reading ROADMAP internals.
+Evidence: `docs/reports/end-to-end-demo/INDEX.md`
+Gap: Pending E2E2 contract.
+Status: [ ]
+
+<!-- harness:milestone id="E2E4" status="pending" priority="P0" -->
+### E2E4 — Demo Smoke And Navigation Gate
+DoD: packet links, public-safety checks, and missing-report failure path pass.
+Evidence: `docs/reports/2026-07-05-e2e4-demo-smoke-gate.md`
+Gap: Pending E2E3 packet.
+Status: [ ]
+
+<!-- harness:milestone id="E2E5" status="pending" priority="P0" -->
+### E2E5 — Horizon Close Gate
+DoD: E2E1~E2E4 evidence is combined into demo-ready/partial/blocked close result and next horizon handoff.
+Evidence: `docs/reports/2026-07-05-end-to-end-demo-scenario-close-report.md`
+Gap: Pending E2E4 smoke.
+Status: [ ]
 
 ## Horizon Milestones
 
@@ -125,14 +156,13 @@ automation-expansion, practice-map, workflow-automation.
 
 > 현재 상태·다음 할 일 상세는 **`CLAUDE.local.md`** (gitignored handoff).
 
-**[현재 active]** 없음 — 제품 약점 5-horizon queue 완료.
-다음 후보는 새 integration horizon으로 별도 계획한다.
+**[현재 active]** `end-to-end-demo-scenario` / E2E1 — 제품 약점 chain을 한 번의 데모 흐름으로 묶는다.
 
 **[Objective 재정의 2026-07-04]** 프로덕트 지향(법인 소개/PoC가 성공 모습, 로컬 도구킷) — `docs/OBJECTIVE.md`.
 horizon 경로: ~~업무 지도~~ ✅ → ~~자동화 확장~~ ✅ → ~~회계법인 서비스라인 지도~~ ✅ → ~~F-ACC sequence~~ ✅ → `Accounting Intelligence Expansion` 진행 중.
 
 **[paused horizon 후보]** RO2(멀티 쿼리 분해), RGA2/RGA3(`rag-agent-integration`).
-**[parked integration 후보]** `end-to-end-demo-scenario` — 위 5개 제품 약점 horizon을 닫은 뒤 통합 데모로 판단.
+**[진행 중 integration]** `end-to-end-demo-scenario` — 위 5개 제품 약점 horizon을 닫은 뒤 통합 데모로 승격.
 
 **[콘텐츠 축]** 1116 리스 10/10 완료, 1113(공정가치)·1019(확정급여) entry 완료.
 

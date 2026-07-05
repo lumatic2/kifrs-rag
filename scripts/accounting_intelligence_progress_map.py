@@ -80,24 +80,24 @@ def build_progress_map() -> dict[str, Any]:
         },
     ]
     current_horizon = {
-        "id": "product-weakness-queue-closed",
-        "status": "closed",
-        "goal": "The five-horizon product weakness queue is complete; select the next objective or integration horizon explicitly.",
+        "id": "end-to-end-demo-scenario",
+        "status": "active",
+        "goal": "Turn the completed product weakness chain into one public-safe firm-facing demo scenario.",
         "milestones": [
-            {"id": "RLP", "name": "real local parser prototype", "status": "completed"},
-            {"id": "SBI", "name": "controlled source lane", "status": "completed"},
-            {"id": "WCE", "name": "workflow coverage expansion", "status": "completed"},
-            {"id": "RPG", "name": "runtime retriever promotion gate", "status": "completed"},
-            {"id": "OEH", "name": "operator experience hardening", "status": "completed"},
+            {"id": "E2E1", "name": "demo asset inventory and storyboard", "status": "completed"},
+            {"id": "E2E2", "name": "scenario contract", "status": "active"},
+            {"id": "E2E3", "name": "demo packet builder", "status": "pending"},
+            {"id": "E2E4", "name": "demo smoke and navigation gate", "status": "pending"},
+            {"id": "E2E5", "name": "horizon close gate", "status": "pending"},
         ],
     }
     decisions = [
         {
-            "id": "select_next_integration_horizon",
-            "status": "pending_user_or_next_plan",
-            "decide": "Choose the next integration horizon, likely end-to-end demo scenario or packaging readiness, after reviewing the closed product weakness queue.",
+            "id": "run_end_to_end_demo_scenario",
+            "status": "active_horizon",
+            "decide": "Build the public-safe demo inventory, contract, packet, smoke gate, and close report.",
             "blocker": "none",
-            "command": "python scripts\\product_weakness_horizon_candidates.py --format text",
+            "command": "python scripts\\e2e_demo_asset_inventory.py --format text --write",
         },
         {
             "id": "approve_default_retriever_promotion",
@@ -122,8 +122,8 @@ def build_progress_map() -> dict[str, Any]:
         "remaining_gaps": [
             item for item in gap.remaining_gaps if "external accountant" not in item.lower()
         ],
-        "next_leaf": "none_product_weakness_queue_closed",
-        "next_command": "python scripts\\product_weakness_horizon_candidates.py --format text",
+        "next_leaf": "E2E2_scenario_contract",
+        "next_command": "python scripts\\e2e_scenario_contract.py --format text --write",
         "report_path": _display_path(REPORT_PATH),
     }
 
@@ -138,7 +138,7 @@ def render_markdown(progress: dict[str, Any]) -> str:
         "",
         "## One-Line Position",
         "",
-        "The active product weakness queue is closed; the next move should be a new integration horizon decision.",
+        "The active horizon is end-to-end-demo-scenario; E2E1 is complete and the next move is E2E2 scenario contract.",
         "",
         "## Objective",
         "",

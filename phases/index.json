@@ -113,6 +113,10 @@
       "status": "completed"
     },
     {
+      "dir": "end-to-end-demo-scenario",
+      "status": "active"
+    },
+    {
       "dir": "real-accountant-session",
       "status": "parked"
     }
