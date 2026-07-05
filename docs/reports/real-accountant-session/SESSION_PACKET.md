@@ -19,6 +19,7 @@
 | `2026-07-05-invite-receipt-apply.md` | 채워진 receipt 검증 후 ledger sent update를 적용하는 명령 |
 | `2026-07-05-post-send-rehearsal-gate.md` | receipt 검증 후 sent ledger 전이를 임시 파일로 rehearsal |
 | `2026-07-05-session-evidence-template.md` | 세션 후 public-safe notes 기록 템플릿 |
+| `../2026-07-05-accounting-intelligence-progress-map.md` | objective/horizon/milestone/decision 현재 위치 요약 |
 | `../2026-07-05-accounting-intelligence-next-action.md` | 가장 먼저 할 사용자 결정과 실행 명령만 요약 |
 | `../2026-07-05-accounting-intelligence-next-action-sequence-gate.md` | next-action command/after/verify 순서 일관성 검증 |
 | `../2026-07-05-accounting-intelligence-decision-queue.md` | 지금 사용자가 결정해야 할 항목과 추천 다음 결정 |
@@ -75,6 +76,7 @@
 
 ```powershell
 python scripts\real_accountant_status.py
+python scripts\accounting_intelligence_progress_map.py --format text --write
 python scripts\accounting_intelligence_next_action.py --format text --write
 python scripts\accounting_intelligence_next_action_sequence_gate.py --format text --write
 python scripts\accounting_intelligence_decision_queue.py --format text --write

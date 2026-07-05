@@ -18,6 +18,7 @@ def test_build_run_sheet_extracts_packet_and_runbook_items() -> None:
     assert any("demo_poc.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_invite_dispatch_gate.py" in command for command in sheet["preflight_commands"])
     assert any("real_accountant_readiness_index.py" in command for command in sheet["preflight_commands"])
+    assert any("accounting_intelligence_progress_map.py" in command for command in sheet["preflight_commands"])
     assert any("accounting_intelligence_next_action.py" in command for command in sheet["preflight_commands"])
     assert any("accounting_intelligence_next_action_sequence_gate.py" in command for command in sheet["preflight_commands"])
     assert any("accounting_intelligence_decision_queue.py" in command for command in sheet["preflight_commands"])

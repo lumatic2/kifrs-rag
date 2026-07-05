@@ -31,3 +31,4 @@
 | 27 | `20260705-next-action-apply-after` | 2026-07-05 | route next-action after step through receipt apply | 4/4 | completed |
 | 28 | `20260705-filled-receipt-guide` | 2026-07-05 | operator guide for filling post-send receipt | 4/4 | completed |
 | 29 | `20260705-default-retriever-guard` | 2026-07-05 | code guard that keeps repair retriever opt-in | 4/4 | completed |
+| 30 | `20260705-progress-map` | 2026-07-05 | objective horizon progress map for operator clarity | 4/4 | completed |
