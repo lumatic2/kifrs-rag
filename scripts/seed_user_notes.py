@@ -120,6 +120,23 @@ SEEDS = [
         "45",
         "type=term_bridge; trigger=리스 범위를 좁히는; expansion=리스변경 별도 리스 아님 리스 범위 감소 사용권자산 장부금액 감소 손익 인식; source=hard-miss-q029; rationale=Q029 misses 1116-45 while already finding 1116-46; this bridge recovers the scope-decrease lease modification paragraph",
     ),
+    # H4 issue-back IB1 (2026-07-12): docs/horizons/h4-issue-back-repair.md
+    # ai-accounting-firm RCPS 실험(mcp-log #5/#7/#11)에서 확인된 실무용어↔본문어휘 불일치.
+    (
+        "1001",
+        "한138.5",
+        "type=term_bridge; trigger=리픽싱; expansion=행사가격이 조정되는 조건; 주가 변동; 전환권; 신주인수권; 전환가격 조정; 금융부채 분류 주석 공시; source=h4-issue-back-ib1; rationale=리픽싱은 1001 BC(1#4)에만 존재하고 실체 규정 한138.5 본문 어휘는 '행사가격이 조정되는 조건' — hybrid/semantic 미도달(mcp-log #7)",
+    ),
+    (
+        "1001",
+        "한138.5",
+        "type=term_bridge; trigger=리픽셔닝; expansion=리픽싱; 행사가격이 조정되는 조건; 주가 변동; 전환권; 신주인수권; source=h4-issue-back-ib1; rationale=리픽싱의 표기 변형(mcp-log #7 실제 쿼리) — 변형어도 같은 문단으로 브리지",
+    ),
+    (
+        "1032",
+        "16",
+        "type=term_bridge; trigger=고정 대 고정; expansion=확정 수량; 확정 금액; 자기지분상품; 교환; 지분상품 조건; source=h4-issue-back-ib1; rationale='고정 대 고정(fixed-for-fixed)'은 1032 본문에 없음(mcp-log #5) — 기준서 표현은 확정 수량·확정 금액(1032-16)",
+    ),
 ]
 
 
