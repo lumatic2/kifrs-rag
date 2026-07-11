@@ -2,6 +2,19 @@
 
 > Compressed milestone archive. ROADMAP.md is capped at 150 lines.
 
+## Issue-back Queue (ai-accounting-firm 실소비에서 돌아온 결함 — 새 horizon의 유일한 입력, 2026-07-12 규칙)
+
+### 2026-07-12 — H4 RCPS 검토메모 실험 (첫 실소비, 원본: `~/projects/ai-accounting-firm/docs/cases/2026-07-12-facc-rcps-memo/mcp-log.md`)
+
+1. **[중요] 리픽싱 계열 검색 실패** — 정답(1001-한138.5/한BC104.1)이 실재함에도 hybrid/semantic이 반복 실패,
+   `search("리픽싱", mode=lexical, 필터 없음)`로만 도달. 원인 복합: ① 실무 용어가 1032가 아닌 1001 BC에만 존재
+   (기존 한계 #1 재확인 — "고정 대 고정"도 본문 부재 확인) ② standard 필터가 cross-standard 정답을 차단.
+   개선 후보: user_note/term_bridge에 "리픽싱↔행사가격 조정", "고정 대 고정↔확정 수량·확정 금액" 등록,
+   낮은 신뢰도 시 필터 해제 재검색 안내. **이 수리가 f-acc-task-01의 ax_possible 승격 조건.**
+2. **[중간] BC(결론도출근거) 문단 단위 과대** — 1001 BC가 통짜 문단(수만 자)으로 반환돼 토큰 낭비.
+   세분화 재파싱 또는 스니펫 반환 옵션.
+3. **[경미] `list_sections` 섹션 제목 파싱 깨짐** — "는 금융상품", "택권" 등 잘린 제목 반환. 문단 번호는 정상.
+
 ## Completed
 
 ### 2026-07-05 — Firm-Facing Product Surface
