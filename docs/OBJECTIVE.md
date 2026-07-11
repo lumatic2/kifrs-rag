@@ -1,18 +1,19 @@
 # Objective
 
-> Created: 2026-07-03 · **Redefined: 2026-07-04** (프로덕트 지향 전환 — 아래 결정 이력 참조)
+> Created: 2026-07-03 · Redefined: 2026-07-04 (프로덕트 지향) · **Redefined: 2026-07-12**
+> (지식 엔진 재정렬 — 비전 전체는 sibling `~/projects/ai-firm`으로 이관, 아래 결정 이력 참조)
 > Status: active
 
 ## North star
 
-**"회계사 업무를 AI로 어디까지 자동화할 수 있는가"에 실증으로 답하고, 그 답을 회계법인에
-소개 가능한 프로덕트로 만든다.**
+**가상 회계법인 AX 프로젝트(`~/projects/ai-firm`)의 K-IFRS 지식 엔진으로서, 실무자 단위 AX
+실험이 요구하는 수준의 고품질·고신뢰 검색과 결정준비 초안 산출을 제공한다.**
 
-이 레포의 출발 질문: 실제 K-IFRS·실무 지식을 AI에게 쥐어주면 회계사 업무가 얼마나 자동화되는가.
-관찰된 현실(2026-07-04): 주변 회계사들은 AI를 적극 활용하지 않고, 회계법인 사내 AI도 주로
-리서치·자료 정리 수준이다. 이 프로덕트의 차별점은 그 지점 너머 — **결정준비 초안**(분류판단·
-분개·검토메모)까지 자동 산출하는 것. 최종 검토·서명·법적 책임은 항상 사람에게 남는다
-(`/accounting` 스킬의 "의사결정을 대신하지 마라" 규칙 불변).
+"회계사 업무를 AI로 어디까지 자동화할 수 있는가"라는 출발 질문과 그 답의 공개 시각화(웹사이트),
+법인 모델링, AX 실험은 2026-07-12부터 umbrella 레포 `ai-firm`의 Objective가 담당한다. 이 레포는
+그 시스템의 K-IFRS 축을 맡는다: 기준서 검색(RAG), 결정 엔진(1109/1116 등), review pack 어댑터.
+**결정준비 초안**(분류판단·분개·검토메모)까지 자동 산출하되, 최종 검토·서명·법적 책임은 항상
+사람에게 남는다(`/accounting` 스킬의 "의사결정을 대신하지 마라" 규칙 불변).
 
 ## 전제 (저작권 — 형태 제약)
 
@@ -24,13 +25,16 @@
 
 ## 성공 모습 (관측 가능한 최종 상태)
 
-**회계법인에 공식 소개되어 PoC 또는 도입 논의까지 성사된 상태** (2026-07-04 결정).
+**ai-firm의 실무자 단위 AX 사례들이 이 엔진을 실소비하며, 사용처에서 드러난 결함이
+issue-back → 수리 루프로 닫히는 상태** (2026-07-12 재정의).
 
-중간 관문(성공 모습으로 가는 관측 가능한 계단):
-1. 회계사 업무 지도 위에 "자동화 가능/조건부/불가" 경계선이 증거와 함께 그려져 있다.
-2. 현업 회계사 1명 이상이 실제 업무 사례를 이 도구로 처리해보고 피드백을 남겼다.
-3. 데모 자료(영상·사례집)와 반복 실행 가능한 품질 증거가 준비되어 있다.
-4. → 법인 소개/PoC.
+중간 관문:
+1. ai-firm 첫 실무자 AX(H4)가 kifrs MCP를 실제 입력으로 통과하고, 결함 목록이 이 레포 backlog로 돌아온다.
+2. 그 결함 기준으로 retriever promotion(defer 상태)·user_note 확장 등 품질 결정이 재판단된다.
+3. 여러 팀/업무의 AX가 반복 소비해도 품질·성능 회귀가 없다.
+
+(구 성공 모습 "법인 소개/PoC 성사"는 2026-07-12에 ai-firm의 "공개 웹사이트 포트폴리오" 경로로
+대체 — 외부 접촉이 현실적으로 곤란하다는 판단. 결정 이력 참조.)
 
 ## 움직이는 축 (현재 → 목표, 측정법)
 
@@ -73,8 +77,18 @@
 - 2026-07-04: **프로덕트 지향 재정의** — ① 성격: 개인 시스템 → 법인 소개 가능한 프로덕트
   ② 형태: 로컬 도구킷 ③ 성공 모습: 법인 소개/PoC 성사 ④ 업무 지도를 정식 트랙(다음 horizon
   후보)으로 신설 ⑤ 세무는 tax-agent 분리 유지.
+- 2026-07-12: **지식 엔진 재정렬** — 외부 접촉(현업 피드백·법인 소개)이 현실적으로 곤란하여
+  검증·포트폴리오 경로를 "가상 회계법인 모델링 + 실무자 단위 AX + 공개 웹사이트"로 재정의.
+  그 비전 전체는 신규 umbrella 레포 `~/projects/ai-firm`이 담당(삼일 기반 리서치, 실명은 입력까지만).
+  이 레포는 ai-firm이 소비하는 K-IFRS 지식 엔진으로 역할을 좁힘. practice-map 자산은
+  `ai-firm/docs/seed/practice-map/`으로 승격(사본, 원본은 이 시점 이후 동결). 다음 horizon은
+  내부 hardening 반복 대신 **ai-firm 사용처에서 돌아온 결함(issue-back)** 기준으로 연다.
 
 ## Active horizon
+
+**2026-07-12 이후 규칙**: 새 horizon은 이 레포 내부 판단이 아니라 `ai-firm`의 AX 실험에서 돌아온
+결함/요구(issue-back)를 입력으로 연다. 내부 hardening horizon 자체 발제는 중단. (retriever
+promotion defer 등 열린 결정도 ai-firm 실소비 증거가 생겼을 때 재판단한다.)
 
 현재 objective-gap queue는 닫혔다. `rag-quality-fresh-validation`은 `defer`로 완료됐고 default retriever 변경은 금지 상태로 유지한다. `private-parser-realism-hardening`은 `realism_contract_ready`, `external-source-body-connector-expansion`은 `connector_body_lane_ready`, `workflow-coverage-depth-expansion`은 `coverage_depth_expanded`, `demo-rehearsal-quality-loop`은 `demo_rehearsal_quality_loop_closed`로 닫혔다.
 
