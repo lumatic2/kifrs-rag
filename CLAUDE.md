@@ -1,6 +1,6 @@
 # kifrs-rag
 
-> 가상 회계법인 AX 프로젝트(`~/projects/ai-firm`)의 **K-IFRS 지식 엔진** — 고품질 검색(RAG)과 결정준비 초안(분류판단·분개·검토메모) 산출을 담당한다 (2026-07-12 재정렬 — 비전 전체는 ai-firm, 상세·결정 이력은 `docs/OBJECTIVE.md`). 새 horizon은 ai-firm 사용처 결함(issue-back) 기준으로만 연다. 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관한다.
+> 가상 회계법인 AX 프로젝트(`~/projects/ai-accounting-firm`)의 **K-IFRS 지식 엔진** — 고품질 검색(RAG)과 결정준비 초안(분류판단·분개·검토메모) 산출을 담당한다 (2026-07-12 재정렬 — 비전 전체는 ai-accounting-firm, 상세·결정 이력은 `docs/OBJECTIVE.md`). 새 horizon은 ai-accounting-firm 사용처 결함(issue-back) 기준으로만 연다. 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관한다.
 
 ## 야망 (SoT: docs/OBJECTIVE.md)
 
