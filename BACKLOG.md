@@ -6,7 +6,9 @@
 
 ### 2026-07-12 — H4 RCPS 검토메모 실험 (첫 실소비, 원본: `~/projects/ai-accounting-firm/docs/cases/2026-07-12-facc-rcps-memo/mcp-log.md`)
 
-> **상태: `h4-issue-back-repair` horizon으로 이관 (2026-07-12)** — `docs/horizons/h4-issue-back-repair.md` (IB1=#1, IB2=#2+#3, IB3=재검증)
+> **상태: 수리 완료 (2026-07-12, `h4-issue-back-repair` horizon closed)** — 3건 전부 해소.
+> close report: `docs/reports/2026-07-12-h4-issue-back-repair-close-report.md`. 다음 단계는
+> ai-accounting-firm에서 H4 재실행 → f-acc-task-01 승격 판단 (그쪽 레포 세션).
 
 1. **[중요] 리픽싱 계열 검색 실패** — 정답(1001-한138.5/한BC104.1)이 실재함에도 hybrid/semantic이 반복 실패,
    `search("리픽싱", mode=lexical, 필터 없음)`로만 도달. 원인 복합: ① 실무 용어가 1032가 아닌 1001 BC에만 존재

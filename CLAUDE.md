@@ -54,7 +54,7 @@ kifrs-rag/
 ├── .gitignore                   # data/, *.db, *.pdf, embeddings/ 최상단 제외
 ├── data/                        # PDF·파싱 JSON·DB·dogfood 자료 (git 제외)
 │   ├── standards/{kifrs,gaap,special,parsed}/   # 100 기준서 PDF + JSON
-│   ├── kifrs.db                                  # SQLite DB (8,328 paragraphs)
+│   ├── kifrs.db                                  # SQLite DB (17,896 paragraphs)
 │   ├── eval/                                     # goldset, 평가 결과
 │   └── dogfood/cpa2/                             # 회계사 2차 기출 dogfood
 ├── kifrs/                       # 메인 패키지
@@ -91,8 +91,8 @@ kifrs-rag/
 
 **Phase 2 검색 인프라 완성** — 임베딩 + 하이브리드 검색 + dogfood Round 2까지.
 
-- DB: 100 기준서 / 8,328 paragraphs (SQLite + FTS5 trigram)
-- 임베딩: bge-m3 (1024d, 100% 인덱싱), **GPU 인코딩** (RTX 5090 cu128, 2026-06-27 전환 — 한계 #4 참조)
+- DB: 100 기준서 / 17,896 paragraphs (SQLite + FTS5 trigram — 2026-07-12 IB2에서 BC/DO/IN 9,598 문단 세분화 추가)
+- 임베딩: bge-m3 (1024d, 17,896 문단 100% 인덱싱), **GPU 인코딩** (RTX 5090 cu128, 2026-06-27 전환 — 한계 #4 참조)
 - MCP tools (8): list_standards, get_paragraph, list_paragraphs, list_sections, search_lexical, **search_semantic**, **search_hybrid**, get_context, reload_store
 - /accounting 스킬: search_hybrid 1순위 사용. dogfood Round 1+2 검증 완료
 - 검색 recall: lexical 60% → hybrid 80% (Phase 2 목표 70%+ 초과)
