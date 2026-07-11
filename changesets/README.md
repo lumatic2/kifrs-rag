@@ -34,3 +34,4 @@
 | 30 | `20260705-progress-map` | 2026-07-05 | objective horizon progress map for operator clarity | 4/4 | completed |
 | 31 | `20260712-ib1-repricing-term-bridge` | 2026-07-12 | H4 issue-back: repricing term_bridge seeds (IB1-a) | 4/4 | completed |
 | 32 | `20260712-ib1-standard-filter-guidance` | 2026-07-12 | standard filter trap guidance on tool+skill surfaces (IB1-b) | 4/4 | completed |
+| 33 | `20260712-ib2-parse-bc-sections` | 2026-07-12 | BC/DO/IN paragraph split + section title repair + BC demotion (IB2) | 4/4 | completed |

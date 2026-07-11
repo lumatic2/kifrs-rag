@@ -148,6 +148,19 @@ def semantic_search(
     return out
 
 
+# BC(결론도출근거)·DO(반대의견)·IN(도입) 문단은 규정이 아니라 근거·해설이다.
+# 2026-07-12 BC 세분화(+9,598 문단) 후 기본 검색에서 본문 규정과 동률 경쟁하면
+# goldset recall 이 퇴행(hybrid recall@20 0.887→0.760 실측) — 융합 단계에서 BC 계열
+# 기여를 절반으로 감점해 본문을 우선하되, 고유하게 관련된 BC(예: 리픽싱 한BC104.1)는
+# 여전히 상위에 올라오게 한다. 후보 풀도 50→100 으로 넓혀 본문이 풀 밖으로
+# 밀리는 것을 방지한다.
+_BC_DEMOTE = 0.5
+
+
+def _rrf_weight(appendix: str | None) -> float:
+    return _BC_DEMOTE if appendix == "BC" else 1.0
+
+
 def search_hybrid(
     query: str,
     standard: str | None = None,
@@ -157,19 +170,19 @@ def search_hybrid(
 ) -> list[dict[str, Any]]:
     """RRF (Reciprocal Rank Fusion) — lexical(FTS5) + semantic.
 
-    score = sum(1 / (k + rank_i)) for each retriever that returned this item.
-    k=60 은 RRF 표준 파라미터 (Cormack et al. 2009).
+    score = sum(w / (k + rank_i)) for each retriever that returned this item
+    (w = 1.0, BC 계열은 _BC_DEMOTE). k=60 은 RRF 표준 파라미터 (Cormack et al. 2009).
     """
-    lex = search_fts(query, standard, limit=50)
-    sem = semantic_search(query, standard, limit=50, model_name=model_name)
+    lex = search_fts(query, standard, limit=100)
+    sem = semantic_search(query, standard, limit=100, model_name=model_name)
 
     rrf: dict[tuple[str, str], float] = {}
     for rank, r in enumerate(lex):
         key = (r["standard"], r["no"])
-        rrf[key] = rrf.get(key, 0.0) + 1.0 / (k + rank)
+        rrf[key] = rrf.get(key, 0.0) + _rrf_weight(r.get("appendix")) / (k + rank)
     for rank, r in enumerate(sem):
         key = (r["standard"], r["no"])
-        rrf[key] = rrf.get(key, 0.0) + 1.0 / (k + rank)
+        rrf[key] = rrf.get(key, 0.0) + _rrf_weight(r.get("appendix")) / (k + rank)
 
     # 메타 통합: lexical 우선, 없으면 semantic
     info: dict[tuple[str, str], dict[str, Any]] = {
@@ -307,15 +320,15 @@ def search_hierarchical(
     info: dict[tuple[str, str], dict[str, Any]] = {}
 
     # 신호 1: lexical (FTS5)
-    for rank, r in enumerate(search_fts(query, standard, limit=50)):
+    for rank, r in enumerate(search_fts(query, standard, limit=100)):
         kk = (r["standard"], r["no"])
-        rrf[kk] = rrf.get(kk, 0.0) + 1.0 / (k + rank)
+        rrf[kk] = rrf.get(kk, 0.0) + _rrf_weight(r.get("appendix")) / (k + rank)
         info.setdefault(kk, r)
     # 신호 2: semantic (문단 cosine)
-    for rank, i in enumerate(np.argsort(-para_scores)[:50]):
+    for rank, i in enumerate(np.argsort(-para_scores)[:100]):
         r = rows[int(i)]
         kk = (r["standard"], r["no"])
-        rrf[kk] = rrf.get(kk, 0.0) + 1.0 / (k + rank)
+        rrf[kk] = rrf.get(kk, 0.0) + _rrf_weight(r["appendix"]) / (k + rank)
         info.setdefault(kk, _row_meta(r))
     # 신호 3: 섹션 membership — 상위 섹션 내 best 문단 (down-weighted)
     for key in top_secs:
@@ -323,7 +336,7 @@ def search_hierarchical(
         for rank, i in enumerate(members):
             r = rows[int(i)]
             kk = (r["standard"], r["no"])
-            rrf[kk] = rrf.get(kk, 0.0) + section_weight * (1.0 / (k + rank))
+            rrf[kk] = rrf.get(kk, 0.0) + section_weight * _rrf_weight(r["appendix"]) / (k + rank)
             info.setdefault(kk, _row_meta(r))
 
     sorted_keys = sorted(rrf, key=lambda kk: -rrf[kk])[:limit]

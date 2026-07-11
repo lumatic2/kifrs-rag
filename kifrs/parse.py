@@ -17,7 +17,7 @@ import io
 import json
 import re
 import sys
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
@@ -54,6 +54,12 @@ RE_PARA_ONLY = re.compile(r"^(\d+(?:\.\d+)*[A-Z]?)$")
 RE_KO_PARA = re.compile(r"^한(\d+(?:\.\d+)*[A-Z]?)(?:\s+(.*))?$")
 # GAAP 부록 실무지침: "실9.1 본문", "실9.23 본문"
 RE_PRAC_PARA = re.compile(r"^실(\d+(?:\.\d+)*[A-Z]?)(?:\s+(.*))?$")
+# 결론도출근거(Basis for Conclusions): "BC1 본문", "BC48EA 본문", "한BC104.1 본문",
+# "BCE.15 본문"(효과분석). suffix 2글자 허용(BC48EA). TOC 줄("도입 BC1~BC10")은
+# 줄 시작이 아니라 매치 안 됨.
+RE_BC_PARA = re.compile(r"^(한)?(BC[A-Z]?\.?\d+(?:\.\d+)*[A-Z]{0,2})(?:\s+(\S.*))?$")
+# 반대의견(DO)·도입(IN) 문단 — BC 구간 안에서만 인식 (본문 오매치 방지)
+RE_DOIN_PARA = re.compile(r"^((?:DO|IN)\d+[A-Z]{0,2})(?:\s+(\S.*))?$")
 # 일반기업회계기준(GAAP) 스타일: "1. 본문", "14. 부채의 계정과목" (번호 뒤에 점)
 RE_GAAP_PARA_INLINE = re.compile(r"^(\d{1,3})\.\s+(\S.*)$")
 # GAAP 세부 문단: "(2-1) 본문", "(13-2) 본문"
@@ -177,6 +183,12 @@ def clean_line(line: str) -> str:
 # ── 섹션 소제목 판별 ──────────────────────────────────────────────────────
 _HEADING_END_BAD = ("다.", "다", ".", "?", "!", ",", "음", "임", "것")
 
+# 조사로 시작하는 줄 = 본문 wrap 조각 ("는 금융상품", "에게 부과하는 …")
+RE_JOSA_START = re.compile(r"^(?:는|은|이|가|을|를|의|와|과|로|에|에게|도|만)\s")
+
+# 문장 종결(구두점) — 직전 본문 줄이 이걸로 끝나야 다음 줄을 소제목 후보로 인정
+RE_SENTENCE_END = re.compile(r"[.)）:：;；?!」』’”]$")
+
 
 def looks_like_heading(s: str) -> bool:
     """섹션 소제목 후보 판별. 매우 보수적."""
@@ -286,6 +298,40 @@ def parse_pages(pages: list[str], standard: str) -> list[dict]:
             paragraphs.append(header)
             continue
 
+        # 결론도출근거 문단: "BC1 본문", "한BC104.1 본문", "BCE.15 본문" (K-IFRS 계열만)
+        m_bc = RE_BC_PARA.match(stripped) if not gaap_mode else None
+        if m_bc:
+            flush()
+            # BC 구간 진입 — 이후 일반 번호("1 ...")가 BC 본문을 쪼개지 않도록 차단
+            current_appendix = "BC"
+            ko = bool(m_bc.group(1))
+            current = Paragraph(
+                no=f"{'한' if ko else ''}{m_bc.group(2)}",
+                appendix="BC",
+                ko_added=ko,
+                page=page_idx,
+                section=pending_section or current_section,
+            )
+            pending_section = None
+            if m_bc.group(3):
+                current._buf.append(m_bc.group(3))
+            continue
+
+        # 반대의견(DO)·도입(IN) 문단 — BC 구간 뒤에 이어지는 부속 문단
+        m_doin = RE_DOIN_PARA.match(stripped) if current_appendix == "BC" else None
+        if m_doin:
+            flush()
+            current = Paragraph(
+                no=m_doin.group(1),
+                appendix="BC",
+                page=page_idx,
+                section=pending_section or current_section,
+            )
+            pending_section = None
+            if m_doin.group(2):
+                current._buf.append(m_doin.group(2))
+            continue
+
         # K-IFRS 한N.M 문단
         m_ko = RE_KO_PARA.match(stripped)
         if m_ko:
@@ -384,14 +430,58 @@ def parse_pages(pages: list[str], standard: str) -> list[dict]:
 
         # 섹션 소제목 후보: lookahead 로 다음 비어있지 않은 줄이 문단 번호이면 heading 확정
         if looks_like_heading(stripped):
-            nxt = next_nonempty(i)
-            if nxt and (
-                RE_PARA_INLINE.match(nxt)
-                or RE_PARA_ONLY.match(nxt)
-                or RE_KO_PARA.match(nxt)
-                or RE_GAAP_PARA_INLINE.match(nxt)
-                or RE_GAAP_SUB_INLINE.match(nxt)
-                or (current_appendix and RE_APP_PARA_INLINE.match(nxt))
+
+            def _next_is_para(nxt: str | None) -> bool:
+                return bool(
+                    nxt
+                    and (
+                        RE_PARA_INLINE.match(nxt)
+                        or RE_PARA_ONLY.match(nxt)
+                        or RE_KO_PARA.match(nxt)
+                        or (not gaap_mode and RE_BC_PARA.match(nxt))
+                        or RE_GAAP_PARA_INLINE.match(nxt)
+                        or RE_GAAP_SUB_INLINE.match(nxt)
+                        or (current_appendix and RE_APP_PARA_INLINE.match(nxt))
+                    )
+                )
+
+            # 마지막 본문 줄 (열린 문단의 wrap 판정·후방 join 재료)
+            last_buf = current._buf[-1].strip() if (current and current._buf) else ""
+            before_last = (
+                current._buf[-2].strip() if (current and len(current._buf) >= 2) else ""
+            )
+
+            # (1) 두 줄로 감긴 소제목 복구: 앞줄이 30자 제한에 걸려 본문에 붙은 경우
+            #     — 앞줄이 heading 문자셋 + 문장 미종결 + 그 앞줄은 문장 종결이면 join
+            #     (예: "…지정할 수 있는 선" + "택권" → "…선택권")
+            if (
+                last_buf
+                and 25 <= len(last_buf) <= 40  # 전폭(wrap) 줄만 — 짧은 상위 소제목과 join 금지
+                and len(last_buf + stripped) <= 60
+                and RE_HEADING_CHARS.match(last_buf)
+                and not last_buf.endswith(_HEADING_END_BAD)
+                and not RE_SENTENCE_END.search(last_buf)
+                and re.search(r"[가-힣]", last_buf)
+                and (not before_last or RE_SENTENCE_END.search(before_last))
+                and _next_is_para(next_nonempty(i))
+            ):
+                joined = last_buf + stripped
+                current._buf.pop()
+                flush()
+                current_section = joined
+                pending_section = joined
+                continue
+
+            # (2) 본문 wrap 조각 오탐 차단: 열린 문단의 마지막 줄이 전폭(wrap)인데
+            #     문장 미종결이면 이 줄은 소제목이 아니라 그 문장의 연속
+            #     (예: "…자동으로 환매되" + "는 금융상품" ← 정의문 조각)
+            mid_sentence = (
+                last_buf and len(last_buf) >= 30 and not RE_SENTENCE_END.search(last_buf)
+            )
+            if (
+                not mid_sentence
+                and not RE_JOSA_START.match(stripped)
+                and _next_is_para(next_nonempty(i))
             ):
                 flush()
                 current_section = stripped
