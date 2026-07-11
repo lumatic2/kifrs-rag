@@ -223,6 +223,11 @@ def search(query: str, standard: str | None = None, limit: int = 20, mode: str =
 
     recall@k/MRR 실측치는 시점에 따라 바뀐다 — 최신 수치는 `python -m kifrs.eval.retrieval`
     재실행으로 확인(하드코딩하지 않음, docstring-eval drift 방지).
+
+    **`standard` 필터 주의** — 정답이 다른 기준서에 있으면 필터가 실패 원인이 된다
+    (예: '리픽싱' 실체 규정은 1032가 아니라 1001-한138.5). top score가 낮거나 기대한
+    문단이 안 보이면 **필터를 해제하고 재검색**하라. 필터 없이 1차 탐색 후 좁히는
+    순서가 더 안전하다.
     """
     if mode == "lexical":
         return _dispatch(
