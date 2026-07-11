@@ -6,6 +6,8 @@
 
 ### 2026-07-12 — H4 RCPS 검토메모 실험 (첫 실소비, 원본: `~/projects/ai-accounting-firm/docs/cases/2026-07-12-facc-rcps-memo/mcp-log.md`)
 
+> **상태: `h4-issue-back-repair` horizon으로 이관 (2026-07-12)** — `docs/horizons/h4-issue-back-repair.md` (IB1=#1, IB2=#2+#3, IB3=재검증)
+
 1. **[중요] 리픽싱 계열 검색 실패** — 정답(1001-한138.5/한BC104.1)이 실재함에도 hybrid/semantic이 반복 실패,
    `search("리픽싱", mode=lexical, 필터 없음)`로만 도달. 원인 복합: ① 실무 용어가 1032가 아닌 1001 BC에만 존재
    (기존 한계 #1 재확인 — "고정 대 고정"도 본문 부재 확인) ② standard 필터가 cross-standard 정답을 차단.
@@ -16,6 +18,12 @@
 3. **[경미] `list_sections` 섹션 제목 파싱 깨짐** — "는 금융상품", "택권" 등 잘린 제목 반환. 문단 번호는 정상.
 
 ## Completed
+
+### 2026-07-12 — ROADMAP compact archive (2026-07-05~07-06 closed horizons 상세)
+- Completed: 2026-07-04~2026-07-06
+- Result: ROADMAP 150줄 budget 복구를 위해 아래 closed horizon의 milestone 상세 블록을 ROADMAP에서 제거하고 이 항목으로 압축. 포함: `demo-rehearsal-improvement-hardening`(DRI1~DRI4), `demo-rehearsal-quality-loop`(DRQ1~DRQ5), `workflow-coverage-depth-expansion`(WCD1~WCD5), `external-source-body-connector-expansion`(ESB1~ESB5), `private-parser-realism-hardening`(PPR1~PPR5), `rag-quality-fresh-validation`(RQF1~RQF5), `end-to-end-demo-scenario`(E2E1~E2E5), `multi-authority-runtime-hardening`(MAH1~MAH3), `firm-facing-product-surface`(FPS1~FPS5), `product-trust-and-quality-evidence`(PTQ1~PTQ5), `real-local-parser-prototype`(RLP1~RLP5), `source-body-ingestion-controlled-lane`(SBI1~SBI5), `workflow-coverage-expansion`(WCE1~WCE5), `runtime-retriever-promotion-gate`(RPG1~RPG5), `operator-experience-hardening`(OEH1~OEH5), OGH1.
+- Evidence: 각 milestone close report는 `docs/reports/2026-07-05-*.md`·`docs/reports/2026-07-06-*.md`, horizon 원문은 `docs/horizons/`. 데모 packet: `docs/reports/end-to-end-demo/INDEX.md`.
+- Verification: 각 horizon별 close report 및 gate script 기준 (원문 ROADMAP 이력은 git `3c4d797` 이전 참조).
 
 ### 2026-07-05 — Firm-Facing Product Surface
 - Completed: 2026-07-05
