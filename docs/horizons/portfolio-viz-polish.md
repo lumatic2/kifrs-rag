@@ -1,6 +1,6 @@
 # Horizon: Portfolio Viz Polish
 
-> Status: active
+> Status: closed (2026-07-12)
 > Created: 2026-07-12
 > Previous: `docs/horizons/h10-disclosure-search-repair.md` (closed)
 > Objective 링크: `docs/OBJECTIVE.md` — 성공기준 D축(포트폴리오) 심화. **사용자 발제 예외 4건째** (2026-07-12, drift·drift-automation·viz-site에 이어)
@@ -35,7 +35,7 @@
 
 ### PP1. 비주얼 보강 — imagegen (P0)
 
-Status: active
+Status: completed
 
 - Deliverable: 사이트 컨셉 기반 imagegen 매니페스트(한지 질감·서가·묵향 정물 등) +
   codex exec 생성 + 히어로/섹션 반입. 텍스트 판독 불가·로고 없음 원칙 동일.
@@ -44,7 +44,7 @@ Status: active
 
 ### PP2. 인터랙션 심화 + 콘텐츠 확장 + close gate (P1)
 
-Status: pending
+Status: completed
 
 - Deliverable: ① 참조 그래프 UX — 기준서 검색/포커스 모드/가중치 필터 개선 ② drift 루프
   스토리 + 수리 루프 연대기(h4→h10 지표 곡선) 섹션 ③ ai-accounting-firm 상호 링크
@@ -56,6 +56,19 @@ Status: pending
 
 - PP1·PP2 완료, kifrs.askewly.com 재배포 라이브.
 - public-safe gate 배포 산출물 기준 PASS 유지.
+
+## Close Result
+
+`portfolio_viz_polished` (2026-07-12) — changeset 5개(#47~#51). 히어로·섹션 도판 5(한지/서가
+정물 imagegen), **3D 기준서 우주 `/universe/`**(515 노드·1,166 엣지, poc-graph 이식),
+drift 스토리·수리 루프 연대기·상호 링크, kifrs.askewly.com 재배포 라이브. gate PASS 유지
+(universe graph.json 스캔 편입). 상세: `docs/reports/2026-07-12-portfolio-viz-polish-close-report.md`.
+
+## Objective 임팩트
+
+D축(포트폴리오)이 4뷰 정적 사이트에서 **"살아있는 엔진" 서사(감지→수리→비퇴행 지표) +
+3D 지식 우주**로 상향 — brain.askewly.com·account.askewly.com 과 askewly 서브도메인
+3부작이 상호 연결됨.
 
 ## Decision Log
 

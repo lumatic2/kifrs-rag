@@ -52,3 +52,4 @@
 | 48 | `20260712-pp2-content` | 2026-07-12 | drift loop story + repair-loop timeline + cross-link (PP2-S2) | 4/4 | completed |
 | 49 | `20260712-pp1-imagegen` | 2026-07-12 | six Hanji/Korean scholarly still-life image assets (PP1-S1) | 4/4 | completed |
 | 50 | `20260712-pp1-visuals` | 2026-07-12 | plate integration of PP1-S1 assets into index (PP1-S2) | 4/4 | completed |
+| 51 | `20260712-pp2-deploy` | 2026-07-12 | redeploy + live verification + close (PP2-S3) | 4/4 | completed |
