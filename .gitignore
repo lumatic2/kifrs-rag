@@ -1,5 +1,7 @@
 # 저작권 민감 — 절대 commit 금지
 data/
+# 예외: 웹 export 메타데이터 (scripts/check_web_data_safety.py gate PASS 전제 — 본문 없음)
+!web/src/data/
 *.db
 *.db-shm
 *.db-wal

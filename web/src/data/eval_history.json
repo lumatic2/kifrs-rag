@@ -1,0 +1,284 @@
+[
+ {
+  "timestamp": "2026-06-27 15:27:05",
+  "n_items": 8,
+  "retrievers": {
+   "lexical": {
+    "recall@1": 0.0,
+    "recall@3": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0,
+    "recall@20": 0.0,
+    "mrr": 0.0,
+    "ndcg@10": 0.0
+   },
+   "semantic": {
+    "recall@1": 0.125,
+    "recall@3": 0.2917,
+    "recall@5": 0.4167,
+    "recall@10": 0.5625,
+    "recall@20": 0.6667,
+    "mrr": 0.4397,
+    "ndcg@10": 0.3958
+   },
+   "hybrid": {
+    "recall@1": 0.125,
+    "recall@3": 0.2917,
+    "recall@5": 0.4167,
+    "recall@10": 0.5625,
+    "recall@20": 0.6667,
+    "mrr": 0.4397,
+    "ndcg@10": 0.3958
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 15:47:37",
+  "n_items": 50,
+  "retrievers": {
+   "lexical": {
+    "recall@1": 0.0,
+    "recall@3": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0,
+    "recall@20": 0.0,
+    "mrr": 0.0,
+    "ndcg@10": 0.0
+   },
+   "semantic": {
+    "recall@1": 0.26,
+    "recall@3": 0.5167,
+    "recall@5": 0.5567,
+    "recall@10": 0.72,
+    "recall@20": 0.8467,
+    "mrr": 0.5553,
+    "ndcg@10": 0.5378
+   },
+   "hybrid": {
+    "recall@1": 0.26,
+    "recall@3": 0.5167,
+    "recall@5": 0.5567,
+    "recall@10": 0.72,
+    "recall@20": 0.8467,
+    "mrr": 0.5553,
+    "ndcg@10": 0.5378
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 16:26:12",
+  "n_items": 50,
+  "retrievers": {
+   "lexical": {
+    "recall@1": 0.1467,
+    "recall@3": 0.3167,
+    "recall@5": 0.3767,
+    "recall@10": 0.4867,
+    "recall@20": 0.6933,
+    "mrr": 0.3449,
+    "ndcg@10": 0.3395
+   },
+   "semantic": {
+    "recall@1": 0.26,
+    "recall@3": 0.5167,
+    "recall@5": 0.5567,
+    "recall@10": 0.72,
+    "recall@20": 0.8467,
+    "mrr": 0.5553,
+    "ndcg@10": 0.5378
+   },
+   "hybrid": {
+    "recall@1": 0.23,
+    "recall@3": 0.4133,
+    "recall@5": 0.5833,
+    "recall@10": 0.7333,
+    "recall@20": 0.8767,
+    "mrr": 0.4994,
+    "ndcg@10": 0.5093
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 16:27:01",
+  "n_items": 50,
+  "retrievers": {
+   "reranked": {
+    "recall@1": 0.3167,
+    "recall@3": 0.5633,
+    "recall@5": 0.64,
+    "recall@10": 0.7267,
+    "recall@20": 0.8367,
+    "mrr": 0.6092,
+    "ndcg@10": 0.5777
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 16:44:55",
+  "n_items": 50,
+  "retrievers": {
+   "lexical": {
+    "recall@1": 0.1533,
+    "recall@3": 0.33,
+    "recall@5": 0.4067,
+    "recall@10": 0.5167,
+    "recall@20": 0.7233,
+    "mrr": 0.366,
+    "ndcg@10": 0.3631
+   },
+   "semantic": {
+    "recall@1": 0.2667,
+    "recall@3": 0.5233,
+    "recall@5": 0.5633,
+    "recall@10": 0.7333,
+    "recall@20": 0.88,
+    "mrr": 0.5764,
+    "ndcg@10": 0.5503
+   },
+   "hybrid": {
+    "recall@1": 0.2267,
+    "recall@3": 0.4267,
+    "recall@5": 0.5967,
+    "recall@10": 0.7633,
+    "recall@20": 0.9067,
+    "mrr": 0.5094,
+    "ndcg@10": 0.5274
+   },
+   "reranked": {
+    "recall@1": 0.3167,
+    "recall@3": 0.5633,
+    "recall@5": 0.64,
+    "recall@10": 0.7267,
+    "recall@20": 0.8533,
+    "mrr": 0.6121,
+    "ndcg@10": 0.5777
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 22:48:19",
+  "n_items": 50,
+  "retrievers": {
+   "hybrid": {
+    "recall@1": 0.2267,
+    "recall@3": 0.4267,
+    "recall@5": 0.5967,
+    "recall@10": 0.7633,
+    "recall@20": 0.9067,
+    "mrr": 0.5094,
+    "ndcg@10": 0.5274
+   },
+   "hierarchical": {
+    "recall@1": 0.2567,
+    "recall@3": 0.57,
+    "recall@5": 0.6067,
+    "recall@10": 0.84,
+    "recall@20": 0.8767,
+    "mrr": 0.5605,
+    "ndcg@10": 0.5913
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 22:52:30",
+  "n_items": 50,
+  "retrievers": {
+   "hybrid": {
+    "recall@1": 0.2267,
+    "recall@3": 0.4267,
+    "recall@5": 0.5967,
+    "recall@10": 0.7633,
+    "recall@20": 0.9067,
+    "mrr": 0.5094,
+    "ndcg@10": 0.5274
+   },
+   "hierarchical": {
+    "recall@1": 0.2467,
+    "recall@3": 0.4367,
+    "recall@5": 0.6267,
+    "recall@10": 0.8267,
+    "recall@20": 0.9167,
+    "mrr": 0.5419,
+    "ndcg@10": 0.562
+   },
+   "reranked": {
+    "recall@1": 0.3167,
+    "recall@3": 0.5633,
+    "recall@5": 0.64,
+    "recall@10": 0.7267,
+    "recall@20": 0.8533,
+    "mrr": 0.6121,
+    "ndcg@10": 0.5777
+   }
+  }
+ },
+ {
+  "timestamp": "2026-06-27 23:07:40",
+  "n_items": 50,
+  "retrievers": {
+   "reranked": {
+    "recall@1": 0.3167,
+    "recall@3": 0.5633,
+    "recall@5": 0.64,
+    "recall@10": 0.7267,
+    "recall@20": 0.8533,
+    "mrr": 0.6121,
+    "ndcg@10": 0.5777
+   },
+   "reranked_hier": {
+    "recall@1": 0.3167,
+    "recall@3": 0.5633,
+    "recall@5": 0.64,
+    "recall@10": 0.7267,
+    "recall@20": 0.8533,
+    "mrr": 0.612,
+    "ndcg@10": 0.5777
+   }
+  }
+ },
+ {
+  "timestamp": "2026-07-12 15:41:15",
+  "n_items": 50,
+  "retrievers": {
+   "hybrid": {
+    "recall@1": 0.1967,
+    "recall@3": 0.4267,
+    "recall@5": 0.5767,
+    "recall@10": 0.7467,
+    "recall@20": 0.91,
+    "mrr": 0.4897,
+    "ndcg@10": 0.5093
+   }
+  }
+ },
+ {
+  "timestamp": "2026-07-12 15:43:36",
+  "n_items": 50,
+  "retrievers": {
+   "hybrid": {
+    "recall@1": 0.1967,
+    "recall@3": 0.4267,
+    "recall@5": 0.5767,
+    "recall@10": 0.7467,
+    "recall@20": 0.91,
+    "mrr": 0.4897,
+    "ndcg@10": 0.5093
+   }
+  }
+ },
+ {
+  "timestamp": "2026-07-12 16:15:53",
+  "n_items": 50,
+  "retrievers": {
+   "hybrid": {
+    "recall@1": 0.1967,
+    "recall@3": 0.4167,
+    "recall@5": 0.5767,
+    "recall@10": 0.7467,
+    "recall@20": 0.91,
+    "mrr": 0.488,
+    "ndcg@10": 0.5084
+   }
+  }
+ }
+]

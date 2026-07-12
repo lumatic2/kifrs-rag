@@ -1,0 +1,12 @@
+{
+ "standards": 100,
+ "paragraphs": 17899,
+ "embeddings": 17899,
+ "embedding_model": "bge-m3 (1024d)",
+ "lexical_index": "SQLite FTS5 trigram",
+ "mcp_tools": 9,
+ "amendments_tracked": 134,
+ "user_notes": 23,
+ "last_drift_check": "2026-07-12T16:56:20",
+ "exported_at": "2026-07-12T17:33:25"
+}
