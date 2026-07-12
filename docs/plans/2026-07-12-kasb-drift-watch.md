@@ -9,7 +9,7 @@
 
 ### DR1 — Drift 감지 코어 + MCP tool (P0)
 
-- [ ] DR1-S1: `kifrs/drift.py` 감지 코어 — KASB 파일 목록 fetch(download.py 재사용) → 로컬 `standard.source`+스냅샷(`data/drift/snapshot.json`) 대조 → drift report 생성 + CLI entry (verify: `.venv/Scripts/python -m kifrs.drift` 실 KASB E2E 리포트 관측 + 네트워크 차단 시 graceful 에러)
+- [x] DR1-S1: `kifrs/drift.py` 감지 코어 — KASB 파일 목록 fetch(download.py 재사용) → 로컬 `standard.source`+스냅샷(`data/drift/snapshot.json`) 대조 → drift report 생성 + CLI entry (verify: `.venv/Scripts/python -m kifrs.drift` 실 KASB E2E 리포트 관측 + 네트워크 차단 시 graceful 에러)
 - [ ] DR1-S2: kifrs MCP tool `check_drift` 노출(얇은 wrapper) + tool docstring·/accounting 표면 안내 (verify: MCP tool 실호출로 대조 결과 관측 + 기존 8 tool smoke 비퇴행)
 
 ### DR2 — 단위 갱신 경로 + 개정 이력 (P1)
