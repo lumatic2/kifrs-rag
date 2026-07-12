@@ -271,6 +271,36 @@ def reload_store() -> dict[str, Any]:
     return {"loaded": sorted(STORE.keys()), "count": len(STORE)}
 
 
+@mcp.tool(output_schema=None)
+def check_drift(category: str | None = None, only: str | None = None) -> dict[str, Any]:
+    """KASB 제·개정 공표 vs 로컬 DB drift 감지 (네트워크 필요, 전체 ~1-2분).
+
+    KASB 게시판의 현행 PDF 파일 목록을 로컬 DB `standard.source` 와 대조해
+    개정 공표(drift)를 찾는다. `category`('kifrs'/'gaap'/'special', 기본 전체 3개)와
+    `only`(기준서번호 prefix, 예: '1115')로 좁히면 빨라진다. drift 가 나오면
+    해당 기준서는 stale — 단위 갱신(재다운로드→재인제스트) 전까지 인용 시 주의.
+    전체 리포트는 data/drift/ 에 JSON 으로 저장된다."""
+    from kifrs import drift as _drift  # requests 만 쓰는 경량 모듈 (C-확장 없음)
+
+    try:
+        categories = [category] if category else None
+        report = _drift.run_check(categories, only=only or None)
+    except (ValueError, FileNotFoundError) as e:
+        raise ToolError(str(e))
+    if report.get("fatal"):
+        raise ToolError(f"{report['fatal']}: {'; '.join(report['errors'][:3])}")
+    return {
+        "checked_at": report["checked_at"],
+        "kasb_entries": report["kasb_entries"],
+        "matched": report["matched"],
+        "drift_count": len(report["drifts"]),
+        "drifts": report["drifts"],
+        "uncovered_count": len(report["uncovered"]),
+        "errors": report["errors"],
+        "report_path": report["report_path"],
+    }
+
+
 def _redirect_stderr_to_logfile():
     """Codex's MCP client hands the child an stderr handle that becomes
     unwritable on Windows mid-startup (OSError(EINVAL) on the first write after
