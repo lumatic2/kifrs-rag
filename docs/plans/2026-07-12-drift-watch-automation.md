@@ -9,8 +9,8 @@
 
 ### DR3 — 주간 감지 + 세션 자동 경고 (P0)
 
-- [ ] DR3-S1: `drift.py` PENDING.json 상태 산출(전체 감지 시 항상 기록, drift 0이면 빈 상태) + Windows 작업 스케줄러 주 1회(월 09:00) 등록 + cron.log (verify: `schtasks /run` 1회 실행 관측 — 로그·리포트·PENDING 생성 + `schtasks /query` 등록 확인)
-- [ ] DR3-S2: MCP search/get_paragraph 응답에 pending drift 경고 필드(mtime 캐시) + /accounting 안내 (verify: synthetic PENDING → in-memory MCP 경고 발화 / 빈 PENDING → 미발화 + 기존 tool smoke 비퇴행)
+- [x] DR3-S1: `drift.py` PENDING.json 상태 산출(전체 감지 시 항상 기록, drift 0이면 빈 상태) + Windows 작업 스케줄러 주 1회(월 09:00) 등록 + cron.log (verify: `schtasks /run` 1회 실행 관측 — 로그·리포트·PENDING 생성 + `schtasks /query` 등록 확인)
+- [x] DR3-S2: MCP search/get_paragraph 응답에 pending drift 경고 필드(mtime 캐시) + /accounting 안내 (verify: synthetic PENDING → in-memory MCP 경고 발화 / 빈 PENDING → 미발화 + 기존 tool smoke 비퇴행)
 
 ## 중단점
 

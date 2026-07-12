@@ -77,6 +77,47 @@ def _require_sqlite(feature: str) -> None:
         raise ToolError(f"{feature} 검색은 SQLite 모드만 지원. data/kifrs.db 필요")
 
 
+# ── drift 자동 경고 (data/drift/PENDING.json — 주간 스케줄 감지가 유지) ──
+_PENDING_PATH = ROOT / "data" / "drift" / "PENDING.json"
+_pending_cache: dict[str, Any] = {"mtime": None, "standards": {}, "checked_at": None}
+
+
+def _pending_drifts() -> dict[str, str]:
+    """{standard_id: drift kind} — 파일 mtime 캐시로 호출당 stat 1회만."""
+    try:
+        mtime = _PENDING_PATH.stat().st_mtime
+    except OSError:
+        return {}
+    if _pending_cache["mtime"] != mtime:
+        try:
+            data = json.loads(_PENDING_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+        _pending_cache["standards"] = {
+            d["standard_id"]: d["kind"]
+            for d in data.get("drifts", []) if d.get("standard_id")
+        }
+        _pending_cache["checked_at"] = data.get("checked_at")
+        _pending_cache["mtime"] = mtime
+    return _pending_cache["standards"]
+
+
+def _annotate_drift(result):
+    """search/get_paragraph 결과에 pending drift 경고 필드를 붙인다 (로컬 파일만 — 네트워크 없음)."""
+    pending = _pending_drifts()
+    if not pending:
+        return result
+    items = result if isinstance(result, list) else [result]
+    for item in items:
+        if isinstance(item, dict) and item.get("standard") in pending:
+            std = item["standard"]
+            item["drift_warning"] = (
+                f"{std} 는 KASB 개정 공표 감지됨({pending[std]}, 감지 {_pending_cache['checked_at']})"
+                f" — 로컬 DB stale. 인용 시 '인제스트 시점 기준' 단서, 갱신: python -m kifrs.drift --update {std}"
+            )
+    return result
+
+
 # ── MCP tools ────────────────────────────────────────────────────────────
 @mcp.tool(output_schema=None)
 def list_standards() -> list[dict[str, Any]]:
@@ -102,11 +143,13 @@ def _get_paragraph_json(standard: str, no: str) -> dict[str, Any] | None:
 
 @mcp.tool(output_schema=None)
 def get_paragraph(standard: str, no: str) -> dict[str, Any] | None:
-    """기준서·문단 번호로 단일 문단 반환. 예: ('1115','5'), ('1115','한4.1'), ('1115','B5')."""
-    return _dispatch(
+    """기준서·문단 번호로 단일 문단 반환. 예: ('1115','5'), ('1115','한4.1'), ('1115','B5').
+    해당 기준서에 KASB 개정 공표가 감지돼 있으면 `drift_warning` 필드가 붙는다."""
+    result = _dispatch(
         lambda: _store.get_paragraph(standard, no),
         lambda: _get_paragraph_json(standard, no),
     )
+    return _annotate_drift(result) if result else result
 
 
 def _list_paragraphs_json(standard: str, appendix: str | None, section: str | None, limit: int) -> list[dict[str, Any]]:
@@ -228,7 +271,13 @@ def search(query: str, standard: str | None = None, limit: int = 20, mode: str =
     (예: '리픽싱' 실체 규정은 1032가 아니라 1001-한138.5). top score가 낮거나 기대한
     문단이 안 보이면 **필터를 해제하고 재검색**하라. 필터 없이 1차 탐색 후 좁히는
     순서가 더 안전하다.
+
+    인용 대상 기준서에 KASB 개정 공표가 감지돼 있으면 히트에 `drift_warning` 필드가 붙는다.
     """
+    return _annotate_drift(_search_impl(query, standard, limit, mode))
+
+
+def _search_impl(query: str, standard: str | None, limit: int, mode: str) -> list[dict[str, Any]]:
     if mode == "lexical":
         return _dispatch(
             lambda: _store.search_fts(query, standard, limit=limit),

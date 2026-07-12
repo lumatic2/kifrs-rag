@@ -38,6 +38,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "kifrs.db"
 DRIFT_DIR = ROOT / "data" / "drift"
 SNAPSHOT_PATH = DRIFT_DIR / "snapshot.json"
+PENDING_PATH = DRIFT_DIR / "PENDING.json"  # 마지막 *전체* 감지의 drift 상태 (MCP 경고 소스)
 
 DEFAULT_CATEGORIES = ["kifrs", "gaap", "special"]  # DB 에 인제스트된 카테고리
 
@@ -214,9 +215,12 @@ def run_check(
     report_path = DRIFT_DIR / f"report-{stamp}.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
     report["report_path"] = str(report_path)
-    # only 필터 실행은 부분 상태라 스냅샷을 덮어쓰지 않는다 (전체 대조 기준 유지)
+    # only 필터 실행은 부분 상태라 스냅샷/PENDING 을 덮어쓰지 않는다 (전체 대조 기준 유지)
     if update_snapshot and entries and not only:
         save_snapshot(entries)
+        PENDING_PATH.write_text(json.dumps(
+            {"checked_at": report["checked_at"], "drifts": report["drifts"]},
+            ensure_ascii=False, indent=1), encoding="utf-8")
     return report
 
 
