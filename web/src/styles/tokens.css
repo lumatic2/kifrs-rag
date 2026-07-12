@@ -1,0 +1,63 @@
+/* kifrs-viz 디자인 토큰 — 감사조서(원장) × 엔지니어링 계기판
+   바탕: 청록기 한지 화이트 / 잉크: 청록먹 / 강조: 인주(도장)는 아껴 쓴다 */
+:root {
+  /* 색 */
+  --paper: #f2f4f1;        /* 한지 화이트 (청록 캐스트) */
+  --paper-deep: #e7ebe6;   /* 섹션 교차 배경 */
+  --ink: #1c2b27;          /* 청록먹 — 본문 */
+  --ink-soft: #4a5a54;     /* 보조 텍스트 */
+  --ledger: #c9d2cc;       /* 괘선 */
+  --ledger-strong: #9fada6;
+  --seal: #be3a2b;         /* 인주 — 도장·핵심 강조 전용 */
+  --teal: #2e5e4e;         /* 원장 청록 — kifrs */
+  --teal-bright: #3f8068;
+  --gaap: #7a6a4f;         /* 먹갈색 — 일반기업회계기준 */
+  --special: #8a5a3b;      /* 적갈 — 특수분야 */
+
+  /* 타이포 */
+  --serif: "Noto Serif KR", "Nanum Myeongjo", serif;
+  --sans: "IBM Plex Sans KR", "Pretendard", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* 리듬 */
+  --max-w: 1080px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --line: 1px solid var(--ledger);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  /* 원장 괘선 — 은은한 가로줄 */
+  background-image: repeating-linear-gradient(
+    to bottom, transparent 0, transparent 31px, rgb(28 43 39 / 0.035) 31px, rgb(28 43 39 / 0.035) 32px);
+}
+
+h1, h2, h3 { font-family: var(--serif); line-height: 1.3; margin: 0; }
+a { color: var(--teal); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* 기준서식 차례 라벨 */
+.chapter {
+  display: flex; align-items: baseline; gap: .75rem;
+  border-top: 2px solid var(--ink);
+  padding-top: .6rem; margin-bottom: 2rem;
+}
+.chapter .no { font-family: var(--serif); font-weight: 900; font-size: 1.05rem; }
+.chapter h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; }
+.chapter .hint { margin-left: auto; color: var(--ink-soft); font-size: .82rem; }
+
+:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }

@@ -32,3 +32,10 @@ venv/
 .claude/worktrees/
 CLAUDE.local.md
 .claude/
+
+# web build
+web/node_modules/
+web/dist/
+web/.astro/
+.playwright-mcp/
+pv2-*.png

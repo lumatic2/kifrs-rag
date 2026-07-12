@@ -1,0 +1,46 @@
+---
+import "../styles/tokens.css";
+const { title = "kifrs-rag — K-IFRS 지식 엔진", description = "K-IFRS 100 기준서를 기계가 읽는 장부로 만든 검색 엔진의 내부 — 메타데이터 시각화" } = Astro.props;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='6' width='6' height='22' rx='1' fill='%232e5e4e'/%3E%3Crect x='11' y='3' width='7' height='25' rx='1' fill='%231c2b27'/%3E%3Crect x='20' y='8' width='5' height='20' rx='1' fill='%23be3a2b'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;900&family=IBM+Plex+Sans+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          <span class="stamp">kifrs-rag</span>
+          기준서 원문·파싱 데이터·임베딩은 이 사이트에 없습니다 — 번호·제목·구조·지표(메타데이터)만 시각화합니다.
+          원문 저작권은 한국회계기준원(KASB)·IFRS Foundation 에 있습니다.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-footer {
+    margin-top: 6rem; padding: 2rem 0 3rem;
+    border-top: var(--line);
+    color: var(--ink-soft); font-size: 0.82rem;
+  }
+  .stamp {
+    display: inline-block; margin-right: .6rem;
+    font-family: var(--mono); font-size: .78rem; color: var(--seal);
+    border: 1.5px solid var(--seal); border-radius: 3px;
+    padding: .05rem .45rem; transform: rotate(-2deg);
+  }
+</style>

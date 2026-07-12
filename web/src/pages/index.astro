@@ -1,0 +1,100 @@
+---
+import Base from "../layouts/Base.astro";
+import Bookshelf from "../components/Bookshelf.astro";
+import pipeline from "../data/pipeline.json";
+import standards from "../data/standards.json";
+
+const totalParas = standards.reduce((a, s) => a + s.paragraphs, 0);
+const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
+---
+
+<Base>
+  <header class="masthead">
+    <div class="wrap head-row">
+      <span class="brand num">kifrs-rag</span>
+      <nav aria-label="차례">
+        <a href="#map">Ⅰ. 지도</a>
+        <a href="#graph">Ⅱ. 참조</a>
+        <a href="#quality">Ⅲ. 품질</a>
+        <a href="#pipeline">Ⅳ. 파이프라인</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow num">K-IFRS RETRIEVAL ENGINE — 구조·지표 시각화</p>
+      <h1>기준서 백 권을,<br />기계가 읽는 장부로.</h1>
+      <p class="lede">
+        한국채택국제회계기준(K-IFRS) {pipeline.standards}개 기준서를 조·항·호 단위
+        <strong class="num">{totalParas.toLocaleString()}문단</strong>으로 파싱하고, 어휘·의미
+        하이브리드 검색과 개정 감시(drift watch)까지 얹은 로컬 지식 엔진입니다.
+        이 페이지는 그 내부를 <em>원문 없이</em> — 구조와 지표만으로 — 보여줍니다.
+      </p>
+      <p class="hero-note num">
+        가장 두꺼운 책: {biggest.title} · {biggest.paragraphs.toLocaleString()}문단 —
+        가장 얇은 책과 {Math.round(biggest.paragraphs / Math.min(...standards.map(s => s.paragraphs)))}배 차이의 서가.
+      </p>
+    </div>
+  </section>
+
+  <main>
+    <section id="map" class="wrap section">
+      <div class="chapter">
+        <span class="no">Ⅰ.</span>
+        <h2>기준서 지도 — 서가</h2>
+        <span class="hint">책등 폭 = 문단 수 · 책등을 누르면 서지가 열립니다</span>
+      </div>
+      <Bookshelf />
+    </section>
+
+    <section id="graph" class="wrap section">
+      <div class="chapter">
+        <span class="no">Ⅱ.</span>
+        <h2>기준서 사이의 참조</h2>
+        <span class="hint">준비 중 — 655 기준서 쌍의 상호참조 네트워크</span>
+      </div>
+    </section>
+
+    <section id="quality" class="wrap section">
+      <div class="chapter">
+        <span class="no">Ⅲ.</span>
+        <h2>검색 품질</h2>
+        <span class="hint">준비 중 — recall·MRR 개선 이력</span>
+      </div>
+    </section>
+
+    <section id="pipeline" class="wrap section">
+      <div class="chapter">
+        <span class="no">Ⅳ.</span>
+        <h2>파이프라인</h2>
+        <span class="hint">준비 중 — 다운로드→파싱→임베딩→MCP→drift 감시</span>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .masthead { border-bottom: var(--line); background: rgb(242 244 241 / .92); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(4px); }
+  .head-row { display: flex; align-items: center; justify-content: space-between; padding-top: .7rem; padding-bottom: .7rem; }
+  .brand { font-weight: 500; color: var(--seal); }
+  nav { display: flex; gap: 1.4rem; font-size: .88rem; }
+  nav a { color: var(--ink); text-decoration: none; font-family: var(--serif); font-weight: 600; white-space: nowrap; }
+  .brand { white-space: nowrap; }
+  nav a:hover { color: var(--seal); }
+
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0 3.5rem; }
+  .eyebrow { font-size: .78rem; letter-spacing: .18em; color: var(--ink-soft); margin: 0 0 1rem; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900;
+    letter-spacing: -0.01em;
+  }
+  .lede { max-width: 42rem; font-size: 1.05rem; margin: 1.4rem 0 0; }
+  .hero-note { font-size: .82rem; color: var(--ink-soft); margin-top: 1rem; }
+
+  .section { margin-top: 5rem; }
+
+  @media (max-width: 640px) {
+    nav { gap: .8rem; font-size: .8rem; }
+  }
+</style>

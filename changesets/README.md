@@ -43,3 +43,4 @@
 | 39 | `20260712-dr3-mcp-drift-warning` | 2026-07-12 | MCP drift_warning auto-annotation on search/get_paragraph (DR3-S2) | 4/4 | completed |
 | 40 | `20260712-pv1-web-data-export` | 2026-07-12 | web metadata export + public-safe gate (PV1-S1) | 4/4 | completed |
 | 41 | `20260712-pv1-crossref-extraction` | 2026-07-12 | cross_reference extraction + graph JSON (PV1-S2) | 4/4 | completed |
+| 42 | `20260712-pv2-astro-scaffold-map` | 2026-07-12 | Astro scaffold + design tokens + bookshelf map view (PV2-S1) | 4/4 | completed |

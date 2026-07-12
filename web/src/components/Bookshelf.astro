@@ -1,0 +1,152 @@
+---
+// 서가(書架) — 100 기준서를 문단 수 비례의 책등으로. 클릭하면 아래 서지 카드가 채워진다.
+import standards from "../data/standards.json";
+
+const CAT = {
+  kifrs: { label: "K-IFRS", color: "var(--teal)" },
+  gaap: { label: "일반기업회계기준", color: "var(--gaap)" },
+  special: { label: "특수분야", color: "var(--special)" },
+};
+
+const books = standards.map((s) => ({
+  ...s,
+  short: (s.title ?? s.id).replace(/^제[\d]+[호장]\s*/, ""),
+  // 책등 폭: 문단 수 비례(√ 완화) — 2,373문단(1109)과 23문단(2106)이 한 서가에 서도록
+  w: Math.max(14, Math.round(Math.sqrt(s.paragraphs) * 2.2)),
+  h: 150 + (s.sections % 5) * 8, // 꽂힌 높이의 미세한 들쭉— 실제 서가의 결
+}));
+const byCat = Object.keys(CAT).map((c) => ({
+  cat: c,
+  ...CAT[c],
+  items: books.filter((b) => b.category === c),
+}));
+const totalParas = standards.reduce((a, s) => a + s.paragraphs, 0);
+---
+
+<div class="shelf-legend num" role="list">
+  {byCat.map((g) => (
+    <span role="listitem"><i style={`background:${g.color}`}></i>{g.label} {g.items.length}권</span>
+  ))}
+  <span class="total">계 {standards.length}권 · {totalParas.toLocaleString()}문단</span>
+</div>
+
+<div class="shelf" id="shelf">
+  {byCat.map((g) =>
+    g.items.map((b) => (
+      <button
+        class="spine"
+        style={`width:${b.w}px;height:${b.h}px;background:${g.color}`}
+        data-id={b.id}
+        data-title={b.title ?? b.id}
+        data-cat={g.label}
+        data-paragraphs={b.paragraphs}
+        data-body={b.body}
+        data-basis={b.basis}
+        data-appendix={b.appendix}
+        data-sections={b.sections}
+        data-ko={b.ko_added}
+        aria-label={`${b.title ?? b.id} — ${b.paragraphs}문단`}
+        title={`${b.title ?? b.id} · ${b.paragraphs}문단`}
+      >
+        <span class="spine-label">{b.id}</span>
+      </button>
+    ))
+  )}
+</div>
+
+<div class="book-card" id="book-card" hidden>
+  <div class="card-head">
+    <h3 class="num" id="bc-id"></h3>
+    <p id="bc-title"></p>
+  </div>
+  <dl class="num">
+    <div><dt>문단</dt><dd id="bc-paragraphs"></dd></div>
+    <div><dt>본문</dt><dd id="bc-body"></dd></div>
+    <div><dt>부록</dt><dd id="bc-appendix"></dd></div>
+    <div><dt>결론도출근거</dt><dd id="bc-basis"></dd></div>
+    <div><dt>섹션</dt><dd id="bc-sections"></dd></div>
+    <div><dt>한국 추가(한N)</dt><dd id="bc-ko"></dd></div>
+  </dl>
+  <div class="comp-bar" id="bc-bar" aria-hidden="true"></div>
+  <p class="bar-key">본문 <i class="k1"></i> · 부록 <i class="k2"></i> · 결론도출근거 <i class="k3"></i></p>
+</div>
+
+<script>
+  const card = document.getElementById("book-card");
+  const shelf = document.getElementById("shelf");
+  shelf?.addEventListener("click", (e) => {
+    const b = e.target.closest(".spine");
+    if (!b || !card) return;
+    shelf.querySelectorAll(".spine.on").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    const d = b.dataset;
+    card.hidden = false;
+    const put = (id, v) => (document.getElementById(id).textContent = v);
+    put("bc-id", d.id);
+    put("bc-title", d.title);
+    put("bc-paragraphs", Number(d.paragraphs).toLocaleString());
+    put("bc-body", Number(d.body).toLocaleString());
+    put("bc-appendix", Number(d.appendix).toLocaleString());
+    put("bc-basis", Number(d.basis).toLocaleString());
+    put("bc-sections", d.sections);
+    put("bc-ko", d.ko);
+    const total = Number(d.paragraphs) || 1;
+    const seg = (n) => `${((Number(n) / total) * 100).toFixed(1)}%`;
+    document.getElementById("bc-bar").innerHTML =
+      `<i class="k1" style="width:${seg(d.body)}"></i>` +
+      `<i class="k2" style="width:${seg(d.appendix)}"></i>` +
+      `<i class="k3" style="width:${seg(d.basis)}"></i>`;
+  });
+</script>
+
+<style>
+  .shelf-legend {
+    display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center;
+    font-size: .8rem; color: var(--ink-soft); margin-bottom: .8rem;
+  }
+  .shelf-legend i { display: inline-block; width: .7em; height: .7em; margin-right: .4em; border-radius: 2px; }
+  .shelf-legend .total { margin-left: auto; }
+
+  .shelf {
+    display: flex; align-items: flex-end; flex-wrap: wrap; gap: 3px;
+    padding: 0 .5rem 0; border-bottom: 4px solid var(--ink);
+    min-height: 190px;
+  }
+  .spine {
+    position: relative; border: none; padding: 0; cursor: pointer;
+    border-radius: 2px 2px 0 0;
+    box-shadow: inset -2px 0 0 rgb(0 0 0 / .18), inset 1px 0 0 rgb(255 255 255 / .15);
+    transition: transform .12s ease;
+  }
+  .spine:hover { transform: translateY(-6px); }
+  .spine.on { outline: 2px solid var(--seal); outline-offset: 1px; }
+  .spine-label {
+    position: absolute; left: 50%; top: 8px;
+    transform: translateX(-50%);
+    writing-mode: vertical-rl;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em;
+    color: rgb(255 255 255 / .92);
+    max-height: calc(100% - 14px); overflow: hidden;
+  }
+
+  .book-card {
+    margin-top: 1.4rem; padding: 1.2rem 1.4rem;
+    background: #fff; border: var(--line); border-left: 4px solid var(--seal);
+  }
+  .card-head { display: flex; align-items: baseline; gap: .9rem; flex-wrap: wrap; }
+  .card-head h3 { font-family: var(--mono); font-size: 1.3rem; color: var(--seal); }
+  .card-head p { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.05rem; }
+  .book-card dl {
+    display: flex; flex-wrap: wrap; gap: .4rem 2rem; margin: .9rem 0 .6rem; font-size: .88rem;
+  }
+  .book-card dl div { display: flex; gap: .6rem; }
+  .book-card dt { color: var(--ink-soft); }
+  .book-card dd { margin: 0; font-weight: 500; }
+  .comp-bar { display: flex; height: 10px; border-radius: 2px; overflow: hidden; background: var(--paper-deep); }
+  .comp-bar :global(i), .bar-key i { display: inline-block; height: 100%; }
+  .bar-key { font-size: .75rem; color: var(--ink-soft); margin: .4rem 0 0; }
+  .bar-key i { width: .8em; height: .8em; vertical-align: -1px; border-radius: 2px; }
+  :global(.k1) { background: var(--teal); }
+  :global(.k2) { background: var(--teal-bright); }
+  :global(.k3) { background: var(--ledger-strong); }
+</style>
