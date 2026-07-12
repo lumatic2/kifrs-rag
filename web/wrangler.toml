@@ -1,0 +1,11 @@
+# kifrs-viz — Cloudflare Workers assets-only 정적 배포 (landscape/account.askewly.com 패턴)
+# 주의: top-level 키(routes)는 [assets] 같은 테이블 헤더보다 앞에 와야 한다 (TOML)
+name = "kifrs-viz"
+compatibility_date = "2026-07-12"
+
+routes = [
+  { pattern = "kifrs.askewly.com", custom_domain = true },
+]
+
+[assets]
+directory = "dist"

@@ -20,7 +20,7 @@
 
 ### PV3 — 배포 + 공개 검증 (P1)
 
-- [ ] PV3-S1: wrangler assets-only 배포 + `kifrs.askewly.com` custom domain + 라이브 검증 + 배포 산출물 public-safe gate 재실행 (verify: 라이브 URL 4뷰 렌더 + gate PASS)
+- [x] PV3-S1: wrangler assets-only 배포 + `kifrs.askewly.com` custom domain + 라이브 검증 + 배포 산출물 public-safe gate 재실행 (verify: 라이브 URL 4뷰 렌더 + gate PASS)
 
 ## 중단점
 
