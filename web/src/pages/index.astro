@@ -42,6 +42,10 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         가장 두꺼운 책: {biggest.title} · {biggest.paragraphs.toLocaleString()}문단 —
         가장 얇은 책과 {Math.round(biggest.paragraphs / Math.min(...standards.map(s => s.paragraphs)))}배 차이의 서가.
       </p>
+      <figure class="plate plate-hero">
+        <img src="/images/hero-archive.jpg" alt="한지 창 곁의 전통 장서각 — 실로 묶은 책들이 서가에 정연히 쌓여 있다" />
+        <figcaption class="num">도판 1 — 이 엔진이 다루는 것은 결국 백 권의 '책'이다.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -71,6 +75,9 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <h2>검색 품질</h2>
         <span class="hint">goldset 50문항 — 정답 문단 도달률로 잰다</span>
       </div>
+      <figure class="plate plate-band">
+        <img src="/images/still-ledger.jpg" alt="펼쳐진 전통 장부와 붓, 저울추 — 재고 정밀의 정물" loading="lazy" />
+      </figure>
       <EvalDash />
     </section>
 
@@ -80,6 +87,9 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <h2>파이프라인</h2>
         <span class="hint">원문은 로컬에만 — 전 단계가 한 대의 PC 에서 돈다</span>
       </div>
+      <figure class="plate plate-band">
+        <img src="/images/still-thread.jpg" alt="실제본 — 바늘과 청록 실로 한지 접장을 꿰매는 장면" loading="lazy" />
+      </figure>
       <Pipeline />
     </section>
 
@@ -89,6 +99,9 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <h2>살아있는 엔진 — drift 감시 루프</h2>
         <span class="hint">기준서는 개정된다 — 감지는 자동, 갱신은 기준서 단위 수동</span>
       </div>
+      <figure class="plate plate-band">
+        <img src="/images/still-inkdrift.jpg" alt="백자 사발의 물에 청록먹 한 방울이 번져 나가는 순간" loading="lazy" />
+      </figure>
       <DriftLoop />
     </section>
 
@@ -98,6 +111,9 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <h2>수리 루프 연대기</h2>
         <span class="hint">issue-back — 실소비에서 돌아온 결함만 고친다</span>
       </div>
+      <figure class="plate plate-band">
+        <img src="/images/still-seal.jpg" alt="인주 곽과 돌 인장, 한지 위에 찍힌 붉은 인영들 — 기록의 확정" loading="lazy" />
+      </figure>
       <RepairLoop />
       <p class="universe-link">
         이 엔진을 소비하는 가상 회계법인 실험 →
@@ -126,6 +142,14 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
   .hero-note { font-size: .82rem; color: var(--ink-soft); margin-top: 1rem; }
 
   .section { margin-top: 5rem; }
+
+  .plate { margin: 0; }
+  .plate img { width: 100%; display: block; border: var(--line); }
+  .plate figcaption { font-size: .78rem; color: var(--ink-soft); margin-top: .5rem; }
+  .plate-hero { margin-top: 2.4rem; }
+  .plate-hero img { max-height: 380px; object-fit: cover; object-position: center 62%; }
+  .plate-band { margin-bottom: 1.6rem; }
+  .plate-band img { max-height: 180px; object-fit: cover; filter: saturate(.92); }
 
   .universe-link { margin-top: .9rem; font-size: .88rem; }
   .universe-link a {
