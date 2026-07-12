@@ -249,9 +249,48 @@ def get_context(standard: str, no: str, around: int = 2) -> list[dict[str, Any]]
 
 _SEARCH_MODES = ("lexical", "semantic", "hybrid", "hierarchical", "reranked")
 
+# 필터(section/exclude_bc) 활성 시 후보 풀을 넓혀서 필터링 — 랭킹 알고리즘은 그대로 두고
+# "필터 전 limit 개" 대신 "필터 전 fetch_limit 개 중 필터 통과분"을 반환한다. 부족하면
+# 정직하게 적게 반환(필터 전 결과로 채우지 않음).
+_FILTER_FETCH_MULTIPLIER = 5
+_FILTER_FETCH_MIN = 100
+_FILTER_FETCH_MAX = 500
+
+
+def _filter_fetch_limit(limit: int) -> int:
+    return min(max(limit * _FILTER_FETCH_MULTIPLIER, _FILTER_FETCH_MIN), _FILTER_FETCH_MAX)
+
+
+def _apply_candidate_filter(
+    hits: list[dict[str, Any]], section: str | None, exclude_bc: bool, limit: int
+) -> list[dict[str, Any]]:
+    """후보 필터링(랭킹 순서는 유지) — section 은 부분일치, exclude_bc 는 appendix=='BC' 제외.
+    필터가 없으면 원본 그대로(오버샘플 없이 이미 limit 이하)."""
+    if not section and not exclude_bc:
+        return hits
+    out = []
+    for h in hits:
+        if exclude_bc and h.get("appendix") == "BC":
+            continue
+        if section and section not in (h.get("section") or ""):
+            continue
+        out.append(h)
+        if len(out) >= limit:
+            break
+    for h in out:
+        h["filter_applied"] = {"section": section, "exclude_bc": exclude_bc}
+    return out
+
 
 @mcp.tool(output_schema=None)
-def search(query: str, standard: str | None = None, limit: int = 20, mode: str = "hybrid") -> list[dict[str, Any]]:
+def search(
+    query: str,
+    standard: str | None = None,
+    limit: int = 20,
+    mode: str = "hybrid",
+    section: str | None = None,
+    exclude_bc: bool = False,
+) -> list[dict[str, Any]]:
     """K-IFRS 본문 검색. `mode` 로 알고리즘 선택 (단일 지표 기준의 절대 우위 모드는 없음 — 목적별로 고른다).
 
     - **"reranked"** (정밀 인용 1순위) — hybrid top-50 을 cross-encoder(bge-reranker-v2-m3)로
@@ -272,32 +311,56 @@ def search(query: str, standard: str | None = None, limit: int = 20, mode: str =
     문단이 안 보이면 **필터를 해제하고 재검색**하라. 필터 없이 1차 탐색 후 좁히는
     순서가 더 안전하다.
 
+    **공시 절만 모을 때** — 자연어 쿼리는 BC(결론도출근거)·측정 절 문단에 밀려 공시 절이
+    누락되기 쉽다. `section="공시"`(section 값 부분일치)로 후보를 필터링하면 도움되지만,
+    가장 안전한 정본 경로는 여전히 `list_sections` → `get_context` 절 단위 수집이다(회수율
+    100%, section 필터는 어디까지나 검색 정밀도 보조 수단). `exclude_bc=True` 로 BC 문단을
+    후보에서 아예 제외할 수도 있다. 필터는 랭킹을 바꾸지 않고 후보만 걸러내므로, 코퍼스에
+    필터 조건에 맞는 문단이 적으면 `limit` 보다 적은 결과가 정직하게 반환된다(히트에
+    `filter_applied` 필드로 표시).
+
     인용 대상 기준서에 KASB 개정 공표가 감지돼 있으면 히트에 `drift_warning` 필드가 붙는다.
     """
-    return _annotate_drift(_search_impl(query, standard, limit, mode))
+    return _annotate_drift(_search_impl(query, standard, limit, mode, section, exclude_bc))
 
 
-def _search_impl(query: str, standard: str | None, limit: int, mode: str) -> list[dict[str, Any]]:
+def _search_impl(
+    query: str,
+    standard: str | None,
+    limit: int,
+    mode: str,
+    section: str | None = None,
+    exclude_bc: bool = False,
+) -> list[dict[str, Any]]:
+    filtering = bool(section) or exclude_bc
+    fetch_limit = _filter_fetch_limit(limit) if filtering else limit
+
     if mode == "lexical":
-        return _dispatch(
-            lambda: _store.search_fts(query, standard, limit=limit),
-            lambda: _search_lexical_json(query, standard, limit),
+        hits = _dispatch(
+            lambda: _store.search_fts(query, standard, limit=fetch_limit),
+            lambda: _search_lexical_json(query, standard, fetch_limit),
         )
+        return _apply_candidate_filter(hits, section, exclude_bc, limit)
     if mode not in _SEARCH_MODES:
         raise ToolError(f"unknown mode {mode!r} — choose one of {_SEARCH_MODES}")
     _require_sqlite(mode)
     if mode == "semantic":
         # lazy import — 모델 로드는 첫 호출 시
         from kifrs.embed import semantic_search
-        return semantic_search(query, standard, limit)
+        hits = semantic_search(query, standard, fetch_limit)
+        return _apply_candidate_filter(hits, section, exclude_bc, limit)
     if mode == "hybrid":
         from kifrs.embed import search_hybrid
-        return search_hybrid(query, standard, limit)
+        hits = search_hybrid(query, standard, fetch_limit)
+        return _apply_candidate_filter(hits, section, exclude_bc, limit)
     if mode == "hierarchical":
         from kifrs.embed import search_hierarchical
-        return search_hierarchical(query, standard, limit)
+        hits = search_hierarchical(query, standard, fetch_limit)
+        return _apply_candidate_filter(hits, section, exclude_bc, limit)
     from kifrs.embed import search_reranked
-    return search_reranked(query, standard, limit=limit, candidates=50)
+    candidates = max(50, fetch_limit) if filtering else 50
+    hits = search_reranked(query, standard, limit=fetch_limit, candidates=candidates)
+    return _apply_candidate_filter(hits, section, exclude_bc, limit)
 
 
 @mcp.tool(output_schema=None)

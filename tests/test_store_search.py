@@ -138,3 +138,77 @@ def test_get_paragraphs_batch_matches_individual_lookups():
 
 def test_get_paragraphs_batch_empty_input():
     assert store.get_paragraphs_batch([]) == {}
+
+
+# ── ib4: search() section/exclude_bc 후보 필터링 ──────────────────────────
+# 결함: 공시 절 수집 쿼리에서 search(reranked/hierarchical) 가 BC·측정 절 문단에
+# 희석되어 회수율이 낮다 (BACKLOG 2026-07-12(b) H10 C8-2). 랭킹은 그대로 두고 후보만
+# 필터링 — _apply_candidate_filter 는 순수 함수라 로컬 DB 없이도 단위 테스트 가능.
+
+
+def test_apply_candidate_filter_section_substring():
+    from kifrs import mcp_server
+
+    hits = [
+        {"section": "공시", "appendix": None},
+        {"section": "인식과 측정", "appendix": None},
+        {"section": "질적 공시", "appendix": None},
+    ]
+    out = mcp_server._apply_candidate_filter(hits, section="공시", exclude_bc=False, limit=10)
+    assert [h["section"] for h in out] == ["공시", "질적 공시"]
+    assert all(h["filter_applied"] == {"section": "공시", "exclude_bc": False} for h in out)
+
+
+def test_apply_candidate_filter_exclude_bc():
+    from kifrs import mcp_server
+
+    hits = [{"section": "x", "appendix": "BC"}, {"section": "x", "appendix": None}]
+    out = mcp_server._apply_candidate_filter(hits, section=None, exclude_bc=True, limit=10)
+    assert len(out) == 1
+    assert out[0]["appendix"] is None
+
+
+def test_apply_candidate_filter_honest_short_result_not_backfilled():
+    """필터 통과분이 limit 보다 적으면 필터 전 결과로 채우지 않고 정직하게 적게 반환."""
+    from kifrs import mcp_server
+
+    hits = [{"section": "공시", "appendix": None}, {"section": "측정", "appendix": None}]
+    out = mcp_server._apply_candidate_filter(hits, section="공시", exclude_bc=False, limit=10)
+    assert len(out) == 1
+
+
+def test_apply_candidate_filter_noop_without_filters():
+    """필터 파라미터 미지정 시 순서·내용 완전 불변(filter_applied 필드도 안 붙음)."""
+    from kifrs import mcp_server
+
+    hits = [{"section": "x", "appendix": "BC"}]
+    out = mcp_server._apply_candidate_filter(hits, section=None, exclude_bc=False, limit=10)
+    assert out == hits
+    assert "filter_applied" not in out[0]
+
+
+def test_mcp_server_search_default_unaffected_by_new_filter_params():
+    """기존 호출부(파라미터 미지정) 는 완전 불변 — section/exclude_bc 기본값 None/False."""
+    from kifrs import mcp_server
+
+    via_default = mcp_server.search("금융자산 분류", limit=5, mode="reranked")
+    via_explicit_none = mcp_server.search(
+        "금융자산 분류", limit=5, mode="reranked", section=None, exclude_bc=False
+    )
+    assert via_default == via_explicit_none
+
+
+def test_mcp_server_search_section_filter_only_returns_matching_section():
+    from kifrs import mcp_server
+
+    results = mcp_server.search("유형자산 공시", limit=10, mode="hybrid", section="공시")
+    assert results
+    assert all("공시" in (r.get("section") or "") for r in results)
+    assert all(r.get("filter_applied") for r in results)
+
+
+def test_mcp_server_search_exclude_bc_removes_bc_hits():
+    from kifrs import mcp_server
+
+    results = mcp_server.search("공정가치", limit=10, mode="hybrid", exclude_bc=True)
+    assert all(r.get("appendix") != "BC" for r in results)
