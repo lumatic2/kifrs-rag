@@ -21,6 +21,12 @@
 
 ## Completed
 
+### 2026-07-12 — h4-issue-back-repair (IB1~IB3)
+- Completed: 2026-07-12
+- Result: 첫 issue-back 루프 완주. IB1 리픽싱 계열 검색 수리(term_bridge 3건 + 필터 함정 안내 2표면), IB2 파싱 수리(BC/DO/IN 9,598문단 세분화 + 섹션 제목 복구 + BC 감점 — 8,298→17,896 문단, hybrid recall@20 0.887→0.910), IB3 mcp-log 실패/부분 5사례 재검증 전부 해소.
+- Evidence: `docs/reports/2026-07-12-ib1-repricing-search-repair.md`; `docs/reports/2026-07-12-ib2-parse-repair.md`; `docs/reports/2026-07-12-h4-issue-back-repair-close-report.md`; horizon 원문 `docs/horizons/h4-issue-back-repair.md`.
+- Verification: 재현 쿼리 기본 경로(hybrid/reranked) 도달 + retrieval eval 비퇴행 (close report 기준).
+
 ### 2026-07-12 — ROADMAP compact archive (2026-07-05~07-06 closed horizons 상세)
 - Completed: 2026-07-04~2026-07-06
 - Result: ROADMAP 150줄 budget 복구를 위해 아래 closed horizon의 milestone 상세 블록을 ROADMAP에서 제거하고 이 항목으로 압축. 포함: `demo-rehearsal-improvement-hardening`(DRI1~DRI4), `demo-rehearsal-quality-loop`(DRQ1~DRQ5), `workflow-coverage-depth-expansion`(WCD1~WCD5), `external-source-body-connector-expansion`(ESB1~ESB5), `private-parser-realism-hardening`(PPR1~PPR5), `rag-quality-fresh-validation`(RQF1~RQF5), `end-to-end-demo-scenario`(E2E1~E2E5), `multi-authority-runtime-hardening`(MAH1~MAH3), `firm-facing-product-surface`(FPS1~FPS5), `product-trust-and-quality-evidence`(PTQ1~PTQ5), `real-local-parser-prototype`(RLP1~RLP5), `source-body-ingestion-controlled-lane`(SBI1~SBI5), `workflow-coverage-expansion`(WCE1~WCE5), `runtime-retriever-promotion-gate`(RPG1~RPG5), `operator-experience-hardening`(OEH1~OEH5), OGH1.

@@ -84,6 +84,10 @@ issue-back → 수리 루프로 닫히는 상태** (2026-07-12 재정의).
   `ai-accounting-firm/docs/seed/practice-map/`으로 승격(사본, 원본은 이 시점 이후 동결). 다음 horizon은
   내부 hardening 반복 대신 **ai-accounting-firm 사용처에서 돌아온 결함(issue-back)** 기준으로 연다.
 
+- 2026-07-12 (2차): **issue-back 규칙 예외 승인** — 사용자 명시 승인으로 자체 발제 horizon
+  `kasb-drift-watch`(KASB 제·개정 drift 감지 + 단위 갱신 경로) 개설. 지식 엔진의 최신성 유지는
+  실소비 신뢰성의 전제라는 판단. 규칙 자체는 유지 — 이후 자체 발제도 건별 사용자 승인 필요.
+
 ## Active horizon
 
 **2026-07-12 이후 규칙**: 새 horizon은 이 레포 내부 판단이 아니라 `ai-accounting-firm`의 AX 실험에서 돌아온
