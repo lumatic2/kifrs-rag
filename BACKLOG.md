@@ -6,7 +6,10 @@
 
 ### 2026-07-12(b) — H10 C8-2 주석 공시 체크리스트 실험 (5번째 실소비, 원본: `~/projects/ai-accounting-firm/docs/cases/2026-07-12-disc-checklist/mcp-log.md`)
 
-> 상태: 미수리. 24회 호출(경질 miss 0)에서 발견. 참고: 사례 4·5·6·8호(C4-2·C5-2·C8-2)에서
+> **상태: 수리 완료 (2026-07-12, `h10-disclosure-search-repair` horizon)** — `search(section=,
+> exclude_bc=)` 후보 필터 (changeset #46 `20260712-ib4-search-section-filter`). 재현 4쿼리
+> 공시절 top-20 회수 5→20/4→14/3→8/2→16, hybrid eval 비퇴행(0.747/0.910/0.488 정확 일치).
+> 24회 호출(경질 miss 0)에서 발견. 참고: 사례 4·5·6·8호(C4-2·C5-2·C8-2)에서
 > **기수리 3건 회귀 없음** 반복 확인(list_sections 정상 등).
 
 4. **[중요] `search()` 가 공시 절 수집 용도로 부적합** — 5개 기준서(1116/1115/1107/1016/1012)
