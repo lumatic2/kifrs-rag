@@ -58,6 +58,7 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <span class="hint">본문 속 "기업회계기준서 제N호" 언급을 추출한 네트워크</span>
       </div>
       <RefGraph />
+      <p class="universe-link"><a href="/universe/">3D 우주에서 탐색 → 기준서 100권 + 절 위성을 은하·성단으로 띄운 시각화</a></p>
     </section>
 
     <section id="quality" class="wrap section">
@@ -99,6 +100,13 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
   .hero-note { font-size: .82rem; color: var(--ink-soft); margin-top: 1rem; }
 
   .section { margin-top: 5rem; }
+
+  .universe-link { margin-top: .9rem; font-size: .88rem; }
+  .universe-link a {
+    color: var(--teal); font-weight: 600; text-decoration: none;
+    border-bottom: 1px solid var(--ledger-strong);
+  }
+  .universe-link a:hover { color: var(--seal); border-color: var(--seal); }
 
   @media (max-width: 640px) {
     nav { gap: .8rem; font-size: .8rem; }

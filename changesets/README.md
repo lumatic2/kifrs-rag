@@ -48,3 +48,4 @@
 | 44 | `20260712-pv2-evaldash-pipeline` | 2026-07-12 | eval stat tiles + retriever bar chart + pipeline story (PV2-S3) | 4/4 | completed |
 | 45 | `20260712-pv3-deploy` | 2026-07-12 | Cloudflare deploy kifrs.askewly.com + artifact body scan (PV3-S1) | 4/4 | completed |
 | 46 | `20260712-ib4-search-section-filter` | 2026-07-12 | search() section/exclude_bc candidate filter for disclosure-section recall (issue-back #4) | 4/4 | completed |
+| 47 | `20260712-pp2-universe` | 2026-07-12 | 3D standards universe /universe (poc-graph port, PP2-S1) | 4/4 | completed |

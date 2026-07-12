@@ -22,6 +22,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "kifrs.db"
 DATA_DIR = ROOT / "web" / "src" / "data"
+UNIVERSE_GRAPH = ROOT / "web" / "public" / "universe" / "graph.json"
 
 MAX_LEN = 200
 SNIPPET = 30          # 대조 스니펫 길이 (이보다 짧은 본문은 소제목 수준 — 대조 제외)
@@ -41,6 +42,8 @@ def _iter_strings(x):
 
 def main() -> int:
     files = sorted(DATA_DIR.glob("*.json"))
+    if UNIVERSE_GRAPH.exists():
+        files.append(UNIVERSE_GRAPH)
     if not files:
         print(f"FAIL: 산출물 없음 — {DATA_DIR}")
         return 2
