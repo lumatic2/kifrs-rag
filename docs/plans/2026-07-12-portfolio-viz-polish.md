@@ -13,7 +13,7 @@
 
 ### PP2 — 인터랙션 + 콘텐츠 + close (P1)
 
-- [ ] PP2-S1: 참조 그래프 UX — 기준서 검색 박스·포커스 모드(선택 노드 이웃만)·필터 개선 (verify: 실브라우저 동작)
+- [ ] PP2-S1: **3D 기준서 우주** — `~/projects/obsidian/poc-graph/viewer.html` 이식(사용자 승인 2026-07-12). kifrs graph.json 생성(기준서 star + 절 위성 노드, cross_reference 엣지, 계열 hierarchy) + `/universe` 전용 풀스크린 페이지 + 팔레트 조정. 기존 2D d3 그래프는 개요용으로 유지 (verify: 실브라우저 3D 렌더·인터랙션 + graph.json 에 본문·gist 필드 부재 + gate PASS)
 - [ ] PP2-S2: 콘텐츠 확장 — drift 감시 루프 스토리 + 수리 루프 연대기(h4→h10, recall 곡선 등 지표만) + ai-accounting-firm 상호 링크 (verify: 신규 데이터 gate PASS — 메타데이터 only)
 - [ ] PP2-S3: 재배포 + 라이브 검증 + close report (verify: kifrs.askewly.com 신규 요소 렌더 + dist 재스캔 0건)
 
