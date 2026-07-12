@@ -277,3 +277,14 @@
   - Completed: 2026-06-30
   - Result: 1115 q07 RAG eval trace, 1116 리스 10/10 완성, user_note 13건 seed + query expansion 연결, 1113/1019 도메인 workflow 진입
   - Evidence: `data/scenarios/1115_revenue/`; `data/scenarios/1116_lease/`; `data/scenarios/1113_fair_value/`; `data/scenarios/1019_employee_benefits/`; `scripts/seed_user_notes.py`
+
+### 2026-07
+- PV1 - PV1 — 데이터 레이어 (export + 참조 추출)
+  - Completed: 2026-07-12
+  - Result: 메타데이터 export 4종 + 전수 본문 대조 gate 양방향 + cross_reference 첫 적재(1,850행/655쌍), eval 비퇴행
+  - Evidence: changesets/20260712-pv1-web-data-export/README.md; changesets/20260712-pv1-crossref-extraction/README.md
+
+- PV2 - PV2 — Astro 사이트 구현 (4뷰)
+  - Completed: 2026-07-12
+  - Result: Astro 4뷰 완성 — 서가 히어로·참조 그래프(d3-force)·eval 대시보드(validator PASS)·파이프라인, /browse E2E
+  - Evidence: changesets/20260712-pv2-astro-scaffold-map/README.md; changesets/20260712-pv2-refgraph-island/README.md; changesets/20260712-pv2-evaldash-pipeline/README.md
