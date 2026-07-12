@@ -4,6 +4,18 @@
 
 ## Issue-back Queue (ai-accounting-firm 실소비에서 돌아온 결함 — 새 horizon의 유일한 입력, 2026-07-12 규칙)
 
+### 2026-07-12(b) — H10 C8-2 주석 공시 체크리스트 실험 (5번째 실소비, 원본: `~/projects/ai-accounting-firm/docs/cases/2026-07-12-disc-checklist/mcp-log.md`)
+
+> 상태: 미수리. 24회 호출(경질 miss 0)에서 발견. 참고: 사례 4·5·6·8호(C4-2·C5-2·C8-2)에서
+> **기수리 3건 회귀 없음** 반복 확인(list_sections 정상 등).
+
+4. **[중요] `search()` 가 공시 절 수집 용도로 부적합** — 5개 기준서(1116/1115/1107/1016/1012)
+   전부에서 reranked/hierarchical 이 공시 절을 온전히 회수 못함. BC 문단·측정 절 문단이 동일
+   어휘로 검색 희석(BC 끌림은 C4-2·C5-2 관찰 노트의 정량 확인). 우회: `list_sections →
+   get_context` 절 단위 수집이 5/5 기준서 100% 회수(정본 경로로 문서화 가치). 개선 후보:
+   `search(section=...)` 또는 `paragraph_type`(본문/공시/BC) 필터. 소비자 판정: 승격 조건 아님
+   (안정적 우회 존재) — 공시 업무형 소비의 검색 UX 개선 목적.
+
 ### 2026-07-12 — H4 RCPS 검토메모 실험 (첫 실소비, 원본: `~/projects/ai-accounting-firm/docs/cases/2026-07-12-facc-rcps-memo/mcp-log.md`)
 
 > **상태: 수리 완료 (2026-07-12, `h4-issue-back-repair` horizon closed)** — 3건 전부 해소.
