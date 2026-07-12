@@ -10,7 +10,7 @@
 ### PV1 — 데이터 레이어 (P0)
 
 - [x] PV1-S1: `scripts/export_web_data.py` — DB→`web/src/data/*.json`(기준서 계층·문단 규모·eval 이력·파이프라인 통계) + public-safe gate 스크립트 (verify: export 실행 JSON 생성 + gate PASS + synthetic 본문 주입 시 gate FAIL)
-- [ ] PV1-S2: 기준서 간 참조 추출 — 문단 본문 "제NNNN호" 계열 언급 파싱 → `cross_reference` 적재 + 그래프 JSON export (verify: 행 수·노드/엣지 수 관측 + 알려진 참조(1116↔1109 등) 존재 확인 + 기존 검색 eval 비퇴행)
+- [x] PV1-S2: 기준서 간 참조 추출 — 문단 본문 "제NNNN호" 계열 언급 파싱 → `cross_reference` 적재 + 그래프 JSON export (verify: 행 수·노드/엣지 수 관측 + 알려진 참조(1116↔1109 등) 존재 확인 + 기존 검색 eval 비퇴행)
 
 ### PV2 — Astro 사이트 구현 (P0)
 
