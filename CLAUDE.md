@@ -91,8 +91,8 @@ kifrs-rag/
 
 **Phase 2 검색 인프라 완성** — 임베딩 + 하이브리드 검색 + dogfood Round 2까지.
 
-- DB: 100 기준서 / 17,896 paragraphs (SQLite + FTS5 trigram — 2026-07-12 IB2에서 BC/DO/IN 9,598 문단 세분화 추가)
-- 임베딩: bge-m3 (1024d, 17,896 문단 100% 인덱싱), **GPU 인코딩** (RTX 5090 cu128, 2026-06-27 전환 — 한계 #4 참조)
+- DB: 100 기준서 / 17,899 paragraphs (SQLite + FTS5 trigram — 2026-07-12 IB2 BC/DO/IN 세분화 + DR2 수정목록 26-1 갱신). KASB 최신성은 `check_drift`(MCP)·`python -m kifrs.drift`로 감시, 개정 감지 시 `--update <id>` 단위 갱신
+- 임베딩: bge-m3 (1024d, 17,899 문단 100% 인덱싱), **GPU 인코딩** (RTX 5090 cu128, 2026-06-27 전환 — 한계 #4 참조)
 - MCP tools (8): list_standards, get_paragraph, list_paragraphs, list_sections, search_lexical, **search_semantic**, **search_hybrid**, get_context, reload_store
 - /accounting 스킬: search_hybrid 1순위 사용. dogfood Round 1+2 검증 완료
 - 검색 recall: lexical 60% → hybrid 80% (Phase 2 목표 70%+ 초과)
