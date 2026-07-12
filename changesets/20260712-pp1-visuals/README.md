@@ -1,9 +1,9 @@
-# Changeset: PP1 — imagegen 비주얼 보강 (한지/서가 정물 6장)
+# Changeset: PP1-S2 — 도판 반입 (S1 자산은 changeset #49 `20260712-pp1-imagegen`)
 
 ## Target
 
 - ROADMAP milestone: PP1 (`portfolio-viz-polish` horizon)
-- Plan: `docs/plans/2026-07-12-portfolio-viz-polish.md` PP1-S1 + PP1-S2
+- Plan: `docs/plans/2026-07-12-portfolio-viz-polish.md` PP1-S2 (S1 생성분은 codex 워커 changeset #49)
 
 ## Scope
 

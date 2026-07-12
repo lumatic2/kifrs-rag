@@ -51,4 +51,4 @@
 | 47 | `20260712-pp2-universe` | 2026-07-12 | 3D standards universe /universe (poc-graph port, PP2-S1) | 4/4 | completed |
 | 48 | `20260712-pp2-content` | 2026-07-12 | drift loop story + repair-loop timeline + cross-link (PP2-S2) | 4/4 | completed |
 | 49 | `20260712-pp1-imagegen` | 2026-07-12 | six Hanji/Korean scholarly still-life image assets (PP1-S1) | 4/4 | completed |
-| 49 | `20260712-pp1-visuals` | 2026-07-12 | hanji/seoga still-life imagegen 6 + plate integration (PP1) | 4/4 | completed |
+| 50 | `20260712-pp1-visuals` | 2026-07-12 | plate integration of PP1-S1 assets into index (PP1-S2) | 4/4 | completed |
