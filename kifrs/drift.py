@@ -219,6 +219,148 @@ def run_check(
     return report
 
 
+# ── 단위 갱신 경로 (DR2) ──────────────────────────────────────────────────
+DRIFT_META_COLUMNS = {
+    "kasb_file_no": "TEXT",
+    "kasb_file_seq": "TEXT",
+    "drift_synced_at": "TEXT",
+}
+
+
+def _ensure_drift_columns(conn: sqlite3.Connection) -> None:
+    """standard 테이블에 drift 메타 컬럼(nullable) 추가 — 기존 조회 경로 영향 없음."""
+    have = {r[1] for r in conn.execute("PRAGMA table_info(standard)")}
+    for col, typ in DRIFT_META_COLUMNS.items():
+        if col not in have:
+            conn.execute(f"ALTER TABLE standard ADD COLUMN {col} {typ}")
+
+
+def _find_snapshot_entry(standard_id: str, snapshot: dict) -> dict | None:
+    """스냅샷에서 standard_id 에 대응하는 KASB 항목 검색 (id 후보 매핑 역방향)."""
+    for e in (snapshot.get("entries") or {}).values():
+        std = Standard(gubun="", seq=e["seq"], number=e["number"], title=e["title"])
+        if standard_id in _id_candidates(e["category"], std):
+            return e
+    return None
+
+
+def _resolve_dir(category: str, standard_id: str, kasb_number: str) -> Path:
+    """로컬 PDF 폴더 해석 (parse.py --all 의 폴더→id 규칙 역방향)."""
+    base = ROOT / "data" / "standards" / category
+    if category == "kifrs":
+        return base / standard_id
+    # gaap_01 → 제01장_* 폴더 / special_5002 → 5002 폴더 (없으면 kasb_number 로 신설)
+    if base.exists():
+        for d in sorted(base.glob("*")):
+            if not d.is_dir():
+                continue
+            m_ch = re.match(r"제(\d+)장", d.name)
+            derived = (f"{category}_{int(m_ch.group(1)):02d}" if m_ch
+                       else f"{category}_{d.name}" if category == "gaap" else d.name)
+            if category == "special":
+                derived = f"special_{d.name}"
+            if derived == standard_id:
+                return d
+    return base / kasb_number
+
+
+def update_standard(standard_id: str, *, db_path: Path = DB_PATH) -> dict:
+    """drift 감지된 기준서 1개를 갱신: 재다운로드→재파싱→재인제스트→재임베딩 + amendment 기록.
+
+    선행 조건: 전체 `run_check` 로 스냅샷이 있어야 한다 (KASB seq/파일 참조를 스냅샷에서 얻음).
+    """
+    snapshot = load_snapshot()
+    entry = _find_snapshot_entry(standard_id, snapshot)
+    if entry is None:
+        raise ValueError(
+            f"'{standard_id}' 를 스냅샷에서 찾지 못함 — 먼저 `python -m kifrs.drift` (전체 감지) 실행"
+        )
+    category = entry["category"]
+
+    # 갱신 전 상태 확보 (amendment diff 용)
+    with sqlite3.connect(db_path) as db:
+        row = db.execute("SELECT source FROM standard WHERE id=?", (standard_id,)).fetchone()
+        if row is None:
+            raise ValueError(f"DB 에 없는 기준서: {standard_id}")
+        old_source = row[0]
+        old_bodies = dict(db.execute(
+            "SELECT no, body FROM paragraph WHERE standard=?", (standard_id,)))
+
+    # 1) 현행 PDF 재다운로드 (기존 PDF 는 archive/ 로 보존)
+    session = download.build_session()
+    std = Standard(gubun=CATEGORIES[category]["gubun"], seq=entry["seq"],
+                   number=entry["number"], title=entry["title"])
+    refs = download.fetch_detail_files(session, std, category)
+    pdfs = [r for r in refs if r.ext == "pdf"]
+    if not pdfs:
+        raise RuntimeError(f"{category}/{entry['number']}: 상세 페이지에 PDF 없음")
+    std_dir = _resolve_dir(category, standard_id, entry["number"])
+    if std_dir.exists():
+        archive = std_dir / "archive"
+        archive.mkdir(exist_ok=True)
+        for old_pdf in std_dir.glob("*.pdf"):
+            old_pdf.rename(archive / old_pdf.name)
+    new_pdf = download.download_file(session, pdfs[0], std_dir,
+                                     referer=CATEGORIES[category]["view"])
+    print(f"[update] 다운로드: {new_pdf.name}")
+
+    # 2) 재파싱 → parsed JSON 갱신
+    from kifrs import parse
+    data = parse.parse_pdf(new_pdf, standard_id)
+    if not data["paragraphs"]:
+        raise RuntimeError(f"{standard_id}: 파싱 결과 0 문단 — 갱신 중단 (DB 미변경)")
+    json_path = ROOT / "data" / "standards" / "parsed" / f"{standard_id}.json"
+    json_path.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    # 3) 재인제스트 (upsert 가 기존 문단 삭제 + FTS rebuild 까지 수행)
+    from kifrs import store
+    r = store.upsert_from_json(json_path)
+    print(f"[update] 인제스트: {r['paragraphs']} 문단 (이전 {len(old_bodies)})")
+
+    # 4) amendment diff 기록 + standard 메타 갱신
+    now = datetime.now().isoformat(timespec="seconds")
+    today = now[:10]
+    note = f"drift update: {old_source} → {new_pdf.name}"
+    with sqlite3.connect(db_path) as db:
+        _ensure_drift_columns(db)
+        new_bodies = dict(db.execute(
+            "SELECT no, body FROM paragraph WHERE standard=?", (standard_id,)))
+        changed = [(n, old_bodies[n], new_bodies[n]) for n in old_bodies.keys() & new_bodies.keys()
+                   if old_bodies[n] != new_bodies[n]]
+        added = [(n, None, new_bodies[n]) for n in new_bodies.keys() - old_bodies.keys()]
+        removed = [(n, old_bodies[n], None) for n in old_bodies.keys() - new_bodies.keys()]
+        db.executemany(
+            "INSERT INTO amendment (standard, no, revised_on, previous_body, new_body, note)"
+            " VALUES (?, ?, ?, ?, ?, ?)",
+            [(standard_id, n, today, prev, new, note) for n, prev, new in changed + added + removed],
+        )
+        db.execute(
+            "UPDATE standard SET kasb_file_no=?, kasb_file_seq=?, drift_synced_at=? WHERE id=?",
+            (pdfs[0].file_no, pdfs[0].file_seq, now, standard_id),
+        )
+        db.commit()
+    print(f"[update] amendment: 변경 {len(changed)} / 추가 {len(added)} / 삭제 {len(removed)}")
+
+    # 5) 재임베딩 (해당 기준서만 — 무거운 import 는 여기서만, CLI 전용)
+    from kifrs import embed
+    with sqlite3.connect(db_path) as db:
+        db.execute("DELETE FROM embedding WHERE standard=?", (standard_id,))
+        db.commit()
+    emb = embed.build_embeddings(standard=standard_id)
+    embed.invalidate_caches()
+    print(f"[update] 임베딩: {emb['indexed']} 문단 재색인")
+
+    return {
+        "standard": standard_id,
+        "old_source": old_source,
+        "new_source": new_pdf.name,
+        "paragraphs_before": len(old_bodies),
+        "paragraphs_after": r["paragraphs"],
+        "amendments": {"changed": len(changed), "added": len(added), "removed": len(removed)},
+        "embedded": emb["indexed"],
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="KASB 기준서 제·개정 drift 감지")
     p.add_argument("--category", action="append", choices=list(CATEGORIES),
@@ -226,7 +368,18 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--only", help="기준서번호 prefix 필터 (예: 1115) — 스냅샷 갱신 안 함")
     p.add_argument("--delay", type=float, default=0.2, help="상세 요청 간 sleep(초)")
     p.add_argument("--json", action="store_true", help="리포트 JSON 전체 출력")
+    p.add_argument("--update", metavar="STANDARD_ID",
+                   help="drift 감지된 기준서 1개 갱신 (재다운로드→재파싱→재인제스트→재임베딩)")
     args = p.parse_args(argv)
+
+    if args.update:
+        try:
+            result = update_standard(args.update)
+        except (ValueError, RuntimeError) as e:
+            print(f"[update] 실패: {e}", file=sys.stderr)
+            return 2
+        print(json.dumps(result, ensure_ascii=False, indent=1))
+        return 0
 
     report = run_check(args.category, only=args.only, delay=args.delay)
     if args.json:

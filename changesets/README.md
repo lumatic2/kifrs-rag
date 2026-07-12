@@ -37,3 +37,4 @@
 | 33 | `20260712-ib2-parse-bc-sections` | 2026-07-12 | BC/DO/IN paragraph split + section title repair + BC demotion (IB2) | 4/4 | completed |
 | 34 | `20260712-dr1-drift-detection-core` | 2026-07-12 | KASB drift detection core `kifrs/drift.py` + CLI (DR1-S1) | 4/4 | completed |
 | 35 | `20260712-dr1-check-drift-mcp-tool` | 2026-07-12 | MCP tool check_drift + /accounting drift guidance (DR1-S2) | 4/4 | completed |
+| 36 | `20260712-dr2-unit-update-path` | 2026-07-12 | per-standard update path --update + amendment diff (DR2-S1) | 4/4 | completed |
