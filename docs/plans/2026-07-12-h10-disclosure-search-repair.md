@@ -14,7 +14,7 @@
 
 ### DS2 — 정본 경로 표면화 + close gate (P1)
 
-- [ ] DS2-S1: /accounting SKILL.md 절 단위 수집 안내(전략 A 정본 + section 필터 보조) + setup.sh 배포 + close report (verify: 배포본 grep + focused pytest + in-memory MCP smoke)
+- [x] DS2-S1: /accounting SKILL.md "절 단위 전수 수집" 안내(정본=list_sections→get_context + section 필터 보조, 1115 분산 라벨 한계 명시) + setup.sh 배포(배포본 grep 1건) + close report `docs/reports/2026-07-12-h10-disclosure-search-repair-close-report.md` (pytest 20 passed + live search tool 테스트로 smoke 겸함)
 
 ## 중단점
 

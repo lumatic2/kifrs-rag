@@ -1,6 +1,6 @@
 # Horizon: H10 Disclosure Search Repair
 
-> Status: active
+> Status: closed (2026-07-12)
 > Created: 2026-07-12
 > Previous: `docs/horizons/portfolio-viz-site.md` (closed)
 > Objective 링크: `docs/OBJECTIVE.md` — issue-back → 수리 루프 (2회전째, 정규 입력)
@@ -30,7 +30,7 @@ BC·측정 절에 밀림(1016은 공시 8문단 중 5개가 top-20 밖). `paragr
 
 ### DS1. search `section` 필터 (P0)
 
-Status: active
+Status: completed
 
 - Deliverable: `search(query, standard, section, limit, mode)` — 전 모드(lexical/semantic/
   hybrid/hierarchical/reranked)에서 `paragraph.section` LIKE 부분일치 필터. store/embed 검색
@@ -41,7 +41,7 @@ Status: active
 
 ### DS2. 정본 경로 표면화 + 재현 close gate (P1)
 
-Status: pending
+Status: completed
 
 - Deliverable: /accounting SKILL.md 에 "절 단위 수집 = list_sections→get_context 정본 +
   search(section=) 보조" 안내 + mcp-log 재현 4쿼리 before/after 기록 close report.
@@ -51,6 +51,22 @@ Status: pending
 
 - DS1·DS2 완료 + 품질 게이트 비퇴행. ai-accounting-firm 쪽 재소비 검증은 그쪽 레포 세션 몫 —
   이 horizon 은 재현 가능한 개선 증거까지 책임진다.
+
+## Close Result
+
+`h10_disclosure_search_repaired` (2026-07-12) — `search(section=, exclude_bc=)` 후보 필터
+(changeset #46). 재현 4쿼리 공시절 top-20 회수 5→20/4→14/3→8/2→16 (1016 73~79 전량 노출,
+acceptance 6+ 초과), 5개 기준서 전수 개선, hybrid eval 비퇴행(0.747/0.910/0.488 정확 일치).
+/accounting 에 절 단위 수집 정본 경로 표면화·배포. 상세: `docs/reports/2026-07-12-h10-disclosure-search-repair-close-report.md`.
+
+크기 회고: DS1·DS2 각 changeset 1개 = **horizon 전체가 milestone 1개 크기** (§A1 인플레
+적발) — 같은 규모 issue-back 은 다음부터 milestone 1개(step 2개)로.
+
+## Objective 임팩트
+
+issue-back 수리 루프 2회전 완주 — 공시 업무형 소비(주석 체크리스트, F-ACC review pack 의
+반복 패턴)에서 search 가 보조 수단으로 실사용 가능해짐. 정본 경로(list_sections→get_context)
++ 보조 필터의 2단 구조가 스킬에 문서화되어 다음 실소비부터 즉시 적용.
 
 ## Decision Log
 
