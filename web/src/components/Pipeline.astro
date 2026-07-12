@@ -1,0 +1,43 @@
+---
+// 파이프라인 스토리 — 실제 처리 순서(시퀀스)라 번호가 정보다.
+import pipeline from "../data/pipeline.json";
+
+const steps = [
+  { n: "01", t: "다운로드", d: "KASB 게시판에서 기준서 현행 PDF 수집", s: `${pipeline.standards}권` },
+  { n: "02", t: "파싱", d: "조·항·호(문단) 단위 계층 파서 — 부록·결론도출근거 분리", s: `${pipeline.paragraphs.toLocaleString()}문단` },
+  { n: "03", t: "인덱싱", d: `어휘(${pipeline.lexical_index}) + 의미(${pipeline.embedding_model}) 이중 인덱스`, s: `${pipeline.embeddings.toLocaleString()}벡터` },
+  { n: "04", t: "MCP 서버", d: "검색·문단·맥락·drift 도구를 Claude 세션에 노출", s: `${pipeline.mcp_tools} tools` },
+  { n: "05", t: "인용 규율", d: "/accounting 스킬 — 모든 답변은 [기준서-문단] 실제 히트에서만", s: "인용 강제" },
+  { n: "06", t: "drift 감시", d: "주간 KASB 대조 — 개정 감지 시 문단 diff 를 이력으로", s: `${pipeline.amendments_tracked}건 기록` },
+];
+---
+
+<ol class="pipe">
+  {steps.map((st) => (
+    <li>
+      <span class="pn num">{st.n}</span>
+      <h3>{st.t}</h3>
+      <p>{st.d}</p>
+      <span class="ps num">{st.s}</span>
+    </li>
+  ))}
+</ol>
+<p class="pipe-note num">
+  전 과정 로컬 1대 PC — 원문은 밖으로 나가지 않습니다. 마지막 drift 대조: {pipeline.last_drift_check}
+</p>
+
+<style>
+  .pipe {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px; background: var(--ledger); border: var(--line);
+    counter-reset: step;
+  }
+  .pipe li { background: #fff; padding: 1.1rem 1.2rem 1rem; position: relative; }
+  .pn { font-size: .78rem; color: var(--seal); letter-spacing: .1em; }
+  .pipe h3 { font-size: 1.05rem; margin: .25rem 0 .35rem; }
+  .pipe p { margin: 0; font-size: .84rem; color: var(--ink-soft); line-height: 1.55; }
+  .ps { display: inline-block; margin-top: .7rem; font-size: .82rem; font-weight: 500;
+        border-bottom: 2px solid var(--teal); padding-bottom: 1px; }
+  .pipe-note { font-size: .8rem; color: var(--ink-soft); margin-top: .8rem; }
+</style>

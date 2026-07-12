@@ -45,3 +45,4 @@
 | 41 | `20260712-pv1-crossref-extraction` | 2026-07-12 | cross_reference extraction + graph JSON (PV1-S2) | 4/4 | completed |
 | 42 | `20260712-pv2-astro-scaffold-map` | 2026-07-12 | Astro scaffold + design tokens + bookshelf map view (PV2-S1) | 4/4 | completed |
 | 43 | `20260712-pv2-refgraph-island` | 2026-07-12 | cross-reference force graph island (PV2-S2) | 4/4 | completed |
+| 44 | `20260712-pv2-evaldash-pipeline` | 2026-07-12 | eval stat tiles + retriever bar chart + pipeline story (PV2-S3) | 4/4 | completed |

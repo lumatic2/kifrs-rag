@@ -2,6 +2,8 @@
 import Base from "../layouts/Base.astro";
 import Bookshelf from "../components/Bookshelf.astro";
 import RefGraph from "../components/RefGraph.astro";
+import EvalDash from "../components/EvalDash.astro";
+import Pipeline from "../components/Pipeline.astro";
 import pipeline from "../data/pipeline.json";
 import standards from "../data/standards.json";
 
@@ -62,16 +64,18 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
       <div class="chapter">
         <span class="no">Ⅲ.</span>
         <h2>검색 품질</h2>
-        <span class="hint">준비 중 — recall·MRR 개선 이력</span>
+        <span class="hint">goldset 50문항 — 정답 문단 도달률로 잰다</span>
       </div>
+      <EvalDash />
     </section>
 
     <section id="pipeline" class="wrap section">
       <div class="chapter">
         <span class="no">Ⅳ.</span>
         <h2>파이프라인</h2>
-        <span class="hint">준비 중 — 다운로드→파싱→임베딩→MCP→drift 감시</span>
+        <span class="hint">원문은 로컬에만 — 전 단계가 한 대의 PC 에서 돈다</span>
       </div>
+      <Pipeline />
     </section>
   </main>
 </Base>

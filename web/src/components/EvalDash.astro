@@ -1,0 +1,80 @@
+---
+// 검색 품질 대시보드 — 스탯 타일 + retriever 비교 막대 (빌드타임 SVG).
+import history from "../data/eval_history.json";
+
+// retriever별 최신 측정(50문항 goldset)을 고른다
+const NAMES = { lexical: "lexical", semantic: "semantic", hybrid: "hybrid", hierarchical: "hierarchical", reranked: "reranked" };
+const latest = {};
+for (const run of history) {
+  if (run.n_items !== 50) continue;
+  for (const [r, agg] of Object.entries(run.retrievers)) {
+    if (NAMES[r] && agg["recall@10"] != null) latest[r] = { ...agg, date: run.timestamp.slice(0, 10) };
+  }
+}
+const order = ["lexical", "semantic", "hybrid", "hierarchical", "reranked"];
+const bars = order.filter((r) => latest[r]).map((r) => ({
+  name: r, v: latest[r]["recall@10"], date: latest[r].date, main: r === "hybrid",
+}));
+const hy = latest.hybrid ?? {};
+
+// SVG 좌표
+const W = 720, H = 240, PAD = { l: 44, r: 16, t: 14, b: 40 };
+const bw = 64, gap = (W - PAD.l - PAD.r - bars.length * bw) / (bars.length + 1);
+const y = (v) => PAD.t + (1 - v) * (H - PAD.t - PAD.b);
+---
+
+<div class="tiles num">
+  <div class="tile"><span class="v">{(hy["recall@20"] ?? 0).toFixed(3)}</span><span class="l">recall@20 — hybrid (기본 경로)</span></div>
+  <div class="tile"><span class="v">{(hy["mrr"] ?? 0).toFixed(3)}</span><span class="l">MRR — 첫 정답의 평균 순위 역수</span></div>
+  <div class="tile"><span class="v">86%</span><span class="l">회계사 2차 기출 dogfood 정확도 (누적)</span></div>
+  <div class="tile"><span class="v">50</span><span class="l">goldset 문항 — 정답 문단 기준 평가</span></div>
+</div>
+
+<figure class="eval-fig">
+  <figcaption>검색 방식별 recall@10 — 정답 문단이 상위 10개 안에 드는 비율</figcaption>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="retriever별 recall@10 막대 차트">
+    {[0, 0.25, 0.5, 0.75, 1].map((t) => (
+      <g>
+        <line x1={PAD.l} x2={W - PAD.r} y1={y(t)} y2={y(t)} stroke="#e4e9e5" stroke-width="1" />
+        <text x={PAD.l - 8} y={y(t) + 4} text-anchor="end" class="ax num">{t.toFixed(2)}</text>
+      </g>
+    ))}
+    {bars.map((b, i) => {
+      const x = PAD.l + gap + i * (bw + gap);
+      const h = y(0) - y(b.v);
+      return (
+        <g class="bar" tabindex="0">
+          <rect x={x} y={y(b.v)} width={bw} height={h} rx="4"
+            fill={b.main ? "#0e8a62" : "#9dbfb2"} />
+          <rect x={x} y={y(0) - 2} width={bw} height={2} fill={b.main ? "#0e8a62" : "#9dbfb2"} />
+          <text x={x + bw / 2} y={y(b.v) - 8} text-anchor="middle" class="val num">{b.v.toFixed(3)}</text>
+          <text x={x + bw / 2} y={y(0) + 18} text-anchor="middle" class="name num">{b.name}</text>
+          <text x={x + bw / 2} y={y(0) + 32} text-anchor="middle" class="date num">{b.date}</text>
+        </g>
+      );
+    })}
+    <line x1={PAD.l} x2={W - PAD.r} y1={y(0)} y2={y(0)} stroke="#1c2b27" stroke-width="1.5" />
+  </svg>
+  <p class="fig-note">
+    어휘 검색(lexical) 하나로는 절반을 놓치고, 의미(semantic)와 합친 hybrid 가 기본 경로,
+    섹션 구조를 아는 hierarchical 이 넓은 탐색을 맡습니다. 측정일이 다른 막대는 corpus
+    개편(BC 세분화) 전후가 섞여 있어 참고 비교입니다 — 지표는 goldset 재실행으로 갱신됩니다.
+  </p>
+</figure>
+
+<style>
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--ledger); border: var(--line); margin-bottom: 1.6rem; }
+  .tile { background: #fff; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .2rem; }
+  .tile .v { font-size: 1.9rem; font-weight: 500; color: var(--teal); line-height: 1.1; }
+  .tile .l { font-size: .78rem; color: var(--ink-soft); }
+
+  .eval-fig { margin: 0; border: var(--line); background: #fff; padding: 1.1rem 1.2rem 0.8rem; }
+  .eval-fig figcaption { font-size: .88rem; font-weight: 600; margin-bottom: .5rem; }
+  svg { width: 100%; height: auto; display: block; }
+  .ax { font-size: 10px; fill: var(--ink-soft); font-family: var(--mono); }
+  .val { font-size: 12px; fill: var(--ink); font-family: var(--mono); font-weight: 500; }
+  .name { font-size: 11.5px; fill: var(--ink); font-family: var(--mono); }
+  .date { font-size: 9.5px; fill: var(--ink-soft); font-family: var(--mono); }
+  .bar:hover rect, .bar:focus rect { filter: brightness(0.92); }
+  .fig-note { font-size: .8rem; color: var(--ink-soft); margin: .7rem 0 .5rem; }
+</style>
