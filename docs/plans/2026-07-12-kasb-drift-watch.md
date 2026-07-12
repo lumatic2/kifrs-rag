@@ -15,7 +15,7 @@
 ### DR2 — 단위 갱신 경로 + 개정 이력 (P1)
 
 - [x] DR2-S1: `standard` 메타 확장(KASB 파일 식별자·감지일) + 기준서 1개 단위 갱신 경로(재다운로드→재파싱→재인제스트→임베딩 재색인, ingest.py 재사용) + `amendment` 이력 기록 (verify: synthetic drift 1건 갱신 E2E — 문단 수·hybrid eval 비퇴행 + amendment 행 확인)
-- [ ] DR2-S2: drift 리포트 ↔ 갱신 경로 연결(리포트의 drift 항목에 갱신 커맨드 안내) + horizon close 검증 (verify: 감지→갱신 전체 흐름 1회 통주 + 품질 게이트 비퇴행)
+- [x] DR2-S2: drift 리포트 ↔ 갱신 경로 연결(리포트의 drift 항목에 갱신 커맨드 안내) + horizon close 검증 (verify: 감지→갱신 전체 흐름 1회 통주 + 품질 게이트 비퇴행)
 
 ## 중단점
 

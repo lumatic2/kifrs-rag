@@ -38,3 +38,4 @@
 | 34 | `20260712-dr1-drift-detection-core` | 2026-07-12 | KASB drift detection core `kifrs/drift.py` + CLI (DR1-S1) | 4/4 | completed |
 | 35 | `20260712-dr1-check-drift-mcp-tool` | 2026-07-12 | MCP tool check_drift + /accounting drift guidance (DR1-S2) | 4/4 | completed |
 | 36 | `20260712-dr2-unit-update-path` | 2026-07-12 | per-standard update path --update + amendment diff (DR2-S1) | 4/4 | completed |
+| 37 | `20260712-dr2-report-update-link` | 2026-07-12 | drift report update_cmd link + full-loop close verify (DR2-S2) | 4/4 | completed |

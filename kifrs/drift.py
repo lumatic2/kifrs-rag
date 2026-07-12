@@ -160,6 +160,7 @@ def compare(
                               "detail": "KASB 목록에 있으나 DB 미등재 — 신규 제정 또는 id 매핑 미스"})
             continue
         matched += 1
+        base["update_cmd"] = f"python -m kifrs.drift --update {db_id}"
         if e["filename"] is None:
             drifts.append({**base, "kind": "fetch_empty", "db_source": local[db_id],
                            "detail": "인제스트된 기준서인데 상세 페이지에 PDF 없음 — 게시 변경 의심"})
@@ -393,6 +394,8 @@ def main(argv: list[str] | None = None) -> int:
             if d.get("db_source"):
                 print(f"    DB:   {d['db_source']}")
                 print(f"    KASB: {d['kasb_filename']}")
+            if d.get("update_cmd"):
+                print(f"    갱신: {d['update_cmd']}")
         for e in report["errors"]:
             print(f"  x {e}")
         if report["uncovered"]:
