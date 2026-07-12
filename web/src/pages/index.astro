@@ -4,6 +4,8 @@ import Bookshelf from "../components/Bookshelf.astro";
 import RefGraph from "../components/RefGraph.astro";
 import EvalDash from "../components/EvalDash.astro";
 import Pipeline from "../components/Pipeline.astro";
+import DriftLoop from "../components/DriftLoop.astro";
+import RepairLoop from "../components/RepairLoop.astro";
 import pipeline from "../data/pipeline.json";
 import standards from "../data/standards.json";
 
@@ -20,6 +22,8 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <a href="#graph">Ⅱ. 참조</a>
         <a href="#quality">Ⅲ. 품질</a>
         <a href="#pipeline">Ⅳ. 파이프라인</a>
+        <a href="#drift">Ⅴ. drift 감시</a>
+        <a href="#repair-loop">Ⅵ. 수리 루프</a>
       </nav>
     </div>
   </header>
@@ -77,6 +81,28 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
         <span class="hint">원문은 로컬에만 — 전 단계가 한 대의 PC 에서 돈다</span>
       </div>
       <Pipeline />
+    </section>
+
+    <section id="drift" class="wrap section">
+      <div class="chapter">
+        <span class="no">Ⅴ.</span>
+        <h2>살아있는 엔진 — drift 감시 루프</h2>
+        <span class="hint">기준서는 개정된다 — 감지는 자동, 갱신은 기준서 단위 수동</span>
+      </div>
+      <DriftLoop />
+    </section>
+
+    <section id="repair-loop" class="wrap section">
+      <div class="chapter">
+        <span class="no">Ⅵ.</span>
+        <h2>수리 루프 연대기</h2>
+        <span class="hint">issue-back — 실소비에서 돌아온 결함만 고친다</span>
+      </div>
+      <RepairLoop />
+      <p class="universe-link">
+        이 엔진을 소비하는 가상 회계법인 실험 →
+        <a href="https://account.askewly.com" target="_blank" rel="noopener">account.askewly.com</a>
+      </p>
     </section>
   </main>
 </Base>

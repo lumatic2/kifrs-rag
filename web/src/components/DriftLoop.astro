@@ -1,0 +1,45 @@
+---
+// drift 감시 루프 — 주간 자동 감지 → pending → MCP 경고 → 기준서 단위 갱신.
+import pipeline from "../data/pipeline.json";
+
+const steps = [
+  { n: "01", t: "주간 자동 감지", d: "매주 월 09:00 스케줄 — KASB 게시판을 기준서 전체와 대조" },
+  { n: "02", t: "pending 기록", d: "차이가 나오면 즉시 pending 상태로 표시 — 갱신은 아직 수동" },
+  { n: "03", t: "MCP 자동 경고", d: "pending 기준서가 검색 결과에 걸리면 drift_warning 표식이 함께 붙는다" },
+  { n: "04", t: "기준서 단위 갱신", d: "재다운로드 → 재파싱 → 재임베딩 → 개정 diff 를 이력으로 기록" },
+];
+---
+
+<ol class="loop">
+  {steps.map((st) => (
+    <li>
+      <span class="pn num">{st.n}</span>
+      <h3>{st.t}</h3>
+      <p>{st.d}</p>
+    </li>
+  ))}
+</ol>
+
+<div class="tiles num">
+  <div class="tile"><span class="v">15</span><span class="l">첫 실사용(2026-07-12) 감지 — 수정목록 26-1 개정 기준서, 전량 갱신</span></div>
+  <div class="tile"><span class="v">83+3</span><span class="l">제1001호 — 변경 83문단 · 추가 3문단</span></div>
+  <div class="tile"><span class="v">{pipeline.amendments_tracked}행</span><span class="l">누적 개정 이력(amendment)</span></div>
+  <div class="tile"><span class="v">0</span><span class="l">현재 pending drift</span></div>
+</div>
+
+<style>
+  .loop {
+    list-style: none; padding: 0; margin: 0 0 1.6rem;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px; background: var(--ledger); border: var(--line);
+  }
+  .loop li { background: #fff; padding: 1.1rem 1.2rem 1rem; }
+  .pn { font-size: .78rem; color: var(--seal); letter-spacing: .1em; }
+  .loop h3 { font-size: 1.02rem; margin: .25rem 0 .35rem; }
+  .loop p { margin: 0; font-size: .84rem; color: var(--ink-soft); line-height: 1.55; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--ledger); border: var(--line); }
+  .tile { background: #fff; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .2rem; }
+  .tile .v { font-size: 1.7rem; font-weight: 500; color: var(--teal); line-height: 1.1; }
+  .tile .l { font-size: .78rem; color: var(--ink-soft); }
+</style>

@@ -1,0 +1,67 @@
+---
+// 수리 루프 연대기 — issue-back(실소비 결함) → 수리 2회전.
+const rounds = [
+  {
+    n: "1회전",
+    date: "2026-07-12",
+    src: "H4 RCPS 검토메모 실소비",
+    fixes: [
+      "실무 용어 검색 실패 — 용어 다리(term bridge) 등록",
+      "결론도출근거(BC) 통짜 문단 → 9,598개 문단 세분화 (코퍼스 8,298 → 17,896문단)",
+      "섹션 제목 파싱 복구",
+    ],
+    before: "recall@20 0.887",
+    after: "recall@20 0.910",
+  },
+  {
+    n: "2회전",
+    date: "2026-07-12",
+    src: "H10 공시 체크리스트 실소비",
+    fixes: ["공시 절 검색 필터(section) 추가"],
+    before: "공시 절 top-20 회수 3건 (1016 기준)",
+    after: "공시 절 top-20 회수 8건 · 기존 경로 비퇴행(recall@10 0.747 · @20 0.910 · MRR 0.488)",
+  },
+];
+---
+
+<p class="rule num">새 작업은 실제 소비에서 돌아온 결함만 입력으로 연다.</p>
+
+<ol class="timeline">
+  {rounds.map((r) => (
+    <li>
+      <div class="tl-head">
+        <span class="tl-n num">{r.n}</span>
+        <span class="tl-date num">{r.date}</span>
+        <span class="tl-src">{r.src}</span>
+      </div>
+      <ul class="tl-fixes">
+        {r.fixes.map((f) => <li>{f}</li>)}
+      </ul>
+      <div class="tl-metric num">
+        <span class="before">{r.before}</span>
+        <span class="arrow">→</span>
+        <span class="after">{r.after}</span>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .rule { font-size: .88rem; color: var(--ink-soft); margin: 0 0 1.4rem; padding-bottom: .8rem; border-bottom: 1px dashed var(--ledger-strong); }
+
+  .timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--ledger); border: var(--line); }
+  .timeline li { background: #fff; padding: 1.1rem 1.2rem; }
+
+  .tl-head { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; margin-bottom: .6rem; }
+  .tl-n { font-family: var(--serif); font-weight: 900; color: var(--seal); font-size: 1rem; }
+  .tl-date { font-size: .78rem; color: var(--ink-soft); }
+  .tl-src { font-size: .88rem; font-weight: 600; }
+
+  .tl-fixes { margin: 0 0 .8rem; padding-left: 1.2rem; font-size: .84rem; color: var(--ink-soft); line-height: 1.6; }
+  .tl-fixes li { margin-bottom: .15rem; }
+
+  .tl-metric { font-size: .84rem; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .tl-metric .before { color: var(--ink-soft); }
+  .tl-metric .arrow { color: var(--ink-soft); }
+  .tl-metric .after { color: var(--teal); font-weight: 600; }
+</style>
