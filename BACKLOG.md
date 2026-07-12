@@ -291,3 +291,14 @@
   - Completed: 2026-07-12
   - Result: Astro 4뷰 완성 — 서가 히어로·참조 그래프(d3-force)·eval 대시보드(validator PASS)·파이프라인, /browse E2E
   - Evidence: changesets/20260712-pv2-astro-scaffold-map/README.md; changesets/20260712-pv2-refgraph-island/README.md; changesets/20260712-pv2-evaldash-pipeline/README.md
+
+### 2026-07
+- DS1 - DS1 — search `section` 필터
+  - Completed: 2026-07-12
+  - Result: mcp-log 재현 4쿼리(§7/§15/§17/§22)에 section="공시" 적용 시 공시 절 회수 개선 관측 + 필터 미사용 hybrid eval 비퇴행 + 미존재 section 빈 결과.
+  - Evidence: changeset #46 20260712-ib4-search-section-filter — 재현 4쿼리 개선 + hybrid eval 비퇴행 정확 일치
+
+- DS2 - DS2 — 정본 경로 표면화 + close gate
+  - Completed: 2026-07-12
+  - Result: /accounting 절 단위 수집 안내 배포 + close report + tool smoke·focused pytest 비퇴행.
+  - Evidence: SKILL.md 표면화+배포 grep 1건, close report, pytest 20 passed
