@@ -1,0 +1,152 @@
+---
+// 기준서 상호참조 네트워크 — canvas + d3-force island.
+// 데이터는 aggregate(from/to/weight)만 — 본문 텍스트 없음.
+import crossref from "../data/crossref.json";
+import standards from "../data/standards.json";
+
+const meta = Object.fromEntries(
+  standards.map((s) => [s.id, { title: s.title ?? s.id, category: s.category, paragraphs: s.paragraphs }])
+);
+const stats = { pairs: crossref.standard_pairs, refs: crossref.paragraph_refs };
+---
+
+<div class="graph-bar num">
+  <span>{stats.refs.toLocaleString()}개 문단 참조 · {stats.pairs}개 기준서 쌍</span>
+  <span class="spacer"></span>
+  <label>참조 강도
+    <select id="g-min">
+      <option value="1">전체</option>
+      <option value="3" selected>3회 이상</option>
+      <option value="8">8회 이상</option>
+    </select>
+  </label>
+</div>
+<div class="graph-wrap">
+  <canvas id="ref-canvas" width="1000" height="640" aria-label="기준서 상호참조 네트워크 그래프"></canvas>
+  <div class="graph-tip num" id="g-tip" hidden></div>
+</div>
+<p class="graph-note">선 굵기 = 참조 횟수, 원 크기 = 받은 참조. 점 위에 올리면 이웃만 남습니다.
+  금융상품 3부작(1032·1107·1109)과 재무제표 표시(1001)가 그래프의 허브입니다.</p>
+
+<script>
+  import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide } from "d3-force";
+  import crossref from "../data/crossref.json";
+  import standards from "../data/standards.json";
+
+  const CAT_COLOR = { kifrs: "#2e5e4e", gaap: "#7a6a4f", special: "#8a5a3b" };
+  const meta = Object.fromEntries(standards.map((s) => [s.id, s]));
+  const canvas = document.getElementById("ref-canvas");
+  const tip = document.getElementById("g-tip");
+  const sel = document.getElementById("g-min");
+  const ctx = canvas.getContext("2d");
+  const DPR = window.devicePixelRatio || 1;
+
+  let nodes = [], links = [], sim = null, hover = null;
+
+  function build(minW) {
+    const edges = crossref.edges.filter((e) => e.weight >= minW);
+    const ids = new Set(edges.flatMap((e) => [e.from, e.to]));
+    const indeg = {};
+    edges.forEach((e) => (indeg[e.to] = (indeg[e.to] || 0) + e.weight));
+    nodes = [...ids].map((id) => ({
+      id,
+      r: 4 + Math.sqrt(indeg[id] || 1) * 1.6,
+      cat: meta[id]?.category ?? "kifrs",
+      title: meta[id]?.title ?? id,
+    }));
+    links = edges.map((e) => ({ source: e.from, target: e.to, weight: e.weight }));
+    sim?.stop();
+    sim = forceSimulation(nodes)
+      .force("link", forceLink(links).id((d) => d.id).distance(70).strength(0.25))
+      .force("charge", forceManyBody().strength(-120))
+      .force("center", forceCenter(500, 320))
+      .force("collide", forceCollide().radius((d) => d.r + 3))
+      .on("tick", draw);
+  }
+
+  function draw() {
+    const w = 1000, h = 640;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const focus = hover ? new Set([hover.id, ...links.flatMap((l) =>
+      l.source.id === hover.id ? [l.target.id] : l.target.id === hover.id ? [l.source.id] : [])]) : null;
+
+    for (const l of links) {
+      const on = !focus || (focus.has(l.source.id) && focus.has(l.target.id) &&
+        (l.source.id === hover.id || l.target.id === hover.id));
+      ctx.strokeStyle = on ? "rgba(46,94,78,.45)" : "rgba(28,43,39,.07)";
+      ctx.lineWidth = Math.min(1 + l.weight * 0.12, 5);
+      ctx.beginPath();
+      ctx.moveTo(l.source.x, l.source.y);
+      ctx.lineTo(l.target.x, l.target.y);
+      ctx.stroke();
+    }
+    for (const n of nodes) {
+      const on = !focus || focus.has(n.id);
+      ctx.globalAlpha = on ? 1 : 0.15;
+      ctx.fillStyle = CAT_COLOR[n.cat] ?? "#2e5e4e";
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+      if (n.r > 9 || (focus && focus.has(n.id))) {
+        ctx.fillStyle = "#1c2b27";
+        ctx.font = "10.5px 'IBM Plex Mono', monospace";
+        ctx.textAlign = "center";
+        ctx.fillText(n.id, n.x, n.y - n.r - 4);
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function resize() {
+    canvas.width = 1000 * DPR;
+    canvas.height = 640 * DPR;
+    canvas.style.width = "100%";
+    draw();
+  }
+
+  canvas.addEventListener("pointermove", (ev) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = ((ev.clientX - rect.left) / rect.width) * 1000;
+    const y = ((ev.clientY - rect.top) / rect.height) * 640;
+    hover = nodes.find((n) => Math.hypot(n.x - x, n.y - y) < n.r + 4) ?? null;
+    if (hover) {
+      const deg = links.filter((l) => l.source.id === hover.id || l.target.id === hover.id).length;
+      tip.hidden = false;
+      tip.textContent = `${hover.title} — 연결 ${deg}`;
+      tip.style.left = `${ev.clientX - rect.left + 12}px`;
+      tip.style.top = `${ev.clientY - rect.top - 8}px`;
+      canvas.style.cursor = "pointer";
+    } else {
+      tip.hidden = true;
+      canvas.style.cursor = "default";
+    }
+    draw();
+  });
+  canvas.addEventListener("pointerleave", () => { hover = null; tip.hidden = true; draw(); });
+  sel.addEventListener("change", () => build(Number(sel.value)));
+
+  resize();
+  build(3);
+</script>
+
+<style>
+  .graph-bar {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: .8rem; color: var(--ink-soft); margin-bottom: .6rem;
+  }
+  .graph-bar .spacer { flex: 1; }
+  .graph-bar select {
+    font-family: var(--mono); font-size: .8rem; color: var(--ink);
+    background: #fff; border: var(--line); padding: .15rem .4rem; margin-left: .4rem;
+  }
+  .graph-wrap { position: relative; border: var(--line); background: #fff; }
+  canvas { display: block; width: 100%; height: auto; }
+  .graph-tip {
+    position: absolute; pointer-events: none;
+    background: var(--ink); color: var(--paper);
+    font-size: .75rem; padding: .25rem .55rem; border-radius: 3px;
+    white-space: nowrap;
+  }
+  .graph-note { font-size: .82rem; color: var(--ink-soft); margin-top: .6rem; }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Bookshelf from "../components/Bookshelf.astro";
+import RefGraph from "../components/RefGraph.astro";
 import pipeline from "../data/pipeline.json";
 import standards from "../data/standards.json";
 
@@ -52,8 +53,9 @@ const biggest = [...standards].sort((a, b) => b.paragraphs - a.paragraphs)[0];
       <div class="chapter">
         <span class="no">Ⅱ.</span>
         <h2>기준서 사이의 참조</h2>
-        <span class="hint">준비 중 — 655 기준서 쌍의 상호참조 네트워크</span>
+        <span class="hint">본문 속 "기업회계기준서 제N호" 언급을 추출한 네트워크</span>
       </div>
+      <RefGraph />
     </section>
 
     <section id="quality" class="wrap section">

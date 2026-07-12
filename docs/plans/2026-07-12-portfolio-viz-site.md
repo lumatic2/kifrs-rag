@@ -15,7 +15,7 @@
 ### PV2 — Astro 사이트 구현 (P0)
 
 - [x] PV2-S1: Astro scaffold + 공통 레이아웃/디자인 토큰(/frontend-design) + 기준서 지도 뷰 (verify: `npm run build` + /browse 렌더 확인)
-- [ ] PV2-S2: 참조 네트워크 그래프 island (verify: /browse 인터랙션 확인)
+- [x] PV2-S2: 참조 네트워크 그래프 island (verify: /browse 인터랙션 확인)
 - [ ] PV2-S3: eval 대시보드(dataviz 스킬) + 아키텍처/파이프라인 스토리 뷰 (verify: /browse 4뷰 전체 E2E)
 
 ### PV3 — 배포 + 공개 검증 (P1)
