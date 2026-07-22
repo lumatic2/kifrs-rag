@@ -116,3 +116,17 @@ kifrs-rag/
    - **(a) C-확장 import 데드락 (진짜 원인 / search_reranked 영구 hang)** — warmup 을 **백그라운드 데몬 스레드**에서 돌리며 거기서 `sentence_transformers→sklearn→scipy.special` C 확장을 **처음 import** → CPython import-lock 교착(scipy#13985 / pybind11#1952 / sklearn#29145). warmup 이 `_model_lock` 을 쥔 채 멈춰 tool 호출까지 락 대기로 같이 hang. **해결: `embed.py:eager_import()` 를 `mcp_server.main()` 의 *메인 스레드*에서 `mcp.run()` 앞에 호출**(무거운 import 를 메인 스레드에서 한 번 끝내 sys.modules 적재 → 이후 스레드 import 는 캐시 적중). 핸드셰이크는 import 시간(~5초)만큼만 늦어지며 타임아웃 한참 이내. 가중치 로딩(느림)은 그대로 warmup 데몬 스레드. **무거운 ML import 는 절대 백그라운드 스레드에서 처음 하지 말 것.**
    - **(b) 터미널 garbage `[I`·`[555;..M` ≠ stdout 오염** — 창 포커스 전환·마우스 hover 시 쏟아지던 깨진 출력은 **터미널 마우스/포커스 리포팅 모드** escape 시퀀스로, **알려진 Claude Code(Windows+VS Code 터미널) 버그**(claude-code#10375·#23581, kilocode#6191). (a) 의 hang 이 세션을 블로킹한 게 주 트리거였고 이제 해소. cosmetic — 깨진 탭은 닫고 새로 열면 모드 리셋. `/terminal-setup`(gpuAcceleration off)·CC 업데이트 권장.
    - **오답 기록(되돌림)**: tqdm progress bar 가설(`predict(show_progress_bar=False)` 만 남김 — 무해), `TOKENIZERS_PARALLELISM` 가설, 그리고 `contextlib.redirect_stdout(sys.stderr)` 가드 — 전역 stdout 을 백그라운드 스레드가 돌려 JSON-RPC 응답이 stderr 로 새 **오히려 hang 유발 → 전부 revert**. 동시성 stdio 서버에서 전역 stdout 리다이렉트 금지.
+
+## 전제 (저작권 — 형태 제약. 2026-07-22 OBJECTIVE.md 에서 이관, 문구 원문 그대로)
+
+기준서 원문·파싱 DB·임베딩은 재배포 불가(KASB·IFRS Foundation). 따라서 프로덕트는 어떤 형태든
+**"파이프라인은 공유, 데이터는 사용자가 직접 인덱싱"** 구조가 고정 전제다. 1차 형태는
+**로컬 도구킷**(Claude Code + kifrs MCP + /accounting 스킬 + 결정 엔진 모듈 — 설치 후
+사용자가 자기 기준서 PDF를 인덱싱)으로 확정(2026-07-04 결정). 독립 앱/웹 서비스는 도구킷이
+검증된 뒤 별도 판단.
+
+## 경계 (2026-07-22 OBJECTIVE.md 에서 이관, 문구 원문 그대로)
+
+- **세무(세법) 영역은 sibling 레포 `tax-agent`가 담당** (2026-07-04 결정). 업무 지도에는 세무
+  업무도 *표기*하되, 자동화 실험은 각 레포에서. kifrs-rag은 K-IFRS 회계 중심 유지.
+- 기준서 원문·DB·임베딩·dogfood 자료 비공개 원칙 불변 (`CLAUDE.md` 금지 사항).

@@ -302,3 +302,21 @@
   - Completed: 2026-07-12
   - Result: /accounting 절 단위 수집 안내 배포 + close report + tool smoke·focused pytest 비퇴행.
   - Evidence: SKILL.md 표면화+배포 grep 1건, close report, pytest 20 passed
+
+## Phase 총람 (2026-07-22 — OBJECTIVE.md `긴 arc` 표에서 이관, 원문 그대로)
+
+| Phase | 산출물 | 상태 |
+|---|---|---|
+| 1 — 인프라 | 100 기준서 DB + MCP + `/accounting` | ✅ |
+| 2 — 시험 수준 | 2차 기출 정확 인용, 누적 86% | ✅ |
+| 3·4 — 시나리오 (문서 기반) | 1109/1116/1115/1113/1019 WORKFLOW.md | ✅ |
+| Engine Hardening / Quality Ops | 검색 엔진 테스트·성능·MCP 통합 | ✅ (2026-07-03) |
+| Workflow Automation (WA1) | 1109 결정 엔진, 완료율 첫 측정 6/10 | ✅ (2026-07-03, paused — WA2/WA3 잔여) |
+| RAG-Agent Integration (RGA1) | 런타임 citation 존재 검증 | ✅ (2026-07-03, paused — RGA2/RGA3 잔여) |
+| RAG Optimization (RO1) | 잔여 miss 진단(3 카테고리) | ✅ (2026-07-03, paused — RO2 잔여) |
+| **업무 지도** | 회계사 업무 taxonomy + 자동화 가능성 매핑 | ✅ 조건부 close |
+| **회계법인 서비스라인 지도** | 회계법인 팀/company map + 팀별 workflow + AI insertion point 재판정 | ✅ |
+| **F-ACC 기술 확장 sequence** | 1116/1109/1115 review pack, 주석, 재무제표 후보, 감사분석, demo PoC | ✅ |
+| **Accounting Intelligence Expansion (현재)** | K-IFRS RAG 품질 refresh -> 비IFRS 정보원 지도 -> multi-source ingestion/RAG -> 실제 feedback loop | 진행 중 |
+| (다음 후보) Objective gap hardening | 성공 모습 대비 부족한 증거를 다시 계량하고 다음 실험을 고른다 | 후보 |
+| (최종) 법인 소개/PoC | 성공 모습 | — |
