@@ -1,6 +1,49 @@
 # kifrs-rag
 
-> 가상 회계법인 AX 프로젝트(`~/projects/ai-accounting-firm`)의 **K-IFRS 지식 엔진** — 고품질 검색(RAG)과 결정준비 초안(분류판단·분개·검토메모) 산출을 담당한다 (2026-07-12 재정렬 — 비전 전체는 ai-accounting-firm, 상세·결정 이력은 `OBJECTIVE.md`). 새 horizon은 ai-accounting-firm 사용처 결함(issue-back) 기준으로만 연다. 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관한다.
+> 가상 회계법인 AX 프로젝트(`~/projects/ai-accounting-firm`)의 **K-IFRS 지식 엔진** — 고품질 검색(RAG)과 결정준비 초안(분류판단·분개·검토메모) 산출을 담당한다 (2026-07-12 재정렬 — 비전 전체는 ai-accounting-firm, 상세·결정 이력은 `CLAUDE.md` 「북극성」 절). 새 horizon은 ai-accounting-firm 사용처 결함(issue-back) 기준으로만 연다. 공개 레포에는 코드·아키텍처·평가 하네스만 두고, 기준서 원문·파싱 DB·임베딩·dogfood 자료는 로컬에서만 보관한다.
+
+## 북극성 — 사용자 소유, 승인 없이 수정 금지
+
+> 이 절은 **사용자 소유**다. 에이전트는 문구 후보를 제안하고, 대화에서 확정 문구를 되읽어 **명시 승인을 받은 뒤에만** 그대로 기록한다. 승인 전 자율 수정 금지. 갱신은 **방향 자체가 바뀔 때만** — Milestone 완료는 여기를 바꾸지 않는다.
+> 2026-07-23 하네스 재조립(C4)으로 구 OBJECTIVE 문서를 이 절로 흡수했다. 계획 계층이 Objective→Horizon→Milestone→Step 4단에서 **2계층**(이 문서 = 방향+규칙 / 작업 단위 계획서)으로 줄었다.
+
+### 북극성
+
+**가상 회계법인 AX 프로젝트(`~/projects/ai-accounting-firm`)의 K-IFRS 지식 엔진으로서, 실무자 단위 AX
+실험이 요구하는 수준의 고품질·고신뢰 검색과 결정준비 초안 산출을 제공한다.**
+
+"회계사 업무를 AI로 어디까지 자동화할 수 있는가"라는 출발 질문과 그 답의 공개 시각화(웹사이트),
+법인 모델링, AX 실험은 2026-07-12부터 umbrella 레포 `ai-accounting-firm`의 Objective가 담당한다. 이 레포는
+그 시스템의 K-IFRS 축을 맡는다: 기준서 검색(RAG), 결정 엔진(1109/1116 등), review pack 어댑터.
+**결정준비 초안**(분류판단·분개·검토메모)까지 자동 산출하되, 최종 검토·서명·법적 책임은 항상
+사람에게 남는다(`/accounting` 스킬의 "의사결정을 대신하지 마라" 규칙 불변).
+
+### 성공 모습 (관측 가능한 최종 상태)
+
+**ai-accounting-firm의 실무자 단위 AX 사례들이 이 엔진을 실소비하며, 사용처에서 드러난 결함이
+issue-back → 수리 루프로 닫히는 상태** (2026-07-12 재정의).
+
+중간 관문:
+1. ai-accounting-firm 첫 실무자 AX(H4)가 kifrs MCP를 실제 입력으로 통과하고, 결함 목록이 이 레포 backlog로 돌아온다.
+2. 그 결함 기준으로 retriever promotion(defer 상태)·user_note 확장 등 품질 결정이 재판단된다.
+3. 여러 팀/업무의 AX가 반복 소비해도 품질·성능 회귀가 없다.
+
+### 움직이는 축 (현재 → 목표, 측정법)
+
+**축 1 — 업무 지도 커버리지** (신설, 2026-07-04): 회계사 실무 업무 taxonomy 중 자동화 실험이
+닿아 "가능/조건부/불가" 판정이 붙은 업무의 비율. 현재 위치: 지도 자체가 없음(0). 첫 목표는
+지도 작성 + 기존 자산(1109 엔진 등)의 위치 표기.
+
+**축 2 — 시나리오 완료율** (기존 유지): 도메인별 결정 엔진이 사람 개입 없이 분류판단+분개+
+검토메모를 끝까지 산출하는 비율. 현재 위치: 1109 = 6/10(60%), 나머지 도메인 = 엔진 없음(문서만).
+
+축 1이 "어디를 자동화할가"를 고르고, 축 2가 "골라진 곳이 실제로 되는가"를 잰다.
+
+### 긴 arc (지나온 phase → 갈 phase)
+
+- 인프라 → 시험 수준 → 문서 기반 시나리오 → 엔진 hardening → 결정 엔진·RAG 최적화 →
+  업무 지도·서비스라인 지도 → F-ACC 기술 확장 → Accounting Intelligence Expansion.
+- phase 별 산출물·완료 상태 표는 `docs/BACKLOG.md` 가 소유한다. 현재 horizon 은 `ROADMAP.md` 가 가리킨다.
 
 ## 야망 (SoT: OBJECTIVE.md)
 
@@ -117,7 +160,7 @@ kifrs-rag/
    - **(b) 터미널 garbage `[I`·`[555;..M` ≠ stdout 오염** — 창 포커스 전환·마우스 hover 시 쏟아지던 깨진 출력은 **터미널 마우스/포커스 리포팅 모드** escape 시퀀스로, **알려진 Claude Code(Windows+VS Code 터미널) 버그**(claude-code#10375·#23581, kilocode#6191). (a) 의 hang 이 세션을 블로킹한 게 주 트리거였고 이제 해소. cosmetic — 깨진 탭은 닫고 새로 열면 모드 리셋. `/terminal-setup`(gpuAcceleration off)·CC 업데이트 권장.
    - **오답 기록(되돌림)**: tqdm progress bar 가설(`predict(show_progress_bar=False)` 만 남김 — 무해), `TOKENIZERS_PARALLELISM` 가설, 그리고 `contextlib.redirect_stdout(sys.stderr)` 가드 — 전역 stdout 을 백그라운드 스레드가 돌려 JSON-RPC 응답이 stderr 로 새 **오히려 hang 유발 → 전부 revert**. 동시성 stdio 서버에서 전역 stdout 리다이렉트 금지.
 
-## 전제 (저작권 — 형태 제약. 2026-07-22 OBJECTIVE.md 에서 이관, 문구 원문 그대로)
+## 전제 (저작권 — 형태 제약. 2026-07-22 `CLAUDE.md` 「북극성」 절 에서 이관, 문구 원문 그대로)
 
 기준서 원문·파싱 DB·임베딩은 재배포 불가(KASB·IFRS Foundation). 따라서 프로덕트는 어떤 형태든
 **"파이프라인은 공유, 데이터는 사용자가 직접 인덱싱"** 구조가 고정 전제다. 1차 형태는
@@ -125,7 +168,7 @@ kifrs-rag/
 사용자가 자기 기준서 PDF를 인덱싱)으로 확정(2026-07-04 결정). 독립 앱/웹 서비스는 도구킷이
 검증된 뒤 별도 판단.
 
-## 경계 (2026-07-22 OBJECTIVE.md 에서 이관, 문구 원문 그대로)
+## 경계 (2026-07-22 `CLAUDE.md` 「북극성」 절 에서 이관, 문구 원문 그대로)
 
 - **세무(세법) 영역은 sibling 레포 `tax-agent`가 담당** (2026-07-04 결정). 업무 지도에는 세무
   업무도 *표기*하되, 자동화 실험은 각 레포에서. kifrs-rag은 K-IFRS 회계 중심 유지.

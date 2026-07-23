@@ -1,7 +1,7 @@
 # kifrs-rag ROADMAP
 
 > 마지막 업데이트: 2026-07-12 (drift-watch-automation close — drift 계열 2 horizon 완료)
-> 북극성: `~/projects/ai-accounting-firm`(가상 회계법인 AX)의 **K-IFRS 지식 엔진** — 고품질 검색(RAG) + 결정준비 초안 (`OBJECTIVE.md`, 2026-07-12 재정렬)
+> 북극성: `~/projects/ai-accounting-firm`(가상 회계법인 AX)의 **K-IFRS 지식 엔진** — 고품질 검색(RAG) + 결정준비 초안 (`CLAUDE.md` 「북극성」 절, 2026-07-12 재정렬)
 > line budget: <=150
 > 완료 이력 → **`docs/BACKLOG.md`** · 다음 세션 진입점 → **`CLAUDE.local.md`**
 
